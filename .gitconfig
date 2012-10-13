@@ -1,0 +1,13 @@
+[alias]
+  aa = add .
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  st = status
+  cm = commit
+  co = checkout
+  df = diff --color
+  ph = push
+  pl = pull
+
+[user]
+  name = Andrei Lisnic
+  email = andrei.lisnic@gmail.com

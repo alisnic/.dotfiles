@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/home/minivan/code/fun/rails/actionpack/lib/action_view/helpers/asset_tag_helpers'
+let g:netrw_dirhist_2='/home/minivan/code/fun/rails/actionpack/lib/action_view/helpers'
+let g:netrw_dirhist_3='/home/minivan/code/fun/rails/actionpack/lib/action_view'
+let g:netrw_dirhist_4='/home/minivan'
+let g:netrw_dirhist_5='/home/minivan/code/work/mychinoki/app/assets'
+let g:netrw_dirhist_6='/home/minivan/code/work/mychinoki/app/assets/javascripts'
+let g:netrw_dirhist_7='/home/minivan/code/work/mychinoki/app/assets'
+let g:netrw_dirhist_8='/home/minivan/code/work/mychinoki/app'
