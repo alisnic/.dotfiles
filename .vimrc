@@ -13,6 +13,9 @@ set ls=2
 " show line numbers
 set nu
 
+"copy to clipboard
+map <leader>cc :w !xsel -i -b<CR>
+
 " do not trash the filesystem
 set nobackup
 set nowritebackup
