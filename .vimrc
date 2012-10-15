@@ -10,6 +10,8 @@ set cursorline
 set mouse=a
 " always show status line
 set ls=2
+" show line numbers
+set nu
 
 " do not trash the filesystem
 set nobackup
