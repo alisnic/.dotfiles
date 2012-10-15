@@ -7,15 +7,36 @@ colorscheme solarized
 se t_Co=256
 
 set cursorline
+set mouse=a
+" always show status line
+set ls=2
+
+" do not trash the filesystem
 set nobackup
 set nowritebackup
-set mouse=a
+set noswapfile
+
+" always show tabs
+set showtabline=2
+
+" number of spaces for tab character
+set tabstop=2
+
+" number of spaces to autoindent
+set shiftwidth=2
+
+" convert tabs to spaces
+set expandtab
+
+" show trailing whitespace
+set list listchars=trail:·,tab:··
+
 
 map <c-c> <esc>
 nnoremap <cr> :nohlsearch<cr>
 
 :command W w
- 
+
 function! OpenTestAlternate()
   let new_file = AlternateForCurrentFile()
   exec ':e ' . new_file
