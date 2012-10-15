@@ -12,5 +12,6 @@ alias aptsearch='apt-cache search'
 alias untar='tar xvf'
 alias tmux="TERM=screen-256color-bce tmux"
 alias git="nocorrect git"
+alias sudo="nocorrect sudo"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
