@@ -24,6 +24,8 @@ set noswapfile
 " always show tabs
 set showtabline=2
 
+set autoindent
+
 " number of spaces for tab character
 set tabstop=2
 
