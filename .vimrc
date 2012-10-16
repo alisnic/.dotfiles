@@ -1,5 +1,8 @@
 call pathogen#infect()
 
+syntax on
+filetype plugin indent on
+
 let mapleader=","
 
 let g:solarized_termcolors=256
