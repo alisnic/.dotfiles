@@ -3,11 +3,14 @@ call pathogen#infect()
 syntax on
 filetype plugin indent on
 
-let mapleader=","
-
 let g:solarized_termcolors=256
 colorscheme solarized
 se t_Co=256
+
+" allow unsaved background buffers and remember marks/undo for them
+set hidden
+
+let mapleader=","
 
 set cursorline
 set mouse=a
@@ -16,8 +19,15 @@ set ls=2
 " show line numbers
 set nu
 
-"copy to clipboard
+"copy to X clipboard
 map <leader>cc :w !xsel -i -b<CR>
+
+" window width
+set winwidth=80
+
+" run commands
+map ,rs :w\|!rspec % --format documentation --color<cr>
+map ,rr :w\|!ruby %<cr>
 
 " do not trash the filesystem
 set nobackup
@@ -41,7 +51,6 @@ set expandtab
 " show trailing whitespace
 set list listchars=trail:·,tab:··
 
-
 map <c-c> <esc>
 nnoremap <cr> :nohlsearch<cr>
 
@@ -51,7 +60,6 @@ nnoremap <cr> :nohlsearch<cr>
 " MULTIPURPOSE TAB KEY
 " Indent if we're at the beginning of a line. Else, do completion.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 function! InsertTabWrapper()
     let col = col('.') - 1
     if !col || getline('.')[col - 1] !~ '\k'
@@ -63,6 +71,10 @@ endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
+
+"
+" Alternate between spec and file
+"
 function! OpenTestAlternate()
   let new_file = AlternateForCurrentFile()
   exec ':e ' . new_file
@@ -89,3 +101,9 @@ function! AlternateForCurrentFile()
   return new_file
 endfunction
 nnoremap <leader>. :call OpenTestAlternate()<cr>
+
+" Jump to last cursor position unless it's invalid or in an event handler
+autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal g`\"" |
+  \ endif
