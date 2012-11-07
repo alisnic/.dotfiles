@@ -20,16 +20,19 @@ alias weather="weatherman \"Chisinau, Moldova\""
 #job workflow stuff
 function fix-issue {
   git co master && \
+    git pl && \
     git co -b JIRA-$1
 }
 
 function test-issue {
-  git co edge && \
+  git co JIRA-$1 && \
+    git ph origin JIRA-$1 && \
+    git co edge && \
+    git pl && \
     git merge JIRA-$1 && \
     git ph origin edge && \
     git ph test edge:master
 }
 
+alias jsonprint='python -c "import sys, json; print json.dumps(json.load(sys.stdin), sort_keys=True, indent=4)"'
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-PATH=$PATH:$HOME/.bin # Add local scripts
