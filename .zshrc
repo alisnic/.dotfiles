@@ -13,9 +13,8 @@ alias untar='tar xvf'
 alias tmux="TERM=screen-256color-bce tmux"
 alias git="nocorrect git"
 alias sudo="nocorrect sudo"
-alias ff="grep -Iir"
-
 alias weather="weatherman \"Chisinau, Moldova\""
+alias ff="grep -rsl"
 
 #job workflow stuff
 function fix-issue {
