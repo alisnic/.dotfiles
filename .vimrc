@@ -7,54 +7,49 @@ let g:solarized_termcolors=256
 colorscheme solarized
 se t_Co=256
 
+"
+" MISC SETTINGS
+"
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
-
-let mapleader=","
-
 set cursorline
 set mouse=a
 " always show status line
 set ls=2
 " show line numbers
 set nu
-
-"copy to X clipboard
-map <leader>cc :w !xsel -i -b<CR>
-
-" window width
 set winwidth=80
+set nobackup
+set nowritebackup
+set noswapfile
+" always show tabs
+set showtabline=2
+set autoindent
+set tabstop=2
+" number of spaces to autoindent
+set shiftwidth=2
+" convert tabs to spaces
+set expandtab
+" show trailing whitespace
+set list listchars=trail:·,tab:··
 
+
+"
+" SHORTCUTS
+"
+let mapleader=","
 " run commands
 map ,rs :w\|!rspec % --format documentation --color<cr>
 map ,rr :w\|!ruby %<cr>
 
-" do not trash the filesystem
-set nobackup
-set nowritebackup
-set noswapfile
-
-" always show tabs
-set showtabline=2
-
-set autoindent
-
-" number of spaces for tab character
-set tabstop=2
-
-" number of spaces to autoindent
-set shiftwidth=2
-
-" convert tabs to spaces
-set expandtab
-
-" show trailing whitespace
-set list listchars=trail:·,tab:··
-
+"copy to X clipboard
+map <leader>cc :w !xsel -i -b<CR>
+" swap words
+nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 map <c-c> <esc>
 nnoremap <cr> :nohlsearch<cr>
-
 :command W w
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
@@ -107,3 +102,17 @@ autocmd BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
   \   exe "normal g`\"" |
   \ endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>n :call RenameFile()<cr>
