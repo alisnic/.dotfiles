@@ -20,7 +20,7 @@ alias ff="grep -rsl"
 function fix-issue {
   git co master && \
     git pl && \
-    git co -b JIRA-$1
+    (git co -b JIRA-$1 || git co JIRA-$1)
 }
 
 function test-issue {
