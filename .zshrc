@@ -18,7 +18,7 @@ alias ff="grep -rsl"
 
 #job workflow stuff
 function fix-issue {
-  git co master && \
+  git co staging && \
     git pl && \
     (git co -b JIRA-$1 || git co JIRA-$1)
 }
@@ -30,7 +30,8 @@ function test-issue {
     git pl && \
     git merge JIRA-$1 && \
     git ph origin edge && \
-    git ph test edge:master
+    git ph test edge:master && \
+    git co JIRA-$1
 }
 
 alias jsonprint='python -c "import sys, json; print json.dumps(json.load(sys.stdin), sort_keys=True, indent=4)"'
