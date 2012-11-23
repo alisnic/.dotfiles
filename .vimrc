@@ -43,6 +43,7 @@ map ,rs :w\|!rspec % --format documentation --color<cr>
 map ,rr :w\|!ruby %<cr>
 " do not press shift to enter command
 map ; :
+map <c-f> /
 "copy to X clipboard
 map <leader>cc :w !xsel -i -b<CR>
 " swap words
