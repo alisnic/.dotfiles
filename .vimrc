@@ -2,6 +2,7 @@ call pathogen#infect()
 
 syntax on
 filetype plugin indent on
+set spell
 
 let g:solarized_termcolors=256
 colorscheme solarized
