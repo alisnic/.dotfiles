@@ -38,4 +38,6 @@ function test-issue {
 }
 
 alias jsonprint='python -c "import sys, json; print json.dumps(json.load(sys.stdin), sort_keys=True, indent=4)"'
+. ~/.nvm/nvm.sh
 
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
