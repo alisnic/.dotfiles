@@ -4,14 +4,10 @@ ZSH_THEME="afowler"
 CFLAGS="-march=native -O3"
 CXXFLAGS=${CFLAGS}
 
-plugins=(git)
+plugins=(git vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
-alias sysinstall='sudo apt-get install'
-alias sysupdate='sudo apt-get update'
-alias sysupgrade='sudo apt-get upgrade'
-alias aptsearch='apt-cache search'
 alias untar='tar xvf'
 alias tmux="TERM=screen-256color-bce tmux"
 alias git="nocorrect git"
@@ -35,6 +31,14 @@ function test-issue {
     git ph origin edge && \
     git ph test edge:master && \
     git co JIRA-$1
+}
+
+function psa {
+  ps -A | grep $1
+}
+
+function psport {
+  lsof -i :$1
 }
 
 alias jsonprint='python -c "import sys, json; print json.dumps(json.load(sys.stdin), sort_keys=True, indent=4)"'
