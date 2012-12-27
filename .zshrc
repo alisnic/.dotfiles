@@ -4,7 +4,7 @@ ZSH_THEME="afowler"
 CFLAGS="-march=native -O3"
 CXXFLAGS=${CFLAGS}
 
-plugins=(git vi-mode)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
