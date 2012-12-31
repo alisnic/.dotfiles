@@ -1,5 +1,5 @@
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="afowler"
+ZSH_THEME="robbyrussell"
 
 CFLAGS="-march=native -O3"
 CXXFLAGS=${CFLAGS}
@@ -7,6 +7,7 @@ CXXFLAGS=${CFLAGS}
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 alias untar='tar xvf'
 alias tmux="TERM=screen-256color-bce tmux"
@@ -42,6 +43,7 @@ function psport {
 }
 
 alias jsonprint='python -c "import sys, json; print json.dumps(json.load(sys.stdin), sort_keys=True, indent=4)"'
-. ~/.nvm/nvm.sh
 
+ANDROID_HOME=$ANDROID_HOME:$HOME/SDKs/android
+PATH=$PATH:$HOME/SDKs/android/tools:$HOME/SDKs/android/platform-tools
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
