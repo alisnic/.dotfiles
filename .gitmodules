@@ -16,3 +16,9 @@
 [submodule ".vim/bundle/vim-vala"]
 	path = .vim/bundle/vim-vala
 	url = https://github.com/rainux/vim-vala
+[submodule ".vim/bundle/govim"]
+	path = .vim/bundle/govim
+	url = git@github.com:fsouza/go.vim.git
+[submodule ".vim/bundle/vim-scala"]
+	path = .vim/bundle/vim-scala
+	url = git@github.com:derekwyatt/vim-scala.git
