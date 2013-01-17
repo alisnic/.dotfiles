@@ -20,7 +20,9 @@ set mouse=a
 set ls=2
 " show line numbers
 set nu
+" minimal window width
 set winwidth=80
+" no junk in filesystem
 set nobackup
 set nowritebackup
 set noswapfile
@@ -41,8 +43,13 @@ set list listchars=trail:·,tab:··
 "
 let mapleader=","
 " run commands
-map ,rs :w\|!rspec % --format documentation --color<cr>
-map ,rr :w\|!ruby %<cr>
+map ,rs :w\|!clear && rspec % --format documentation --color<cr>
+map ,rr :w\|!clear && ruby %<cr>
+" run current rspec example
+function! RSpecCurrent()
+    execute("!clear && rspec " . expand("%p") . ":" . line(".") . " --color")
+  endfunction
+  map <leader>rsc :call RSpecCurrent() <CR>
 " do not press shift to enter command
 map ; :
 map <c-f> /
@@ -53,6 +60,8 @@ nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 map <c-c> <esc>
 nnoremap <cr> :nohlsearch<cr>
 :command W w
+"insert hashrocket
+imap <c-l> <Space>=><Space>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
