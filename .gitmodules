@@ -22,9 +22,6 @@
 [submodule ".vim/bundle/vim-scala"]
 	path = .vim/bundle/vim-scala
 	url = git@github.com:derekwyatt/vim-scala.git
-[submodule ".vim/bundle/numbers.vim"]
-	path = .vim/bundle/numbers.vim
-	url = git@github.com:myusuf3/numbers.vim.git
 [submodule ".vim/bundle/vim-endwise"]
 	path = .vim/bundle/vim-endwise
 	url = git@github.com:tpope/vim-endwise.git
