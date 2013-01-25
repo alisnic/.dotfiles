@@ -1,13 +1,15 @@
 call pathogen#infect()
 
-syntax on
 filetype plugin indent on
 set spell
 let spell_auto_type="all"
 
 let g:solarized_termcolors=256
-colorscheme solarized
 se t_Co=256
+
+syntax enable
+set background=dark
+colorscheme solarized
 
 "
 " MISC SETTINGS
