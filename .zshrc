@@ -15,6 +15,7 @@ alias git="nocorrect git"
 alias sudo="nocorrect sudo"
 alias weather="weatherman \"Chisinau, Moldova\""
 alias ff="grep -rsl"
+alias daily-upgrade="sudo apt-get update && sudo apt-get upgrade"
 
 #job workflow stuff
 function fix-issue {
