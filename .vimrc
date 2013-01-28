@@ -38,7 +38,10 @@ set shiftwidth=2
 set expandtab
 " show trailing whitespace
 set list listchars=trail:·,tab:··
-
+nmap <silent> <S-Up> :wincmd k<CR>
+nmap <silent> <S-Down> :wincmd j<CR>
+nmap <silent> <S-Left> :wincmd h<CR>
+nmap <silent> <S-Right> :wincmd l<CR>
 
 "
 " SHORTCUTS
