@@ -7,6 +7,7 @@
   df = diff --color
   ph = push
   pl = pull
+  sw = show --color
 
 [user]
   name = Andrei Lisnic
