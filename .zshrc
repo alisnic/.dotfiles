@@ -16,6 +16,8 @@ alias sudo="nocorrect sudo"
 alias weather="weatherman \"Chisinau, Moldova\""
 alias ff="grep -rsl"
 alias daily-upgrade="sudo apt-get update && sudo apt-get upgrade"
+alias install="sudo apt-get install"
+alias uninstall="sudo apt-get autoremove"
 
 #job workflow stuff
 function fix-issue {
