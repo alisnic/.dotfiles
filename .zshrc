@@ -3,6 +3,7 @@ ZSH_THEME="robbyrussell"
 
 CFLAGS="-march=native -O3"
 CXXFLAGS=${CFLAGS}
+EDITOR=vim
 
 plugins=(git)
 
@@ -50,3 +51,4 @@ alias jsonprint='python -c "import sys, json; print json.dumps(json.load(sys.std
 ANDROID_HOME=$ANDROID_HOME:$HOME/SDKs/android
 PATH=$PATH:$HOME/SDKs/android/tools:$HOME/SDKs/android/platform-tools
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+[[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
