@@ -5,6 +5,7 @@
   cm = commit
   co = checkout
   df = diff --color
+  dc = diff --color --cached
   ph = push
   pl = pull
   sw = show --color
