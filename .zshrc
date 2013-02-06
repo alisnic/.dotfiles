@@ -3,7 +3,7 @@ ZSH_THEME="robbyrussell"
 
 CFLAGS="-march=native -O3"
 CXXFLAGS=${CFLAGS}
-EDITOR=vim
+export EDITOR=vim
 
 plugins=(git)
 
