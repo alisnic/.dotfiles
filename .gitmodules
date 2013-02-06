@@ -31,3 +31,6 @@
 [submodule ".vim/bundle/monokai"]
 	path = .vim/bundle/monokai
 	url = git@github.com:jaromero/vim-monokai-refined.git
+[submodule ".vim/bundle/YouCompleteMe"]
+	path = .vim/bundle/YouCompleteMe
+	url = git@github.com:Valloric/YouCompleteMe.git
