@@ -1,8 +1,8 @@
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 
-CFLAGS="-march=native -O3"
-CXXFLAGS=${CFLAGS}
+export CFLAGS="-march=native -O2"
+export CXXFLAGS=${CFLAGS}
 export EDITOR=vim
 
 plugins=(git)
