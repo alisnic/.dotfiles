@@ -20,24 +20,6 @@ alias daily-upgrade="sudo apt-get update && sudo apt-get upgrade"
 alias install="sudo apt-get install"
 alias uninstall="sudo apt-get autoremove"
 
-#job workflow stuff
-function fix-issue {
-  git co staging && \
-    git pl && \
-    (git co -b JIRA-$1 || git co JIRA-$1)
-}
-
-function test-issue {
-  git co JIRA-$1 && \
-    git ph origin JIRA-$1 && \
-    git co edge && \
-    git pl && \
-    git merge JIRA-$1 && \
-    git ph origin edge && \
-    git ph test edge:master && \
-    git co JIRA-$1
-}
-
 function psa {
   ps -A | grep $1
 }
