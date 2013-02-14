@@ -19,6 +19,8 @@ alias ff="grep -rsl"
 alias daily-upgrade="sudo apt-get update && sudo apt-get upgrade"
 alias install="sudo apt-get install"
 alias uninstall="sudo apt-get autoremove"
+alias ppa-add="sudo add-apt-repository $1"
+alias ppa-rm="sudo add-apt-repository --remove $1"
 
 function psa {
   ps -A | grep $1
