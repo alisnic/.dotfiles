@@ -36,3 +36,6 @@ ANDROID_HOME=$ANDROID_HOME:$HOME/SDKs/android
 PATH=$PATH:$HOME/SDKs/android/tools:$HOME/SDKs/android/platform-tools
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
+
+PATH=$PATH:$HOME/bin
+alias java="drip"
