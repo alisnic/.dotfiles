@@ -5,7 +5,7 @@ export CFLAGS="-march=native -O2"
 export CXXFLAGS=${CFLAGS}
 export EDITOR=vim
 
-plugins=(git)
+plugins=(command-not-found dircycle)
 
 source $ZSH/oh-my-zsh.sh
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
