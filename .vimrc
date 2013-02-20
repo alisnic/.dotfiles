@@ -38,10 +38,6 @@ set shiftwidth=2
 set expandtab
 " show trailing whitespace
 set list listchars=trail:·,tab:··
-nmap <silent> <S-Up> :wincmd k<CR>
-nmap <silent> <S-Down> :wincmd j<CR>
-nmap <silent> <S-Left> :wincmd h<CR>
-nmap <silent> <S-Right> :wincmd l<CR>
 
 "
 " SHORTCUTS
@@ -64,6 +60,7 @@ map <leader>cc :w !xsel -i -b<CR>
 nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 map <c-c> <esc>
 nnoremap <cr> :nohlsearch<cr>
+nnoremap <leader>t :NERDTreeToggle<cr>
 :command W w
 "insert hashrocket
 imap <c-l> <Space>=><Space>
