@@ -10,6 +10,7 @@ se t_Co=256
 syntax enable
 set background=light
 colorscheme solarized
+set colorcolumn=80
 
 "
 " MISC SETTINGS
