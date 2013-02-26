@@ -21,6 +21,7 @@ alias install="sudo apt-get install --no-install-recommends"
 alias uninstall="sudo apt-get autoremove"
 alias ppa-add="sudo add-apt-repository $1"
 alias ppa-rm="sudo add-apt-repository --remove $1"
+alias resume="tmux attach -t"
 
 function psa {
   ps -A | grep $1

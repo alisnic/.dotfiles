@@ -37,3 +37,6 @@
 [submodule ".vim/bundle/closetag.vim"]
 	path = .vim/bundle/closetag.vim
 	url = git@github.com:vim-scripts/closetag.vim.git
+[submodule ".vim/bundle/vim-markdown"]
+	path = .vim/bundle/vim-markdown
+	url = git@github.com:tpope/vim-markdown.git
