@@ -65,6 +65,7 @@ nnoremap <leader>t :NERDTreeToggle<cr>
 :command W w
 "insert hashrocket
 imap <c-l> <Space>=><Space>
+nnoremap <leader>p :set paste!<cr>
 
 " Jump to last cursor position unless it's invalid or in an event handler
 autocmd BufReadPost *
