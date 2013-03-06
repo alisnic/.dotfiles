@@ -33,8 +33,6 @@ function psport {
 
 alias jsonprint='python -c "import sys, json; print json.dumps(json.load(sys.stdin), sort_keys=True, indent=4)"'
 
-ANDROID_HOME=$ANDROID_HOME:$HOME/SDKs/android
-PATH=$PATH:$HOME/SDKs/android/tools:$HOME/SDKs/android/platform-tools
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
 
