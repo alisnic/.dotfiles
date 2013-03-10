@@ -46,6 +46,7 @@ set list listchars=trail:·,tab:··
 let mapleader=","
 " run commands
 function Run (command)
+  execute "w"
   execute "!clear;time " . a:command . " " . expand("%")
 endfunction
 
