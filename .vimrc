@@ -45,9 +45,13 @@ set list listchars=trail:·,tab:··
 "
 let mapleader=","
 " run commands
+function Run (command)
+  execute "!clear;time " . a:command . " " . expand("%")
+endfunction
+
 map ,rs :w\|!clear && rspec % --format documentation --color<cr>
-autocmd FileType coffee nmap <F5> :!coffee %<cr>
-autocmd FileType ruby nmap <F5> :!ruby %<cr>
+autocmd FileType coffee nmap <F5> :call Run("coffee")<cr>
+autocmd FileType ruby nmap <F5> :call Run("ruby")<cr>
 
 " run current rspec example
 function! RSpecCurrent()
