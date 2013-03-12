@@ -40,25 +40,38 @@ set expandtab
 " show trailing whitespace
 set list listchars=trail:·,tab:··
 
+" Jump to last cursor position unless it's invalid or in an event handler
+autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal g`\"" |
+  \ endif
+
 "
 " SHORTCUTS
 "
 let mapleader=","
-" run commands
-function Run (command)
+
+" Disable some keys
+inoremap <PageUp>   <NOP>
+inoremap <PageDown>  <NOP>
+nnoremap <PageUp>  <NOP>
+nnoremap <PageDown> <NOP>
+
+" Run hotkeys
+function RunWith (command)
   execute "w"
   execute "!clear;time " . a:command . " " . expand("%")
 endfunction
 
-map ,rs :w\|!clear && rspec % --format documentation --color<cr>
-autocmd FileType coffee nmap <F5> :call Run("coffee")<cr>
-autocmd FileType ruby nmap <F5> :call Run("ruby")<cr>
-
-" run current rspec example
 function! RSpecCurrent()
-    execute("!clear && rspec " . expand("%p") . ":" . line(".") . " --color")
-  endfunction
-  map <leader>rsc :call RSpecCurrent() <CR>
+  execute("!clear && rspec " . expand("%p") . ":" . line(".") . " --color")
+endfunction
+
+autocmd FileType coffee nmap <F5> :call RunWith("coffee")<cr>
+autocmd FileType ruby   nmap <F5> :call RunWith("ruby")<cr>
+autocmd BufRead *_spec.rb nmap <F6> :w\|!clear && rspec % --format documentation --color<cr>
+autocmd BufRead *_spec.rb nmap <F7> :call RSpecCurrent()<CR>
+
 " do not press shift to enter command
 map ; :
 map <c-f> /
@@ -74,11 +87,6 @@ nnoremap <leader>t :NERDTreeToggle<cr>
 imap <c-l> <Space>=><Space>
 nnoremap <leader>p :set paste!<cr>
 
-" Jump to last cursor position unless it's invalid or in an event handler
-autocmd BufReadPost *
-  \ if line("'\"") > 0 && line("'\"") <= line("$") |
-  \   exe "normal g`\"" |
-  \ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
