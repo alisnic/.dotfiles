@@ -22,6 +22,9 @@ alias uninstall="sudo apt-get autoremove"
 alias ppa-add="sudo add-apt-repository $1"
 alias ppa-rm="sudo add-apt-repository --remove $1"
 alias resume="tmux attach -t"
+alias ide="tmux new-session -s"
+alias extract="dtrx"
+unalias sl
 
 function psa {
   ps -A | grep $1
