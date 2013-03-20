@@ -10,19 +10,15 @@ plugins=(command-not-found dircycle)
 source $ZSH/oh-my-zsh.sh
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
-alias untar='tar xvf'
 alias tmux="TERM=screen-256color-bce tmux"
 alias git="nocorrect git"
 alias sudo="nocorrect sudo"
-alias weather="weatherman \"Chisinau, Moldova\""
-alias ft="ack-grep"
 alias daily-upgrade="sudo apt-get update && sudo apt-get upgrade"
 alias install="sudo apt-get install --no-install-recommends"
 alias uninstall="sudo apt-get autoremove"
 alias ppa-add="sudo add-apt-repository $1"
 alias ppa-rm="sudo add-apt-repository --remove $1"
 alias resume="tmux attach -t"
-alias ide="tmux new-session -s"
 alias extract="dtrx"
 unalias sl
 
