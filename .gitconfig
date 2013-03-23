@@ -13,3 +13,5 @@
 [user]
   name = Andrei Lisnic
   email = andrei.lisnic@gmail.com
+[push]
+	default = matching
