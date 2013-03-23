@@ -43,3 +43,6 @@
 [submodule ".vim/bundle/gitgutter"]
 	path = .vim/bundle/gitgutter
 	url = git://github.com/airblade/vim-gitgutter.git
+[submodule ".vim/bundle/clojure"]
+	path = .vim/bundle/clojure
+	url = git@github.com:vim-scripts/VimClojure.git
