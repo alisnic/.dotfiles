@@ -4,6 +4,10 @@ ZSH_THEME="robbyrussell"
 export CFLAGS="-march=native -O2"
 export CXXFLAGS=${CFLAGS}
 export EDITOR=vim
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
 
 plugins=(command-not-found dircycle)
 
@@ -14,7 +18,7 @@ alias tmux="TERM=screen-256color-bce tmux"
 alias git="nocorrect git"
 alias sudo="nocorrect sudo"
 alias daily-upgrade="sudo apt-get update && sudo apt-get upgrade"
-alias install="sudo apt-get install --no-install-recommends"
+alias install="sudo pacman -S"
 alias uninstall="sudo apt-get autoremove"
 alias ppa-add="sudo add-apt-repository $1"
 alias ppa-rm="sudo add-apt-repository --remove $1"
