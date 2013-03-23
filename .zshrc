@@ -17,13 +17,14 @@ source $ZSH/oh-my-zsh.sh
 alias tmux="TERM=screen-256color-bce tmux"
 alias git="nocorrect git"
 alias sudo="nocorrect sudo"
-alias daily-upgrade="sudo apt-get update && sudo apt-get upgrade"
+alias daily-upgrade="sudo pacman -Syu && sudo aura -Akua"
 alias install="sudo pacman -S"
 alias uninstall="sudo apt-get autoremove"
 alias ppa-add="sudo add-apt-repository $1"
 alias ppa-rm="sudo add-apt-repository --remove $1"
 alias resume="tmux attach -t"
 alias extract="dtrx"
+alias service="sudo systemctl"
 unalias sl
 
 function psa {
