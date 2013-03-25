@@ -5,6 +5,7 @@ awful.rules = require("awful.rules")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
+local vicious = require("vicious")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
@@ -188,9 +189,19 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
+
+    cpuload = wibox.widget.textbox()
+    vicious.register(cpuload, vicious.widgets.cpu, "CPU: $1%")
+    right_layout:add(cpuload)
+
+    memwidget = wibox.widget.textbox()
+    vicious.register(memwidget, vicious.widgets.mem, " MEM: $2MB ", 13)
+    right_layout:add(memwidget)
+
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
+
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
@@ -430,6 +441,10 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+--cpuload = wibox.widget.textbox()
+--vicious.register(cpuload, vicious.widgets.cpu, "$1%")
+--right_layout:add(cpuload)
+
 function run_once(cmd)
   findme = cmd
   firstspace = cmd:find(" ")
