@@ -69,7 +69,7 @@ endfunction
 
 autocmd FileType coffee nmap <F5> :call RunWith("coffee")<cr>
 autocmd FileType ruby   nmap <F5> :call RunWith("ruby")<cr>
-autocmd FileType clojure   nmap <F5> :call RunWith("clojure")<cr>
+autocmd FileType clojure   nmap <F5> :call RunWith("clj")<cr>
 autocmd BufRead *_spec.rb nmap <F6> :w\|!clear && rspec % --format documentation --color<cr>
 autocmd BufRead *_spec.rb nmap <F7> :call RSpecCurrent()<CR>
 
