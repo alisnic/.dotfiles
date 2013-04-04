@@ -192,11 +192,11 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
 
     cpuload = wibox.widget.textbox()
-    vicious.register(cpuload, vicious.widgets.cpu, "CPU: $1%")
+    vicious.register(cpuload, vicious.widgets.cpu, " <b>CPU</b> $1%")
     right_layout:add(cpuload)
 
     memwidget = wibox.widget.textbox()
-    vicious.register(memwidget, vicious.widgets.mem, " MEM: $2MB ", 13)
+    vicious.register(memwidget, vicious.widgets.mem, " <b>MEM</b> $2MB ", 13)
     right_layout:add(memwidget)
 
     if s == 1 then right_layout:add(wibox.widget.systray()) end
