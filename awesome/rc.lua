@@ -112,7 +112,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 -- {{{ Wibox
 -- Create a textclock widget
-mytextclock = awful.widget.textclock()
+mytextclock = awful.widget.textclock(" %H:%M ")
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -198,9 +198,9 @@ for s = 1, screen.count() do
     memwidget = wibox.widget.textbox()
     vicious.register(memwidget, vicious.widgets.mem, " <b>MEM</b> $2MB ", 13)
     right_layout:add(memwidget)
+    right_layout:add(mytextclock)
 
     if s == 1 then right_layout:add(wibox.widget.systray()) end
-    right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
 
