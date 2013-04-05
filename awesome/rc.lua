@@ -162,6 +162,9 @@ mytasklist.buttons = awful.util.table.join(
                                               if client.focus then client.focus:raise() end
                                           end))
 
+separator = wibox.widget.textbox()
+separator.text = "  "
+
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
@@ -201,6 +204,8 @@ for s = 1, screen.count() do
     right_layout:add(mytextclock)
 
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+
+    right_layout:add(separator)
     right_layout:add(mylayoutbox[s])
 
 
