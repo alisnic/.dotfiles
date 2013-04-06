@@ -1,5 +1,8 @@
 setxkbmap -layout "us, ro(std)" -option "grp:caps_toggle"
 
+#disable the bell
+xset -b
+
 #Keyring
 # Start a D-Bus session
 source /etc/X11/xinit/xinitrc.d/30-dbus
