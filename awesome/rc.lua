@@ -237,6 +237,11 @@ globalkeys = awful.util.table.join(
         awful.util.spawn("xscreensaver-command -lock")
       end),
 
+    awful.key({ modkey,           }, "p",
+      function ()
+        awful.util.spawn("/home/andrei/bin/display_toggle")
+      end),
+
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
