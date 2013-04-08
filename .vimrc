@@ -1,4 +1,21 @@
-call pathogen#infect()
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'kien/ctrlp.vim'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'scrooloose/nerdtree'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-endwise'
+Bundle 'vimspell'
+
 
 filetype plugin indent on
 set spell
