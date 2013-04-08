@@ -22,7 +22,7 @@ alias uninstall="sudo pacman -Rcs"
 alias resume="tmux attach -t"
 alias extract="dtrx"
 alias service="sudo systemctl"
-alias cleanup="sudo pacman -Rs $(pacman -Qtdq)"
+alias cleanup="sudo pacman -Rc $(pacman -Qtdq)"
 unalias sl
 
 compdef _pacman_completions_all_packages yaourt
