@@ -18,10 +18,11 @@ alias git="nocorrect git"
 alias sudo="nocorrect sudo"
 alias daily-upgrade="sudo yaourt -Syua"
 alias install="sudo yaourt -S"
-alias uninstall="sudo pacman -R $(pacman -Qdtq)"
+alias uninstall="sudo pacman -Rcs"
 alias resume="tmux attach -t"
 alias extract="dtrx"
 alias service="sudo systemctl"
+alias cleanup="sudo pacman -Rs $(pacman -Qtdq)"
 unalias sl
 
 compdef _pacman_completions_all_packages yaourt
