@@ -24,6 +24,8 @@ alias extract="dtrx"
 alias service="sudo systemctl"
 unalias sl
 
+compdef _pacman_completions_all_packages yaourt
+
 function psa {
   ps -A | grep $1
 }
