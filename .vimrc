@@ -13,11 +13,12 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-endwise'
 Bundle 'vimspell'
 
 
-filetype plugin indent on
+filetype on
+filetype indent on
+filetype plugin on
 set spell
 let spell_auto_type="all"
 
