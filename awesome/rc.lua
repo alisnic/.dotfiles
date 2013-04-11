@@ -268,6 +268,9 @@ globalkeys = awful.util.table.join(
             end
         end),
 
+   awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
+
+
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
@@ -469,4 +472,3 @@ run_once("synapse")
 run_once("nm-applet")
 run_once("xfce4-power-manager")
 run_once("volumeicon")
-
