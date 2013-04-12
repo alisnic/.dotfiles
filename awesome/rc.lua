@@ -82,7 +82,7 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {}
-tag_names = {"1 (www+term)", "2 (skype)", 3, 4, 5}
+tag_names = {"1 (www+term)", "2 (skype)", "3 (files+dl)", 4, 5}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
     tags[s] = awful.tag(tag_names, s, awful.layout.suit.max)
@@ -267,6 +267,9 @@ globalkeys = awful.util.table.join(
                 client.focus:raise()
             end
         end),
+
+   awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
+
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
@@ -469,4 +472,3 @@ run_once("synapse")
 run_once("nm-applet")
 run_once("xfce4-power-manager")
 run_once("volumeicon")
-

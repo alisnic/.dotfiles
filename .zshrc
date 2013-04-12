@@ -25,13 +25,6 @@ alias service="sudo systemctl"
 alias cleanup="sudo pacman -Rc $(pacman -Qtdq)"
 unalias sl
 
-function psa {
-  ps -A | grep $1
-}
-
-function psport {
-  lsof -i :$1
-}
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
