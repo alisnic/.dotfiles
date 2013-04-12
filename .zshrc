@@ -25,8 +25,6 @@ alias service="sudo systemctl"
 alias cleanup="sudo pacman -Rc $(pacman -Qtdq)"
 unalias sl
 
-compdef _pacman_completions_all_packages yaourt
-
 function psa {
   ps -A | grep $1
 }
