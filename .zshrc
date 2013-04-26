@@ -8,7 +8,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
-plugins=(humansh)
+plugins=()
 
 source $ZSH/oh-my-zsh.sh
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
@@ -16,8 +16,8 @@ source $ZSH/oh-my-zsh.sh
 alias tmux="TERM=screen-256color-bce tmux"
 alias git="nocorrect git"
 alias sudo="nocorrect sudo"
-alias daily-upgrade="sudo yaourt -Syua"
-alias install="sudo yaourt -S"
+alias daily-upgrade="yaourt -Syua"
+alias install="yaourt -S"
 alias uninstall="sudo pacman -Rcs"
 alias resume="tmux attach -t"
 alias extract="dtrx"
