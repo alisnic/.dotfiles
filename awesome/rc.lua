@@ -206,9 +206,8 @@ for s = 1, screen.count() do
     vicious.register(temp, vicious.widgets.thermal, " <b>T</b> $1°C ", 20, { "coretemp.0", "core"} )
     right_layout:add(temp)
 
-    right_layout:add(mytextclock)
-
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(mytextclock)
 
     right_layout:add(separator)
     right_layout:add(mylayoutbox[s])
