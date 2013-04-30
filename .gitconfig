@@ -7,7 +7,7 @@
   df = diff --color
   dc = diff --color --cached
   ph = push
-  pl = pull
+  pl = pull --rebase
   sw = show --color
 
 [user]
