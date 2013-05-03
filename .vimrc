@@ -13,7 +13,8 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-markdown'
-Bundle 'vimspell'
+"Bundle 'tpope/vim-rails'
+"Bundle 'vimspell'
 
 set guioptions-=T
 set guioptions+=c
@@ -76,6 +77,9 @@ inoremap <PageUp>   <NOP>
 inoremap <PageDown>  <NOP>
 nnoremap <PageUp>  <NOP>
 nnoremap <PageDown> <NOP>
+
+nnoremap <leader>v :vsp<cr>
+nnoremap <leader>h :sp<cr>
 
 " Run hotkeys
 function RunWith (command)
