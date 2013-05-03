@@ -1,5 +1,3 @@
-setxkbmap -layout "us, ro(std)" -option "grp:caps_toggle"
-
 #disable the bell
 xset -b
 
