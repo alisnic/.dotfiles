@@ -16,13 +16,12 @@ source $ZSH/oh-my-zsh.sh
 alias tmux="TERM=screen-256color-bce tmux"
 alias git="nocorrect git"
 alias sudo="nocorrect sudo"
-alias daily-upgrade="yaourt -Syua"
-alias install="yaourt -S"
-alias uninstall="sudo pacman -Rcs"
+alias daily-upgrade="sudo apt-get update && sudo apt-get upgrade"
+alias install="sudo apt-get install --no-install-recommends"
+alias uninstall="sudo apt-get autoremove"
 alias resume="tmux attach -t"
 alias extract="dtrx"
-alias service="sudo systemctl"
-alias cleanup="sudo pacman -Rc $(pacman -Qtdq)"
+alias service="sudo sudo service"
 unalias sl
 
 
