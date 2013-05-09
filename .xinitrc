@@ -1,3 +1,4 @@
+setxkbmap -layout us -variant colemak
 #disable the bell
 xset -b
 
