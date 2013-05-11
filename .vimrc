@@ -82,6 +82,8 @@ nnoremap <leader>v :vsp<cr>
 nnoremap <leader>h :sp<cr>
 nnoremap <leader>s :w<cr>
 
+nnoremap <Tab> :tabnext<cr>
+
 " Run hotkeys
 function RunWith (command)
   execute "w"
