@@ -195,16 +195,28 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
 
     cpuload = wibox.widget.textbox()
-    vicious.register(cpuload, vicious.widgets.cpu, " <b>C</b> $1%")
+    vicious.register(cpuload, vicious.widgets.cpu, " $1% |")
     right_layout:add(cpuload)
 
     memwidget = wibox.widget.textbox()
-    vicious.register(memwidget, vicious.widgets.mem, " <b>M</b> $2MB ", 13)
+    vicious.register(memwidget, vicious.widgets.mem, " $2MB |", 15)
     right_layout:add(memwidget)
 
     temp = wibox.widget.textbox()
-    vicious.register(temp, vicious.widgets.thermal, " <b>T</b> $1°C ", 20, { "coretemp.0", "core"} )
+    vicious.register(temp, vicious.widgets.thermal, " $1°C |", 5, { "coretemp.0", "core"} )
     right_layout:add(temp)
+
+    disk_usage = wibox.widget.textbox()
+    vicious.register(disk_usage, vicious.widgets.fs, " ${/ used_gb}Gb |")
+    right_layout:add(disk_usage)
+
+    net_down = wibox.widget.textbox()
+    vicious.register(net_down, vicious.widgets.net, " ▾ ${wlp3s0 down_kb}K/s", 1)
+    right_layout:add(net_down)
+
+    net_up = wibox.widget.textbox()
+    vicious.register(net_up, vicious.widgets.net, " ▴ ${wlp3s0 up_kb}K/s", 1)
+    right_layout:add(net_up)
 
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(mytextclock)
