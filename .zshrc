@@ -19,11 +19,14 @@ alias sudo="nocorrect sudo"
 alias daily-upgrade="yaourt -Syua"
 alias install="yaourt -Syua"
 alias uninstall="sudo pacman -Rcs"
-alias resume="tmux attach -t"
 alias extract="dtrx"
 alias service="sudo systemctl"
 alias cleanup="sudo pacman -Rc $(pacman -Qtdq)"
 unalias sl
+
+function workon {
+  tmux attach -t $1 || tmux new-session -s $1
+}
 
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
