@@ -13,6 +13,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-markdown'
+"Bundle 'FredKSchott/CoVim'
 "Bundle 'tpope/vim-rails'
 "Bundle 'vimspell'
 

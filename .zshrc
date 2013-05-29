@@ -21,7 +21,8 @@ alias install="yaourt -Syua"
 alias uninstall="sudo pacman -Rcs"
 alias extract="dtrx"
 alias service="sudo systemctl"
-alias cleanup="sudo pacman -Rc $(pacman -Qtdq)"
+alias cleanup="sudo pacman -Rc $(pacman -Qtdq) && sudo pacman -Sc"
+alias rm="trash-put"
 unalias sl
 
 function workon {
