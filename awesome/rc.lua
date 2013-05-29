@@ -195,28 +195,28 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
 
     cpuload = wibox.widget.textbox()
-    vicious.register(cpuload, vicious.widgets.cpu, " $1% |")
+    vicious.register(cpuload, vicious.widgets.cpu, " $1% |", 2)
     right_layout:add(cpuload)
 
     memwidget = wibox.widget.textbox()
-    vicious.register(memwidget, vicious.widgets.mem, " $2MB |", 15)
+    vicious.register(memwidget, vicious.widgets.mem, " $2MB |", 5)
     right_layout:add(memwidget)
 
-    temp = wibox.widget.textbox()
-    vicious.register(temp, vicious.widgets.thermal, " $1°C |", 5, { "coretemp.0", "core"} )
-    right_layout:add(temp)
-
     disk_usage = wibox.widget.textbox()
-    vicious.register(disk_usage, vicious.widgets.fs, " ${/ used_gb}Gb |")
+    vicious.register(disk_usage, vicious.widgets.fs, " ${/ used_gb}Gb |", 30)
     right_layout:add(disk_usage)
 
-    net_down = wibox.widget.textbox()
-    vicious.register(net_down, vicious.widgets.net, " ▾ ${wlp3s0 down_kb}K/s", 1)
-    right_layout:add(net_down)
+    temp = wibox.widget.textbox()
+    vicious.register(temp, vicious.widgets.thermal, " $1°C ", 5, { "coretemp.0", "core"} )
+    right_layout:add(temp)
 
-    net_up = wibox.widget.textbox()
-    vicious.register(net_up, vicious.widgets.net, " ▴ ${wlp3s0 up_kb}K/s", 1)
-    right_layout:add(net_up)
+   -- net_down = wibox.widget.textbox()
+   -- vicious.register(net_down, vicious.widgets.net, "| ▾ ${wlp3s0 down_kb}K/s", 2)
+   -- right_layout:add(net_down)
+
+   -- net_up = wibox.widget.textbox()
+   -- vicious.register(net_up, vicious.widgets.net, " ▴ ${wlp3s0 up_kb}K/s ", 2)
+   -- right_layout:add(net_up)
 
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(mytextclock)
@@ -284,7 +284,7 @@ globalkeys = awful.util.table.join(
             end
         end),
 
-   awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
+   awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Temp/screenshots/ 2>/dev/null'") end),
 
 
     -- Standard program
