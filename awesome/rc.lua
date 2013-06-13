@@ -252,6 +252,8 @@ globalkeys = awful.util.table.join(
       function ()
         awful.util.spawn("xscreensaver-command -lock")
       end),
+    awful.key({ }, "XF86AudioRaiseVolume",    function () awful.util.spawn("amixer set Master 2+") end),
+    awful.key({ }, "XF86AudioLowerVolume",    function () awful.util.spawn("amixer set Master 2-") end),
 
     awful.key({ modkey,           }, "p",
       function ()
