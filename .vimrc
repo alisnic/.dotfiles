@@ -112,6 +112,7 @@ map <c-c> <esc>
 nnoremap <cr> :nohlsearch<cr>
 nnoremap <leader>t :NERDTreeToggle<cr>
 :command W w
+:command Te tabedit
 "insert hashrocket
 imap <c-l> <Space>=><Space>
 nnoremap <leader>p :set paste!<cr>
