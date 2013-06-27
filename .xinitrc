@@ -1,6 +1,8 @@
 setxkbmap -layout us -variant colemak
 #disable the bell
 xset -b
+synclient TouchpadOff=1
+
 
 #Keyring
 # Start a D-Bus session
@@ -17,5 +19,11 @@ systemd --user &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 xscreensaver -no-splash &
 xrdb ~/.Xresources &
+
+synapse &
+nm-applet &
+xfce4-power-manager &
+volumeicon &
+blueman-applet &
 
 exec awesome
