@@ -82,7 +82,7 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {}
-tag_names = {"1 (www+term)", "2 (skype)", "3 (files+dl)", "4 (play)", "5 (other)"}
+tag_names = {"one", "two", "three", "four", "five"}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
     tags[s] = awful.tag(tag_names, s, awful.layout.suit.max)
