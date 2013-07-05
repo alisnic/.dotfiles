@@ -22,7 +22,6 @@ xrdb ~/.Xresources &
 
 synapse &
 nm-applet &
-xfce4-power-manager &
 volumeicon &
 blueman-applet &
 

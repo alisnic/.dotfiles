@@ -207,8 +207,12 @@ for s = 1, screen.count() do
     right_layout:add(disk_usage)
 
     temp = wibox.widget.textbox()
-    vicious.register(temp, vicious.widgets.thermal, " $1°C ", 5, { "coretemp.0", "core"} )
+    vicious.register(temp, vicious.widgets.thermal, " $1°C |", 5, { "coretemp.0", "core"} )
     right_layout:add(temp)
+
+    battime = wibox.widget.textbox()
+    vicious.register(battime, vicious.widgets.bat, " $3 ", 15, "BAT0")
+    right_layout:add(battime)
 
    -- net_down = wibox.widget.textbox()
    -- vicious.register(net_down, vicious.widgets.net, "| ▾ ${wlp3s0 down_kb}K/s", 2)

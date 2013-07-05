@@ -16,10 +16,9 @@ source $ZSH/oh-my-zsh.sh
 alias tmux="TERM=screen-256color-bce tmux"
 alias git="nocorrect git"
 alias sudo="nocorrect sudo"
-alias daily-upgrade="yaourt -Syua"
 alias install="yaourt -Syua"
 alias uninstall="sudo pacman -Rs"
-alias extract="dtrx"
+alias extract="tar xf"
 alias service="sudo systemctl"
 alias cleanup="sudo pacman -Rc $(pacman -Qtdq) && sudo pacman -Sc"
 alias date="cal -3m"
@@ -34,6 +33,8 @@ function workon {
 
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
 
-PATH=$PATH:$HOME/bin
+PATH=$PATH:$HOME/bin:$HOME/.gem/ruby/2.0.0/bin
 source /usr/share/chruby/chruby.sh
 source /usr/share/chruby/auto.sh
+
+alsi -n
