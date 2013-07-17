@@ -9,6 +9,8 @@
   ph = push
   pl = pull --rebase
   sw = show --color
+  ignore=!([ ! -e .gitignore ] && touch .gitignore) | echo $1 >>.gitignore
+  this = !git init && git add . && git commit -m \"initial commit\"
 
 [user]
   name = Andrei Lisnic
