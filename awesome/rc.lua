@@ -202,16 +202,12 @@ for s = 1, screen.count() do
     vicious.register(memwidget, vicious.widgets.mem, " $2MB |", 5)
     right_layout:add(memwidget)
 
-    disk_usage = wibox.widget.textbox()
-    vicious.register(disk_usage, vicious.widgets.fs, " ${/ used_gb}Gb |", 30)
-    right_layout:add(disk_usage)
-
     temp = wibox.widget.textbox()
     vicious.register(temp, vicious.widgets.thermal, " $1°C |", 5, { "coretemp.0", "core"} )
     right_layout:add(temp)
 
     battime = wibox.widget.textbox()
-    vicious.register(battime, vicious.widgets.bat, " $3 ", 15, "BAT0")
+    vicious.register(battime, vicious.widgets.bat, " $2% ($3) ", 15, "BAT0")
     right_layout:add(battime)
 
    -- net_down = wibox.widget.textbox()
@@ -490,9 +486,3 @@ function run_once(cmd)
   end
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
-
-run_once("synapse")
-run_once("nm-applet")
-run_once("xfce4-power-manager")
-run_once("volumeicon")
-run_once("blueman-applet")

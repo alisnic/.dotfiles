@@ -37,4 +37,8 @@ PATH=$PATH:$HOME/bin:$HOME/.gem/ruby/2.0.0/bin
 source /usr/share/chruby/chruby.sh
 source /usr/share/chruby/auto.sh
 
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+
 alsi -n
