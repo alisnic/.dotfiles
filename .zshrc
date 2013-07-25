@@ -24,11 +24,8 @@ alias cleanup="sudo pacman -Rc $(pacman -Qtdq) && sudo pacman -Sc"
 alias date="cal -3m"
 alias rm="trash-put"
 alias reload!='source ~/.zshrc'
+alias w='tmux attach -t'
 unalias sl
-
-function workon {
-  tmux attach -t $1 || tmux new-session -s $1
-}
 
 
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
