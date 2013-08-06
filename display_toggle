@@ -3,12 +3,10 @@
 IN="LVDS1"
 EXT="VGA1"
 
-if (xrandr | grep "$EXT" | grep "+")
-    then
-    xrandr --output $EXT --off --output $IN --auto
-    else
-        if (xrandr | grep "$EXT" | grep " connected")
-            then
-            xrandr --output $EXT --auto --primary --output $IN --auto --right-of $EXT
-        fi
+if (xrandr | grep "$EXT" | grep "+") then
+  xrandr --output $EXT --off --output $IN --auto
+else
+  if (xrandr | grep "$EXT" | grep " connected") then
+      xrandr --output $EXT --auto --primary --output $IN --auto --right-of $EXT
+  fi
 fi

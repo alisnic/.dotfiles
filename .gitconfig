@@ -1,6 +1,6 @@
 [alias]
   aa = add .
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  lg = !tig
   st = status -sb
   cm = commit
   co = checkout
@@ -9,6 +9,8 @@
   ph = push
   pl = pull --rebase
   sw = show --color
+  ignore=!([ ! -e .gitignore ] && touch .gitignore) | echo $1 >>.gitignore
+  this = !git init && git add . && git commit -m \"initial commit\"
 
 [user]
   name = Andrei Lisnic

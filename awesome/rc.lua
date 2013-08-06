@@ -82,7 +82,7 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {}
-tag_names = {"1 (www+term)", "2 (skype)", "3 (files+dl)", "4 (play)", "5 (other)"}
+tag_names = {"one", "two", "three", "four", "five"}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
     tags[s] = awful.tag(tag_names, s, awful.layout.suit.max)
@@ -195,16 +195,28 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
 
     cpuload = wibox.widget.textbox()
-    vicious.register(cpuload, vicious.widgets.cpu, " <b>C</b> $1%")
+    vicious.register(cpuload, vicious.widgets.cpu, " $1% |", 2)
     right_layout:add(cpuload)
 
     memwidget = wibox.widget.textbox()
-    vicious.register(memwidget, vicious.widgets.mem, " <b>M</b> $2MB ", 13)
+    vicious.register(memwidget, vicious.widgets.mem, " $2MB |", 5)
     right_layout:add(memwidget)
 
     temp = wibox.widget.textbox()
-    vicious.register(temp, vicious.widgets.thermal, " <b>T</b> $1°C ", 20, { "coretemp.0", "core"} )
+    vicious.register(temp, vicious.widgets.thermal, " $1°C |", 5, { "coretemp.0", "core"} )
     right_layout:add(temp)
+
+    battime = wibox.widget.textbox()
+    vicious.register(battime, vicious.widgets.bat, " $2% ($3) ", 15, "BAT0")
+    right_layout:add(battime)
+
+   -- net_down = wibox.widget.textbox()
+   -- vicious.register(net_down, vicious.widgets.net, "| ▾ ${wlp3s0 down_kb}K/s", 2)
+   -- right_layout:add(net_down)
+
+   -- net_up = wibox.widget.textbox()
+   -- vicious.register(net_up, vicious.widgets.net, " ▴ ${wlp3s0 up_kb}K/s ", 2)
+   -- right_layout:add(net_up)
 
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(mytextclock)
@@ -240,11 +252,18 @@ globalkeys = awful.util.table.join(
       function ()
         awful.util.spawn("xscreensaver-command -lock")
       end),
+    awful.key({ }, "XF86AudioRaiseVolume",    function () awful.util.spawn("amixer set Master 2+", false) end),
+    awful.key({ }, "XF86AudioLowerVolume",    function () awful.util.spawn("amixer set Master 2-", false) end),
+    awful.key({ }, "XF86AudioMute",           function () awful.util.spawn("amixer set Master 1+ toggle", false) end),
 
     awful.key({ modkey,           }, "p",
       function ()
         awful.util.spawn("/home/andrei/bin/display_toggle")
       end),
+      awful.key({ modkey, "Mod1"    }, "Right",     function () awful.tag.incmwfact( 0.01)    end),
+      awful.key({ modkey, "Mod1"    }, "Left",     function () awful.tag.incmwfact(-0.01)    end),
+      awful.key({ modkey, "Mod1"    }, "Down",     function () awful.client.incwfact( 0.01)    end),
+      awful.key({ modkey, "Mod1"    }, "Up",     function () awful.client.incwfact(-0.01)    end),
 
     awful.key({ modkey,           }, "j",
         function ()
@@ -272,7 +291,7 @@ globalkeys = awful.util.table.join(
             end
         end),
 
-   awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
+   awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Temp/screenshots/ 2>/dev/null'") end),
 
 
     -- Standard program
@@ -471,10 +490,3 @@ function run_once(cmd)
   end
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
-
-run_once("synapse")
-run_once("nm-applet")
-run_once("xfce4-power-manager")
-run_once("volumeicon")
-run_once("blueman-applet")
-run_once("qxkb")

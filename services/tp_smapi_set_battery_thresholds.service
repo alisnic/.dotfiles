@@ -1,0 +1,10 @@
+[Unit]
+Description=Set Battery Charge Thresholds by tp_smapi
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/set_battery_stop_charge
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
