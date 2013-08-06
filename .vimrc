@@ -13,6 +13,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-markdown'
+Bundle 'briancollins/vim-jst'
 
 set guioptions-=T
 set guioptions+=c
@@ -22,6 +23,7 @@ filetype indent on
 filetype plugin on
 set spell
 let spell_auto_type="all"
+au BufRead,BufNewFile *.hamlc set ft=haml
 
 let g:solarized_termcolors=256
 se t_Co=256
@@ -89,13 +91,13 @@ function RunWith (command)
 endfunction
 
 function! RSpecCurrent()
-  execute("!clear && rspec " . expand("%p") . ":" . line(".") . " --color")
+  execute("!clear && bundle exec rspec " . expand("%p") . ":" . line(".") . " --color")
 endfunction
 
 autocmd FileType coffee   nmap <F5> :call RunWith("coffee")<cr>
 autocmd FileType ruby     nmap <F5> :call RunWith("ruby")<cr>
 autocmd FileType clojure  nmap <F5> :call RunWith("clj")<cr>
-autocmd BufRead *_spec.rb nmap <F6> :w\|!clear && rspec % --format documentation --color<cr>
+autocmd BufRead *_spec.rb nmap <F6> :w\|!clear && bundle exec rspec % --format documentation --color<cr>
 autocmd BufRead *_spec.rb nmap <F7> :call RSpecCurrent()<CR>
 
 " do not press shift to enter command

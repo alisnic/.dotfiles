@@ -25,6 +25,7 @@ alias date="cal -3m"
 alias rm="trash-put"
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
+alias g='git'
 unalias sl
 
 
