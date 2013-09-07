@@ -5,6 +5,7 @@ require("awful.rules")
 -- Theme handling library
 require("beautiful")
 -- Notification library
+require("vicious")
 require("naughty")
 
 -- Load Debian menu entries
@@ -148,6 +149,14 @@ mytasklist.buttons = awful.util.table.join(
                                               awful.client.focus.byidx(-1)
                                               if client.focus then client.focus:raise() end
                                           end))
+cpuload = widget({ type = "textbox" })
+memwidget = widget({ type = "textbox" })
+temp = widget({ type = "textbox" })
+battime = widget({ type = "textbox" })
+vicious.register(cpuload, vicious.widgets.cpu, " $1% |", 2)
+vicious.register(memwidget, vicious.widgets.mem, " $2MB |", 5)
+vicious.register(temp, vicious.widgets.thermal, " $1°C |", 5, { "coretemp.0", "core"} )
+vicious.register(battime, vicious.widgets.bat, " $2% ($3) ", 15, "BAT0")
 
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
@@ -170,7 +179,6 @@ for s = 1, screen.count() do
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
-    -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
         {
             mylauncher,
@@ -181,6 +189,7 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         s == 1 and mysystray or nil,
+        battime, memwidget, temp, cpuload,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
