@@ -4,9 +4,7 @@ ZSH_THEME="robbyrussell"
 export CFLAGS="-march=native -O2"
 export CXXFLAGS=${CFLAGS}
 export EDITOR=vim
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
+JAVA_OPTS="-d32 -client"
 
 plugins=()
 
@@ -23,19 +21,19 @@ alias resume="tmux attach -t"
 alias extract="dtrx"
 alias service="sudo sudo service"
 alias extract="tar xf"
-alias service="sudo systemctl"
-alias rm="trash-put"
+alias service="sudo service"
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
 alias g='git'
+alias ack='ack-grep'
 unalias sl
 
 
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
 
 PATH=$PATH:$HOME/bin:$HOME/.gem/ruby/2.0.0/bin
-source /usr/share/chruby/chruby.sh
-source /usr/share/chruby/auto.sh
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
 
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on

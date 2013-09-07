@@ -60,6 +60,7 @@ set shiftwidth=2
 set expandtab
 " show trailing whitespace
 set list listchars=trail:·,tab:··
+set backspace=2
 
 " Jump to last cursor position unless it's invalid or in an event handler
 autocmd BufReadPost *
