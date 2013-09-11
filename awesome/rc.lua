@@ -211,7 +211,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
     awful.key({ modkey,           }, "l",
       function ()
-        awful.util.spawn("xscreensaver-command -lock")
+        awful.util.spawn("gnome-screensaver-command --lock")
       end),
     awful.key({ "Mod1"           }, "Tab",
         function ()
