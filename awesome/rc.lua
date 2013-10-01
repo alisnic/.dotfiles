@@ -202,6 +202,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+    awful.key({ modkey, "Mod1"    }, "Right",     function () awful.tag.incmwfact( 0.01)    end),
+    awful.key({ modkey, "Mod1"    }, "Left",     function () awful.tag.incmwfact(-0.01)    end),
+    awful.key({ modkey, "Mod1"    }, "Down",     function () awful.client.incwfact( 0.01)    end),
+    awful.key({ modkey, "Mod1"    }, "Up",     function () awful.client.incwfact(-0.01)    end),
     awful.key({ modkey,           }, "l",
       function ()
         awful.util.spawn("gnome-screensaver-command --lock")
@@ -360,6 +364,12 @@ awful.rules.rules = {
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
+    { rule = { class = "Skype" },
+      properties = { tag = tags[1][2], switchtotag = tags[1][2] } },
+    { rule = { class = "Nautilus" },
+      properties = { tag = tags[1][3], switchtotag = tags[1][3] } },
+    { rule = { class = "Google-chrome" },
+      properties = { tag = tags[1][1], switchtotag = tags[1][1] } }
 }
 -- }}}
 

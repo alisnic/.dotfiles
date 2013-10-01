@@ -5,6 +5,9 @@ export CFLAGS="-march=native -O2"
 export CXXFLAGS=${CFLAGS}
 export EDITOR=vim
 JAVA_OPTS="-d32 -client"
+export JAVACMD=~/bin/drip
+LANG="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
 
 plugins=()
 
