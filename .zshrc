@@ -1,5 +1,5 @@
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
 
 export CFLAGS="-march=native -O2"
 export CXXFLAGS=${CFLAGS}
@@ -29,7 +29,7 @@ alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
 alias g='git'
 alias ack='ack-grep'
-unalias sl
+alias up='cd ..'
 
 
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
@@ -37,6 +37,9 @@ unalias sl
 PATH=$PATH:$HOME/bin:$HOME/.gem/ruby/2.0.0/bin
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
+
+autoload -U promptinit && promptinit
+prompt pure
 
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
