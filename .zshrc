@@ -28,7 +28,7 @@ alias service="sudo service"
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
 alias g='git'
-alias ack='ack-grep'
+alias ack='ack-grep --color'
 alias up='cd ..'
 
 
