@@ -9,11 +9,11 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/nerdtree'
+Bundle 'Syntastic'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-markdown'
-Bundle 'briancollins/vim-jst'
 
 set guioptions-=T
 set guioptions+=c
@@ -25,7 +25,7 @@ set spell
 let spell_auto_type="all"
 au BufRead,BufNewFile *.hamlc set ft=haml
 
-let g:solarized_termcolors=256
+" let g:solarized_termcolors=256
 se t_Co=256
 
 syntax enable
@@ -67,6 +67,9 @@ autocmd BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
   \   exe "normal g`\"" |
   \ endif
+
+" Delete trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
 
 "
 " SHORTCUTS
