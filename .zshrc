@@ -4,7 +4,7 @@ ZSH=$HOME/.oh-my-zsh
 export CFLAGS="-march=native -O2"
 export CXXFLAGS=${CFLAGS}
 export EDITOR=vim
-JAVA_OPTS="-d32 -client"
+JAVA_OPTS="-d32 -client -J-Xmx1024m"
 export JAVACMD=~/bin/drip
 LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
