@@ -1,0 +1,13 @@
+{
+	"installed_packages":
+	[
+		"CoffeeLint",
+		"CoffeeScript",
+		"CoffeeScriptHaml",
+		"Git",
+		"GitGutter",
+		"Package Control",
+		"Pane Navigation",
+		"SublimeLinter"
+	]
+}

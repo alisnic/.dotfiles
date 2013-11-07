@@ -1,0 +1,7 @@
+{
+  "sublimelinter": "load-save",
+  "sublimelinter_executable_map":
+{
+    "ruby": "/home/andrei/.rubies/ruby-2.0.0-p247/bin/ruby"
+}
+}

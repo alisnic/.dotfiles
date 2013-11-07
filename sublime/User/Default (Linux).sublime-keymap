@@ -1,5 +1,17 @@
 [
-{ "keys": ["ctrl+t"], "command": "toggle_side_bar" },
+{"keys": ["ctrl+t"], "command": "toggle_side_bar" },
+
+{
+    "keys": ["ctrl+left"],
+    "command": "pane_navigation",
+    "args": {"direction": 1}
+},
+{
+    "keys": ["ctrl+right"],
+    "command": "pane_navigation",
+    "args": {"direction": -1}
+},
+
 { "keys": ["y", "y"], "command": "copy",
   "context":
   [
@@ -7,6 +19,15 @@
     { "key": "setting.is_widget", "operand": false }
   ]
 },
+
+{ "keys": ["ctrl+w"], "command": "close",
+  "context":
+  [
+    { "key": "setting.command_mode", "operand": true },
+    { "key": "setting.is_widget", "operand": false }
+  ]
+},
+
 { "keys": ["ctrl+c"], "command": "exit_insert_mode",
     "context":
     [
@@ -36,4 +57,3 @@
     ]
 }
 ]
-
