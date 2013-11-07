@@ -1,2 +1,4 @@
 *.cache
 *.last-run
+*.sublime-workspace
+*.sublime-project
