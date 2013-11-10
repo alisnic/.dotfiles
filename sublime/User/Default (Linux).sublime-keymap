@@ -12,13 +12,6 @@
     "args": {"direction": -1}
 },
 
-{ "keys": ["y", "y"], "command": "copy",
-  "context":
-  [
-    { "key": "setting.insert_mode", "operand": false },
-    { "key": "setting.is_widget", "operand": false }
-  ]
-},
 
 { "keys": ["ctrl+w"], "command": "close",
   "context":

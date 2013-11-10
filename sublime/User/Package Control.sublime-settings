@@ -5,9 +5,11 @@
 		"CoffeeScript",
 		"CoffeeScriptHaml",
 		"Git",
-		"GitGutter",
 		"Package Control",
 		"Pane Navigation",
-		"SublimeLinter"
+		"SCSS",
+		"SublimeLinter",
+		"SublimeOnSaveBuild",
+		"Wombat Theme"
 	]
 }
