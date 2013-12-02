@@ -25,9 +25,7 @@ set spell
 let spell_auto_type="all"
 au BufRead,BufNewFile *.hamlc set ft=haml
 
-" let g:solarized_termcolors=256
 se t_Co=256
-
 syntax enable
 set background=light
 colorscheme solarized
@@ -36,6 +34,8 @@ set colorcolumn=80
 "
 " MISC SETTINGS
 "
+set ttyfast
+set lazyredraw
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 set cursorline
@@ -88,6 +88,15 @@ nnoremap <leader>s :w<cr>
 
 nnoremap <Tab> :tabnext<cr>
 
+map <ESC>[5D <C-Left>
+map <ESC>[5C <C-Right>
+map! <ESC>[5D <C-Left>
+map! <ESC>[5C <C-Right>
+map <silent> <C-Right> <c-w>l
+map! <silent> <C-Right> <c-w>l
+map <silent> <C-Left> <c-w>h
+map! <silent> <C-Left> <c-w>h
+
 " Run hotkeys
 function RunWith (command)
   execute "w"
@@ -113,7 +122,7 @@ map <leader>cc :w !xsel -i -b<CR>
 nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 map <c-c> <esc>
 nnoremap <cr> :nohlsearch<cr>
-nnoremap <leader>t :NERDTreeToggle<cr>
+map <C-t> :NERDTreeToggle<cr>
 :command W w
 :command Te tabedit
 "insert hashrocket
