@@ -1,5 +1,7 @@
 [
+{ "keys": ["f5"], "command": "refresh_folder_list"},
 {"keys": ["ctrl+t"], "command": "toggle_side_bar" },
+{"keys": ["f5"], "command": "build", "args": {"variant": "Run"} },
 
 {
     "keys": ["ctrl+left"],
