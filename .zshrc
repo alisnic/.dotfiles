@@ -9,7 +9,7 @@ export JAVACMD=~/bin/drip
 LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 
-plugins=()
+plugins=(zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -35,7 +35,6 @@ alias up='cd ..'
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
 
 PATH=$PATH:$HOME/bin:$HOME/.gem/ruby/2.0.0/bin
-source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
 
 autoload -U promptinit && promptinit

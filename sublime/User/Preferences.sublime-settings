@@ -1,22 +1,25 @@
 {
 	"auto_complete_commit_on_tab": false,
+	"caret_style": "phase",
 	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+	"drag_text": false,
+	"fold_buttons": false,
 	"font_face": "Monaco",
 	"font_size": 10.0,
 	"ignored_packages":
 	[
 	],
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
+	],
+	"scroll_past_end": false,
 	"theme": "Wombat.sublime-theme",
 	"trim_trailing_white_space_on_save": true,
 	"vintage_ctrl_keys": true,
 	"vintage_start_in_command_mode": true,
 	"wombat_color_blue": true,
 	"wombat_dirty_bottom_bar_blue": true,
-  "word_wrap": true,
-  "fold_buttons": false,
-  "caret_style": "phase",
-  "scroll_past_end": false,
-  "indent_guide_options": ["draw_normal", "draw_active"],
-  "auto_complete_commit_on_tab": true,
-  "drag_text": false
+	"word_wrap": false
 }
