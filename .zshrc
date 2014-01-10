@@ -5,7 +5,7 @@ export CFLAGS="-march=native -O2"
 export CXXFLAGS=${CFLAGS}
 export EDITOR=vim
 JAVA_OPTS="-d32 -client -J-Xmx1024m"
-export JAVACMD=~/bin/drip
+export JAVACMD=drip
 LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 
@@ -18,7 +18,7 @@ alias git="nocorrect git"
 alias sudo="nocorrect sudo"
 
 alias daily-upgrade="sudo apt-get update && sudo apt-get upgrade"
-alias install="sudo apt-get install --no-install-recommends"
+alias install="brew install"
 alias uninstall="sudo apt-get autoremove"
 alias resume="tmux attach -t"
 alias extract="dtrx"
@@ -34,8 +34,8 @@ alias up='cd ..'
 
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
 
-PATH=$PATH:$HOME/bin:$HOME/.gem/ruby/2.0.0/bin
-source /usr/local/share/chruby/auto.sh
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
 
 autoload -U promptinit && promptinit
 prompt pure
