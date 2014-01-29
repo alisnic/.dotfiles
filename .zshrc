@@ -1,9 +1,9 @@
 ZSH=$HOME/.oh-my-zsh
-#ZSH_THEME="robbyrussell"
 
 export CFLAGS="-march=native -O2"
 export CXXFLAGS=${CFLAGS}
 export EDITOR=vim
+export JAVA_HOME=/usr/lib/jvm/default-java
 JAVA_OPTS="-d32 -client -J-Xmx1024m"
 export JAVACMD=~/bin/drip
 LANG="en_US.UTF-8"
@@ -20,16 +20,15 @@ alias sudo="nocorrect sudo"
 alias daily-upgrade="sudo apt-get update && sudo apt-get upgrade"
 alias install="sudo apt-get install --no-install-recommends"
 alias uninstall="sudo apt-get autoremove"
-alias resume="tmux attach -t"
-alias extract="dtrx"
 alias service="sudo sudo service"
 alias extract="tar xf"
 alias service="sudo service"
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
-alias g='git'
+alias mux='tmux new-session -s `basename \`(git rev-parse --show-toplevel) || pwd\``'
 alias ack='ack-grep --color'
 alias up='cd ..'
+alias wow='git st'
 
 
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
