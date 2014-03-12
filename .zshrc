@@ -17,7 +17,6 @@ alias tmux="TERM=screen-256color-bce tmux"
 alias git="nocorrect git"
 alias sudo="nocorrect sudo"
 
-alias daily-upgrade="sudo apt-get update && sudo apt-get upgrade"
 alias install="sudo apt-get install --no-install-recommends"
 alias uninstall="sudo apt-get autoremove"
 alias service="sudo sudo service"
@@ -25,15 +24,14 @@ alias extract="tar xf"
 alias service="sudo service"
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
-alias mux='tmux new-session -s `basename \`(git rev-parse --show-toplevel) || pwd\``'
+alias mux='tmux new-session -s `basename \`pwd\``'
 alias ack='ack-grep --color'
-alias up='cd ..'
-alias wow='git st'
-
+alias em="emacs -nw"
+alias power="acpi -VVV"
 
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
 
-PATH=$PATH:$HOME/bin:$HOME/.gem/ruby/2.0.0/bin
+PATH=$PATH:$HOME/bin
 source /usr/local/share/chruby/auto.sh
 
 autoload -U promptinit && promptinit

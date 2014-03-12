@@ -1,12 +1,14 @@
 {
 	"installed_packages":
 	[
+		"Base16 Color Schemes",
 		"CoffeeLint",
 		"CoffeeScript",
 		"CoffeeScriptHaml",
 		"Enhanced Clojure",
 		"Git",
 		"Haml",
+		"JSON Reindent",
 		"Package Control",
 		"Pane Navigation",
 		"RSpec",
@@ -17,6 +19,8 @@
 		"SublimeCodeIntel",
 		"SublimeLinter",
 		"SublimeOnSaveBuild",
+		"Theme - Spacegray",
+		"TreeTop",
 		"Wombat Theme"
 	]
 }

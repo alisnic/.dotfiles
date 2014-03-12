@@ -26,12 +26,25 @@ prompt_pure_git_dirty() {
 	(($? == 1)) && echo ' %{$fg[yellow]%}✗%{$reset_color%}'
 }
 
+
+prompt_pure_human_time() {
+  local tmp=$1
+  local days=$(( tmp / 60 / 60 / 24 ))
+  local hours=$(( tmp / 60 / 60 % 24 ))
+  local minutes=$(( tmp / 60 % 60 ))
+  local seconds=$(( tmp % 60 ))
+  (( $days > 0 )) && echo -n "${days}d "
+  (( $hours > 0 )) && echo -n "${hours}h "
+  (( $minutes > 0 )) && echo -n "${minutes}m "
+  echo "${seconds}s"
+}
+
 # displays the exec time of the last command if set threshold was exceeded
 prompt_pure_cmd_exec_time() {
 	local stop=$(date +%s)
 	local start=${cmd_timestamp:-$stop}
 	integer elapsed=$stop-$start
-	(($elapsed > ${PURE_CMD_MAX_EXEC_TIME:=5})) && echo ${elapsed}s
+  (($elapsed > ${PURE_CMD_MAX_EXEC_TIME:=5})) && prompt_pure_human_time $elapsed
 }
 
 prompt_pure_preexec() {
