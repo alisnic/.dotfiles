@@ -10,13 +10,11 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/nerdtree'
 " Bundle 'Syntastic'
-Bundle 'Valloric/YouCompleteMe'
+" Bundle 'Valloric/YouCompleteMe'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-markdown'
-
-set guioptions-=T
-set guioptions+=c
+Bundle 'Shougo/neocomplcache.vim'
 
 filetype on
 filetype indent on
@@ -24,6 +22,9 @@ filetype plugin on
 set spell
 let spell_auto_type="all"
 au BufRead,BufNewFile *.hamlc set ft=haml
+
+let g:neocomplcache_enable_at_startup = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 let g:solarized_termcolors=256
 se t_Co=256
