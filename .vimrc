@@ -25,12 +25,14 @@ set spell
 let spell_auto_type="all"
 au BufRead,BufNewFile *.hamlc set ft=haml
 
-let g:solarized_termcolors=256
+"let g:solarized_termcolors=256
 se t_Co=256
 syntax enable
-set background=light
-colorscheme solarized
+"set background=light
+"colorscheme solarized
 set colorcolumn=80
+colorscheme lucius
+LuciusDarkLowContrast
 
 "
 " MISC SETTINGS
