@@ -7,8 +7,8 @@
   st = status -sb
   cm = commit
   co = checkout
-  df = diff --color --ignore-space-at-eol -b -w
-  dc = diff --color --cached --ignore-space-at-eol -b -w
+  df = diff --color
+  dc = diff --color --cached
   ph = push
   pl = pull
   pr = !hub pull-request

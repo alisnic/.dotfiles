@@ -6,7 +6,6 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
-Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/nerdtree'
 " Bundle 'Syntastic'
@@ -14,9 +13,6 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-markdown'
-
-set guioptions-=T
-set guioptions+=c
 
 filetype on
 filetype indent on
@@ -64,6 +60,26 @@ set expandtab
 " show trailing whitespace
 set list listchars=trail:·,tab:··
 set backspace=2
+
+let ctrlp_filter_greps = "".
+    \ "egrep -iv '\\.(" .
+    \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+    \ ")$' | " .
+    \ "egrep -v '^(\\./)?(" .
+    \ ".git/|.hg/|.svn/" .
+    \ ")'"
+
+let my_ctrlp_git_command = "" .
+    \ "cd %s && git ls-files | " .
+    \ ctrlp_filter_greps
+
+if has("unix")
+    let my_ctrlp_user_command = "" .
+    \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+    \ ctrlp_filter_greps
+endif
+
+let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
 
 " Jump to last cursor position unless it's invalid or in an event handler
 autocmd BufReadPost *
@@ -118,12 +134,12 @@ autocmd BufRead *_spec.rb nmap <F7> :call RSpecCurrent()<CR>
 
 " do not press shift to enter command
 map ; :
-map <c-f> /
 "copy to X clipboard
 map <leader>cc :w !xsel -i -b<CR>
 " swap words
 nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 map <c-c> <esc>
+map <c-f> :CtrlPMRU<cr>
 nnoremap <cr> :nohlsearch<cr>
 map <C-t> :NERDTreeToggle<cr>
 :command W w
