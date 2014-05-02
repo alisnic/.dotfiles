@@ -13,6 +13,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-jdaddy'
 
 filetype on
 filetype indent on
@@ -33,6 +34,7 @@ LuciusDarkLowContrast
 "
 " MISC SETTINGS
 "
+set smartcase
 set ttyfast
 set lazyredraw
 " allow unsaved background buffers and remember marks/undo for them
