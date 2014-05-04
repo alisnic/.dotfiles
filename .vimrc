@@ -36,8 +36,8 @@ set colorcolumn=80
 "
 " MISC SETTINGS
 "
-set ttyfast
-set lazyredraw
+"set ttyfast
+"set lazyredraw
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 set cursorline
@@ -102,17 +102,17 @@ map! <silent> <C-Left> <c-w>h
 " Run hotkeys
 function RunWith (command)
   execute "w"
-  execute "!clear;time " . a:command . " " . expand("%")
+  execute "!time " . a:command . " " . expand("%")
 endfunction
 
 function! RSpecCurrent()
-  execute("!clear && bundle exec rspec " . expand("%p") . ":" . line(".") . " --color")
+  execute("!bundle exec rspec " . expand("%p") . ":" . line(".") . " --color")
 endfunction
 
 autocmd FileType coffee   nmap <F5> :call RunWith("coffee")<cr>
 autocmd FileType ruby     nmap <F5> :call RunWith("ruby")<cr>
 autocmd FileType clojure  nmap <F5> :call RunWith("clj")<cr>
-autocmd BufRead *_spec.rb nmap <F6> :w\|!clear && bundle exec rspec % --format documentation --color<cr>
+autocmd BufRead *_spec.rb nmap <F6> :w\|!bundle exec rspec % --format documentation --color<cr>
 autocmd BufRead *_spec.rb nmap <F7> :call RSpecCurrent()<CR>
 
 " do not press shift to enter command
