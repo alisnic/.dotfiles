@@ -23,11 +23,8 @@ set spell
 let spell_auto_type="all"
 au BufRead,BufNewFile *.hamlc set ft=haml
 
-"let g:solarized_termcolors=256
 se t_Co=256
 syntax enable
-"set background=light
-"colorscheme solarized
 set colorcolumn=80
 colorscheme lucius
 LuciusDarkLowContrast
@@ -98,27 +95,9 @@ autocmd BufWritePre * :%s/\s\+$//e
 " SHORTCUTS
 "
 let mapleader=","
-
-" Disable some keys
-inoremap <PageUp>   <NOP>
-inoremap <PageDown>  <NOP>
-nnoremap <PageUp>  <NOP>
-nnoremap <PageDown> <NOP>
-
 nnoremap <leader>v :vsp<cr>
 nnoremap <leader>h :sp<cr>
-nnoremap <leader>s :w<cr>
-
 nnoremap <Tab> :tabnext<cr>
-
-map <ESC>[5D <C-Left>
-map <ESC>[5C <C-Right>
-map! <ESC>[5D <C-Left>
-map! <ESC>[5C <C-Right>
-map <silent> <C-Right> <c-w>l
-map! <silent> <C-Right> <c-w>l
-map <silent> <C-Left> <c-w>h
-map! <silent> <C-Left> <c-w>h
 
 " Run hotkeys
 function RunWith (command)
@@ -149,7 +128,6 @@ map <C-t> :NERDTreeToggle<cr>
 :command W w
 :command Te tabedit
 "insert hashrocket
-imap <c-l> <Space>=><Space>
 nnoremap <leader>p :set paste!<cr>
 
 
