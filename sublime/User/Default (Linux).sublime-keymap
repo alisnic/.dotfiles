@@ -22,6 +22,9 @@
     { "key": "setting.is_widget", "operand": false }
   ]
 },
+{ "keys": ["ctrl+f"], "command": "show_overlay",
+    "args": {"overlay": "goto", "text": "@"}
+},
 
 { "keys": ["ctrl+c"], "command": "exit_insert_mode",
     "context":

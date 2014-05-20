@@ -7,14 +7,14 @@
   st = status -sb
   cm = commit
   co = checkout
-  df = diff --color --ignore-space-at-eol -b -w
-  dc = diff --color --cached --ignore-space-at-eol -b -w
+  df = diff --color
+  dc = diff --color --cached
   ph = push
   pl = pull
   pr = !hub pull-request
   sw = show --color
   lc = !git ls-files | grep "^$1" | xargs wc -l
-  ignore  = !([ ! -e .gitignore ] && touch .gitignore) | echo $1 >>.gitignore
+  ignore  = !echo $1 >> .gitignore
   this    = !git init && git add . && git commit -m \"initial commit\"
   sync    = !git fetch $1 && git merge $1/$2
 

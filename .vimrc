@@ -1,39 +1,42 @@
+scriptencoding utf-8
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
-Bundle 'kien/ctrlp.vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
-Bundle 'scrooloose/nerdtree'
+Plugin 'gmarik/vundle'
+Plugin 'kien/ctrlp.vim'
+Plugin 'bling/vim-airline'
+Plugin 'scrooloose/nerdtree'
 " Bundle 'Syntastic'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-markdown'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-jdaddy'
+Plugin 'jonathanfilip/vim-lucius'
+Plugin 'Valloric/YouCompleteMe'
+call vundle#end()            " required
+filetype plugin indent on
 
-set guioptions-=T
-set guioptions+=c
-
-filetype on
-filetype indent on
-filetype plugin on
 set spell
 let spell_auto_type="all"
 au BufRead,BufNewFile *.hamlc set ft=haml
 
+"let g:solarized_termcolors=256
 se t_Co=256
 syntax enable
-set background=light
-colorscheme solarized
+"set background=light
+"colorscheme solarized
 set colorcolumn=80
+colorscheme lucius
+LuciusDarkLowContrast
+let g:NERDTreeDirArrows=0
 
 "
 " MISC SETTINGS
 "
+set smartcase
 set ttyfast
 set lazyredraw
 " allow unsaved background buffers and remember marks/undo for them
@@ -61,6 +64,26 @@ set expandtab
 " show trailing whitespace
 set list listchars=trail:·,tab:··
 set backspace=2
+
+let ctrlp_filter_greps = "".
+    \ "egrep -iv '\\.(" .
+    \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+    \ ")$' | " .
+    \ "egrep -v '^(\\./)?(" .
+    \ ".git/|.hg/|.svn/" .
+    \ ")'"
+
+let my_ctrlp_git_command = "" .
+    \ "cd %s && git ls-files | " .
+    \ ctrlp_filter_greps
+
+if has("unix")
+    let my_ctrlp_user_command = "" .
+    \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+    \ ctrlp_filter_greps
+endif
+
+let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
 
 " Jump to last cursor position unless it's invalid or in an event handler
 autocmd BufReadPost *
@@ -115,12 +138,12 @@ autocmd BufRead *_spec.rb nmap <F7> :call RSpecCurrent()<CR>
 
 " do not press shift to enter command
 map ; :
-map <c-f> /
 "copy to X clipboard
 map <leader>cc :w !xsel -i -b<CR>
 " swap words
 nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 map <c-c> <esc>
+map <c-f> :CtrlPMRU<cr>
 nnoremap <cr> :nohlsearch<cr>
 map <C-t> :NERDTreeToggle<cr>
 :command W w
