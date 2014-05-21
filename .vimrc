@@ -43,7 +43,7 @@ set mouse=a
 " always show status line
 set ls=2
 " show line numbers
-set nu
+"set nu
 " minimal window width
 set winwidth=80
 " no junk in filesystem
