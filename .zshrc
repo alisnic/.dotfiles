@@ -10,14 +10,8 @@ plugins=(zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-alias tmux="TERM=screen-256color-bce tmux"
-alias git="nocorrect git"
-alias sudo="nocorrect sudo"
-
 alias install="brew install"
-alias resume="tmux attach -t"
 alias extract="tar xf"
-alias service="sudo service"
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
 alias mux='tmux new-session -s `basename \`pwd\``'
