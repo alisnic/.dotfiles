@@ -33,8 +33,6 @@ let g:NERDTreeDirArrows=0
 "
 " MISC SETTINGS
 "
-set clipboard=unnamed
-
 set smartcase
 set ttyfast
 set lazyredraw
@@ -101,11 +99,6 @@ nnoremap <leader>v :vsp<cr>
 nnoremap <leader>h :sp<cr>
 nnoremap <Tab> :tabnext<cr>
 
-nmap <Up> <C-W><Up>
-nmap <Down> <C-W><Down>
-nmap <Left> <C-W><Left>
-nmap <Right> <C-W><Right>
-
 " Run hotkeys
 function RunWith (command)
   execute "w"
@@ -119,13 +112,11 @@ endfunction
 autocmd FileType coffee   nmap <leader>r :call RunWith("coffee")<cr>
 autocmd FileType ruby     nmap <leader>r :call RunWith("ruby")<cr>
 autocmd FileType clojure  nmap <leader>r :call RunWith("clj")<cr>
-autocmd BufRead *_spec.rb nmap <leader>s :w\|!clear && bundle exec rspec % --format documentation --color<cr>
-autocmd BufRead *_spec.rb nmap <leader>sc :call RSpecCurrent()<CR>
+autocmd BufRead *_spec.rb nmap <f6> :w\|!clear && bundle exec rspec % --format documentation --color<cr>
+autocmd BufRead *_spec.rb nmap <f7> :call RSpecCurrent()<CR>
 
 " do not press shift to enter command
 map ; :
-"copy to X clipboard
-map <leader>cc :w !xsel -i -b<CR>
 " swap words
 nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 map <c-c> <esc>
@@ -135,7 +126,7 @@ map <C-t> :NERDTreeToggle<cr>
 :command W w
 :command Te tabedit
 "insert hashrocket
-nnoremap <leader>p :set paste!<cr>
+nnoremap <leader>p ^O"+p
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
