@@ -1,5 +1,5 @@
 ZSH=$HOME/.oh-my-zsh
-#ZSH_THEME=soliah
+ZSH_THEME=pure
 
 export CFLAGS="-march=native -O2"
 export CXXFLAGS=${CFLAGS}
@@ -15,7 +15,6 @@ alias extract="tar xf"
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
 alias mux='tmux new-session -s `basename \`pwd\``'
-alias ack='ack-grep --color'
 
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
 
