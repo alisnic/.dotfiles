@@ -33,6 +33,8 @@ let g:NERDTreeDirArrows=0
 "
 " MISC SETTINGS
 "
+set clipboard=unnamed
+
 set smartcase
 set ttyfast
 set lazyredraw
@@ -59,7 +61,7 @@ set shiftwidth=2
 " convert tabs to spaces
 set expandtab
 " show trailing whitespace
-set list listchars=trail:·,tab:··
+set list listchars=trail:-,tab:>-
 set backspace=2
 
 let ctrlp_filter_greps = "".
@@ -99,6 +101,11 @@ nnoremap <leader>v :vsp<cr>
 nnoremap <leader>h :sp<cr>
 nnoremap <Tab> :tabnext<cr>
 
+nmap <Up> <C-W><Up>
+nmap <Down> <C-W><Down>
+nmap <Left> <C-W><Left>
+nmap <Right> <C-W><Right>
+
 " Run hotkeys
 function RunWith (command)
   execute "w"
@@ -109,11 +116,11 @@ function! RSpecCurrent()
   execute("!clear && bundle exec rspec " . expand("%p") . ":" . line(".") . " --color")
 endfunction
 
-autocmd FileType coffee   nmap <F5> :call RunWith("coffee")<cr>
-autocmd FileType ruby     nmap <F5> :call RunWith("ruby")<cr>
-autocmd FileType clojure  nmap <F5> :call RunWith("clj")<cr>
-autocmd BufRead *_spec.rb nmap <F6> :w\|!clear && bundle exec rspec % --format documentation --color<cr>
-autocmd BufRead *_spec.rb nmap <F7> :call RSpecCurrent()<CR>
+autocmd FileType coffee   nmap <leader>r :call RunWith("coffee")<cr>
+autocmd FileType ruby     nmap <leader>r :call RunWith("ruby")<cr>
+autocmd FileType clojure  nmap <leader>r :call RunWith("clj")<cr>
+autocmd BufRead *_spec.rb nmap <leader>s :w\|!clear && bundle exec rspec % --format documentation --color<cr>
+autocmd BufRead *_spec.rb nmap <leader>sc :call RSpecCurrent()<CR>
 
 " do not press shift to enter command
 map ; :
