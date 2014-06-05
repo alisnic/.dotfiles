@@ -1,39 +1,39 @@
+scriptencoding utf-8
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
-Bundle 'kien/ctrlp.vim'
-Bundle 'bling/vim-airline'
-Bundle 'scrooloose/nerdtree'
+Plugin 'gmarik/vundle'
+Plugin 'kien/ctrlp.vim'
+Plugin 'bling/vim-airline'
+Plugin 'scrooloose/nerdtree'
 " Bundle 'Syntastic'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-jdaddy'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-jdaddy'
+Plugin 'jonathanfilip/vim-lucius'
+call vundle#end()            " required
+filetype plugin indent on
 
-filetype on
-filetype indent on
-filetype plugin on
 set spell
 let spell_auto_type="all"
 au BufRead,BufNewFile *.hamlc set ft=haml
 
-"let g:solarized_termcolors=256
 se t_Co=256
 syntax enable
-"set background=light
-"colorscheme solarized
 set colorcolumn=80
 colorscheme lucius
 LuciusDarkLowContrast
+let g:NERDTreeDirArrows=0
 
 "
 " MISC SETTINGS
 "
+set clipboard=unnamed
+
 set smartcase
 set ttyfast
 set lazyredraw
@@ -44,7 +44,7 @@ set mouse=a
 " always show status line
 set ls=2
 " show line numbers
-set nu
+"set nu
 " minimal window width
 set winwidth=80
 " no junk in filesystem
@@ -60,7 +60,7 @@ set shiftwidth=2
 " convert tabs to spaces
 set expandtab
 " show trailing whitespace
-set list listchars=trail:·,tab:··
+set list listchars=trail:-,tab:>-
 set backspace=2
 
 let ctrlp_filter_greps = "".
@@ -96,27 +96,9 @@ autocmd BufWritePre * :%s/\s\+$//e
 " SHORTCUTS
 "
 let mapleader=","
-
-" Disable some keys
-inoremap <PageUp>   <NOP>
-inoremap <PageDown>  <NOP>
-nnoremap <PageUp>  <NOP>
-nnoremap <PageDown> <NOP>
-
 nnoremap <leader>v :vsp<cr>
 nnoremap <leader>h :sp<cr>
-nnoremap <leader>s :w<cr>
-
 nnoremap <Tab> :tabnext<cr>
-
-map <ESC>[5D <C-Left>
-map <ESC>[5C <C-Right>
-map! <ESC>[5D <C-Left>
-map! <ESC>[5C <C-Right>
-map <silent> <C-Right> <c-w>l
-map! <silent> <C-Right> <c-w>l
-map <silent> <C-Left> <c-w>h
-map! <silent> <C-Left> <c-w>h
 
 " Run hotkeys
 function RunWith (command)
@@ -128,11 +110,11 @@ function! RSpecCurrent()
   execute("!clear && bundle exec rspec " . expand("%p") . ":" . line(".") . " --color")
 endfunction
 
-autocmd FileType coffee   nmap <F5> :call RunWith("coffee")<cr>
-autocmd FileType ruby     nmap <F5> :call RunWith("ruby")<cr>
-autocmd FileType clojure  nmap <F5> :call RunWith("clj")<cr>
-autocmd BufRead *_spec.rb nmap <F6> :w\|!clear && bundle exec rspec % --format documentation --color<cr>
-autocmd BufRead *_spec.rb nmap <F7> :call RSpecCurrent()<CR>
+autocmd FileType coffee   nmap <leader>r :call RunWith("coffee")<cr>
+autocmd FileType ruby     nmap <leader>r :call RunWith("ruby")<cr>
+autocmd FileType clojure  nmap <leader>r :call RunWith("clj")<cr>
+autocmd BufRead *_spec.rb nmap <leader>s :w\|!clear && bundle exec rspec % --format documentation --color<cr>
+autocmd BufRead *_spec.rb nmap <leader>sc :call RSpecCurrent()<CR>
 
 " do not press shift to enter command
 map ; :
@@ -147,7 +129,6 @@ map <C-t> :NERDTreeToggle<cr>
 :command W w
 :command Te tabedit
 "insert hashrocket
-imap <c-l> <Space>=><Space>
 nnoremap <leader>p :set paste!<cr>
 
 
