@@ -7,15 +7,16 @@ call vundle#begin()
 
 Plugin 'gmarik/vundle'
 Plugin 'kien/ctrlp.vim'
-Plugin 'bling/vim-airline'
+"Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
-" Bundle 'Syntastic'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-jdaddy'
 Plugin 'jonathanfilip/vim-lucius'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'mileszs/ack.vim'
+Plugin 'altercation/vim-colors-solarized'
 call vundle#end()            " required
 filetype plugin indent on
 
@@ -26,9 +27,13 @@ au BufRead,BufNewFile *.hamlc set ft=haml
 se t_Co=256
 syntax enable
 set colorcolumn=80
-colorscheme lucius
-LuciusDarkLowContrast
 let g:NERDTreeDirArrows=0
+
+"colorscheme lucius
+"LuciusLight
+"let g:solarized_termcolors=256
+set background=light
+colorscheme solarized
 
 "
 " MISC SETTINGS
@@ -38,10 +43,11 @@ set ttyfast
 set lazyredraw
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
-set cursorline
+"set cursorline
+set laststatus=0
 set mouse=a
 " always show status line
-set ls=2
+"set ls=2
 " show line numbers
 "set nu
 " minimal window width
@@ -109,9 +115,10 @@ function! RSpecCurrent()
   execute("!clear && bundle exec rspec " . expand("%p") . ":" . line(".") . " --color")
 endfunction
 
-autocmd FileType coffee   nmap <leader>r :call RunWith("coffee")<cr>
-autocmd FileType ruby     nmap <leader>r :call RunWith("ruby")<cr>
-autocmd FileType clojure  nmap <leader>r :call RunWith("clj")<cr>
+autocmd FileType coffee   nmap <f5> :call RunWith("coffee")<cr>
+autocmd FileType ruby     nmap <f5> :call RunWith("ruby")<cr>
+autocmd FileType clojure  nmap <f5> :call RunWith("clj")<cr>
+autocmd BufRead *.js      nmap <f6> :w\|!clear && jslint %<cr>
 autocmd BufRead *_spec.rb nmap <f6> :w\|!clear && bundle exec rspec % --format documentation --color<cr>
 autocmd BufRead *_spec.rb nmap <f7> :call RSpecCurrent()<CR>
 
@@ -120,13 +127,13 @@ map ; :
 " swap words
 nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 map <c-c> <esc>
-map <c-f> :CtrlPMRU<cr>
+map <c-f> :Ack
 nnoremap <cr> :nohlsearch<cr>
 map <C-t> :NERDTreeToggle<cr>
 :command W w
 :command Te tabedit
 "insert hashrocket
-nnoremap <leader>p ^O"+p
+nnoremap <leader>p :set paste!<cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
