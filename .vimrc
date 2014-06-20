@@ -43,7 +43,7 @@ set ttyfast
 set lazyredraw
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
-"set cursorline
+set cursorline
 set laststatus=0
 set mouse=a
 " always show status line
@@ -127,7 +127,7 @@ map ; :
 " swap words
 nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 map <c-c> <esc>
-map <c-f> :Ack
+map <c-f> :Ack <C-R><C-W> --%:e
 nnoremap <cr> :nohlsearch<cr>
 map <C-t> :NERDTreeToggle<cr>
 :command W w
