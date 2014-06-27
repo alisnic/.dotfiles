@@ -11,12 +11,13 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-markdown'
+"Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-jdaddy'
 Plugin 'jonathanfilip/vim-lucius'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'mileszs/ack.vim'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'Lokaltog/vim-easymotion'
 call vundle#end()            " required
 filetype plugin indent on
 
@@ -38,6 +39,7 @@ colorscheme solarized
 "
 " MISC SETTINGS
 "
+set hlsearch
 set smartcase
 set ttyfast
 set lazyredraw
@@ -104,6 +106,9 @@ let mapleader=","
 nnoremap <leader>v :vsp<cr>
 nnoremap <leader>h :sp<cr>
 nnoremap <Tab> :tabnext<cr>
+"map <Leader> <Plug>(easymotion-prefix)
+map q <leader><leader>j
+map w <leader><leader>w
 
 " Run hotkeys
 function RunWith (command)
