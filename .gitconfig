@@ -11,6 +11,7 @@
   dc = diff --color --cached
   ph = push
   pl = pull
+  rpl = submodule update --init --recursive
   pr = !hub pull-request
   sw = show --color
   lc = !git ls-files | grep "^$1" | xargs wc -l
