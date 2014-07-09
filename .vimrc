@@ -7,17 +7,14 @@ call vundle#begin()
 
 Plugin 'gmarik/vundle'
 Plugin 'kien/ctrlp.vim'
-"Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-endwise'
-"Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-jdaddy'
-Plugin 'jonathanfilip/vim-lucius'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'mileszs/ack.vim'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'Lokaltog/vim-easymotion'
 call vundle#end()            " required
 filetype plugin indent on
 
@@ -27,12 +24,9 @@ au BufRead,BufNewFile *.hamlc set ft=haml
 
 se t_Co=256
 syntax enable
-set colorcolumn=80
+"set colorcolumn=80
 let g:NERDTreeDirArrows=0
 
-"colorscheme lucius
-"LuciusLight
-"let g:solarized_termcolors=256
 set background=light
 colorscheme solarized
 
@@ -45,21 +39,16 @@ set ttyfast
 set lazyredraw
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
-set cursorline
-set laststatus=0
+"set cursorline
+set laststatus=2
 set mouse=a
-" always show status line
-"set ls=2
-" show line numbers
-"set nu
-" minimal window width
 set winwidth=80
 " no junk in filesystem
 set nobackup
 set nowritebackup
 set noswapfile
 " always show tabs
-set showtabline=2
+"set showtabline=2
 set autoindent
 set tabstop=2
 " number of spaces to autoindent
@@ -106,9 +95,6 @@ let mapleader=","
 nnoremap <leader>v :vsp<cr>
 nnoremap <leader>h :sp<cr>
 nnoremap <Tab> :tabnext<cr>
-"map <Leader> <Plug>(easymotion-prefix)
-map q <leader><leader>j
-map w <leader><leader>w
 
 " Run hotkeys
 function RunWith (command)
@@ -137,9 +123,6 @@ nnoremap <cr> :nohlsearch<cr>
 map <C-t> :NERDTreeToggle<cr>
 :command W w
 :command Te tabedit
-"insert hashrocket
-nnoremap <leader>p :set paste!<cr>
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
