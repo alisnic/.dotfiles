@@ -3,8 +3,7 @@ ZSH_THEME=rgm
 
 export CFLAGS="-march=native -O2"
 export CXXFLAGS=${CFLAGS}
-export EDITOR=vim
-export PATH="/usr/local/Cellar/vim/7.4.273/bin":$PATH
+export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
 
 plugins=(zsh-syntax-highlighting)
 
@@ -14,7 +13,9 @@ alias install="brew install"
 alias extract="tar xf"
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
+alias g='git'
 alias mux='tmux new-session -s `basename \`pwd\``'
+alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
 
