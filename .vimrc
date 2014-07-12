@@ -15,12 +15,15 @@ Plugin 'tpope/vim-jdaddy'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'mileszs/ack.vim'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'elixir-lang/vim-elixir'
 call vundle#end()            " required
 filetype plugin indent on
 
 set spell
 let spell_auto_type="all"
+
 au BufRead,BufNewFile *.hamlc set ft=haml
+autocmd FileType elixir set nospell
 
 se t_Co=256
 syntax enable
