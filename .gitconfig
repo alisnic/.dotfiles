@@ -11,10 +11,11 @@
   dc = diff --color --cached
   ph = push
   pl = pull
-  pr = !open https://github.com/alisnic/biodt-web/compare/BioDatomics:$(git rev-parse --abbrev-ref HEAD)...$(git rev-parse --abbrev-ref HEAD)
+  pr = !BRANCH=$(git rev-parse --abbrev-ref HEAD) && (open https://github.com/alisnic/$(basename "$PWD")/compare/BioDatomics:$BRANCH...$BRANCH)
   rpl = submodule update --init --recursive
   sw = show --color
   lc = !git ls-files | grep "^$1" | xargs wc -l
+  fg = !git ph && fg
   ignore  = !echo $1 >> .gitignore
   this    = !git init && git add . && git commit -m \"initial commit\"
   sync    = !git fetch $1 && git merge $1/$2
