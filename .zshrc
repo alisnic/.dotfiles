@@ -16,6 +16,7 @@ alias w='tmux attach -t'
 alias g='git'
 alias mux='tmux new-session -s `basename \`pwd\``'
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+alias be='bundle exec'
 
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
 

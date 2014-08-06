@@ -36,6 +36,7 @@ colorscheme solarized
 "
 " MISC SETTINGS
 "
+set clipboard=unnamed
 set hlsearch
 set smartcase
 set ttyfast
@@ -113,6 +114,7 @@ autocmd FileType coffee   nmap <f5> :call RunWith("coffee")<cr>
 autocmd FileType ruby     nmap <f5> :call RunWith("ruby")<cr>
 autocmd FileType clojure  nmap <f5> :call RunWith("clj")<cr>
 autocmd BufRead *.js      nmap <f6> :w\|!clear && jslint %<cr>
+autocmd BufRead *_test.exs nmap <f6> :w\|!mix test %<cr>
 autocmd BufRead *_spec.rb nmap <f6> :w\|!clear && bundle exec rspec % --format documentation --color<cr>
 autocmd BufRead *_spec.rb nmap <f7> :call RSpecCurrent()<CR>
 
