@@ -1,4 +1,5 @@
 ZSH=$HOME/.oh-my-zsh
+ZSH_THEME=rgm
 
 export CFLAGS="-march=native -O2"
 export CXXFLAGS=${CFLAGS}
@@ -11,29 +12,23 @@ plugins=(zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-alias tmux="TERM=screen-256color-bce tmux"
-alias git="nocorrect git"
-alias sudo="nocorrect sudo"
-
-alias pkg="sudo aptitude"
-alias service="sudo sudo service"
-alias extract="tar xf"
+alias install="sudo aptitude install"
 alias service="sudo service"
+alias extract="tar xf"
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
 alias mux='tmux new-session -s `basename \`pwd\``'
 alias ack='ack-grep --color'
-alias em="emacs -nw"
-alias power="acpi -VVV"
 
 [[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
 
 PATH=$PATH:$HOME/bin
-source /usr/local/share/chruby/auto.sh
-
-autoload -U promptinit && promptinit
-prompt pure
 
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
+
+#load erlang
+. /home/andrei/.kerl/installs/r17/activate
+test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
+kiex use stable

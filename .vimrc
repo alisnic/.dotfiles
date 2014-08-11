@@ -1,40 +1,43 @@
+scriptencoding utf-8
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
-Bundle 'kien/ctrlp.vim'
-Bundle 'bling/vim-airline'
-Bundle 'scrooloose/nerdtree'
-" Bundle 'Syntastic'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-jdaddy'
+Plugin 'gmarik/vundle'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'bling/vim-airline'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-jdaddy'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'mileszs/ack.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'elixir-lang/vim-elixir'
+call vundle#end()            " required
+filetype plugin indent on
 
-filetype on
-filetype indent on
-filetype plugin on
 set spell
 let spell_auto_type="all"
+
 au BufRead,BufNewFile *.hamlc set ft=haml
+autocmd FileType elixir set nospell
 
-"let g:solarized_termcolors=256
-se t_Co=256
+"se t_Co=256
 syntax enable
-"set background=light
-"colorscheme solarized
-set colorcolumn=80
-colorscheme lucius
-LuciusDarkLowContrast
-
+"set colorcolumn=80
+let g:NERDTreeDirArrows=0
 "
+set background=dark
+colorscheme solarized
+"
+""
 " MISC SETTINGS
-"
-set smartcase
+" "
+set clipboard=unnamed
+
 set ttyfast
 set lazyredraw
 " allow unsaved background buffers and remember marks/undo for them
