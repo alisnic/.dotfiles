@@ -1,0 +1,29 @@
+{
+	"auto_complete_commit_on_tab": false,
+	"caret_style": "phase",
+	"color_scheme": "Packages/User/Solarized (light) (SL).tmTheme",
+	"drag_text": false,
+	"fold_buttons": false,
+	"font_face": "Monaco",
+	"font_size": 13.0,
+	"gutter": false,
+	"ignored_packages":
+	[
+	],
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
+	],
+	"rulers":
+	[
+		80
+	],
+	"scroll_past_end": true,
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true,
+	"vintage_ctrl_keys": true,
+	"vintage_start_in_command_mode": true,
+	"word_wrap": false
+}

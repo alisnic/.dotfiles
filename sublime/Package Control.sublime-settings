@@ -1,0 +1,19 @@
+{
+	"installed_packages":
+	[
+		"Better CoffeeScript",
+		"CoffeeScriptHaml",
+		"Git",
+		"Github Tools",
+		"Jasmine CoffeeScript",
+		"JavaScriptNext - ES6 Syntax",
+		"ReactJS",
+		"RSpec",
+		"SideBarEnhancements",
+		"Solarized Color Scheme",
+		"SublimeLinter",
+		"SublimeLinter-coffee",
+		"SublimeLinter-ruby",
+		"SublimeREPL"
+	]
+}
