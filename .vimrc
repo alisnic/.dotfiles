@@ -14,28 +14,34 @@ Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-jdaddy'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'mileszs/ack.vim'
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'scrooloose/syntastic'
+
 call vundle#end()            " required
 filetype plugin indent on
-
-set spell
-let spell_auto_type="all"
 
 au BufRead,BufNewFile *.hamlc set ft=haml
 autocmd FileType elixir set nospell
 
 se t_Co=256
+color monokai
 syntax enable
-"set colorcolumn=80
-let g:NERDTreeDirArrows=0
-
-set background=light
-colorscheme solarized
+"set background=dark
 
 "
 " MISC SETTINGS
 "
+set spell
+set colorcolumn=80
+set noshowmode
+set visualbell
+set t_vb=
+set nu
+set sm!
+set cursorline
 set clipboard=unnamed
 set hlsearch
 set smartcase
@@ -43,25 +49,38 @@ set ttyfast
 set lazyredraw
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
-"set cursorline
 set laststatus=2
 set mouse=a
 set winwidth=80
-" no junk in filesystem
 set nobackup
 set nowritebackup
 set noswapfile
-" always show tabs
-"set showtabline=2
 set autoindent
 set tabstop=2
-" number of spaces to autoindent
 set shiftwidth=2
-" convert tabs to spaces
 set expandtab
-" show trailing whitespace
 set list listchars=trail:-,tab:>-
 set backspace=2
+
+let g:NERDTreeDirArrows=0
+let g:airline_powerline_fonts = 1
+let spell_auto_type="all"
+
+let g:ack_mappings = {
+      \ "t": "<C-W><CR><C-W>T",
+      \ "T": "<C-W><CR><C-W>TgT<C-W>j",
+      \ "o": "<CR>",
+      \ "O": "<CR><C-W>p<C-W>c",
+      \ "p": "<CR><C-W>p",
+      \ "h": "<C-W><CR><C-W>K",
+      \ "H": "<C-W><CR><C-W>K<C-W>b",
+      \ "v": "<C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t",
+      \ "gv": "<C-W><CR><C-W>H<C-W>b<C-W>J" }
+
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ }
 
 let ctrlp_filter_greps = "".
     \ "egrep -iv '\\.(" .
@@ -98,7 +117,12 @@ autocmd BufWritePre * :%s/\s\+$//e
 let mapleader=","
 nnoremap <leader>v :vsp<cr>
 nnoremap <leader>h :sp<cr>
-nnoremap <Tab> :tabnext<cr>
+nmap <Tab> <c-w><c-w>
+nmap <S-Tab> <c-w><s-w>
+cabbrev st Gstatus
+cabbrev cm Gcommit
+cabbrev ph Gpush
+cabbrev df Gdiff
 
 " Run hotkeys
 function RunWith (command)
@@ -115,7 +139,7 @@ autocmd FileType ruby     nmap <f5> :call RunWith("ruby")<cr>
 autocmd FileType clojure  nmap <f5> :call RunWith("clj")<cr>
 autocmd BufRead *.js      nmap <f6> :w\|!clear && jslint %<cr>
 autocmd BufRead *_test.exs nmap <f6> :w\|!mix test %<cr>
-autocmd BufRead *_spec.rb nmap <f6> :w\|!clear && bundle exec rspec % --format documentation --color<cr>
+autocmd BufRead *_spec.rb nmap <leader>b :w\|!clear && bundle exec spring rspec % --format documentation --color<cr>
 autocmd BufRead *_spec.rb nmap <f7> :call RSpecCurrent()<CR>
 
 " do not press shift to enter command
@@ -123,8 +147,8 @@ map ; :
 " swap words
 nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 map <c-c> <esc>
-map <c-f> :Ack <C-R><C-W> --%:e
-nnoremap <cr> :nohlsearch<cr>
+map <c-f> ":Ack "
+"nnoremap <cr> :nohlsearch<cr>
 map <C-t> :NERDTreeToggle<cr>
 :command W w
 :command Te tabedit
@@ -142,3 +166,30 @@ function! RenameFile()
     endif
 endfunction
 map <leader>n :call RenameFile()<cr>
+
+function! OpenTestAlternate()
+  let new_file = AlternateForCurrentFile()
+  exec ':e ' . new_file
+endfunction
+function! AlternateForCurrentFile()
+  let current_file = expand("%")
+  let new_file = current_file
+  let in_spec = match(current_file, '^spec/') != -1
+  let going_to_spec = !in_spec
+  let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') != -1 || match(current_file, '\<helpers\>') != -1
+  if going_to_spec
+    if in_app
+      let new_file = substitute(new_file, '^app/', '', '')
+    end
+    let new_file = substitute(new_file, '\.e\?rb$', '_spec.rb', '')
+    let new_file = 'spec/' . new_file
+  else
+    let new_file = substitute(new_file, '_spec\.rb$', '.rb', '')
+    let new_file = substitute(new_file, '^spec/', '', '')
+    if in_app
+      let new_file = 'app/' . new_file
+    end
+  endif
+  return new_file
+endfunction
+nnoremap <leader>. :call OpenTestAlternate()<cr>
