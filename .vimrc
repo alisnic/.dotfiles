@@ -20,6 +20,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/syntastic'
 Plugin 'majutsushi/tagbar'
+Plugin 'jistr/vim-nerdtree-tabs'
 
 call vundle#end()            " required
 filetype plugin indent on
@@ -35,7 +36,7 @@ syntax enable
 "
 " MISC SETTINGS
 "
-set tags=.git/tags,.tags
+set tags=.git/tags,.git/gemtags,.tags
 set spell
 set colorcolumn=80
 set noshowmode
@@ -179,7 +180,7 @@ function! RenameFile()
         redraw!
     endif
 endfunction
-map <leader>n :call RenameFile()<cr>
+map <leader>r :call RenameFile()<cr>
 
 function! OpenTestAlternate()
   let new_file = AlternateForCurrentFile()
