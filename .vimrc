@@ -20,7 +20,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/syntastic'
 Plugin 'majutsushi/tagbar'
-Plugin 'jistr/vim-nerdtree-tabs'
 
 call vundle#end()            " required
 filetype plugin indent on
@@ -66,6 +65,7 @@ set list listchars=trail:-,tab:>-
 set backspace=2
 
 let g:NERDTreeDirArrows=0
+let g:nerdtree_tabs_open_on_gui_startup = 0
 let g:airline_powerline_fonts = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let spell_auto_type="all"
@@ -80,17 +80,6 @@ let g:tagbar_type_ruby = {
         \ 'F:singleton methods'
     \ ]
     \ }
-
-let g:ack_mappings = {
-      \ "t": "<C-W><CR><C-W>T",
-      \ "T": "<C-W><CR><C-W>TgT<C-W>j",
-      \ "o": "<CR>",
-      \ "O": "<CR><C-W>p<C-W>c",
-      \ "p": "<CR><C-W>p",
-      \ "h": "<C-W><CR><C-W>K",
-      \ "H": "<C-W><CR><C-W>K<C-W>b",
-      \ "v": "<C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t",
-      \ "gv": "<C-W><CR><C-W>H<C-W>b<C-W>J" }
 
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<c-t>'],
@@ -136,7 +125,7 @@ nmap <Tab> <c-w><c-w>
 nmap <S-Tab> <c-w><s-w>
 cabbrev st Gstatus
 cabbrev cm Gcommit
-cabbrev ph Gpush
+cabbrev ph Dispatch git push
 cabbrev df Gdiff
 
 " Run hotkeys
@@ -182,10 +171,12 @@ function! RenameFile()
 endfunction
 map <leader>r :call RenameFile()<cr>
 
+
 function! OpenTestAlternate()
   let new_file = AlternateForCurrentFile()
-  exec ':e ' . new_file
+  exec ':tab drop ' . new_file
 endfunction
+
 function! AlternateForCurrentFile()
   let current_file = expand("%")
   let new_file = current_file
@@ -208,3 +199,8 @@ function! AlternateForCurrentFile()
   return new_file
 endfunction
 nnoremap <leader>. :call OpenTestAlternate()<cr>
+
+au FileType qf call AdjustWindowHeight(3, 20)
+function! AdjustWindowHeight(minheight, maxheight)
+  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+endfunction

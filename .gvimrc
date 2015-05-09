@@ -14,10 +14,9 @@ map <ESC> :ccl<cr>
 imap <ESC> :ccl<cr>
 noremap <C-Tab> :tabnext<CR>
 noremap <C-S-Tab> :tabprev<CR>
-map <D-.> :call OpenTestAlternate()<cr>
-imap <D-.> :call OpenTestAlternate()<cr>
+map <leader>. :call OpenTestAlternate()<cr>
 map <D-S-f> :Ack
 map <D-p> :CtrlPTag<cr>
 
-autocmd BufRead *_spec.rb noremap <D-b> :w\|:Dispatch bundle exec spring rspec % --color<cr>
+autocmd BufRead *_spec.rb noremap <D-b> :w\|:Dispatch bin/spring rspec %<cr>
 
