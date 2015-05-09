@@ -6,6 +6,7 @@ set guifont=Inconsolata-dz\ for\ Powerline:h14
 macmenu &Tools.Make key=<nop>
 macmenu &File.New\ Window key=<D-S-n>
 macmenu &File.New\ Tab key=<D-n>
+macmenu &File.Print key=<nop>
 
 map <D-t> :CtrlP<CR>
 imap <D-t> <ESC>:CtrlP<CR>
@@ -16,6 +17,7 @@ noremap <C-S-Tab> :tabprev<CR>
 map <D-.> :call OpenTestAlternate()<cr>
 imap <D-.> :call OpenTestAlternate()<cr>
 map <D-S-f> :Ack
+map <D-p> :CtrlPTag<cr>
 
 autocmd BufRead *_spec.rb noremap <D-b> :w\|:Dispatch bundle exec spring rspec % --color<cr>
 

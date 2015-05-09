@@ -19,6 +19,7 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/syntastic'
+Plugin 'majutsushi/tagbar'
 
 call vundle#end()            " required
 filetype plugin indent on
@@ -34,6 +35,7 @@ syntax enable
 "
 " MISC SETTINGS
 "
+set tags=.git/tags,.tags
 set spell
 set colorcolumn=80
 set noshowmode
@@ -64,7 +66,19 @@ set backspace=2
 
 let g:NERDTreeDirArrows=0
 let g:airline_powerline_fonts = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
 let spell_auto_type="all"
+
+let g:tagbar_type_ruby = {
+    \ 'kinds' : [
+        \ 'm:modules',
+        \ 'c:classes',
+        \ 'd:describes',
+        \ 'C:contexts',
+        \ 'f:methods',
+        \ 'F:singleton methods'
+    \ ]
+    \ }
 
 let g:ack_mappings = {
       \ "t": "<C-W><CR><C-W>T",
