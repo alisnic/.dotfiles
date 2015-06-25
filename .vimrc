@@ -11,7 +11,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-jdaddy'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'mileszs/ack.vim'
 Plugin 'elixir-lang/vim-elixir'
@@ -19,7 +18,6 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/syntastic'
-Plugin 'majutsushi/tagbar'
 
 call vundle#end()            " required
 filetype plugin indent on
@@ -66,8 +64,9 @@ set backspace=2
 
 let g:NERDTreeDirArrows=0
 let g:nerdtree_tabs_open_on_gui_startup = 0
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 let g:ycm_collect_identifiers_from_tags_files = 1
+let g:neoterm_keep_term_open = 0
 let spell_auto_type="all"
 
 let g:tagbar_type_ruby = {
@@ -119,6 +118,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 " SHORTCUTS
 "
 let mapleader=","
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap <leader>v :vsp<cr>
 nnoremap <leader>h :sp<cr>
 nmap <Tab> <c-w><c-w>
@@ -127,11 +127,17 @@ cabbrev st Gstatus
 cabbrev cm Gcommit
 cabbrev ph Dispatch git push
 cabbrev df Gdiff
+cabbrev cpr Dispatch! create-pull-request
 
 " Run hotkeys
 function RunWith (command)
   execute "w"
   execute "!clear;time " . a:command . " " . expand("%")
+endfunction
+
+function TabExec (command)
+  execute "w"
+  execute "tabnew | term " . " | startinsert"
 endfunction
 
 function! RSpecCurrent()

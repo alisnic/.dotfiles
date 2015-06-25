@@ -11,10 +11,9 @@ macmenu &File.Print key=<nop>
 map <D-t> :CtrlP<CR>
 imap <D-t> <ESC>:CtrlP<CR>
 map <ESC> :ccl<cr>
-imap <ESC> :ccl<cr>
+map <leader>. :call OpenTestAlternate()<cr>
 noremap <C-Tab> :tabnext<CR>
 noremap <C-S-Tab> :tabprev<CR>
-map <leader>. :call OpenTestAlternate()<cr>
 map <D-S-f> :Ack
 map <D-p> :CtrlPTag<cr>
 
