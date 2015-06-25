@@ -11,15 +11,38 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'elixir-lang/vim-elixir'
 Plug 'tpope/vim-fugitive'
 Plug 'quanganhdo/grb256'
+Plug 'tomasr/molokai'
+
+Plug 'bling/vim-airline'       " UI statusbar niceties
+  set laststatus=2               " enable airline even if no splits
+  let g:airline_theme='luna'
+  let g:airline_left_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline#extensions#tabline#enabled = 0
+  let g:airline_mode_map = {
+        \ 'n' : 'N',
+        \ 'i' : 'I',
+        \ 'R' : 'REPLACE',
+        \ 'v' : 'VISUAL',
+        \ 'V' : 'V-LINE',
+        \ 'c' : 'CMD   ',
+        \ }
 
 call plug#end()
 
 au BufRead,BufNewFile *.hamlc set ft=haml
+" Open files where we left off
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
+autocmd BufWritePre * :%s/\s\+$//e
 
 se t_Co=256
 syntax enable
-colorscheme grb256
+colorscheme molokai
 
+set enc=utf-8
 set nobackup
 set nowritebackup
 set noswapfile
@@ -27,7 +50,21 @@ set tabstop=2
 set shiftwidth=2
 set nu
 set clipboard+=unnamedplus
+set t_ut= " improve screen clearing by using the background color
+set cul
+set cuc
+" Searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+" Enable per-project vimrcs
+set exrc   " enable per-directory .vimrc files
+set secure " disable unsafe commands in local .vimrc files
 
+let $TERM='screen-256color'
+let &t_AB="\e[48;5;%dm"
+let &t_AF="\e[38;5;%dm"
 let mapleader = "\<Space>"
 
 cabbrev st Gstatus
