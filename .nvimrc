@@ -1,13 +1,33 @@
-
+filetype plugin on
 call plug#begin('~/.nvim/plugged')
 
 Plug 'gmarik/vundle'
 Plug 'tpope/vim-sensible'
+Plug 'kassio/neoterm'
+Plug 'tomtom/tcomment_vim'
+
 Plug 'kien/ctrlp.vim'
+	let g:ctrlp_prompt_mappings = {
+			\ 'AcceptSelection("e")': ['<c-t>'],
+			\ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+			\ }
+
+	let ctrlp_filter_greps = "".
+			\ "egrep -iv '\\.(" .
+			\ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+			\ ")$' | " .
+			\ "egrep -v '^(\\./)?(" .
+			\ ".git/|.hg/|.svn/" .
+			\ ")'"
+	let g:ctrlp_mru_files = 1              " Enable Most Recently Used files feature
+	let g:ctrlp_jump_to_buffer = 2         " Jump to tab AND buffer if already open
+
 Plug 'scrooloose/nerdtree'
 Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-endwise'
 Plug 'Valloric/YouCompleteMe'
+	let g:ycm_collect_identifiers_from_tags_files = 1
+
 Plug 'elixir-lang/vim-elixir'
 Plug 'tpope/vim-fugitive'
 Plug 'quanganhdo/grb256'
@@ -30,6 +50,7 @@ Plug 'bling/vim-airline'       " UI statusbar niceties
 
 call plug#end()
 
+
 au BufRead,BufNewFile *.hamlc set ft=haml
 " Open files where we left off
 if has("autocmd")
@@ -42,11 +63,14 @@ se t_Co=256
 syntax enable
 colorscheme molokai
 
+set list listchars=trail:-,tab:>-
+set tags=.git/tags,.git/gemtags,.tags
 set enc=utf-8
 set nobackup
 set nowritebackup
 set noswapfile
 set tabstop=2
+set expandtab
 set shiftwidth=2
 set nu
 set clipboard+=unnamedplus
@@ -69,18 +93,22 @@ let mapleader = "\<Space>"
 
 cabbrev st Gstatus
 cabbrev cm Gcommit
-cabbrev ph term git push
+"TODO: find a way to silently push, but show output
+"cabbrev ph term git push
 cabbrev df Gdiff
+cabbrev cpr :silent !cpr
 
 map <c-c> <esc>
 map <C-t> :NERDTreeToggle<cr>
-autocmd BufRead *_spec.rb nmap <leader>b :term bin/spring rspec %<cr>
+nnoremap <cr> :nohlsearch<cr>
+map <Tab> gt
+tnoremap <esc><esc> <C-\><C-n>
 
 function! OpenTestAlternate()
 	let new_file = AlternateForCurrentFile()
 	exec ':tab drop ' . new_file
 endfunction
-  
+
 function! AlternateForCurrentFile()
 	let current_file = expand("%")
 	let new_file = current_file
