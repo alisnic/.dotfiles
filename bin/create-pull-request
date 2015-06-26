@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+origin = `git remote -v | grep origin`
+repo = origin.split("\n").first.split(" ")[1].split(":")[1].split(".").first
+branch = `git symbolic-ref --short HEAD`
+system "open https://github.com/#{repo}/compare/#{branch}"
