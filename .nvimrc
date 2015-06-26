@@ -30,12 +30,14 @@ Plug 'Valloric/YouCompleteMe'
 
 Plug 'elixir-lang/vim-elixir'
 Plug 'tpope/vim-fugitive'
-Plug 'quanganhdo/grb256'
-Plug 'tomasr/molokai'
+Plug 'sickill/vim-monokai'
+
+Plug 'mileszs/ack.vim'
+  let g:ackpreview = 1
 
 Plug 'bling/vim-airline'       " UI statusbar niceties
   set laststatus=2               " enable airline even if no splits
-  let g:airline_theme='luna'
+  let g:airline_theme='base16'
   let g:airline_left_sep = ''
   let g:airline_right_sep = ''
   let g:airline#extensions#tabline#enabled = 0
@@ -61,10 +63,11 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 se t_Co=256
 syntax enable
-colorscheme molokai
+colorscheme monokai
 
 set list listchars=trail:-,tab:>-
 set tags=.git/tags,.git/gemtags,.tags
+set backspace=indent,eol,start
 set enc=utf-8
 set nobackup
 set nowritebackup
@@ -85,6 +88,11 @@ set smartcase
 " Enable per-project vimrcs
 set exrc   " enable per-directory .vimrc files
 set secure " disable unsafe commands in local .vimrc files
+set colorcolumn=80
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 let $TERM='screen-256color'
 let &t_AB="\e[48;5;%dm"
@@ -92,17 +100,25 @@ let &t_AF="\e[38;5;%dm"
 let mapleader = "\<Space>"
 
 cabbrev st Gstatus
-cabbrev cm Gcommit
 "TODO: find a way to silently push, but show output
 "cabbrev ph term git push
-cabbrev df Gdiff
 cabbrev cpr :silent !cpr
+cabbrev te tabedit
 
 map <c-c> <esc>
 map <C-t> :NERDTreeToggle<cr>
-nnoremap <cr> :nohlsearch<cr>
+" I don't use macros
+nmap q b
+nnoremap <esc><esc> :nohlsearch<cr>
 map <Tab> gt
 tnoremap <esc><esc> <C-\><C-n>
+nmap <leader>t :CtrlP<cr>
+
+function! SearchInFiles()
+  let query = input('Enter query: ')
+  exec ":Ack " . query
+endfunction
+nmap <leader>s :call SearchInFiles()<cr>
 
 function! OpenTestAlternate()
 	let new_file = AlternateForCurrentFile()
