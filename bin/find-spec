@@ -6,6 +6,7 @@ def get_spec(source)
   source_name = File.basename(source).split(".").first
   candidates  = []
   spec_dir    = File.join(Dir.pwd, "spec")
+  extension   = File.extname(source)
 
   if source_name.end_with?("_spec")
     return source
@@ -13,7 +14,7 @@ def get_spec(source)
 
   Find.find(spec_dir) do |path|
     name = File.basename(path)
-    if name == source_name + "_spec.rb"
+    if name == source_name + "_spec" + extension
       candidates.push(path)
     end
   end
