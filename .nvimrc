@@ -125,6 +125,17 @@ function! SearchInFiles()
 endfunction
 nmap <leader>s :call SearchInFiles()<cr>
 
+function! MoveToTabOnLeft()
+    let curtab = tabpagenr()
+    let tabonleft = curtab - 1
+    exe tabonleft."tabnext"
+endfunction
+
+augroup tabonleft
+    au!
+    au TabClosed * call MoveToTabOnLeft()
+augroup END
+
 function! OpenTestAlternate()
   let new_file = AlternateForCurrentFile()
   exec ':tab drop ' . new_file
