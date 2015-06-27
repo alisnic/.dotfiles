@@ -14,14 +14,15 @@ def similar_files(directory, extension)
 end
 
 def get_source(spec)
-  clean_path = spec.dup.gsub!("spec/", "")
+  spec_path  = spec.dup.gsub(Dir.pwd, "")
   extension  = File.extname(spec)
   candidates = similar_files("app", extension) + similar_files("lib", extension)
 
   candidates.sort_by! do |path|
-    clean_path.similar(path)
+    spec_path.similar(path)
   end
 
+  `echo '#{spec} > #{candidates.last}' >> find-spec-target.log`
   candidates.last
 end
 
