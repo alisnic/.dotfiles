@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+require 'find'
+require 'similar_text'
+
+def similar_files(directory, extension)
+  candidates = []
+
+  Find.find(directory) do |path|
+    next unless File.extname(path) == extension
+    candidates << path
+  end
+
+  candidates
+end
+
+def get_source(spec)
+  clean_path = spec.dup.gsub!("spec/", "")
+  extension  = File.extname(spec)
+  candidates = similar_files("app", extension) + similar_files("lib", extension)
+
+  candidates.sort_by! do |path|
+    clean_path.similar(path)
+  end
+
+  candidates.last
+end
+
+STDOUT.puts get_source(ARGF.argv.first)
