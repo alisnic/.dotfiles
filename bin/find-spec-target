@@ -22,7 +22,6 @@ def get_source(spec)
     spec_path.similar(path)
   end
 
-  `echo '#{spec} > #{candidates.last}' >> find-spec-target.log`
   candidates.last
 end
 
