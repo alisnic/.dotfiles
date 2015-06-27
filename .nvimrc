@@ -5,22 +5,23 @@ Plug 'gmarik/vundle'
 Plug 'tpope/vim-sensible'
 Plug 'kassio/neoterm'
 Plug 'tomtom/tcomment_vim'
+Plug 'AndrewRadev/undoquit.vim'
 
 Plug 'kien/ctrlp.vim'
-	let g:ctrlp_prompt_mappings = {
-			\ 'AcceptSelection("e")': ['<c-t>'],
-			\ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-			\ }
+  let g:ctrlp_prompt_mappings = {
+        \ 'AcceptSelection("e")': ['<c-t>'],
+        \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+        \ }
 
-	let ctrlp_filter_greps = "".
-			\ "egrep -iv '\\.(" .
-			\ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
-			\ ")$' | " .
-			\ "egrep -v '^(\\./)?(" .
-			\ ".git/|.hg/|.svn/" .
-			\ ")'"
-	let g:ctrlp_mru_files = 1              " Enable Most Recently Used files feature
-	let g:ctrlp_jump_to_buffer = 2         " Jump to tab AND buffer if already open
+  let ctrlp_filter_greps = "".
+        \ "egrep -iv '\\.(" .
+        \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+        \ ")$' | " .
+        \ "egrep -v '^(\\./)?(" .
+        \ ".git/|.hg/|.svn/" .
+        \ ")'"
+  let g:ctrlp_mru_files = 1              " Enable Most Recently Used files feature
+  let g:ctrlp_jump_to_buffer = 2         " Jump to tab AND buffer if already open
   let g:ctrlp_clear_cache_on_exit=0
   if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -30,7 +31,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-endwise'
 Plug 'Valloric/YouCompleteMe'
-	let g:ycm_collect_identifiers_from_tags_files = 1
+  let g:ycm_collect_identifiers_from_tags_files = 1
 
 Plug 'elixir-lang/vim-elixir'
 Plug 'tpope/vim-fugitive'
@@ -38,6 +39,9 @@ Plug 'sickill/vim-monokai'
 
 Plug 'mileszs/ack.vim'
   let g:ackpreview = 1
+  if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+  endif
 
 Plug 'bling/vim-airline'       " UI statusbar niceties
   set laststatus=2               " enable airline even if no splits
@@ -56,13 +60,13 @@ Plug 'bling/vim-airline'       " UI statusbar niceties
 
 call plug#end()
 
-
 au BufRead,BufNewFile *.hamlc set ft=haml
 " Open files where we left off
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal! g'\"" | endif
+        \| exe "normal! g'\"" | endif
 endif
+" Delete trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 
 se t_Co=256
@@ -94,10 +98,6 @@ set exrc   " enable per-directory .vimrc files
 set secure " disable unsafe commands in local .vimrc files
 set colorcolumn=80
 
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-
 let $TERM='screen-256color'
 let &t_AB="\e[48;5;%dm"
 let &t_AF="\e[38;5;%dm"
@@ -117,6 +117,7 @@ nnoremap <esc><esc> :nohlsearch<cr>
 map <Tab> gt
 tnoremap <esc><esc> <C-\><C-n>
 nmap <leader>t :CtrlP<cr>
+nmap <leader>u :Undoquit<cr>
 
 function! SearchInFiles()
   let query = input('Enter query: ')
@@ -125,18 +126,18 @@ endfunction
 nmap <leader>s :call SearchInFiles()<cr>
 
 function! OpenTestAlternate()
-	let new_file = AlternateForCurrentFile()
-	exec ':tab drop ' . new_file
+  let new_file = AlternateForCurrentFile()
+  exec ':tab drop ' . new_file
 endfunction
 
 function! AlternateForCurrentFile()
-	let current_file = expand("%")
-	let in_spec = match(current_file, '_spec') != -1
+  let current_file = expand("%")
+  let in_spec = match(current_file, '_spec') != -1
 
-	if in_spec
+  if in_spec
     return system("find-spec-target " . current_file)
-	else
+  else
     return system("find-spec " . current_file)
-	endif
+  endif
 endfunction
 nnoremap <leader>. :call OpenTestAlternate()<cr>
