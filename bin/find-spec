@@ -2,20 +2,28 @@
 require 'find'
 require 'similar_text'
 
-source      = ARGF.argv.first
-source_name = File.basename(source).split(".").first
-candidates  = []
-spec_dir    = File.join(Dir.pwd, "spec")
+def get_spec(source)
+  source_name = File.basename(source).split(".").first
+  candidates  = []
+  spec_dir    = File.join(Dir.pwd, "spec")
 
-Find.find(spec_dir) do |path|
-  name = File.basename(path)
-  if name == source_name + "_spec.rb"
-    candidates.push(path)
+  if source_name.end_with?("_spec")
+    return source
   end
+
+  Find.find(spec_dir) do |path|
+    name = File.basename(path)
+    if name == source_name + "_spec.rb"
+      candidates.push(path)
+    end
+  end
+
+  candidates.sort! do |path|
+    source.similar(path)
+  end
+
+  candidates.first
 end
 
-candidates.sort! do |path|
-  source.similar(path)
-end
+STDOUT.puts get_spec(ARGF.argv.first)
 
-STDOUT.puts candidates.first
