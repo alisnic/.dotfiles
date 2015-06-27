@@ -21,6 +21,10 @@ Plug 'kien/ctrlp.vim'
 			\ ")'"
 	let g:ctrlp_mru_files = 1              " Enable Most Recently Used files feature
 	let g:ctrlp_jump_to_buffer = 2         " Jump to tab AND buffer if already open
+  let g:ctrlp_clear_cache_on_exit=0
+  if executable('ag')
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  endif
 
 Plug 'scrooloose/nerdtree'
 Plug 'kchmck/vim-coffee-script'
