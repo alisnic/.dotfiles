@@ -7,6 +7,9 @@ Plug 'kassio/neoterm'
 Plug 'tomtom/tcomment_vim'
 Plug 'AndrewRadev/undoquit.vim'
 
+" Enable tags from ruby gems
+Plug 'tpope/vim-bundler'
+
 Plug 'kien/ctrlp.vim'
   let g:ctrlp_prompt_mappings = {
         \ 'AcceptSelection("e")': ['<c-t>'],
@@ -118,7 +121,8 @@ map <Tab> gt
 tnoremap <esc><esc> <C-\><C-n>
 nmap <leader>t :CtrlP<cr>
 nmap <leader>u :Undoquit<cr>
-nnoremap <C-[> :pop<cr>
+" Open definition in new tab
+nnoremap <leader>d <C-w><C-]><C-w>T
 
 function! SearchInFiles()
   let query = input('Enter query: ')
@@ -132,10 +136,10 @@ function! MoveToTabOnLeft()
     exe tabonleft."tabnext"
 endfunction
 
-augroup tabonleft
-    au!
-    au TabClosed * call MoveToTabOnLeft()
-augroup END
+" augroup tabonleft
+"     au!
+"     au TabClosed * call MoveToTabOnLeft()
+" augroup END
 
 function! OpenTestAlternate()
   let new_file = AlternateForCurrentFile()
