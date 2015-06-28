@@ -5,7 +5,7 @@
   aa = add .
   lg = !tig
   st = status -sb
-  cm = commit
+  cm = commit --verbose
   co = checkout
   df = diff --color
   dc = diff --color --cached
