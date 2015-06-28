@@ -74,7 +74,7 @@ syntax enable
 colorscheme monokai
 
 set list listchars=trail:-,tab:>-
-set tags=.git/tags,.git/gemtags,.tags
+set tags=.git/tags,.git/rubytags,.git/coffeetags
 set backspace=indent,eol,start
 set enc=utf-8
 set nobackup
@@ -118,6 +118,7 @@ map <Tab> gt
 tnoremap <esc><esc> <C-\><C-n>
 nmap <leader>t :CtrlP<cr>
 nmap <leader>u :Undoquit<cr>
+nnoremap <C-[> :pop<cr>
 
 function! SearchInFiles()
   let query = input('Enter query: ')
