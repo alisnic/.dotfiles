@@ -19,9 +19,11 @@ def get_spec(source)
     end
   end
 
-  candidates.max do |path|
+  candidates.sort_by! do |path|
     source.similar(path)
   end
+
+  candidates.last
 end
 
 STDOUT.puts get_spec(ARGF.argv.first)

@@ -18,9 +18,11 @@ def get_source(spec)
   extension  = File.extname(spec)
   candidates = similar_files("app", extension) + similar_files("lib", extension)
 
-  candidates.max do |path|
+  candidates.sort_by! do |path|
     spec_path.similar(path)
   end
+
+  candidates.last
 end
 
 STDOUT.puts get_source(ARGF.argv.first)
