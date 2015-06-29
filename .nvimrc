@@ -6,6 +6,7 @@ Plug 'tpope/vim-sensible'
 Plug 'kassio/neoterm'
 Plug 'tomtom/tcomment_vim'
 Plug 'AndrewRadev/undoquit.vim'
+Plug 'terryma/vim-expand-region'
 
 " Enable tags from ruby gems
 Plug 'tpope/vim-bundler'
@@ -117,6 +118,8 @@ cabbrev te tabedit
 
 map <c-c> <esc>
 map <C-t> :NERDTreeToggle<cr>
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 " I don't use macros
 nmap q b
 nnoremap <esc><esc> :nohlsearch<cr>
@@ -124,15 +127,25 @@ map <Tab> gt
 tnoremap <esc><esc> <C-\><C-n>
 nmap <leader>t :CtrlP<cr>
 nmap <leader>u :Undoquit<cr>
-nnoremap <leader>] <C-]>
-nnoremap <leader>[ :pop<cr>
-nnoremap <leader>d g]
+nmap <leader>w :q<cr>
+nmap <leader><left> gT
+nmap <leader><right> gt
+nmap <leader>a ggVG<cr>
+nmap <leader>] <C-]>
+nmap <leader>[ :pop<cr>
+nmap <leader>d g]
 
 function! SearchInFiles()
-  let query = input('Enter query: ')
+  let query = input('Search in files: ')
   exec ":Ack " . query
 endfunction
 nmap <leader>s :call SearchInFiles()<cr>
+
+function! SearchInTags()
+  let query = input('Search in tags: ')
+  exec ":tselect " . query
+endfunction
+nmap <leader>p :call SearchInTags()<cr>
 
 function! MoveToTabOnLeft()
     let curtab = tabpagenr()
