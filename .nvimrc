@@ -80,6 +80,7 @@ syntax enable
 colorscheme monokai
 
 set mouse=a
+set guitablabel=%t
 set list listchars=trail:-,tab:>-
 set tags=.git/tags,.git/rubytags,.git/coffeetags
 set backspace=indent,eol,start
@@ -134,29 +135,31 @@ nmap <leader>a ggVG<cr>
 nmap <leader>] <C-]>
 nmap <leader>[ :pop<cr>
 nmap <leader>d g]
+nmap <leader>/ :TComment<cr>
+vmap <leader>/ gc
 
 function! SearchInFiles()
   let query = input('Search in files: ')
+  if len(query) == 0
+    return
+  endif
   exec ":Ack " . query
 endfunction
 nmap <leader>s :call SearchInFiles()<cr>
 
 function! SearchInTags()
   let query = input('Search in tags: ')
+  if len(query) == 0
+    return
+  endif
   exec ":tselect " . query
 endfunction
 nmap <leader>p :call SearchInTags()<cr>
 
-function! MoveToTabOnLeft()
-    let curtab = tabpagenr()
-    let tabonleft = curtab - 1
-    exe tabonleft."tabnext"
-endfunction
-
-" augroup tabonleft
-"     au!
-"     au TabClosed * call MoveToTabOnLeft()
-" augroup END
+let g:previous_tab = 1
+let g:lasttab = 1
+au TabLeave * let g:previous_tab = g:lasttab | let g:lasttab = tabpagenr()
+au TabClosed * :exec("tabn ". g:previous_tab)
 
 function! OpenTestAlternate()
   let new_file = AlternateForCurrentFile()
