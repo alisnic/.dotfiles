@@ -9,6 +9,7 @@ Plug 'AndrewRadev/undoquit.vim'
 
 " Enable tags from ruby gems
 Plug 'tpope/vim-bundler'
+Plug 'majutsushi/tagbar'
 
 Plug 'kien/ctrlp.vim'
   let g:ctrlp_prompt_mappings = {
@@ -52,6 +53,7 @@ Plug 'bling/vim-airline'       " UI statusbar niceties
   let g:airline_left_sep = ''
   let g:airline_right_sep = ''
   let g:airline#extensions#tabline#enabled = 0
+  let g:airline#extensions#tagbar#enabled = 1
   let g:airline_mode_map = {
         \ 'n' : 'N',
         \ 'i' : 'I',
@@ -76,6 +78,7 @@ se t_Co=256
 syntax enable
 colorscheme monokai
 
+set mouse=a
 set list listchars=trail:-,tab:>-
 set tags=.git/tags,.git/rubytags,.git/coffeetags
 set backspace=indent,eol,start
@@ -121,8 +124,9 @@ map <Tab> gt
 tnoremap <esc><esc> <C-\><C-n>
 nmap <leader>t :CtrlP<cr>
 nmap <leader>u :Undoquit<cr>
-" Open definition in new tab
-nnoremap <leader>d <C-w><C-]><C-w>T
+nnoremap <leader>] <C-]>
+nnoremap <leader>[ :pop<cr>
+nnoremap <leader>d g]
 
 function! SearchInFiles()
   let query = input('Enter query: ')
