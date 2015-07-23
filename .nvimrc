@@ -1,12 +1,13 @@
 filetype plugin on
 call plug#begin('~/.nvim/plugged')
 
-Plug 'gmarik/vundle'
 Plug 'tpope/vim-sensible'
 Plug 'kassio/neoterm'
 Plug 'tomtom/tcomment_vim'
 Plug 'AndrewRadev/undoquit.vim'
 Plug 'terryma/vim-expand-region'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-haml'
 
 " Enable tags from ruby gems
 Plug 'tpope/vim-bundler'
@@ -27,7 +28,7 @@ Plug 'kien/ctrlp.vim'
         \ ")'"
   let g:ctrlp_mru_files = 1              " Enable Most Recently Used files feature
   let g:ctrlp_jump_to_buffer = 2         " Jump to tab AND buffer if already open
-  let g:ctrlp_clear_cache_on_exit=0
+  let g:ctrlp_clear_cache_on_exit=1
   if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   endif
@@ -35,8 +36,10 @@ Plug 'kien/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-endwise'
+
 Plug 'Valloric/YouCompleteMe'
   let g:ycm_collect_identifiers_from_tags_files = 1
+  let g:ycm_min_num_of_chars_for_completion = 3
 
 Plug 'elixir-lang/vim-elixir'
 Plug 'tpope/vim-fugitive'
@@ -80,6 +83,7 @@ syntax enable
 colorscheme monokai
 
 set mouse=a
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set guitablabel=%t
 set list listchars=trail:-,tab:>-
 set tags=.git/tags,.git/rubytags,.git/coffeetags
