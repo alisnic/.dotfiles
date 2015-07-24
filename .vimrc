@@ -1,4 +1,4 @@
-filetype plugin on
+" filetype plugin on
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
@@ -8,13 +8,15 @@ Plug 'terryma/vim-expand-region'
 Plug 'jiangmiao/auto-pairs'
 Plug 'cyphactor/vim-open-alternate'
 Plug 'tpope/vim-haml'
+Plug 'FelikZ/ctrlp-py-matcher'
 
 " Enable tags from ruby gems
 Plug 'tpope/vim-bundler'
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
 Plug 'gcmt/tube.vim'
 
 Plug 'kien/ctrlp.vim'
+  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
   let g:ctrlp_prompt_mappings = {
         \ 'AcceptSelection("e")': ['<c-t>'],
         \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
@@ -81,6 +83,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 se t_Co=256
 syntax enable
+filetype plugin indent on
 colorscheme monokai
 
 set mouse=a
@@ -117,6 +120,9 @@ let &t_AF="\e[38;5;%dm"
 let mapleader = "\<Space>"
 
 cabbrev st Gstatus
+cabbrev cm Gcommit -v
+cabbrev ph Git push
+cabbrev df Git! diff
 "TODO: find a way to silently push, but show output
 "cabbrev ph term git push
 cabbrev cpr :silent !cpr
@@ -160,4 +166,4 @@ function! SearchInTags()
 endfunction
 nmap <leader>p :call SearchInTags()<cr>
 
-nnoremap <leader>. :OpenAlternate<cr>
+nnoremap <leader><leader> :OpenAlternate<cr>
