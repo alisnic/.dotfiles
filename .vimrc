@@ -8,13 +8,13 @@ Plug 'terryma/vim-expand-region'
 Plug 'jiangmiao/auto-pairs'
 Plug 'cyphactor/vim-open-alternate'
 Plug 'tpope/vim-haml'
-Plug 'FelikZ/ctrlp-py-matcher'
 
 " Enable tags from ruby gems
 Plug 'tpope/vim-bundler'
 " Plug 'majutsushi/tagbar'
 Plug 'gcmt/tube.vim'
 
+Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'kien/ctrlp.vim'
   let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
   let g:ctrlp_prompt_mappings = {
@@ -39,6 +39,11 @@ Plug 'kien/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-endwise'
+
+let g:ycm_tag_files = []
+function! YCM_tagfiles()
+  return g:ycm_tag_files
+endfunction
 
 Plug 'Valloric/YouCompleteMe'
   let g:ycm_collect_identifiers_from_tags_files = 1
@@ -90,7 +95,7 @@ set mouse=a
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set guitablabel=%t
 set list listchars=trail:-,tab:>-
-set tags=.git/tags,.git/rubytags,.git/coffeetags
+set tags=.git/tags
 set backspace=indent,eol,start
 set enc=utf-8
 set nobackup
@@ -103,7 +108,7 @@ set nu
 set clipboard+=unnamedplus
 set t_ut= " improve screen clearing by using the background color
 set cul
-set cuc
+" set cuc
 " Searching
 set hlsearch
 set incsearch
@@ -123,10 +128,11 @@ cabbrev st Gstatus
 cabbrev cm Gcommit -v
 cabbrev ph Git push
 cabbrev df Git! diff
-"TODO: find a way to silently push, but show output
-"cabbrev ph term git push
 cabbrev cpr :silent !cpr
 cabbrev te tabedit
+
+autocmd FileType nerdtree nmap <buffer> <left> x
+autocmd FileType nerdtree nmap <buffer> <right> <cr>
 
 map <c-c> <esc>
 map <C-t> :NERDTreeToggle<cr>
@@ -147,6 +153,7 @@ nmap <leader>[ :pop<cr>
 nmap <leader>d g]
 nmap <leader>/ :TComment<cr>
 vmap <leader>/ gc
+nmap <leader>r :NERDTreeFind<cr>
 
 function! SearchInFiles()
   let query = input('Search in files: ')
