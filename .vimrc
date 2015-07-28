@@ -59,21 +59,21 @@ Plug 'mileszs/ack.vim'
     let g:ackprg = 'ag --vimgrep'
   endif
 
-Plug 'bling/vim-airline'       " UI statusbar niceties
-  set laststatus=2               " enable airline even if no splits
-  let g:airline_theme='base16'
-  let g:airline_left_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline#extensions#tabline#enabled = 0
-  let g:airline#extensions#tagbar#enabled = 1
-  let g:airline_mode_map = {
-        \ 'n' : 'N',
-        \ 'i' : 'I',
-        \ 'R' : 'REPLACE',
-        \ 'v' : 'VISUAL',
-        \ 'V' : 'V-LINE',
-        \ 'c' : 'CMD   ',
-        \ }
+" Plug 'bling/vim-airline'       " UI statusbar niceties
+"   set laststatus=2               " enable airline even if no splits
+"   let g:airline_theme='base16'
+"   let g:airline_left_sep = ''
+"   let g:airline_right_sep = ''
+"   let g:airline#extensions#tabline#enabled = 0
+"   let g:airline#extensions#tagbar#enabled = 1
+"   let g:airline_mode_map = {
+"         \ 'n' : 'N',
+"         \ 'i' : 'I',
+"         \ 'R' : 'REPLACE',
+"         \ 'v' : 'VISUAL',
+"         \ 'V' : 'V-LINE',
+"         \ 'c' : 'CMD   ',
+"         \ }
 
 call plug#end()
 
@@ -118,6 +118,12 @@ set smartcase
 set exrc   " enable per-directory .vimrc files
 set secure " disable unsafe commands in local .vimrc files
 set colorcolumn=80
+
+" Hide the status line
+set noshowmode
+set noruler
+set noshowcmd
+set laststatus=0
 
 let $TERM='screen-256color'
 let &t_AB="\e[48;5;%dm"

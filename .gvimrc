@@ -5,6 +5,7 @@ colorscheme monokai
 set guifont=Monaco:h13
 set clipboard=unnamed
 set showtabline=2
+set laststatus=0
 
 macmenu &Tools.Make key=<nop>
 macmenu &File.New\ Window key=<D-S-n>
