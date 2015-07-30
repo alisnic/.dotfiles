@@ -166,7 +166,7 @@ function! SearchInFiles()
   if len(query) == 0
     return
   endif
-  exec ":Ack " . query
+  exec ":tabedit | Ack " . query
 endfunction
 nmap <leader>s :call SearchInFiles()<cr>
 
