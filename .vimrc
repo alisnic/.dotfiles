@@ -3,16 +3,17 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
 Plug 'tomtom/tcomment_vim'
-Plug 'AndrewRadev/undoquit.vim'
 Plug 'terryma/vim-expand-region'
-Plug 'jiangmiao/auto-pairs'
 Plug 'cyphactor/vim-open-alternate'
 Plug 'tpope/vim-haml'
 
+Plug 'scrooloose/syntastic'
+  let g:syntastic_check_on_wq = 1
+
 " Enable tags from ruby gems
 Plug 'tpope/vim-bundler'
-" Plug 'majutsushi/tagbar'
 Plug 'gcmt/tube.vim'
+  let g:tube_terminal = "iterm"
 
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'kien/ctrlp.vim'
@@ -50,30 +51,14 @@ Plug 'Valloric/YouCompleteMe'
   let g:ycm_min_num_of_chars_for_completion = 3
 
 Plug 'elixir-lang/vim-elixir'
-Plug 'tpope/vim-fugitive'
 Plug 'sickill/vim-monokai'
+Plug 'altercation/vim-colors-solarized'
 
 Plug 'mileszs/ack.vim'
   let g:ackpreview = 1
   if executable('ag')
     let g:ackprg = 'ag --vimgrep'
   endif
-
-" Plug 'bling/vim-airline'       " UI statusbar niceties
-"   set laststatus=2               " enable airline even if no splits
-"   let g:airline_theme='base16'
-"   let g:airline_left_sep = ''
-"   let g:airline_right_sep = ''
-"   let g:airline#extensions#tabline#enabled = 0
-"   let g:airline#extensions#tagbar#enabled = 1
-"   let g:airline_mode_map = {
-"         \ 'n' : 'N',
-"         \ 'i' : 'I',
-"         \ 'R' : 'REPLACE',
-"         \ 'v' : 'VISUAL',
-"         \ 'V' : 'V-LINE',
-"         \ 'c' : 'CMD   ',
-"         \ }
 
 call plug#end()
 
@@ -89,6 +74,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 se t_Co=256
 syntax enable
 filetype plugin indent on
+" set background=dark
 colorscheme monokai
 
 set mouse=a
@@ -130,10 +116,6 @@ let &t_AB="\e[48;5;%dm"
 let &t_AF="\e[38;5;%dm"
 let mapleader = "\<Space>"
 
-cabbrev st Gstatus
-cabbrev cm Gcommit -v
-cabbrev ph Git push
-cabbrev df Git! diff
 cabbrev cpr :silent !cpr
 cabbrev te tabedit
 
@@ -147,6 +129,7 @@ vmap <C-v> <Plug>(expand_region_shrink)
 " I don't use macros
 nmap q b
 nnoremap <esc><esc> :nohlsearch<cr>
+xnoremap p "_dP
 map <Tab> gt
 nmap <leader>t :CtrlP<cr>
 nmap <leader>u :Undoquit<cr>
