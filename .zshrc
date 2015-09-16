@@ -13,8 +13,7 @@ export PATH=~/bin:$PATH
 export ANDROID_HOME=~/Applications/android-sdk-macosx
 export GOPATH=~/.go
 export PGDATA=/usr/local/var/postgres
-
-plugins=(zsh-syntax-highlighting)
+export NVM_DIR=~/.nvm
 
 source $ZSH/oh-my-zsh.sh
 
@@ -26,14 +25,10 @@ alias g='git'
 alias mux='tmux new-session -s `basename \`pwd\``'
 alias be='bundle exec'
 
-[[ -s /home/andrei/.nvm/nvm.sh ]] && . /home/andrei/.nvm/nvm.sh # This loads NVM
-
+source /usr/local/opt/nvm/nvm.sh
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
-chruby 2.1.5
-
-#autoload -U promptinit && promptinit
-#prompt pure
+chruby 2.2.3
 
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on

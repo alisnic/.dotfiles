@@ -2,16 +2,25 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
+
+Plug 'tpope/vim-haml'
+Plug 'kchmck/vim-coffee-script'
+Plug 'pangloss/vim-javascript'
+Plug 'elixir-lang/vim-elixir'
+
 Plug 'tomtom/tcomment_vim'
 Plug 'terryma/vim-expand-region'
 Plug 'cyphactor/vim-open-alternate'
-Plug 'tpope/vim-haml'
+Plug 'sickill/vim-monokai'
+Plug 'ton/vim-bufsurf'
+" Enable tags from ruby gems
+Plug 'tpope/vim-bundler'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-endwise'
 
 Plug 'scrooloose/syntastic'
   let g:syntastic_check_on_wq = 1
 
-" Enable tags from ruby gems
-Plug 'tpope/vim-bundler'
 Plug 'gcmt/tube.vim'
   let g:tube_terminal = "iterm"
 
@@ -23,36 +32,18 @@ Plug 'kien/ctrlp.vim'
         \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
         \ }
 
-  let ctrlp_filter_greps = "".
-        \ "egrep -iv '\\.(" .
-        \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
-        \ ")$' | " .
-        \ "egrep -v '^(\\./)?(" .
-        \ ".git/|.hg/|.svn/" .
-        \ ")'"
-  let g:ctrlp_mru_files = 1              " Enable Most Recently Used files feature
-  let g:ctrlp_jump_to_buffer = 2         " Jump to tab AND buffer if already open
+  " let g:ctrlp_mru_files = 1              " Enable Most Recently Used files feature
+  " let g:ctrlp_jump_to_buffer = 2         " Jump to tab AND buffer if already open
   let g:ctrlp_clear_cache_on_exit=1
+  " let g:ctrlp_use_caching = 0
   if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   endif
 
-Plug 'scrooloose/nerdtree'
-Plug 'kchmck/vim-coffee-script'
-Plug 'tpope/vim-endwise'
-
-let g:ycm_tag_files = []
-function! YCM_tagfiles()
-  return g:ycm_tag_files
-endfunction
-
-Plug 'Valloric/YouCompleteMe'
+Plug 'alisnic/YouCompleteMe'
   let g:ycm_collect_identifiers_from_tags_files = 1
   let g:ycm_min_num_of_chars_for_completion = 3
-
-Plug 'elixir-lang/vim-elixir'
-Plug 'sickill/vim-monokai'
-Plug 'altercation/vim-colors-solarized'
+  let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
 Plug 'mileszs/ack.vim'
   let g:ackpreview = 1
@@ -118,6 +109,7 @@ let mapleader = "\<Space>"
 
 cabbrev cpr :silent !cpr
 cabbrev te tabedit
+cabbrev help tab help
 
 autocmd FileType nerdtree nmap <buffer> <left> x
 autocmd FileType nerdtree nmap <buffer> <right> <cr>
@@ -128,7 +120,10 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 " I don't use macros
 nmap q b
+nnoremap <S-UP> <NOP>
+nnoremap <S-Down> <NOP>
 nnoremap <esc><esc> :nohlsearch<cr>
+nnoremap <BS> :e#<cr>
 xnoremap p "_dP
 map <Tab> gt
 nmap <leader>t :CtrlP<cr>
