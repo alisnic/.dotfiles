@@ -22,6 +22,7 @@ alias g='git'
 alias mux='tmux new-session -s `basename \`pwd\``'
 alias be='bundle exec'
 alias focusvim="osascript -e 'activate application \"MacVim\"'"
+alias sp='bin/spring'
 
 source /usr/local/opt/nvm/nvm.sh
 source /usr/local/opt/chruby/share/chruby/chruby.sh

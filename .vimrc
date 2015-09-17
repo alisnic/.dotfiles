@@ -122,9 +122,11 @@ vmap <C-v> <Plug>(expand_region_shrink)
 nmap q b
 nnoremap <S-UP> <NOP>
 nnoremap <S-Down> <NOP>
+vnoremap <S-UP> <NOP>
+vnoremap <S-Down> <NOP>
 nnoremap <esc><esc> :nohlsearch<cr>
 nnoremap <BS> :e#<cr>
-xnoremap p "_dP
+
 map <Tab> gt
 nmap <leader>t :CtrlP<cr>
 nmap <leader>u :Undoquit<cr>
