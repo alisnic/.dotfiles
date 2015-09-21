@@ -11,6 +11,7 @@ export PATH=~/bin:$PATH
 export GOPATH=~/.go
 export PGDATA=/usr/local/var/postgres
 export NVM_DIR=~/.nvm
+export ANDROID_HOME=/usr/local/opt/android-sdk
 
 source $ZSH/oh-my-zsh.sh
 
