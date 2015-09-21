@@ -17,6 +17,7 @@ Plug 'ton/vim-bufsurf'
 Plug 'tpope/vim-bundler'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-endwise'
+Plug 'jszakmeister/vim-togglecursor'
 
 Plug 'scrooloose/syntastic'
   let g:syntastic_check_on_wq = 1
