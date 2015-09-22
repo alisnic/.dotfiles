@@ -2,12 +2,10 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
-
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 Plug 'pangloss/vim-javascript'
 Plug 'elixir-lang/vim-elixir'
-
 Plug 'tomtom/tcomment_vim'
 Plug 'terryma/vim-expand-region'
 Plug 'cyphactor/vim-open-alternate'
@@ -84,7 +82,7 @@ set expandtab
 set shiftwidth=2
 set nu
 set clipboard+=unnamedplus
-set t_ut= " improve screen clearing by using the background color
+" set t_ut= " improve screen clearing by using the background color
 set cul
 " set cuc
 " Searching
@@ -103,9 +101,9 @@ set noruler
 set noshowcmd
 set laststatus=0
 
-let $TERM='screen-256color'
-let &t_AB="\e[48;5;%dm"
-let &t_AF="\e[38;5;%dm"
+" let $TERM='screen-256color'
+" let &t_AB="\e[48;5;%dm"
+" let &t_AF="\e[38;5;%dm"
 let mapleader = "\<Space>"
 
 cabbrev cpr :silent !cpr
@@ -115,7 +113,7 @@ cabbrev help tab help
 autocmd FileType nerdtree nmap <buffer> <left> x
 autocmd FileType nerdtree nmap <buffer> <right> <cr>
 
-map <c-c> <esc>
+map <c-c> :nohlsearch<cr>
 map <C-t> :NERDTreeToggle<cr>
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -125,13 +123,13 @@ nnoremap <S-UP> <NOP>
 nnoremap <S-Down> <NOP>
 vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
-nnoremap <esc><esc> :nohlsearch<cr>
 nnoremap <BS> :e#<cr>
 
-map <Tab> gt
+nmap <Tab> gt
+nmap <S-Tab> gT
 nmap <leader>t :CtrlP<cr>
-nmap <leader>u :Undoquit<cr>
-nmap <leader>w :q<cr>
+" nmap <leader>u :Undoquit<cr>
+nmap <leader>w :tabclose<cr>
 nmap <leader><left> gT
 nmap <leader><right> gt
 nmap <leader>a ggVG<cr>
@@ -161,3 +159,4 @@ endfunction
 nmap <leader>p :call SearchInTags()<cr>
 
 nnoremap <leader><leader> :OpenAlternate<cr>
+set laststatus=0
