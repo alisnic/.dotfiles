@@ -64,7 +64,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 se t_Co=256
 syntax enable
 filetype plugin indent on
-" set background=dark
 colorscheme monokai
 
 set mouse=a
@@ -82,7 +81,6 @@ set expandtab
 set shiftwidth=2
 set nu
 set clipboard+=unnamedplus
-" set t_ut= " improve screen clearing by using the background color
 set cul
 " set cuc
 " Searching
@@ -101,19 +99,15 @@ set noruler
 set noshowcmd
 set laststatus=0
 
-" let $TERM='screen-256color'
-" let &t_AB="\e[48;5;%dm"
-" let &t_AF="\e[38;5;%dm"
 let mapleader = "\<Space>"
 
-cabbrev cpr :silent !cpr
 cabbrev te tabedit
 cabbrev help tab help
 
 autocmd FileType nerdtree nmap <buffer> <left> x
 autocmd FileType nerdtree nmap <buffer> <right> <cr>
 
-map <c-c> :nohlsearch<cr>
+map <esc><esc> :nohlsearch<cr>
 map <C-t> :NERDTreeToggle<cr>
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -124,16 +118,16 @@ nnoremap <S-Down> <NOP>
 vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
 nnoremap <BS> :e#<cr>
+nnoremap <leader><leader> :OpenAlternate<cr>
 
 nmap <Tab> gt
 nmap <S-Tab> gT
 nmap <leader>t :CtrlP<cr>
 " nmap <leader>u :Undoquit<cr>
 nmap <leader>w :tabclose<cr>
-nmap <leader><left> gT
-nmap <leader><right> gt
 nmap <leader>a ggVG<cr>
 nmap <leader>] <C-]>
+nmap <leader> <C-w><C-]><C-w>T
 nmap <leader>[ :pop<cr>
 nmap <leader>d g]
 nmap <leader>/ :TComment<cr>
@@ -157,6 +151,3 @@ function! SearchInTags()
   exec ":tselect " . query
 endfunction
 nmap <leader>p :call SearchInTags()<cr>
-
-nnoremap <leader><leader> :OpenAlternate<cr>
-set laststatus=0

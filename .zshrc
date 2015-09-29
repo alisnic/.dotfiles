@@ -15,15 +15,13 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 
 source $ZSH/oh-my-zsh.sh
 
-alias install="brew install"
-alias extract="tar xf"
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
-alias g='git'
 alias mux='tmux new-session -s `basename \`pwd\``'
 alias be='bundle exec'
 alias focusvim="osascript -e 'activate application \"MacVim\"'"
 alias sp='bin/spring'
+alias rm='trash'
 
 source /usr/local/opt/nvm/nvm.sh
 source /usr/local/opt/chruby/share/chruby/chruby.sh

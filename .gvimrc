@@ -22,15 +22,11 @@ map <D-w> :tabclose<cr>
 imap <D-t> <ESC>:CtrlP<CR>
 nmap <D-/> :TComment<cr>
 vmap <D-/> gc
-nmap <C-Left> gT
-nmap <C-Right> gt
-nmap <C-Up> [m
-nmap <C-Down> ]m
+nmap <D-Left> gT
+nmap <D-Right> gt
 map <D-F> :call SearchInFiles()<cr>
 map <D-]> <C-]>
 map <D-}> <C-w><C-]><C-w>T
 map <D-[> :pop<cr>
-
-map <ESC> :ccl<cr>
 map <D-p> :CtrlPTag<cr>
 
