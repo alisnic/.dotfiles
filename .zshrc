@@ -22,6 +22,7 @@ alias be='bundle exec'
 alias focusvim="osascript -e 'activate application \"MacVim\"'"
 alias sp='bin/spring'
 alias rm='trash'
+alias gentags="ctags -R --tag-relative -f .git/tags"
 
 source /usr/local/opt/nvm/nvm.sh
 source /usr/local/opt/chruby/share/chruby/chruby.sh
