@@ -6,6 +6,7 @@ set clipboard=unnamed
 set showtabline=2
 set laststatus=0
 set mouse=a
+set noballooneval
 
 macmenu &Tools.Make key=<nop>
 macmenu &File.Close key=<nop>
