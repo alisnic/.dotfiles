@@ -5,7 +5,7 @@ LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 
 export EDITOR='nvim'
-export JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home'
+export JAVA_HOME=$(/usr/libexec/java_home)
 export JRUBY_OPTS='-Xcompile.invokedynamic=false -J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=1 -J-noverify -Xcompile.mode=OFF'
 export PATH=~/bin:$PATH
 export GOPATH=~/.go
@@ -23,6 +23,7 @@ alias focusvim="osascript -e 'activate application \"MacVim\"'"
 alias sp='bin/spring'
 alias rm='trash'
 alias gentags="ctags -R --tag-relative -f .git/tags"
+alias native-packager='node_modules/react-native/packager/launchPackager.command ; exit;'
 
 source /usr/local/opt/nvm/nvm.sh
 source /usr/local/opt/chruby/share/chruby/chruby.sh
