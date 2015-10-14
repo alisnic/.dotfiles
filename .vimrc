@@ -10,12 +10,17 @@ Plug 'tomtom/tcomment_vim'
 Plug 'terryma/vim-expand-region'
 Plug 'cyphactor/vim-open-alternate'
 Plug 'sickill/vim-monokai'
-Plug 'ton/vim-bufsurf'
+Plug 'godlygeek/tabular'
 " Enable tags from ruby gems
 Plug 'tpope/vim-bundler'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-endwise'
-Plug 'jszakmeister/vim-togglecursor'
+
+if has('nvim')
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+else
+  Plug 'jszakmeister/vim-togglecursor'
+endif
 
 Plug 'scrooloose/syntastic'
   let g:syntastic_check_on_wq = 1
