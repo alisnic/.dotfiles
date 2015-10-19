@@ -2,10 +2,6 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-haml'
-Plug 'kchmck/vim-coffee-script'
-Plug 'pangloss/vim-javascript'
-Plug 'elixir-lang/vim-elixir'
 Plug 'tomtom/tcomment_vim'
 Plug 'terryma/vim-expand-region'
 Plug 'cyphactor/vim-open-alternate'
@@ -15,6 +11,13 @@ Plug 'godlygeek/tabular'
 Plug 'tpope/vim-bundler'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-endwise'
+
+"Lang support
+Plug 'vim-ruby/vim-ruby'
+Plug 'elixir-lang/vim-elixir'
+Plug 'tpope/vim-haml'
+Plug 'kchmck/vim-coffee-script'
+Plug 'pangloss/vim-javascript'
 
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
@@ -97,6 +100,8 @@ set smartcase
 set exrc   " enable per-directory .vimrc files
 set secure " disable unsafe commands in local .vimrc files
 set colorcolumn=80
+set ttyfast
+set lazyredraw
 
 " Hide the status line
 set noshowmode
