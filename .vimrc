@@ -11,6 +11,8 @@ Plug 'godlygeek/tabular'
 Plug 'tpope/vim-bundler'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-endwise'
+Plug 'xiaogaozi/easy-gitlab.vim'
+  let g:easy_gitlab_url = 'https://git.saltedge.com'
 
 "Lang support
 Plug 'vim-ruby/vim-ruby'
@@ -33,16 +35,14 @@ Plug 'gcmt/tube.vim'
 
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'kien/ctrlp.vim'
+  let g:ctrlp_show_hidden = 1
   let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
   let g:ctrlp_prompt_mappings = {
         \ 'AcceptSelection("e")': ['<c-t>'],
         \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
         \ }
 
-  " let g:ctrlp_mru_files = 1              " Enable Most Recently Used files feature
-  " let g:ctrlp_jump_to_buffer = 2         " Jump to tab AND buffer if already open
   let g:ctrlp_clear_cache_on_exit=1
-  " let g:ctrlp_use_caching = 0
   if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   endif
@@ -101,7 +101,7 @@ set exrc   " enable per-directory .vimrc files
 set secure " disable unsafe commands in local .vimrc files
 set colorcolumn=80
 set ttyfast
-set lazyredraw
+" set lazyredraw
 
 " Hide the status line
 set noshowmode
@@ -112,6 +112,7 @@ set laststatus=0
 let mapleader = "\<Space>"
 
 cabbrev te tabedit
+cabbrev qq tabclose
 cabbrev help tab help
 
 autocmd FileType nerdtree nmap <buffer> <left> x
@@ -133,13 +134,15 @@ nnoremap <leader><leader> :OpenAlternate<cr>
 nmap <Tab> gt
 nmap <S-Tab> gT
 nmap <leader>t :CtrlP<cr>
-" nmap <leader>u :Undoquit<cr>
-nmap <leader>w :tabclose<cr>
+" nmap <leader>w :tabclose<cr>
 nmap <leader>a ggVG<cr>
-nmap <leader>] <C-]>
-nmap <leader> <C-w><C-]><C-w>T
-nmap <leader>[ :pop<cr>
-nmap <leader>d g]
+" nmap <leader>] <C-]>
+" nmap <leader> <C-w><C-]><C-w>T
+" nmap <leader>[ :pop<cr>
+nmap <leader>d <C-w><C-]><C-w>T
+vmap <leader>d <C-w><C-]><C-w>T
+nmap <leader>D g]
+vmap <leader>D g]
 nmap <leader>/ :TComment<cr>
 vmap <leader>/ gc
 nmap <leader>r :NERDTreeFind<cr>
