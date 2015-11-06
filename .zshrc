@@ -4,17 +4,17 @@ ZSH_THEME=amuse
 LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 
-export EDITOR='nvim'
+export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
 export JAVA_HOME=$(/usr/libexec/java_home)
-export JRUBY_OPTS='-Xcompile.invokedynamic=false -J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=1 -J-noverify -Xcompile.mode=OFF'
+# export JRUBY_OPTS='-Xcompile.invokedynamic=false -J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=1 -J-noverify -Xcompile.mode=OFF'
 export PATH=~/bin:$PATH
-export GOPATH=~/.go
+# export GOPATH=~/.go
 export PGDATA=/usr/local/var/postgres
-export NVM_DIR=~/.nvm
 export ANDROID_HOME=/usr/local/opt/android-sdk
 
 source $ZSH/oh-my-zsh.sh
 
+alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
 alias mux='tmux new-session -s `basename \`pwd\``'
@@ -25,14 +25,12 @@ alias rm='trash'
 alias gentags="ctags -R --tag-relative -f .git/tags"
 alias native-packager='node_modules/react-native/packager/launchPackager.command ; exit;'
 
-source /usr/local/opt/nvm/nvm.sh
+# export NVM_DIR=~/.nvm
+# source /usr/local/opt/nvm/nvm.sh
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
+# source /usr/local/opt/chruby/share/chruby/auto.sh
 chruby 2.2.3
 
-zstyle ':completion:*' accept-exact '*(N)'
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 

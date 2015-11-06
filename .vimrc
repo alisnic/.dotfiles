@@ -58,6 +58,8 @@ Plug 'mileszs/ack.vim'
     let g:ackprg = 'ag --vimgrep'
   endif
 
+Plug 'altercation/vim-colors-solarized'
+
 call plug#end()
 
 au BufRead,BufNewFile *.hamlc set ft=haml
@@ -69,10 +71,12 @@ endif
 " Delete trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-se t_Co=256
+" se t_Co=256
 syntax enable
 filetype plugin indent on
-colorscheme monokai
+set background=light
+colorscheme solarized
+" colorscheme grb256
 
 set mouse=a
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
@@ -101,13 +105,19 @@ set exrc   " enable per-directory .vimrc files
 set secure " disable unsafe commands in local .vimrc files
 set colorcolumn=80
 set ttyfast
-" set lazyredraw
 
 " Hide the status line
 set noshowmode
 set noruler
 set noshowcmd
 set laststatus=0
+
+" PERFORMANCE
+let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
+set nocursorcolumn      " Don't paint cursor column
+set lazyredraw          " Wait to redraw
+set scrolljump=8        " Scroll 8 lines at a time at bottom/top
+let html_no_rendering=1 " Don't render italic, bold, links in HTML
 
 let mapleader = "\<Space>"
 
@@ -130,6 +140,16 @@ vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
 nnoremap <BS> :e#<cr>
 nnoremap <leader><leader> :OpenAlternate<cr>
+
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
 
 nmap <Tab> gt
 nmap <S-Tab> gT
