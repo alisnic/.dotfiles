@@ -79,6 +79,7 @@ colorscheme solarized
 " colorscheme grb256
 
 set mouse=a
+set nofoldenable
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set guitablabel=%t
 set list listchars=trail:-,tab:>-
