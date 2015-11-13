@@ -14,6 +14,8 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 
 source $ZSH/oh-my-zsh.sh
 
+alias brails='bin/rails'
+alias brake='bin/rake'
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
