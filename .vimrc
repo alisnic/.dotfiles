@@ -27,8 +27,8 @@ else
   Plug 'jszakmeister/vim-togglecursor'
 endif
 
-Plug 'scrooloose/syntastic'
-  let g:syntastic_check_on_wq = 1
+" Plug 'scrooloose/syntastic'
+"   let g:syntastic_check_on_wq = 1
 
 Plug 'gcmt/tube.vim'
   let g:tube_terminal = "iterm"
@@ -112,6 +112,10 @@ set noshowmode
 set noruler
 set noshowcmd
 set laststatus=0
+
+" Undo
+set undofile
+set undodir=$HOME/.vim/undo
 
 " PERFORMANCE
 let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
