@@ -2,12 +2,14 @@
 :set guioptions-=L  "remove left-hand scroll bar
 
 set guifont=Inconsolata-g_for_Powerline:h14
+set linespace=-3
+" set guifont=Fira\ Code:h14
+" set macligatures
 set clipboard=unnamed
 set showtabline=2
 set laststatus=0
 set mouse=a
 set noballooneval
-set linespace=-3
 
 macmenu &Tools.Make key=<nop>
 macmenu &File.Close key=<nop>
@@ -25,8 +27,6 @@ imap <D-t> <ESC>:CtrlP<CR>
 nmap <D-/> :TComment<cr>
 vmap <D-/> gc
 map <D-F> :call SearchInFiles()<cr>
-map <C-}> <C-w><C-]><C-w>T
-map <C-[> :pop<cr>
 map <D-p> :CtrlPTag<cr>
 map <D-]> gt
 map <D-[> gT
