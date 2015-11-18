@@ -5,7 +5,6 @@ Plug 'tpope/vim-sensible'
 Plug 'tomtom/tcomment_vim'
 Plug 'terryma/vim-expand-region'
 Plug 'cyphactor/vim-open-alternate'
-Plug 'sickill/vim-monokai'
 Plug 'godlygeek/tabular'
 " Enable tags from ruby gems
 Plug 'tpope/vim-bundler'
@@ -14,7 +13,7 @@ Plug 'tpope/vim-endwise'
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
 
-"Lang support
+" Lang support
 Plug 'vim-ruby/vim-ruby'
 Plug 'elixir-lang/vim-elixir'
 Plug 'tpope/vim-haml'
@@ -26,9 +25,6 @@ if has('nvim')
 else
   Plug 'jszakmeister/vim-togglecursor'
 endif
-
-" Plug 'scrooloose/syntastic'
-"   let g:syntastic_check_on_wq = 1
 
 Plug 'gcmt/tube.vim'
   let g:tube_terminal = "iterm"
@@ -59,55 +55,54 @@ Plug 'mileszs/ack.vim'
   endif
 
 Plug 'altercation/vim-colors-solarized'
-
 call plug#end()
 
-au BufRead,BufNewFile *.hamlc set ft=haml
-" Open files where we left off
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-        \| exe "normal! g'\"" | endif
-endif
 " Delete trailing spaces on save
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+  \| exe "normal! g'\"" | endif
 autocmd BufWritePre * :%s/\s\+$//e
+autocmd FileType nerdtree nmap <buffer> <left> x
+autocmd FileType nerdtree nmap <buffer> <right> <cr>
 
 " se t_Co=256
 syntax enable
 filetype plugin indent on
 set background=light
 colorscheme solarized
-" colorscheme grb256
 
 set mouse=a
-set nofoldenable
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set guitablabel=%t
 set list listchars=trail:-,tab:>-
 set tags=.git/tags
 set backspace=indent,eol,start
 set enc=utf-8
-set nobackup
-set nowritebackup
-set noswapfile
-set tabstop=2
-set expandtab
-set shiftwidth=2
 set nu
 set clipboard+=unnamedplus
 set cul
-" set cuc
-" Searching
+
+" Filesystem
+set nobackup
+set nowritebackup
+set noswapfile
+
+" Indent
+set tabstop=2
+set expandtab
+set shiftwidth=2
+
+" Search
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-" Enable per-project vimrcs
+
+" Per-project vimrcs
 set exrc   " enable per-directory .vimrc files
 set secure " disable unsafe commands in local .vimrc files
 set colorcolumn=80
-set ttyfast
 
-" Hide the status line
+" Status line
 set noshowmode
 set noruler
 set noshowcmd
@@ -119,19 +114,18 @@ set undodir=$HOME/.vim/undo
 
 " PERFORMANCE
 let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
+set ttyfast
 set nocursorcolumn      " Don't paint cursor column
 set lazyredraw          " Wait to redraw
 set scrolljump=8        " Scroll 8 lines at a time at bottom/top
 let html_no_rendering=1 " Don't render italic, bold, links in HTML
+set nofoldenable
 
 let mapleader = "\<Space>"
 
 cabbrev te tabedit
 cabbrev qq tabclose
 cabbrev help tab help
-
-autocmd FileType nerdtree nmap <buffer> <left> x
-autocmd FileType nerdtree nmap <buffer> <right> <cr>
 
 map <esc><esc> :nohlsearch<cr>
 map <C-t> :NERDTreeToggle<cr>
@@ -159,11 +153,7 @@ noremap <leader>9 9gt
 nmap <Tab> gt
 nmap <S-Tab> gT
 nmap <leader>t :CtrlP<cr>
-" nmap <leader>w :tabclose<cr>
 nmap <leader>a ggVG<cr>
-" nmap <leader>] <C-]>
-" nmap <leader> <C-w><C-]><C-w>T
-" nmap <leader>[ :pop<cr>
 nmap <leader>d <C-w><C-]><C-w>T
 vmap <leader>d <C-w><C-]><C-w>T
 nmap <leader>D g]
@@ -180,12 +170,3 @@ function! SearchInFiles()
   exec ":tabedit | Ack " . query
 endfunction
 nmap <leader>s :call SearchInFiles()<cr>
-
-function! SearchInTags()
-  let query = input('Search in tags: ')
-  if len(query) == 0
-    return
-  endif
-  exec ":tselect " . query
-endfunction
-nmap <leader>p :call SearchInTags()<cr>
