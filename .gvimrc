@@ -28,10 +28,14 @@ nmap <D-/> :TComment<cr>
 vmap <D-/> gc
 map <D-F> :call SearchInFiles()<cr>
 map <D-p> :CtrlPTag<cr>
-map <D-]> gt
-map <D-[> gT
-map <D-}> gt
-map <D-{> gT
+
+" Tab navigation
+nmap <D-]> gt
+imap <D-]> <esc>gt
+nmap <D-[> gT
+imap <D-[> <esc>gT
+" map <D-}> gt
+" map <D-{> gT
 map <D-Up> <C-u>
 map <D-Down> <C-d>
 
