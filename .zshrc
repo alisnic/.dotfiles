@@ -14,8 +14,8 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 
 source $ZSH/oh-my-zsh.sh
 
-alias brails='bin/rails'
-alias brake='bin/rake'
+alias brails='bin/spring rails'
+alias brake='bin/spring rake'
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
@@ -27,11 +27,8 @@ alias rm='trash'
 alias gentags="ctags -R --tag-relative -f .git/tags"
 alias native-packager='node_modules/react-native/packager/launchPackager.command ; exit;'
 
-# export NVM_DIR=~/.nvm
-# source /usr/local/opt/nvm/nvm.sh
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-# source /usr/local/opt/chruby/share/chruby/auto.sh
-chruby 2.2.3
+chruby 2.2.4
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
