@@ -133,12 +133,26 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 " I don't use macros
 nmap q b
+nmap ; :
 nnoremap <S-UP> <NOP>
 nnoremap <S-Down> <NOP>
 vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
 nnoremap <BS> :e#<cr>
 nnoremap <leader><leader> :OpenAlternate<cr>
+
+" map paste, yank and delete to named register so the content
+" will not be overwritten
+nnoremap d "xd
+vnoremap d "xd
+nnoremap D "xD
+vnoremap D "xD
+nnoremap y "xy
+vnoremap y "xy
+nnoremap p "xp
+vnoremap p "xp
+nnoremap P "xP
+vnoremap P "xP
 
 noremap <leader>1 1gt
 noremap <leader>2 2gt
