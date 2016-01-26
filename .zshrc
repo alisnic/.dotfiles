@@ -26,6 +26,7 @@ alias sp='bin/spring'
 alias rm='trash'
 alias gentags="ctags -R --tag-relative -f .git/tags"
 alias native-packager='node_modules/react-native/packager/launchPackager.command ; exit;'
+alias gitx='reattach-to-user-namespace gitx'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.2.4
