@@ -24,7 +24,6 @@ alias be='bundle exec'
 alias focusvim="osascript -e 'activate application \"MacVim\"'"
 alias sp='bin/spring'
 alias rm='trash'
-alias gentags="ctags -R --tag-relative -f .git/tags"
 alias native-packager='node_modules/react-native/packager/launchPackager.command ; exit;'
 alias gitx='reattach-to-user-namespace gitx'
 
@@ -37,4 +36,11 @@ export PATH="/usr/local/heroku/bin:$PATH"
 function git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
   echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+}
+
+function gentags() {
+  echo "Exporting tags..."
+  ctags -R --tag-relative -f .git/tags
+  echo "Exporting cscope..."
+  starscope -e cscope .git/cscope.out
 }
