@@ -3,7 +3,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
 Plug 'tomtom/tcomment_vim'
-Plug 'terryma/vim-expand-region'
 Plug 'cyphactor/vim-open-alternate'
 Plug 'godlygeek/tabular'
 " Enable tags from ruby gems
@@ -13,22 +12,31 @@ Plug 'tpope/vim-endwise'
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
 
+Plug 'terryma/vim-expand-region'
+  let g:expand_region_text_objects = {
+        \ 't.'  :1,
+        \ 'iw'  :0,
+        \ 'iW'  :0,
+        \ 'i"'  :0,
+        \ 'i''' :0,
+        \ 'i]'  :1,
+        \ 'ib'  :1,
+        \ 'iB'  :1,
+        \ 'il'  :0,
+        \ 'ip'  :0,
+        \ 'ie'  :0,
+        \ }
+
 " Lang support
 Plug 'vim-ruby/vim-ruby'
 Plug 'elixir-lang/vim-elixir'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 Plug 'pangloss/vim-javascript'
+Plug 'elzr/vim-json'
+  let g:vim_json_syntax_conceal = 0
 
-if has('nvim')
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-else
-  Plug 'jszakmeister/vim-togglecursor'
-endif
-
-Plug 'gcmt/tube.vim'
-  let g:tube_terminal = "iterm"
-
+Plug 'jszakmeister/vim-togglecursor'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'kien/ctrlp.vim'
   let g:ctrlp_show_hidden = 1
@@ -47,6 +55,10 @@ Plug 'alisnic/YouCompleteMe'
   let g:ycm_collect_identifiers_from_tags_files = 1
   let g:ycm_min_num_of_chars_for_completion = 3
   let g:ycm_collect_identifiers_from_comments_and_strings = 1
+  let g:ycm_seed_identifiers_with_syntax = 1
+
+Plug 'gcmt/tube.vim'
+  let g:tube_terminal = "iterm"
 
 Plug 'mileszs/ack.vim'
   let g:ackpreview = 1
@@ -154,16 +166,6 @@ vnoremap p "xp
 nnoremap P "xP
 vnoremap P "xP
 
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-
 nmap <Tab> gt
 nmap <S-Tab> gT
 nmap <leader>t :CtrlP<cr>
@@ -175,6 +177,7 @@ vmap <leader>D g]
 nmap <leader>/ :TComment<cr>
 vmap <leader>/ gc
 nmap <leader>r :NERDTreeFind<cr>
+nmap <leader>u :cs find c <C-R>=expand("<cword>")<CR><CR>
 
 function! SearchInFiles()
   let query = input('Search in files: ')
