@@ -12,6 +12,11 @@ Plug 'tpope/vim-endwise'
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
 
+Plug 'easymotion/vim-easymotion'
+  map <Leader>e <Plug>(easymotion-prefix)
+
+Plug 'haya14busa/incsearch.vim'
+
 Plug 'terryma/vim-expand-region'
   let g:expand_region_text_objects = {
         \ 't.'  :1,
@@ -141,6 +146,7 @@ cabbrev help tab help
 
 map <esc><esc> :nohlsearch<cr>
 map <C-t> :NERDTreeToggle<cr>
+map / <Plug>(incsearch-forward)
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 " I don't use macros
@@ -151,7 +157,6 @@ nnoremap <S-Down> <NOP>
 vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
 nnoremap <BS> :e#<cr>
-nnoremap <leader><leader> :OpenAlternate<cr>
 
 " map paste, yank and delete to named register so the content
 " will not be overwritten
@@ -166,7 +171,7 @@ vnoremap p "xp
 nnoremap P "xP
 vnoremap P "xP
 
-nmap <Tab> gt
+nmap <Tab> <Plug>(easymotion-bd-jk)
 nmap <S-Tab> gT
 nmap <leader>t :CtrlP<cr>
 nmap <leader>a ggVG<cr>
@@ -178,6 +183,7 @@ nmap <leader>/ :TComment<cr>
 vmap <leader>/ gc
 nmap <leader>r :NERDTreeFind<cr>
 nmap <leader>u :cs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader><leader> :OpenAlternate<cr>
 
 function! SearchInFiles()
   let query = input('Search in files: ')
