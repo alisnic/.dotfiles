@@ -6,9 +6,7 @@ LC_ALL="en_US.UTF-8"
 
 export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
 export JAVA_HOME=$(/usr/libexec/java_home)
-# export JRUBY_OPTS='-Xcompile.invokedynamic=false -J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=1 -J-noverify -Xcompile.mode=OFF'
 export PATH=~/bin:$PATH
-# export GOPATH=~/.go
 export PGDATA=/usr/local/var/postgres
 export ANDROID_HOME=/usr/local/opt/android-sdk
 
@@ -42,5 +40,5 @@ function gentags() {
   echo "Exporting tags..."
   ctags -R --tag-relative -f .git/tags
   echo "Exporting cscope..."
-  starscope -e cscope .git/cscope.out
+  starscope -e cscope,.git/cscope.out
 }
