@@ -9,13 +9,9 @@ Plug 'godlygeek/tabular'
 Plug 'tpope/vim-bundler'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-endwise'
+Plug 'haya14busa/incsearch.vim'
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
-
-Plug 'easymotion/vim-easymotion'
-  map <Leader>e <Plug>(easymotion-prefix)
-
-Plug 'haya14busa/incsearch.vim'
 
 Plug 'terryma/vim-expand-region'
   let g:expand_region_text_objects = {
@@ -171,8 +167,6 @@ vnoremap p "xp
 nnoremap P "xP
 vnoremap P "xP
 
-nmap <Tab> <Plug>(easymotion-bd-jk)
-nmap <S-Tab> gT
 nmap <leader>t :CtrlP<cr>
 nmap <leader>a ggVG<cr>
 nmap <leader>d <C-w><C-]><C-w>T
