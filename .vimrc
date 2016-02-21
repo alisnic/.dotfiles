@@ -2,14 +2,14 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'cyphactor/vim-open-alternate'
 Plug 'godlygeek/tabular'
-" Enable tags from ruby gems
-Plug 'tpope/vim-bundler'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-endwise'
 Plug 'haya14busa/incsearch.vim'
+Plug 'jszakmeister/vim-togglecursor'
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
 
@@ -37,7 +37,6 @@ Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
   let g:vim_json_syntax_conceal = 0
 
-Plug 'jszakmeister/vim-togglecursor'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'kien/ctrlp.vim'
   let g:ctrlp_show_hidden = 1
@@ -52,13 +51,13 @@ Plug 'kien/ctrlp.vim'
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   endif
 
-Plug 'alisnic/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
   let g:ycm_collect_identifiers_from_tags_files = 1
   let g:ycm_min_num_of_chars_for_completion = 3
   let g:ycm_collect_identifiers_from_comments_and_strings = 1
   let g:ycm_seed_identifiers_with_syntax = 1
 
-Plug 'gcmt/tube.vim'
+Plug 'alisnic/tube.vim'
   let g:tube_terminal = "iterm"
 
 Plug 'mileszs/ack.vim'
