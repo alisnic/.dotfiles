@@ -6,12 +6,17 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'cyphactor/vim-open-alternate'
 Plug 'godlygeek/tabular'
-Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-endwise'
 Plug 'haya14busa/incsearch.vim'
 Plug 'jszakmeister/vim-togglecursor'
+Plug 'blueyed/vim-diminactive'
+
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
+
+Plug 'scrooloose/nerdtree'
+  autocmd FileType nerdtree nmap <buffer> <left> x
+  autocmd FileType nerdtree nmap <buffer> <right> <cr>
 
 Plug 'terryma/vim-expand-region'
   let g:expand_region_text_objects = {
@@ -73,8 +78,6 @@ call plug#end()
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
   \| exe "normal! g'\"" | endif
 autocmd BufWritePre * :%s/\s\+$//e
-autocmd FileType nerdtree nmap <buffer> <left> x
-autocmd FileType nerdtree nmap <buffer> <right> <cr>
 
 " se t_Co=256
 syntax enable
@@ -89,7 +92,6 @@ set list listchars=trail:-,tab:>-
 set tags=.git/tags
 set backspace=indent,eol,start
 set enc=utf-8
-set nu
 set clipboard+=unnamedplus
 set cul
 
@@ -176,6 +178,7 @@ nmap <leader>/ :TComment<cr>
 vmap <leader>/ gc
 nmap <leader>r :NERDTreeFind<cr>
 nmap <leader>u :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>ln :setlocal nu!<cr>
 nnoremap <leader><leader> :OpenAlternate<cr>
 
 function! SearchInFiles()
