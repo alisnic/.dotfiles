@@ -10,6 +10,7 @@ Plug 'tpope/vim-endwise'
 Plug 'haya14busa/incsearch.vim'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'blueyed/vim-diminactive'
+Plug 'bogado/file-line'
 
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
@@ -127,7 +128,6 @@ set undofile
 set undodir=$HOME/.vim/undo
 
 " PERFORMANCE
-let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
 set ttyfast
 set nocursorcolumn      " Don't paint cursor column
 set lazyredraw          " Wait to redraw

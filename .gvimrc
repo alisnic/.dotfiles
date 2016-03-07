@@ -11,6 +11,8 @@ set laststatus=0
 set mouse=a
 set noballooneval
 
+hi MatchParen guibg=lightgrey guifg=NONE
+
 macmenu &Tools.Make key=<nop>
 macmenu &File.Close key=<nop>
 macmenu &File.New\ Window key=<D-S-n>
@@ -28,6 +30,9 @@ nmap <D-/> :TComment<cr>
 vmap <D-/> gc
 map <D-F> :call SearchInFiles()<cr>
 map <D-p> :CtrlPTag<cr>
+
+" Mouse bindings
+nmap <C-LeftMouse> <LeftMouse>vvt.<leader>d
 
 " Tab navigation
 nmap <D-]> gt
