@@ -9,8 +9,10 @@ Plug 'godlygeek/tabular'
 Plug 'tpope/vim-endwise'
 Plug 'haya14busa/incsearch.vim'
 Plug 'jszakmeister/vim-togglecursor'
-Plug 'blueyed/vim-diminactive'
+" Plug 'blueyed/vim-diminactive'
 Plug 'bogado/file-line'
+Plug 'jiangmiao/auto-pairs'
+Plug 'rhysd/devdocs.vim'
 
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
@@ -140,6 +142,7 @@ let mapleader = "\<Space>"
 cabbrev te tabedit
 cabbrev qq tabclose
 cabbrev help tab help
+cabbrev doc DevDocs
 
 map <esc><esc> :nohlsearch<cr>
 map <C-t> :NERDTreeToggle<cr>
