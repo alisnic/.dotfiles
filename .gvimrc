@@ -3,8 +3,6 @@
 
 set guifont=Inconsolata-g_for_Powerline:h14
 set linespace=-3
-" set guifont=Fira\ Code:h14
-" set macligatures
 set clipboard=unnamed
 set showtabline=2
 set laststatus=0
@@ -39,8 +37,6 @@ nmap <D-]> gt
 imap <D-]> <esc>gt
 nmap <D-[> gT
 imap <D-[> <esc>gT
-" map <D-}> gt
-" map <D-{> gT
 map <D-Up> <C-u>
 map <D-Down> <C-d>
 
