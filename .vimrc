@@ -9,7 +9,6 @@ Plug 'godlygeek/tabular'
 Plug 'tpope/vim-endwise'
 Plug 'haya14busa/incsearch.vim'
 Plug 'jszakmeister/vim-togglecursor'
-" Plug 'blueyed/vim-diminactive'
 Plug 'bogado/file-line'
 Plug 'jiangmiao/auto-pairs'
 Plug 'rhysd/devdocs.vim'
@@ -20,6 +19,7 @@ Plug 'xiaogaozi/easy-gitlab.vim'
 Plug 'scrooloose/nerdtree'
   autocmd FileType nerdtree nmap <buffer> <left> x
   autocmd FileType nerdtree nmap <buffer> <right> <cr>
+  let NERDTreeShowHidden=1
 
 Plug 'terryma/vim-expand-region'
   let g:expand_region_text_objects = {
@@ -55,10 +55,12 @@ Plug 'kien/ctrlp.vim'
         \ }
 
   let g:ctrlp_clear_cache_on_exit=1
+  let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
   if executable('ag')
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
   endif
 
+Plug 'ternjs/tern_for_vim'
 Plug 'Valloric/YouCompleteMe'
   let g:ycm_collect_identifiers_from_tags_files = 1
   let g:ycm_min_num_of_chars_for_completion = 3
@@ -90,13 +92,13 @@ colorscheme solarized
 
 set mouse=a
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set guitablabel=%t
 set list listchars=trail:-,tab:>-
 set tags=.git/tags
 set backspace=indent,eol,start
 set enc=utf-8
 set clipboard+=unnamedplus
 set cul
+set completeopt-=preview
 
 " Filesystem
 set nobackup

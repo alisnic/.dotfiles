@@ -2,6 +2,7 @@
 :set guioptions-=L  "remove left-hand scroll bar
 
 set guifont=Inconsolata-g_for_Powerline:h14
+set guitablabel=%t
 set linespace=-3
 set clipboard=unnamed
 set showtabline=2
