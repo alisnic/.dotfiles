@@ -4,7 +4,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tomtom/tcomment_vim'
-Plug 'cyphactor/vim-open-alternate'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-endwise'
 Plug 'haya14busa/incsearch.vim'
@@ -45,6 +44,8 @@ Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
   let g:vim_json_syntax_conceal = 0
 
+Plug 'alisnic/vim-open-alternate'
+
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'kien/ctrlp.vim'
   let g:ctrlp_show_hidden = 1
@@ -55,13 +56,12 @@ Plug 'kien/ctrlp.vim'
         \ }
 
   let g:ctrlp_clear_cache_on_exit=1
-  let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
   if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
   endif
 
-Plug 'ternjs/tern_for_vim'
-Plug 'Valloric/YouCompleteMe'
+Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
+Plug 'Valloric/YouCompleteMe', {'do': 'python install.py --tern-completer'}
   let g:ycm_collect_identifiers_from_tags_files = 1
   let g:ycm_min_num_of_chars_for_completion = 3
   let g:ycm_collect_identifiers_from_comments_and_strings = 1
@@ -77,6 +77,7 @@ Plug 'mileszs/ack.vim'
   endif
 
 Plug 'altercation/vim-colors-solarized'
+Plug 'sickill/vim-monokai'
 call plug#end()
 
 " Delete trailing spaces on save
@@ -99,6 +100,7 @@ set enc=utf-8
 set clipboard+=unnamedplus
 set cul
 set completeopt-=preview
+set nu!
 
 " Filesystem
 set nobackup
@@ -154,6 +156,7 @@ vmap <C-v> <Plug>(expand_region_shrink)
 " I don't use macros
 nmap q b
 nmap ; :
+nmap § ``
 nnoremap <S-UP> <NOP>
 nnoremap <S-Down> <NOP>
 vnoremap <S-UP> <NOP>
@@ -184,7 +187,6 @@ vmap <leader>/ gc
 nmap <leader>r :NERDTreeFind<cr>
 nmap <leader>u :cs find c <C-R>=expand("<cword>")<CR><CR>
 nmap <leader>ln :setlocal nu!<cr>
-nnoremap <leader><leader> :OpenAlternate<cr>
 
 function! SearchInFiles()
   let query = input('Search in files: ')
@@ -194,3 +196,22 @@ function! SearchInFiles()
   exec ":tabedit | Ack " . query
 endfunction
 nmap <leader>s :call SearchInFiles()<cr>
+
+function! s:MagicSplit()
+  let l:width=winwidth(0)
+  if (l:width > 160)
+    :exec "vsplit " . GetAlternatePath()
+  else
+    :exec "tab drop " . GetAlternatePath()
+  endif
+endfunction
+command! SplitAlternate call s:MagicSplit()
+nnoremap <leader><leader> :SplitAlternate<cr>
+
+function! GetSpecPath()
+  if match(expand("%"), "spec") != -1
+    return expand("%")
+  else
+    return GetAlternatePath()
+  endif
+endfunction
