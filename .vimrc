@@ -11,6 +11,8 @@ Plug 'jszakmeister/vim-togglecursor'
 Plug 'bogado/file-line'
 Plug 'jiangmiao/auto-pairs'
 Plug 'rhysd/devdocs.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'itchyny/vim-cursorword'
 
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
@@ -85,9 +87,6 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
   \| exe "normal! g'\"" | endif
 autocmd BufWritePre * :%s/\s\+$//e
 
-" se t_Co=256
-syntax enable
-filetype plugin indent on
 set background=light
 colorscheme solarized
 
@@ -95,7 +94,6 @@ set mouse=a
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set list listchars=trail:-,tab:>-
 set tags=.git/tags
-set backspace=indent,eol,start
 set enc=utf-8
 set clipboard+=unnamedplus
 set cul
@@ -114,7 +112,6 @@ set shiftwidth=2
 
 " Search
 set hlsearch
-set incsearch
 set ignorecase
 set smartcase
 
@@ -134,9 +131,7 @@ set undofile
 set undodir=$HOME/.vim/undo
 
 " PERFORMANCE
-set ttyfast
 set nocursorcolumn      " Don't paint cursor column
-set lazyredraw          " Wait to redraw
 set scrolljump=8        " Scroll 8 lines at a time at bottom/top
 let html_no_rendering=1 " Don't render italic, bold, links in HTML
 set nofoldenable
@@ -177,7 +172,6 @@ nnoremap P "xP
 vnoremap P "xP
 
 nmap <leader>t :CtrlP<cr>
-nmap <leader>a ggVG<cr>
 nmap <leader>d <C-w><C-]><C-w>T
 vmap <leader>d <C-w><C-]><C-w>T
 nmap <leader>D g]
@@ -200,7 +194,7 @@ nmap <leader>s :call SearchInFiles()<cr>
 function! s:MagicSplit()
   let l:width=winwidth(0)
   if (l:width > 160)
-    :exec "vsplit " . GetAlternatePath()
+    :exec "botright vsplit " . GetAlternatePath()
   else
     :exec "tab drop " . GetAlternatePath()
   endif
