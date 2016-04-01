@@ -24,6 +24,7 @@ alias sp='bin/spring'
 alias rm='trash'
 alias native-packager='node_modules/react-native/packager/launchPackager.command ; exit;'
 alias gitx='reattach-to-user-namespace gitx'
+alias rebrew='brew update && brew upgrade --all && brew cleanup'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.2.4
