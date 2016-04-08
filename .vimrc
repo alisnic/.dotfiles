@@ -12,7 +12,11 @@ Plug 'bogado/file-line'
 Plug 'jiangmiao/auto-pairs'
 Plug 'rhysd/devdocs.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'itchyny/vim-cursorword'
+Plug 'alisnic/vim-open-alternate'
+
+if !has("gui_running")
+  Plug 'itchyny/vim-cursorword'
+endif
 
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
@@ -45,8 +49,6 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
   let g:vim_json_syntax_conceal = 0
-
-Plug 'alisnic/vim-open-alternate'
 
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'kien/ctrlp.vim'
@@ -94,7 +96,6 @@ set mouse=a
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set list listchars=trail:-,tab:>-
 set tags=.git/tags
-set enc=utf-8
 set clipboard+=unnamedplus
 set cul
 set completeopt-=preview

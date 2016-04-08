@@ -38,6 +38,4 @@ nmap <D-]> gt
 imap <D-]> <esc>gt
 nmap <D-[> gT
 imap <D-[> <esc>gT
-map <D-Up> <C-u>
-map <D-Down> <C-d>
 
