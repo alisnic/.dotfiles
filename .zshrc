@@ -4,11 +4,12 @@ ZSH_THEME=amuse
 LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 
-export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
+export EDITOR=nvim
 export JAVA_HOME=$(/usr/libexec/java_home)
 export PATH=~/bin:$PATH
 export PGDATA=/usr/local/var/postgres
 export ANDROID_HOME=/usr/local/opt/android-sdk
+export HOMEBREW_GITHUB_API_TOKEN=995128975d5615332b7aab40ecdda3cf11f03d8c
 
 source $ZSH/oh-my-zsh.sh
 
@@ -27,7 +28,7 @@ alias gitx='reattach-to-user-namespace gitx'
 alias rebrew='brew update && brew upgrade --all && brew cleanup'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby 2.2.4
+chruby 2.3.0
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
