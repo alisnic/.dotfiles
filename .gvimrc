@@ -5,10 +5,10 @@ set guifont=Inconsolata-g_for_Powerline:h14
 set guitablabel=%t
 set linespace=-3
 set clipboard=unnamed
-set showtabline=2
 set laststatus=0
 set mouse=a
 set noballooneval
+set showtabline=2
 
 hi MatchParen guibg=lightgrey guifg=NONE
 

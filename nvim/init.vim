@@ -3,12 +3,14 @@ call plug#begin('~/.vim/neoplugged')
 
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tomtom/tcomment_vim'
-Plug 'cyphactor/vim-open-alternate'
+Plug 'alisnic/vim-open-alternate'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-endwise'
 Plug 'haya14busa/incsearch.vim'
 Plug 'rhysd/devdocs.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'qpkorr/vim-bufkill'
+Plug 'tpope/vim-fugitive'
 
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
@@ -93,6 +95,7 @@ set enc=utf-8
 set clipboard+=unnamedplus
 set cul
 set completeopt-=preview
+set shell=bash
 
 " Filesystem
 set nobackup
@@ -132,6 +135,7 @@ cabbrev te tabedit
 cabbrev qq tabclose
 cabbrev help tab help
 cabbrev doc DevDocs
+cabbrev qt tabclose
 
 map <esc><esc> :nohlsearch<cr>
 map <C-t> :NERDTreeToggle<cr>
@@ -149,6 +153,7 @@ nnoremap <S-Down> <NOP>
 vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
 nnoremap <BS> :e#<cr>
+tnoremap <space> <C-\><C-n>:BW<cr>
 
 " map paste, yank and delete to named register so the content
 " will not be overwritten
@@ -174,7 +179,25 @@ vmap <leader>/ gc
 nmap <leader>r :NERDTreeFind<cr>
 nmap <leader>u :cs find c <C-R>=expand("<cword>")<CR><CR>
 nmap <leader>ln :setlocal nu!<cr>
-nnoremap <leader><leader> :OpenAlternate<cr>
+
+function! s:MagicSplit()
+  let l:width=winwidth(0)
+  if (l:width > 160)
+    :exec "botright vsplit " . GetAlternatePath()
+  else
+    :exec "tab drop " . GetAlternatePath()
+  endif
+endfunction
+command! SplitAlternate call s:MagicSplit()
+nnoremap <leader><leader> :SplitAlternate<cr>
+
+function! GetSpecPath()
+  if match(expand("%"), "spec") != -1
+    return expand("%")
+  else
+    return GetAlternatePath()
+  endif
+endfunction
 
 function! SearchInFiles()
   let query = input('Search in files: ')

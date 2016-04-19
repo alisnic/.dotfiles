@@ -13,10 +13,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'rhysd/devdocs.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'alisnic/vim-open-alternate'
-
-if !has("gui_running")
-  Plug 'itchyny/vim-cursorword'
-endif
+Plug 'terryma/vim-multiple-cursors'
 
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
@@ -70,6 +67,7 @@ Plug 'Valloric/YouCompleteMe', {'do': 'python install.py --tern-completer'}
   let g:ycm_min_num_of_chars_for_completion = 3
   let g:ycm_collect_identifiers_from_comments_and_strings = 1
   let g:ycm_seed_identifiers_with_syntax = 1
+  let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
 
 Plug 'alisnic/tube.vim'
   let g:tube_terminal = "iterm"
@@ -100,6 +98,7 @@ set clipboard+=unnamedplus
 set cul
 set completeopt-=preview
 set nu!
+set wrap!
 
 " Filesystem
 set nobackup
@@ -143,6 +142,7 @@ cabbrev te tabedit
 cabbrev qq tabclose
 cabbrev help tab help
 cabbrev doc DevDocs
+command W w
 
 map <esc><esc> :nohlsearch<cr>
 map <C-t> :NERDTreeToggle<cr>
