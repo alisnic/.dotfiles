@@ -14,6 +14,7 @@ Plug 'rhysd/devdocs.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'alisnic/vim-open-alternate'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'int3/vim-extradite'
 
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
@@ -62,7 +63,7 @@ Plug 'kien/ctrlp.vim'
   endif
 
 Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
-Plug 'Valloric/YouCompleteMe', {'do': 'python install.py --tern-completer'}
+Plug 'Valloric/YouCompleteMe', {'do': 'python install.py'}
   let g:ycm_collect_identifiers_from_tags_files = 1
   let g:ycm_min_num_of_chars_for_completion = 3
   let g:ycm_collect_identifiers_from_comments_and_strings = 1
@@ -142,6 +143,8 @@ cabbrev te tabedit
 cabbrev qq tabclose
 cabbrev help tab help
 cabbrev doc DevDocs
+cabbrev gst Gstatus
+cabbrev glg Extradite
 command W w
 
 map <esc><esc> :nohlsearch<cr>
@@ -158,19 +161,6 @@ nnoremap <S-Down> <NOP>
 vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
 nnoremap <BS> :e#<cr>
-
-" map paste, yank and delete to named register so the content
-" will not be overwritten
-nnoremap d "xd
-vnoremap d "xd
-nnoremap D "xD
-vnoremap D "xD
-nnoremap y "xy
-vnoremap y "xy
-nnoremap p "xp
-vnoremap p "xp
-nnoremap P "xP
-vnoremap P "xP
 
 nmap <leader>t :CtrlP<cr>
 nmap <leader>d <C-w><C-]><C-w>T

@@ -28,7 +28,7 @@ alias gitx='reattach-to-user-namespace gitx'
 alias rebrew='brew update && brew upgrade --all && brew cleanup'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby 2.3.0
+chruby 2.3.1
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

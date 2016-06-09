@@ -1,9 +1,8 @@
 :set guioptions-=r  "remove right-hand scroll bar
 :set guioptions-=L  "remove left-hand scroll bar
 
-set guifont=Inconsolata-g_for_Powerline:h14
+set guifont=mononoki:h15
 set guitablabel=%t
-set linespace=-3
 set clipboard=unnamed
 set laststatus=0
 set mouse=a
