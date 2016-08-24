@@ -11,6 +11,9 @@ Plug 'rhysd/devdocs.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'qpkorr/vim-bufkill'
 Plug 'tpope/vim-fugitive'
+Plug 'janko-m/vim-test'
+  let g:test#ruby#rspec#executable = 'bin/spring rspec'
+  let g:test#strategy = "neovim"
 
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'

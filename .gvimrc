@@ -24,6 +24,7 @@ map <D-t> :CtrlP<CR>
 map <D-r> :CtrlPBufTag<CR>
 map <D-w> :tabclose<cr>
 imap <D-t> <ESC>:CtrlP<CR>
+imap <D-T> :tabnew#<cr>
 nmap <D-/> :TComment<cr>
 vmap <D-/> gc
 map <D-F> :call SearchInFiles()<cr>

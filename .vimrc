@@ -1,20 +1,31 @@
-" filetype plugin on
+filetype on
+filetype plugin on
+filetype indent on
+syntax on
+let mapleader = "\<Space>"
+
 call plug#begin('~/.vim/plugged')
 
-Plug 'tpope/vim-sensible'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'tomtom/tcomment_vim'
+" Plug 'tpope/vim-sensible'
+" Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-endwise'
-Plug 'haya14busa/incsearch.vim'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'bogado/file-line'
-Plug 'jiangmiao/auto-pairs'
-Plug 'rhysd/devdocs.vim'
-Plug 'tpope/vim-fugitive'
+Plug 'Raimondi/delimitMate'
 Plug 'alisnic/vim-open-alternate'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'int3/vim-extradite'
+
+Plug 'tomtom/tcomment_vim'
+  nmap <leader>/ :TComment<cr>
+
+Plug 'tpope/vim-fugitive'
+  cabbrev gst Gstatus
+
+Plug 'rhysd/devdocs.vim'
+  cabbrev doc DevDocs
+
+Plug 'haya14busa/incsearch.vim'
+  map / <Plug>(incsearch-forward)
 
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
@@ -22,9 +33,13 @@ Plug 'xiaogaozi/easy-gitlab.vim'
 Plug 'scrooloose/nerdtree'
   autocmd FileType nerdtree nmap <buffer> <left> x
   autocmd FileType nerdtree nmap <buffer> <right> <cr>
+  map <C-t> :NERDTreeToggle<cr>
+  nmap <leader>r :NERDTreeFind<cr>
   let NERDTreeShowHidden=1
 
 Plug 'terryma/vim-expand-region'
+  vmap v <Plug>(expand_region_expand)
+  vmap <C-v> <Plug>(expand_region_shrink)
   let g:expand_region_text_objects = {
         \ 't.'  :1,
         \ 'iw'  :0,
@@ -40,8 +55,8 @@ Plug 'terryma/vim-expand-region'
         \ }
 
 " Lang support
-Plug 'vim-ruby/vim-ruby'
-Plug 'elixir-lang/vim-elixir'
+" Plug 'vim-ruby/vim-ruby'
+" Plug 'elixir-lang/vim-elixir'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 Plug 'pangloss/vim-javascript'
@@ -49,7 +64,7 @@ Plug 'elzr/vim-json'
   let g:vim_json_syntax_conceal = 0
 
 Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
   let g:ctrlp_show_hidden = 1
   let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
   let g:ctrlp_prompt_mappings = {
@@ -62,7 +77,7 @@ Plug 'kien/ctrlp.vim'
     let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
   endif
 
-Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
+" Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
 Plug 'Valloric/YouCompleteMe', {'do': 'python install.py'}
   let g:ycm_collect_identifiers_from_tags_files = 1
   let g:ycm_min_num_of_chars_for_completion = 3
@@ -97,6 +112,7 @@ set list listchars=trail:-,tab:>-
 set tags=.git/tags
 set clipboard+=unnamedplus
 set cul
+set hidden
 set completeopt-=preview
 set nu!
 set wrap!
@@ -137,21 +153,13 @@ set scrolljump=8        " Scroll 8 lines at a time at bottom/top
 let html_no_rendering=1 " Don't render italic, bold, links in HTML
 set nofoldenable
 
-let mapleader = "\<Space>"
 
 cabbrev te tabedit
 cabbrev qq tabclose
 cabbrev help tab help
-cabbrev doc DevDocs
-cabbrev gst Gstatus
-cabbrev glg Extradite
 command W w
 
 map <esc><esc> :nohlsearch<cr>
-map <C-t> :NERDTreeToggle<cr>
-map / <Plug>(incsearch-forward)
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
 " I don't use macros
 nmap q b
 nmap ; :
@@ -167,9 +175,7 @@ nmap <leader>d <C-w><C-]><C-w>T
 vmap <leader>d <C-w><C-]><C-w>T
 nmap <leader>D g]
 vmap <leader>D g]
-nmap <leader>/ :TComment<cr>
 vmap <leader>/ gc
-nmap <leader>r :NERDTreeFind<cr>
 nmap <leader>u :cs find c <C-R>=expand("<cword>")<CR><CR>
 nmap <leader>ln :setlocal nu!<cr>
 

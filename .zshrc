@@ -26,6 +26,7 @@ alias rm='trash'
 alias native-packager='node_modules/react-native/packager/launchPackager.command ; exit;'
 alias gitx='reattach-to-user-namespace gitx'
 alias rebrew='brew update && brew upgrade --all && brew cleanup'
+alias dc='docker-compose'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.3.1
@@ -41,6 +42,11 @@ function git_prompt_info() {
 function gentags() {
   echo "Exporting tags..."
   ctags -R --tag-relative -f .git/tags
-  echo "Exporting cscope..."
-  starscope -e cscope,.git/cscope.out
+}
+
+function f_notifyme {
+  LAST_EXIT_CODE=$?
+  CMD=$(fc -ln -1)
+  # No point in waiting for the command to complete
+  notifyme "$CMD" "$LAST_EXIT_CODE" &
 }
