@@ -7,6 +7,7 @@ set clipboard=unnamed
 set laststatus=0
 set mouse=a
 set noballooneval
+set balloonexpr=
 set showtabline=2
 
 hi MatchParen guibg=lightgrey guifg=NONE
