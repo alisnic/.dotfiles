@@ -29,6 +29,7 @@ imap <D-T> :tabnew#<cr>
 nmap <D-/> :TComment<cr>
 vmap <D-/> gc
 map <D-F> :call SearchInFiles()<cr>
+imap <D-F> :call SearchInFiles()<cr>
 map <D-p> :CtrlPTag<cr>
 
 " Mouse bindings

@@ -36,6 +36,7 @@ Plug 'scrooloose/nerdtree'
   map <C-t> :NERDTreeToggle<cr>
   nmap <leader>r :NERDTreeFind<cr>
   let NERDTreeShowHidden=1
+  let NERDTreeIgnore = ['\.DS_Store$', '\.gitkeep$']
 
 Plug 'terryma/vim-expand-region'
   vmap v <Plug>(expand_region_expand)
@@ -55,13 +56,16 @@ Plug 'terryma/vim-expand-region'
         \ }
 
 " Lang support
-" Plug 'vim-ruby/vim-ruby'
 " Plug 'elixir-lang/vim-elixir'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
   let g:vim_json_syntax_conceal = 0
+
+Plug 'vim-ruby/vim-ruby'
+  let g:ruby_indent_access_modifier_style = 'outdent'
+  autocmd FileType ruby setlocal indentkeys-=.
 
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -77,7 +81,6 @@ Plug 'ctrlpvim/ctrlp.vim'
     let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
   endif
 
-" Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
 Plug 'Valloric/YouCompleteMe', {'do': 'python install.py'}
   let g:ycm_collect_identifiers_from_tags_files = 1
   let g:ycm_min_num_of_chars_for_completion = 3
@@ -116,6 +119,7 @@ set hidden
 set completeopt-=preview
 set nu!
 set wrap!
+set autoread
 
 " Filesystem
 set nobackup
