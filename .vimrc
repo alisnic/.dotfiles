@@ -6,14 +6,13 @@ let mapleader = "\<Space>"
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'tpope/vim-sensible'
-" Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-endwise'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'bogado/file-line'
 Plug 'Raimondi/delimitMate'
 Plug 'alisnic/vim-open-alternate'
+Plug 'altercation/vim-colors-solarized'
 
 Plug 'tomtom/tcomment_vim'
   nmap <leader>/ :TComment<cr>
@@ -55,10 +54,10 @@ Plug 'terryma/vim-expand-region'
         \ 'ie'  :0,
         \ }
 
-" Lang support
-" Plug 'elixir-lang/vim-elixir'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
+  autocmd FileType coffee setlocal foldmethod=indent
+
 Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
   let g:vim_json_syntax_conceal = 0
@@ -97,8 +96,6 @@ Plug 'mileszs/ack.vim'
     let g:ackprg = 'ag --vimgrep'
   endif
 
-Plug 'altercation/vim-colors-solarized'
-Plug 'sickill/vim-monokai'
 call plug#end()
 
 " Delete trailing spaces on save
@@ -120,6 +117,8 @@ set completeopt-=preview
 set nu!
 set wrap!
 set autoread
+set foldlevel=99
+set foldmethod=syntax
 
 " Filesystem
 set nobackup
@@ -143,7 +142,6 @@ set colorcolumn=80
 
 " Status line
 set noshowmode
-set noruler
 set noshowcmd
 set laststatus=0
 
@@ -155,8 +153,6 @@ set undodir=$HOME/.vim/undo
 set nocursorcolumn      " Don't paint cursor column
 set scrolljump=8        " Scroll 8 lines at a time at bottom/top
 let html_no_rendering=1 " Don't render italic, bold, links in HTML
-set nofoldenable
-
 
 cabbrev te tabedit
 cabbrev qq tabclose
@@ -182,6 +178,7 @@ vmap <leader>D g]
 vmap <leader>/ gc
 nmap <leader>u :cs find c <C-R>=expand("<cword>")<CR><CR>
 nmap <leader>ln :setlocal nu!<cr>
+nmap ff za
 
 function! SearchInFiles()
   let query = input('Search in files: ')
