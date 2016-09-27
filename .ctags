@@ -2,6 +2,9 @@
 --exclude=log
 --exclude=node_modules
 --exclude=tmp
+--exclude=*.css
+--exclude=*.json
+--exclude=*.svg
 --languages=-html
 --fields=+l
 
