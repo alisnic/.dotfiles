@@ -27,6 +27,7 @@ alias native-packager='node_modules/react-native/packager/launchPackager.command
 alias gitx='reattach-to-user-namespace gitx'
 alias rebrew='brew update && brew upgrade --all && brew cleanup'
 alias dc='docker-compose'
+alias mvim='reattach-to-user-namespace mvim'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.3.1

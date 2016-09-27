@@ -1,7 +1,8 @@
 :set guioptions-=r  "remove right-hand scroll bar
 :set guioptions-=L  "remove left-hand scroll bar
 
-set guifont=mononoki:h15
+" set guifont=mononoki:h15
+set guifont=Consolas:h15
 set guitablabel=%t
 set clipboard=unnamed
 set laststatus=0
@@ -9,6 +10,7 @@ set mouse=a
 set noballooneval
 set balloonexpr=
 set showtabline=2
+set ruler
 
 hi MatchParen guibg=lightgrey guifg=NONE
 
@@ -31,9 +33,6 @@ vmap <D-/> gc
 map <D-F> :call SearchInFiles()<cr>
 imap <D-F> :call SearchInFiles()<cr>
 map <D-p> :CtrlPTag<cr>
-
-" Mouse bindings
-nmap <C-LeftMouse> <LeftMouse>vvt.<leader>d
 
 " Tab navigation
 nmap <D-]> gt

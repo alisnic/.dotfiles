@@ -119,6 +119,7 @@ set wrap!
 set autoread
 set foldlevel=99
 set foldmethod=syntax
+set complete-=i
 
 " Filesystem
 set nobackup
