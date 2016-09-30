@@ -55,6 +55,8 @@ Plug 'terryma/vim-expand-region'
         \ }
 
 Plug 'tpope/vim-haml'
+  autocmd FileType haml setlocal foldmethod=indent
+
 Plug 'kchmck/vim-coffee-script'
   autocmd FileType coffee setlocal foldmethod=indent
 
@@ -93,9 +95,6 @@ Plug 'alisnic/tube.vim'
 
 Plug 'mileszs/ack.vim'
   let g:ackpreview = 1
-  if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
-  endif
 
 call plug#end()
 
