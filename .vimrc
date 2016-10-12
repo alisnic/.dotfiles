@@ -14,6 +14,12 @@ Plug 'Raimondi/delimitMate'
 Plug 'alisnic/vim-open-alternate'
 Plug 'altercation/vim-colors-solarized'
 
+Plug 'neomake/neomake'
+  let g:neomake_verbose = 0
+  let g:neomake_ruby_enabled_makers = ['mri']
+  autocmd! BufWritePost *.coffee Neomake
+  autocmd! BufWritePost *.rb Neomake
+
 Plug 'tomtom/tcomment_vim'
   nmap <leader>/ :TComment<cr>
 
@@ -55,11 +61,7 @@ Plug 'terryma/vim-expand-region'
         \ }
 
 Plug 'tpope/vim-haml'
-  autocmd FileType haml setlocal foldmethod=indent
-
 Plug 'kchmck/vim-coffee-script'
-  autocmd FileType coffee setlocal foldmethod=indent
-
 Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
   let g:vim_json_syntax_conceal = 0
@@ -118,7 +120,7 @@ set nu!
 set wrap!
 set autoread
 set foldlevel=99
-set foldmethod=syntax
+set foldmethod=indent
 set complete-=i
 
 " Filesystem

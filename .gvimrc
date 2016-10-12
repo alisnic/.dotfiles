@@ -1,8 +1,6 @@
-:set guioptions-=r  "remove right-hand scroll bar
-:set guioptions-=L  "remove left-hand scroll bar
-
-" set guifont=mononoki:h15
-set guifont=Consolas:h15
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
+set guifont=mononoki:h15
 set guitablabel=%t
 set clipboard=unnamed
 set laststatus=0
@@ -11,6 +9,8 @@ set noballooneval
 set balloonexpr=
 set showtabline=2
 set ruler
+
+au TabLeave * :wa
 
 hi MatchParen guibg=lightgrey guifg=NONE
 

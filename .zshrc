@@ -21,11 +21,11 @@ alias w='tmux attach -t'
 alias mux='tmux new-session -s `basename \`pwd\``'
 alias be='bundle exec'
 alias focusvim="osascript -e 'activate application \"MacVim\"'"
+alias focussubl="osascript -e 'activate application \"Sublime Text\"'"
 alias sp='bin/spring'
 alias rm='trash'
-alias native-packager='node_modules/react-native/packager/launchPackager.command ; exit;'
 alias gitx='reattach-to-user-namespace gitx'
-alias rebrew='brew update && brew upgrade --all && brew cleanup'
+alias rebrew='brew update && brew upgrade && brew cleanup'
 alias dc='docker-compose'
 alias mvim='reattach-to-user-namespace mvim'
 
