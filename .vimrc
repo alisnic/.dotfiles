@@ -119,8 +119,6 @@ set completeopt-=preview
 set nu!
 set wrap!
 set autoread
-set foldlevel=99
-set foldmethod=indent
 set complete-=i
 
 " Filesystem
@@ -155,10 +153,11 @@ set undodir=$HOME/.vim/undo
 " PERFORMANCE
 set nocursorcolumn      " Don't paint cursor column
 set scrolljump=8        " Scroll 8 lines at a time at bottom/top
+set foldlevel=99
+set foldmethod=indent
 let html_no_rendering=1 " Don't render italic, bold, links in HTML
 
 cabbrev te tabedit
-cabbrev qq tabclose
 cabbrev help tab help
 command W w
 
@@ -179,7 +178,6 @@ vmap <leader>d <C-w><C-]><C-w>T
 nmap <leader>D g]
 vmap <leader>D g]
 vmap <leader>/ gc
-nmap <leader>u :cs find c <C-R>=expand("<cword>")<CR><CR>
 nmap <leader>ln :setlocal nu!<cr>
 nmap ff za
 
