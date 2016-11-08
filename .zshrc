@@ -4,7 +4,7 @@ ZSH_THEME=amuse
 LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 
-export EDITOR=nvim
+# export EDITOR=nvim
 export JAVA_HOME=$(/usr/libexec/java_home)
 export PATH=~/bin:$PATH
 export PGDATA=/usr/local/var/postgres
