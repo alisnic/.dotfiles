@@ -4,9 +4,8 @@ ZSH_THEME=amuse
 LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 
-export EDITOR=nvim
-export JAVA_HOME=$(/usr/libexec/java_home)
-export PATH=~/bin:$PATH
+export EDITOR=vim
+export PATH=~/.dotfiles/bin:$PATH
 export PGDATA=/usr/local/var/postgres
 export ANDROID_HOME=/usr/local/opt/android-sdk
 export HOMEBREW_GITHUB_API_TOKEN=995128975d5615332b7aab40ecdda3cf11f03d8c

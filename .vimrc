@@ -36,8 +36,8 @@ Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
 
 Plug 'scrooloose/nerdtree'
-  autocmd FileType nerdtree nmap <buffer> <left> x
-  autocmd FileType nerdtree nmap <buffer> <right> <cr>
+  " autocmd FileType nerdtree nmap <buffer> <left> x
+  " autocmd FileType nerdtree nmap <buffer> <right> <cr>
   map <C-t> :NERDTreeToggle<cr>
   nmap <leader>r :NERDTreeFind<cr>
   let NERDTreeShowHidden=1
