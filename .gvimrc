@@ -10,7 +10,7 @@ set balloonexpr=
 set showtabline=2
 set ruler
 
-au TabLeave * :wa
+au TabLeave * silent! wall
 
 hi MatchParen guibg=lightgrey guifg=NONE
 

@@ -13,10 +13,10 @@ Plug 'bogado/file-line'
 Plug 'Raimondi/delimitMate'
 Plug 'alisnic/vim-open-alternate'
 Plug 'altercation/vim-colors-solarized'
+" Plug 'airblade/vim-gitgutter'
 
 Plug 'neomake/neomake'
   let g:neomake_verbose = 0
-  let g:neomake_ruby_enabled_makers = ['mri']
   autocmd! BufWritePost *.coffee Neomake
   autocmd! BufWritePost *.rb Neomake
 
@@ -67,8 +67,14 @@ Plug 'elzr/vim-json'
   let g:vim_json_syntax_conceal = 0
 
 Plug 'vim-ruby/vim-ruby'
+  let g:no_ruby_maps = 1
   let g:ruby_indent_access_modifier_style = 'outdent'
   autocmd FileType ruby setlocal indentkeys-=.
+
+Plug 'ton/vim-bufsurf'
+  nnoremap [ :BufSurfBack<cr>
+  nnoremap ] :BufSurfForward<cr>
+  vmap ] <C-]>
 
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -120,6 +126,7 @@ set nu!
 set wrap!
 set autoread
 set complete-=i
+set tc=match
 
 " Filesystem
 set nobackup
@@ -170,13 +177,12 @@ nnoremap <S-UP> <NOP>
 nnoremap <S-Down> <NOP>
 vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
-nnoremap <BS> :e#<cr>
 
 nmap <leader>t :CtrlP<cr>
-nmap <leader>d <C-w><C-]><C-w>T
-vmap <leader>d <C-w><C-]><C-w>T
-nmap <leader>D g]
-vmap <leader>D g]
+" nmap <leader>d <C-]>
+" vmap <leader>d <C-]>
+nmap <leader>d g]
+vmap <leader>d g]
 vmap <leader>/ gc
 nmap <leader>ln :setlocal nu!<cr>
 nmap ff za

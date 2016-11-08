@@ -3,7 +3,6 @@
 
 [alias]
   aa = add .
-  lg = !tig
   st = status -sb
   cam = commit -a -m
   cm = commit
