@@ -103,6 +103,9 @@ Plug 'alisnic/tube.vim'
 
 Plug 'mileszs/ack.vim'
   let g:ackpreview = 1
+  if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+  endif
 
 call plug#end()
 

@@ -4,7 +4,7 @@ ZSH_THEME=amuse
 LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 
-export EDITOR=vim
+export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
 export PATH=~/.dotfiles/bin:$PATH
 export PGDATA=/usr/local/var/postgres
 export ANDROID_HOME=/usr/local/opt/android-sdk
