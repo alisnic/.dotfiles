@@ -2,3 +2,4 @@
 *.last-run
 *.sublime-workspace
 *.sublime-project
+.DS_Store
