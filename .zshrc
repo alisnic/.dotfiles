@@ -29,7 +29,7 @@ alias dc='docker-compose'
 alias mvim='reattach-to-user-namespace mvim'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby 2.3.1
+chruby 2.3.3
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

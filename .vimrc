@@ -15,6 +15,9 @@ Plug 'alisnic/vim-open-alternate'
 Plug 'altercation/vim-colors-solarized'
 " Plug 'airblade/vim-gitgutter'
 
+let anyfold_activate=1
+Plug 'pseewald/vim-anyfold'
+
 Plug 'neomake/neomake'
   let g:neomake_verbose = 0
   autocmd! BufWritePost *.coffee Neomake

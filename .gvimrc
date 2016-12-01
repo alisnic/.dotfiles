@@ -1,6 +1,6 @@
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
-set guifont=Menlo:h13
+set guifont=mononoki:h15
 set guitablabel=%t
 set clipboard=unnamed
 set laststatus=0
