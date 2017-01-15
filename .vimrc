@@ -13,9 +13,9 @@ Plug 'bogado/file-line'
 Plug 'Raimondi/delimitMate'
 Plug 'alisnic/vim-open-alternate'
 Plug 'altercation/vim-colors-solarized'
-" Plug 'airblade/vim-gitgutter'
 
 let anyfold_activate=1
+let anyfold_motion=0
 Plug 'pseewald/vim-anyfold'
 
 Plug 'neomake/neomake'
@@ -39,8 +39,6 @@ Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
 
 Plug 'scrooloose/nerdtree'
-  " autocmd FileType nerdtree nmap <buffer> <left> x
-  " autocmd FileType nerdtree nmap <buffer> <right> <cr>
   map <C-t> :NERDTreeToggle<cr>
   nmap <leader>r :NERDTreeFind<cr>
   let NERDTreeShowHidden=1
@@ -185,12 +183,9 @@ vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
 
 nmap <leader>t :CtrlP<cr>
-" nmap <leader>d <C-]>
-" vmap <leader>d <C-]>
 nmap <leader>d g]
 vmap <leader>d g]
 vmap <leader>/ gc
-nmap <leader>ln :setlocal nu!<cr>
 nmap ff za
 
 function! SearchInFiles()
