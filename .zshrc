@@ -31,9 +31,6 @@ alias mvim='reattach-to-user-namespace mvim'
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.3.3
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
 function git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
   echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"

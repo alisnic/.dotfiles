@@ -14,10 +14,10 @@ Plug 'Raimondi/delimitMate'
 Plug 'alisnic/vim-open-alternate'
 Plug 'altercation/vim-colors-solarized'
 
-let anyfold_activate=1
-let anyfold_motion=0
-Plug 'pseewald/vim-anyfold'
-
+" let anyfold_activate=1
+" let anyfold_motion=0
+" Plug 'pseewald/vim-anyfold'
+"
 Plug 'neomake/neomake'
   let g:neomake_verbose = 0
   autocmd! BufWritePost *.coffee Neomake
@@ -164,8 +164,8 @@ set undodir=$HOME/.vim/undo
 " PERFORMANCE
 set nocursorcolumn      " Don't paint cursor column
 set scrolljump=8        " Scroll 8 lines at a time at bottom/top
-set foldlevel=99
 set foldmethod=indent
+set nofoldenable
 let html_no_rendering=1 " Don't render italic, bold, links in HTML
 
 cabbrev te tabedit
