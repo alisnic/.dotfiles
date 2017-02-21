@@ -14,10 +14,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'alisnic/vim-open-alternate'
 Plug 'altercation/vim-colors-solarized'
 
-" let anyfold_activate=1
-" let anyfold_motion=0
-" Plug 'pseewald/vim-anyfold'
-"
+Plug 'moll/vim-node'
+
 Plug 'neomake/neomake'
   let g:neomake_verbose = 0
   autocmd! BufWritePost *.coffee Neomake
@@ -177,8 +175,10 @@ map <esc><esc> :nohlsearch<cr>
 nmap q b
 nmap ; :
 nmap § ``
-nnoremap <S-UP> <NOP>
-nnoremap <S-Down> <NOP>
+nnoremap <S-UP> <C-w><UP>
+nnoremap <S-Down> <C-w><Down>
+nnoremap <S-Left> <C-w><Left>
+nnoremap <S-Right> <C-w><Right>
 vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
 
@@ -186,6 +186,8 @@ nmap <leader>t :CtrlP<cr>
 nmap <leader>d g]
 vmap <leader>d g]
 vmap <leader>/ gc
+nmap <leader>ln :setlocal nu!<cr>
+vnoremap <leader>p "_dP
 nmap ff za
 
 function! SearchInFiles()
@@ -195,7 +197,7 @@ function! SearchInFiles()
   endif
   exec ":tabedit | Ack " . query
 endfunction
-nmap <leader>s :call SearchInFiles()<cr>
+nmap <leader>f :call SearchInFiles()<cr>
 
 function! s:MagicSplit()
   let l:width=winwidth(0)
