@@ -33,6 +33,7 @@ vmap <D-/> gc
 map <D-F> :call SearchInFiles()<cr>
 imap <D-F> :call SearchInFiles()<cr>
 map <D-p> :CtrlPTag<cr>
+map <D-b> :exec "Tube " . &makeprg . " && focusvim"<cr>
 
 " Tab navigation
 nmap <D-]> gt

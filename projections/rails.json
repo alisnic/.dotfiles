@@ -1,31 +1,42 @@
 {
+  "*": {
+    "make": "bin/spring rspec {file}"
+  },
+
   "app/models/*.rb": {
     "alternate": "spec/models/{}_spec.rb",
-    "type":      "model"
+    "type":      "model",
+    "make":      "bin/spring rspec spec/models/{}_spec.rb"
   },
-  "spec/models/*_spec.rb": {"alternate": "app/models/{}.rb"},
+  "spec/models/*_spec.rb": {
+    "alternate": "app/models/{}.rb"
+  },
 
   "app/controllers/*_controller.rb": {
     "alternate": "spec/controllers/{}_controller_spec.rb",
-    "type":      "controller"
+    "type":      "controller",
+    "make":      "bin/spring rspec spec/controllers/{}_controller_spec.rb"
   },
   "spec/controllers/*_spec.rb": {"alternate": "app/controllers/{}.rb"},
 
   "app/workers/*.rb": {
     "alternate": "spec/workers/{}_spec.rb",
-    "type": "worker"
+    "type":      "worker",
+    "make":      "bin/spring rspec spec/workers/{}_spec.rb"
   },
   "spec/workers/*_spec.rb": {"alternate": "app/workers/{}.rb"},
 
   "app/mailers/*.rb": {
     "alternate": "spec/mailers/{}_spec.rb",
-    "type": "mailer"
+    "type":      "mailer",
+    "make":      "bin/spring rspec spec/mailers/{}_spec.rb"
   },
   "spec/mailers/*_spec.rb": {"alternate": "app/mailers/{}.rb"},
 
   "lib/*.rb": {
     "alternate": "spec/lib/{}_spec.rb",
-    "type": "lib"
+    "type":      "lib",
+    "make":      "bin/spring rspec spec/lib/{}_spec.rb"
   },
   "spec/lib/*_spec.rb": {"alternate": "lib/{}.rb"}
 }

@@ -11,10 +11,21 @@ Plug 'tpope/vim-endwise'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'bogado/file-line'
 Plug 'Raimondi/delimitMate'
-Plug 'alisnic/vim-open-alternate'
 Plug 'altercation/vim-colors-solarized'
+Plug 'tpope/vim-projectionist'
 
 Plug 'moll/vim-node'
+Plug 'tpope/vim-haml'
+Plug 'kchmck/vim-coffee-script'
+Plug 'pangloss/vim-javascript'
+Plug 'elzr/vim-json'
+  let g:vim_json_syntax_conceal = 0
+
+Plug 'vim-ruby/vim-ruby'
+  let g:no_ruby_maps = 1
+  let g:ruby_indent_access_modifier_style = 'outdent'
+  autocmd FileType ruby setlocal indentkeys-=.
+
 
 Plug 'neomake/neomake'
   let g:neomake_verbose = 0
@@ -59,17 +70,6 @@ Plug 'terryma/vim-expand-region'
         \ 'ie'  :0,
         \ }
 
-Plug 'tpope/vim-haml'
-Plug 'kchmck/vim-coffee-script'
-Plug 'pangloss/vim-javascript'
-Plug 'elzr/vim-json'
-  let g:vim_json_syntax_conceal = 0
-
-Plug 'vim-ruby/vim-ruby'
-  let g:no_ruby_maps = 1
-  let g:ruby_indent_access_modifier_style = 'outdent'
-  autocmd FileType ruby setlocal indentkeys-=.
-
 Plug 'ton/vim-bufsurf'
   nnoremap [ :BufSurfBack<cr>
   nnoremap ] :BufSurfForward<cr>
@@ -108,9 +108,10 @@ Plug 'mileszs/ack.vim'
 
 call plug#end()
 
-" Delete trailing spaces on save
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
   \| exe "normal! g'\"" | endif
+
+" Delete trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 
 set background=light
@@ -142,7 +143,6 @@ set shiftwidth=2
 
 " Search
 set hlsearch
-set ignorecase
 set smartcase
 
 " Per-project vimrcs
@@ -199,21 +199,3 @@ function! SearchInFiles()
 endfunction
 nmap <leader>f :call SearchInFiles()<cr>
 
-function! s:MagicSplit()
-  let l:width=winwidth(0)
-  if (l:width > 160)
-    :exec "botright vsplit " . GetAlternatePath()
-  else
-    :exec "tab drop " . GetAlternatePath()
-  endif
-endfunction
-command! SplitAlternate call s:MagicSplit()
-nnoremap <leader><leader> :SplitAlternate<cr>
-
-function! GetSpecPath()
-  if match(expand("%"), "spec") != -1
-    return expand("%")
-  else
-    return GetAlternatePath()
-  endif
-endfunction
