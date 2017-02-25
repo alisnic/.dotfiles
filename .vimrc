@@ -135,6 +135,7 @@ set wrap!
 set autoread
 set complete-=i
 set tc=match
+set colorcolumn=80
 
 " Filesystem
 set nobackup
@@ -149,11 +150,6 @@ set shiftwidth=2
 " Search
 set hlsearch
 set smartcase
-
-" Per-project vimrcs
-set exrc   " enable per-directory .vimrc files
-set secure " disable unsafe commands in local .vimrc files
-set colorcolumn=80
 
 " Status line
 set noshowmode
