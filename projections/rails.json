@@ -3,6 +3,11 @@
     "make": "bin/spring rspec {file}"
   },
 
+  "app/assets/javascripts/*.coffee": {
+    "alternate": "spec/javascripts/{}_spec.coffee",
+    "type": "js"
+  },
+
   "app/models/*.rb": {
     "alternate": "spec/models/{}_spec.rb",
     "type":      "model",
