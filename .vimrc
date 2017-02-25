@@ -12,7 +12,6 @@ Plug 'jszakmeister/vim-togglecursor'
 Plug 'bogado/file-line'
 Plug 'Raimondi/delimitMate'
 Plug 'altercation/vim-colors-solarized'
-Plug 'tpope/vim-projectionist'
 
 Plug 'moll/vim-node'
 Plug 'tpope/vim-haml'
@@ -26,6 +25,12 @@ Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_access_modifier_style = 'outdent'
   autocmd FileType ruby setlocal indentkeys-=.
 
+Plug 'tpope/vim-projectionist'
+  if (winwidth(0) > 160)
+    nnoremap <leader><leader> :AV<cr>
+  else
+    nnoremap <leader><leader> :AT<cr>
+  endif
 
 Plug 'neomake/neomake'
   let g:neomake_verbose = 0
