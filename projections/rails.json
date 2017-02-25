@@ -1,0 +1,31 @@
+{
+  "app/models/*.rb": {
+    "alternate": "spec/models/{}_spec.rb",
+    "type":      "model"
+  },
+  "spec/models/*_spec.rb": {"alternate": "app/models/{}.rb"},
+
+  "app/controllers/*_controller.rb": {
+    "alternate": "spec/controllers/{}_controller_spec.rb",
+    "type":      "controller"
+  },
+  "spec/controllers/*_spec.rb": {"alternate": "app/controllers/{}.rb"},
+
+  "app/workers/*.rb": {
+    "alternate": "spec/workers/{}_spec.rb",
+    "type": "worker"
+  },
+  "spec/workers/*_spec.rb": {"alternate": "app/workers/{}.rb"},
+
+  "app/mailers/*.rb": {
+    "alternate": "spec/mailers/{}_spec.rb",
+    "type": "mailer"
+  },
+  "spec/mailers/*_spec.rb": {"alternate": "app/mailers/{}.rb"},
+
+  "lib/*.rb": {
+    "alternate": "spec/lib/{}_spec.rb",
+    "type": "lib"
+  },
+  "spec/lib/*_spec.rb": {"alternate": "lib/{}.rb"}
+}
