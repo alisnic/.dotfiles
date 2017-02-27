@@ -155,10 +155,6 @@ set noshowmode
 set noshowcmd
 set laststatus=0
 
-" Undo
-set undofile
-set undodir=$HOME/.vim/undo
-
 " PERFORMANCE
 set nocursorcolumn      " Don't paint cursor column
 set scrolljump=8        " Scroll 8 lines at a time at bottom/top
