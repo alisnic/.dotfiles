@@ -46,14 +46,11 @@ Plug 'tpope/vim-fugitive'
 Plug 'rhysd/devdocs.vim'
   cabbrev doc DevDocs
 
-Plug 'haya14busa/incsearch.vim'
-  map / <Plug>(incsearch-forward)
-
 Plug 'xiaogaozi/easy-gitlab.vim'
   let g:easy_gitlab_url = 'https://git.saltedge.com'
 
 Plug 'scrooloose/nerdtree'
-  map <C-t> :NERDTreeToggle<cr>
+  nmap <leader>s :NERDTreeToggle<cr>
   nmap <leader>r :NERDTreeFind<cr>
   let NERDTreeShowHidden=1
   let NERDTreeIgnore = ['\.DS_Store$', '\.gitkeep$']
@@ -136,6 +133,7 @@ set autoread
 set complete-=i
 set tc=match
 set colorcolumn=80
+set sidescroll=1
 
 " Filesystem
 set nobackup
@@ -150,6 +148,7 @@ set shiftwidth=2
 " Search
 set hlsearch
 set smartcase
+set incsearch
 
 " Status line
 set noshowmode
