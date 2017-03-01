@@ -28,6 +28,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-projectionist'
   if (winwidth(0) > 160)
     nnoremap <leader><leader> :AV<cr>
+    set nu!
   else
     nnoremap <leader><leader> :AT<cr>
   endif
@@ -127,7 +128,6 @@ set clipboard+=unnamedplus
 set cul
 set hidden
 set completeopt-=preview
-set nu!
 set wrap!
 set autoread
 set complete-=i
@@ -155,11 +155,14 @@ set noshowmode
 set noshowcmd
 set laststatus=0
 
+" Folds
+set foldnestmax=1
+set nofoldenable
+set foldmethod=indent
+
 " PERFORMANCE
 set nocursorcolumn      " Don't paint cursor column
 set scrolljump=8        " Scroll 8 lines at a time at bottom/top
-set foldmethod=indent
-set nofoldenable
 let html_no_rendering=1 " Don't render italic, bold, links in HTML
 
 cabbrev te tabedit
