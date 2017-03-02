@@ -27,14 +27,15 @@ map <D-t> :CtrlP<CR>
 map <D-r> :CtrlPBufTag<CR>
 map <D-w> :tabclose<cr>
 imap <D-t> <ESC>:CtrlP<CR>
-imap <D-T> :tabnew#<cr>
+imap <D-T> <esc>:CtrlPBuffer<cr>
+map <D-T> :CtrlPBuffer<cr>
 nmap <D-/> :TComment<cr>
 vmap <D-/> gc
 map <D-F> :call SearchInFiles()<cr>
 imap <D-F> :call SearchInFiles()<cr>
 map <D-p> :CtrlPTag<cr>
-map <D-b> :exec "w \| Tube " . &makeprg . " && focusvim"<cr>
-imap <D-b> <esc>:exec "w \| Tube " . &makeprg . " && focusvim"<cr>
+map <D-b> :exec "Tube " . &makeprg . " && focusvim"<cr>
+imap <D-b> <esc>:exec "Tube " . &makeprg . " && focusvim"<cr>
 
 " Tab navigation
 nmap <D-]> gt
