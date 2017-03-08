@@ -156,8 +156,7 @@ set noshowcmd
 set laststatus=0
 
 " Folds
-set foldnestmax=10
-set nofoldenable
+set foldlevelstart=99
 set foldmethod=indent
 
 " PERFORMANCE
