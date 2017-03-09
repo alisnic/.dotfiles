@@ -23,6 +23,8 @@ macmenu File.Open\ Tab\.\.\. key=<nop>
 macmenu Window.Select\ Next\ Tab key=<nop>
 macmenu Window.Select\ Previous\ Tab key=<nop>
 
+set noballooneval
+
 map <D-t> :CtrlP<CR>
 map <D-r> :CtrlPBufTag<CR>
 map <D-w> :tabclose<cr>
