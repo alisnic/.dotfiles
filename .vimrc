@@ -52,31 +52,28 @@ Plug 'tpope/vim-fugitive'
 Plug 'rhysd/devdocs.vim'
   cabbrev doc DevDocs
 
-Plug 'xiaogaozi/easy-gitlab.vim'
-  let g:easy_gitlab_url = 'https://git.saltedge.com'
-
 Plug 'scrooloose/nerdtree'
   nmap <leader>s :NERDTreeToggle<cr>
   nmap <leader>r :NERDTreeFind<cr>
   let NERDTreeShowHidden=1
-  let NERDTreeIgnore = ['\.DS_Store$', '\.gitkeep$']
+  let NERDTreeIgnore = ['\.DS_Store$', '\.gitkeep$', '\.git$']
 
 Plug 'terryma/vim-expand-region'
   vmap v <Plug>(expand_region_expand)
   vmap <C-v> <Plug>(expand_region_shrink)
   let g:expand_region_text_objects = {
-        \ 't.'  :1,
-        \ 'iw'  :0,
-        \ 'iW'  :0,
-        \ 'i"'  :0,
-        \ 'i''' :0,
-        \ 'i]'  :1,
-        \ 'ib'  :1,
-        \ 'iB'  :1,
-        \ 'il'  :0,
-        \ 'ip'  :0,
-        \ 'ie'  :0,
-        \ }
+    \ 't.'  :1,
+    \ 'iw'  :0,
+    \ 'iW'  :0,
+    \ 'i"'  :0,
+    \ 'i''' :0,
+    \ 'i]'  :1,
+    \ 'ib'  :1,
+    \ 'iB'  :1,
+    \ 'il'  :0,
+    \ 'ip'  :0,
+    \ 'ie'  :0,
+    \ }
 
 Plug 'ton/vim-bufsurf'
   nnoremap [ :BufSurfBack<cr>
@@ -170,22 +167,24 @@ nmap ff za
 
 " Tag navigation
 set tags=.git/tags
+set tc=match
 nmap <leader>d g]
 vmap <leader>d g]
-set tc=match
+
+" Split navigation
+nnoremap <S-UP> <C-w><UP>
+nnoremap <S-Down> <C-w><Down>
+nnoremap <S-Left> <C-w><Left>
+nnoremap <S-Right> <C-w><Right>
 
 cabbrev te tabedit
 cabbrev help tab help
 command W w
 
-" I don't use macros
+" Dear Vim lords, please have mercy on my poor mortal soul
 nmap q b
 nmap ; :
 nmap § ``
-nnoremap <S-UP> <C-w><UP>
-nnoremap <S-Down> <C-w><Down>
-nnoremap <S-Left> <C-w><Left>
-nnoremap <S-Right> <C-w><Right>
 vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
 
