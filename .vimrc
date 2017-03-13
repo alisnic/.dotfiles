@@ -78,7 +78,6 @@ Plug 'terryma/vim-expand-region'
 Plug 'ton/vim-bufsurf'
   nnoremap [ :BufSurfBack<cr>
   nnoremap ] :BufSurfForward<cr>
-  vmap ] <C-]>
 
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -170,6 +169,7 @@ set tags=.git/tags
 set tc=match
 nmap <leader>d g]
 vmap <leader>d g]
+vmap ] <C-]>
 
 " Split navigation
 nnoremap <S-UP> <C-w><UP>
