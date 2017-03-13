@@ -6,13 +6,14 @@ let mapleader = "\<Space>"
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-endwise'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'bogado/file-line'
 Plug 'Raimondi/delimitMate'
-Plug 'altercation/vim-colors-solarized'
 
+" Language support
 Plug 'moll/vim-node'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
@@ -23,6 +24,7 @@ Plug 'elzr/vim-json'
 Plug 'vim-ruby/vim-ruby'
   let g:no_ruby_maps = 1
   let g:ruby_indent_access_modifier_style = 'outdent'
+  let g:ruby_indent_assignment_style = 'variable'
   autocmd FileType ruby setlocal indentkeys-=.
 
 Plug 'tpope/vim-projectionist'
@@ -35,11 +37,14 @@ Plug 'tpope/vim-projectionist'
 
 Plug 'neomake/neomake'
   let g:neomake_verbose = 0
+  let g:neomake_javascript_enabled_makers = ['eslint']
   autocmd! BufWritePost *.coffee Neomake
   autocmd! BufWritePost *.rb Neomake
+  autocmd! BufWritePost *.js Neomake
 
 Plug 'tomtom/tcomment_vim'
   nmap <leader>/ :TComment<cr>
+  vmap <leader>/ gc
 
 Plug 'tpope/vim-fugitive'
   cabbrev gst Gstatus
@@ -80,6 +85,7 @@ Plug 'ton/vim-bufsurf'
 
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
+  nmap <leader>t :CtrlP<cr>
   let g:ctrlp_show_hidden = 1
   let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
   let g:ctrlp_prompt_mappings = {
@@ -111,6 +117,7 @@ Plug 'mileszs/ack.vim'
 
 call plug#end()
 
+" Restore cursor position when reopening buffer
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
   \| exe "normal! g'\"" | endif
 
@@ -123,17 +130,17 @@ colorscheme solarized
 set mouse=a
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set list listchars=trail:-,tab:>-
-set tags=.git/tags
 set clipboard+=unnamedplus
 set cul
 set hidden
 set completeopt-=preview
-set wrap!
 set autoread
 set complete-=i
-set tc=match
-set colorcolumn=80
+
+" Wrapping/scrolling
 set sidescroll=1
+set wrap!
+set colorcolumn=80
 
 " Filesystem
 set nobackup
@@ -149,6 +156,7 @@ set shiftwidth=2
 set hlsearch
 set smartcase
 set incsearch
+map <esc><esc> :nohlsearch<cr>
 
 " Status line
 set noshowmode
@@ -158,17 +166,18 @@ set laststatus=0
 " Folds
 set foldlevelstart=99
 set foldmethod=indent
+nmap ff za
 
-" PERFORMANCE
-set nocursorcolumn      " Don't paint cursor column
-set scrolljump=8        " Scroll 8 lines at a time at bottom/top
-let html_no_rendering=1 " Don't render italic, bold, links in HTML
+" Tag navigation
+set tags=.git/tags
+nmap <leader>d g]
+vmap <leader>d g]
+set tc=match
 
 cabbrev te tabedit
 cabbrev help tab help
 command W w
 
-map <esc><esc> :nohlsearch<cr>
 " I don't use macros
 nmap q b
 nmap ; :
@@ -180,13 +189,9 @@ nnoremap <S-Right> <C-w><Right>
 vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
 
-nmap <leader>t :CtrlP<cr>
-nmap <leader>d g]
-vmap <leader>d g]
-vmap <leader>/ gc
 nmap <leader>ln :setlocal nu!<cr>
+" Paste without overriding register
 vnoremap <leader>p "_dP
-nmap ff za
 
 function! SearchInFiles()
   let query = input('Search in files: ')
