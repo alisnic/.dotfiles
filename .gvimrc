@@ -25,8 +25,8 @@ imap <D-T> <esc>:CtrlPBuffer<cr>
 map <D-T> :CtrlPBuffer<cr>
 nmap <D-/> :TComment<cr>
 vmap <D-/> gc
-map <D-F> :Ack<space>
-imap <D-F> :Ack<space>
+map <D-F> :tabedit \| Ack<space>
+imap <D-F> :tabedit \| Ack<space>
 map <D-p> :CtrlPTag<cr>
 map <D-b> :exec "Tube " . &makeprg . " && focusvim"<cr>
 imap <D-b> <esc>:exec "Tube " . &makeprg . " && focusvim"<cr>
