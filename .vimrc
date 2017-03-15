@@ -5,7 +5,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
-Plug 'tpope/vim-endwise'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'bogado/file-line'
 Plug 'Raimondi/delimitMate'
@@ -19,6 +18,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
   let g:vim_json_syntax_conceal = 0
 
+Plug 'tpope/vim-endwise'
 Plug 'vim-ruby/vim-ruby'
   let g:no_ruby_maps = 1
   let g:ruby_indent_access_modifier_style = 'outdent'
