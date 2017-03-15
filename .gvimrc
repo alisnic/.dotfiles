@@ -7,7 +7,6 @@ set laststatus=0
 set mouse=a
 set noballooneval
 set showtabline=2
-set ruler
 
 macmenu &Tools.Make key=<nop>
 macmenu &File.Close key=<nop>

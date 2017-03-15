@@ -1,11 +1,8 @@
-filetype on
-filetype plugin on
-filetype indent on
-syntax on
 let mapleader = "\<Space>"
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'tpope/vim-sensible'
 Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-endwise'
@@ -85,7 +82,6 @@ Plug 'ctrlpvim/ctrlp.vim'
         \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
         \ }
 
-  let g:ctrlp_clear_cache_on_exit=1
   if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
   endif
@@ -124,8 +120,6 @@ set clipboard+=unnamedplus
 set cul
 set hidden
 set completeopt-=preview
-set autoread
-set complete-=i
 
 " Wrapping/scrolling
 set sidescroll=1
@@ -145,7 +139,6 @@ set shiftwidth=2
 " Search
 set hlsearch
 set smartcase
-set incsearch
 map <esc><esc> :nohlsearch<cr>
 
 " Status line
