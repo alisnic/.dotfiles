@@ -9,10 +9,6 @@ set noballooneval
 set showtabline=2
 set ruler
 
-au TabLeave * silent! wall
-
-hi MatchParen guibg=lightgrey guifg=NONE
-
 macmenu &Tools.Make key=<nop>
 macmenu &File.Close key=<nop>
 macmenu &File.New\ Window key=<D-S-n>
@@ -21,8 +17,6 @@ macmenu &File.Print key=<nop>
 macmenu File.Open\ Tab\.\.\. key=<nop>
 macmenu Window.Select\ Next\ Tab key=<nop>
 macmenu Window.Select\ Previous\ Tab key=<nop>
-
-set noballooneval
 
 map <D-t> :CtrlP<CR>
 map <D-w> :tabclose<cr>

@@ -120,6 +120,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 set background=light
 colorscheme solarized
+hi MatchParen guibg=lightgrey guifg=NONE
 
 set mouse=a
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
