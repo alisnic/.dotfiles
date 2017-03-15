@@ -38,9 +38,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'neomake/neomake'
   let g:neomake_verbose = 0
   let g:neomake_javascript_enabled_makers = ['eslint']
-  autocmd! BufWritePost *.coffee Neomake
-  autocmd! BufWritePost *.rb Neomake
-  autocmd! BufWritePost *.js Neomake
+  autocmd! BufRead,BufWrite *.coffee,*.rb,*.js Neomake
 
 Plug 'tomtom/tcomment_vim'
   nmap <leader>/ :TComment<cr>
@@ -191,13 +189,3 @@ vnoremap <S-Down> <NOP>
 nmap <leader>ln :setlocal nu!<cr>
 " Paste without overriding register
 vnoremap <leader>p "_dP
-
-function! SearchInFiles()
-  let query = input('Search in files: ')
-  if len(query) == 0
-    return
-  endif
-  exec ":tabedit | Ack " . query
-endfunction
-nmap <leader>f :call SearchInFiles()<cr>
-

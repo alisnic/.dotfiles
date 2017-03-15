@@ -6,7 +6,6 @@ set clipboard=unnamed
 set laststatus=0
 set mouse=a
 set noballooneval
-set balloonexpr=
 set showtabline=2
 set ruler
 
@@ -26,15 +25,14 @@ macmenu Window.Select\ Previous\ Tab key=<nop>
 set noballooneval
 
 map <D-t> :CtrlP<CR>
-map <D-r> :CtrlPBufTag<CR>
 map <D-w> :tabclose<cr>
-imap <D-t> <ESC>:CtrlP<CR>
+imap <D-t> <esc>:CtrlP<CR>
 imap <D-T> <esc>:CtrlPBuffer<cr>
 map <D-T> :CtrlPBuffer<cr>
 nmap <D-/> :TComment<cr>
 vmap <D-/> gc
-map <D-F> :call SearchInFiles()<cr>
-imap <D-F> :call SearchInFiles()<cr>
+map <D-F> :Ack<space>
+imap <D-F> :Ack<space>
 map <D-p> :CtrlPTag<cr>
 map <D-b> :exec "Tube " . &makeprg . " && focusvim"<cr>
 imap <D-b> <esc>:exec "Tube " . &makeprg . " && focusvim"<cr>
