@@ -12,6 +12,7 @@ Plug 'tpope/vim-endwise'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'bogado/file-line'
 Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-fugitive'
 
 " Language support
 Plug 'moll/vim-node'
@@ -38,14 +39,11 @@ Plug 'tpope/vim-projectionist'
 Plug 'neomake/neomake'
   let g:neomake_verbose = 0
   let g:neomake_javascript_enabled_makers = ['eslint']
-  autocmd! BufRead,BufWrite *.coffee,*.rb,*.js Neomake
+  autocmd BufRead,BufWrite *.coffee,*.rb,*.js Neomake
 
 Plug 'tomtom/tcomment_vim'
   nmap <leader>/ :TComment<cr>
   vmap <leader>/ gc
-
-Plug 'tpope/vim-fugitive'
-  cabbrev gst Gstatus
 
 Plug 'rhysd/devdocs.vim'
   cabbrev doc DevDocs
@@ -95,9 +93,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Valloric/YouCompleteMe', {'do': 'python install.py'}
   let g:ycm_collect_identifiers_from_tags_files = 1
   let g:ycm_min_num_of_chars_for_completion = 3
-  let g:ycm_collect_identifiers_from_comments_and_strings = 0
-  let g:ycm_seed_identifiers_with_syntax = 0
-  let g:ycm_register_as_syntastic_checker = 0
   let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
 
 Plug 'alisnic/tube.vim'
