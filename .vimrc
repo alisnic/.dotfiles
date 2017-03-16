@@ -113,15 +113,18 @@ set mouse=a
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set list listchars=trail:-,tab:>-
 set clipboard+=unnamedplus
-set cul
 set hidden
 set completeopt-=preview
-set nu!
 
-" Wrapping/scrolling
+" UI
+set cul
+set nu!
 set sidescroll=1
 set wrap!
 set colorcolumn=80
+set noshowmode
+set noshowcmd
+set laststatus=0
 
 " Filesystem
 set nobackup
@@ -138,14 +141,9 @@ set hlsearch
 set smartcase
 map <esc><esc> :nohlsearch<cr>
 
-" Status line
-set noshowmode
-set noshowcmd
-set laststatus=0
-
 " Folds
 set foldlevelstart=99
-set foldmethod=indent
+set foldmethod=indent " foldmethod=syntax is slow
 nmap ff za
 
 " Tag navigation
@@ -162,12 +160,11 @@ nnoremap <S-Left> <C-w><Left>
 nnoremap <S-Right> <C-w><Right>
 
 cabbrev te tabedit
-cabbrev help tab help
 command W w
+nmap ; :
 
 " Dear Vim lords, please have mercy on my poor mortal soul
 nmap q b
-nmap ; :
 nmap § ``
 vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
