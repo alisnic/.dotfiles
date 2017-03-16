@@ -2,6 +2,7 @@ let mapleader = "\<Space>"
 
 call plug#begin('~/.vim/plugged')
 
+let g:loaded_matchit = 1
 Plug 'tpope/vim-sensible'
 Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
@@ -69,8 +70,8 @@ Plug 'terryma/vim-expand-region'
     \ }
 
 Plug 'ton/vim-bufsurf'
-  nnoremap [ :BufSurfBack<cr>
-  nnoremap ] :BufSurfForward<cr>
+  nmap [ :BufSurfBack<cr>
+  nmap ] :BufSurfForward<cr>
 
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
