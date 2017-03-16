@@ -27,12 +27,7 @@ Plug 'vim-ruby/vim-ruby'
   autocmd FileType ruby setlocal indentkeys-=.
 
 Plug 'tpope/vim-projectionist'
-  if (winwidth(0) > 160)
-    nnoremap <leader><leader> :AV<cr>
-    set nu!
-  else
-    nnoremap <leader><leader> :AT<cr>
-  endif
+  nnoremap <leader><leader> :AV<cr>
 
 Plug 'neomake/neomake'
   let g:neomake_verbose = 0
@@ -121,6 +116,7 @@ set clipboard+=unnamedplus
 set cul
 set hidden
 set completeopt-=preview
+set nu!
 
 " Wrapping/scrolling
 set sidescroll=1
@@ -175,7 +171,4 @@ nmap ; :
 nmap § ``
 vnoremap <S-UP> <NOP>
 vnoremap <S-Down> <NOP>
-
-nmap <leader>ln :setlocal nu!<cr>
-" Paste without overriding register
 vnoremap <leader>p "_dP
