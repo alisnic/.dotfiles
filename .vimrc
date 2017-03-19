@@ -71,7 +71,6 @@ Plug 'ton/vim-bufsurf'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
   nmap <leader>t :CtrlP<cr>
-  let g:ctrlp_show_hidden = 1
   let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
   let g:ctrlp_prompt_mappings = {
         \ 'AcceptSelection("e")': ['<c-t>'],
@@ -97,10 +96,6 @@ Plug 'mileszs/ack.vim'
   endif
 
 call plug#end()
-
-" Restore cursor position when reopening buffer
-autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-  \| exe "normal! g'\"" | endif
 
 " Delete trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
@@ -163,7 +158,6 @@ cabbrev te tabedit
 command W w
 nmap ; :
 
-" Dear Vim lords, please have mercy on my poor mortal soul
 nmap q b
 nmap § ``
 vnoremap <S-UP> <NOP>

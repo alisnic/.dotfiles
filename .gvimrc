@@ -5,6 +5,7 @@ set guitablabel=%t
 set laststatus=0
 set noballooneval
 set showtabline=2
+set clipboard=unnamed
 
 macmenu &Tools.Make key=<nop>
 macmenu &File.Close key=<nop>
