@@ -68,10 +68,8 @@ Plug 'ton/vim-bufsurf'
   nmap [ :BufSurfBack<cr>
   nmap ] :BufSurfForward<cr>
 
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
   nmap <leader>t :CtrlP<cr>
-  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
   let g:ctrlp_prompt_mappings = {
         \ 'AcceptSelection("e")': ['<c-t>'],
         \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
