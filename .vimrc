@@ -70,14 +70,12 @@ Plug 'ton/vim-bufsurf'
 
 Plug 'ctrlpvim/ctrlp.vim'
   nmap <leader>t :CtrlP<cr>
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
   let g:ctrlp_prompt_mappings = {
         \ 'AcceptSelection("e")': ['<c-t>'],
         \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
         \ }
 
-  if executable('ag')
-    let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-  endif
 
 Plug 'Valloric/YouCompleteMe', {'do': 'python install.py'}
   let g:ycm_collect_identifiers_from_tags_files = 1
@@ -89,9 +87,7 @@ Plug 'alisnic/tube.vim'
 
 Plug 'mileszs/ack.vim'
   let g:ackpreview = 1
-  if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
-  endif
+  let g:ackprg = 'ag --vimgrep'
 
 call plug#end()
 
