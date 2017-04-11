@@ -2,3 +2,11 @@
 node_modules
 tmp
 log
+*.svg
+*.eot
+*.png
+*.jpg
+*.ttf
+*.otf
+*.woff
+*.woff2
