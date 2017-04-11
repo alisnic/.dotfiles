@@ -79,6 +79,7 @@ hi MatchParen guibg=lightgrey guifg=NONE
 set mouse=a
 set hidden
 set completeopt-=preview
+set clipboard=unnamed
 
 " UI
 set list listchars=trail:-,tab:>-

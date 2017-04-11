@@ -14,7 +14,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias brails='bin/spring rails'
 alias brake='bin/spring rake'
-alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+alias vim='reattach-to-user-namespace /Applications/MacVim.app/Contents/MacOS/Vim'
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
 alias mux='tmux new-session -s `basename \`pwd\``'
