@@ -30,7 +30,6 @@ Plug 'tpope/vim-projectionist'
 
 Plug 'neomake/neomake'
   let g:neomake_verbose = 0
-  let g:neomake_javascript_enabled_makers = ['eslint']
   autocmd BufRead,BufWrite *.coffee,*.rb,*.js Neomake
 
 Plug 'scrooloose/nerdtree'
@@ -41,7 +40,6 @@ Plug 'scrooloose/nerdtree'
 
 Plug 'terryma/vim-expand-region'
   vmap v <Plug>(expand_region_expand)
-  vmap <C-v> <Plug>(expand_region_shrink)
 
 Plug 'ton/vim-bufsurf'
   nmap [ :BufSurfBack<cr>
