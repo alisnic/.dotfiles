@@ -50,19 +50,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'terryma/vim-expand-region'
   vmap v <Plug>(expand_region_expand)
   vmap <C-v> <Plug>(expand_region_shrink)
-  let g:expand_region_text_objects = {
-    \ 't.'  :1,
-    \ 'iw'  :0,
-    \ 'iW'  :0,
-    \ 'i"'  :0,
-    \ 'i''' :0,
-    \ 'i]'  :1,
-    \ 'ib'  :1,
-    \ 'iB'  :1,
-    \ 'il'  :0,
-    \ 'ip'  :0,
-    \ 'ie'  :0,
-    \ }
 
 Plug 'ton/vim-bufsurf'
   nmap [ :BufSurfBack<cr>
@@ -71,11 +58,6 @@ Plug 'ton/vim-bufsurf'
 Plug 'ctrlpvim/ctrlp.vim'
   nmap <leader>t :CtrlP<cr>
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-  let g:ctrlp_prompt_mappings = {
-        \ 'AcceptSelection("e")': ['<c-t>'],
-        \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-        \ }
-
 
 Plug 'Valloric/YouCompleteMe', {'do': 'python install.py'}
   let g:ycm_collect_identifiers_from_tags_files = 1
@@ -91,6 +73,8 @@ Plug 'mileszs/ack.vim'
 
 call plug#end()
 
+call expand_region#custom_text_objects({"t.": 1})
+
 " Delete trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 
@@ -99,7 +83,6 @@ colorscheme solarized
 hi MatchParen guibg=lightgrey guifg=NONE
 
 set mouse=a
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set list listchars=trail:-,tab:>-
 set clipboard+=unnamedplus
 set hidden
@@ -127,6 +110,7 @@ set shiftwidth=2
 
 " Search
 set hlsearch
+set ignorecase
 set smartcase
 map <esc><esc> :nohlsearch<cr>
 
@@ -151,6 +135,9 @@ nnoremap <S-Right> <C-w><Right>
 cabbrev te tabedit
 command W w
 nmap ; :
+
+nmap <leader>m <C-w>t<cr>
+nmap <leader>ln :setlocal nu!<cr>
 
 nmap q b
 nmap § ``
