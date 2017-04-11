@@ -5,6 +5,7 @@
 --exclude=*.css
 --exclude=*.json
 --exclude=*.svg
+--exclude=public
 --languages=-html
 --fields=+l
 
