@@ -10,6 +10,7 @@ Plug 'jszakmeister/vim-togglecursor'
 Plug 'bogado/file-line'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fugitive'
+Plug 'tomtom/tcomment_vim'
 
 " Language support
 Plug 'moll/vim-node'
@@ -32,10 +33,6 @@ Plug 'neomake/neomake'
   let g:neomake_javascript_enabled_makers = ['eslint']
   autocmd BufRead,BufWrite *.coffee,*.rb,*.js Neomake
 
-Plug 'tomtom/tcomment_vim'
-  nmap <leader>/ :TComment<cr>
-  vmap <leader>/ gc
-
 Plug 'scrooloose/nerdtree'
   nmap <leader>s :NERDTreeToggle<cr>
   nmap <leader>r :NERDTreeFind<cr>
@@ -51,7 +48,6 @@ Plug 'ton/vim-bufsurf'
   nmap ] :BufSurfForward<cr>
 
 Plug 'ctrlpvim/ctrlp.vim'
-  nmap <leader>t :CtrlP<cr>
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
 Plug 'Valloric/YouCompleteMe', {'do': 'python install.py'}
@@ -130,7 +126,7 @@ cabbrev te tabedit
 command W w
 nmap ; :
 
-nmap <leader>m <C-w>t<cr>
+" nmap <leader>m <C-w>t<cr>
 nmap <leader>ln :setlocal nu!<cr>
 
 nmap q b
