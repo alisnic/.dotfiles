@@ -16,8 +16,6 @@ Plug 'moll/vim-node'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 Plug 'pangloss/vim-javascript'
-Plug 'elzr/vim-json'
-  let g:vim_json_syntax_conceal = 0
 
 Plug 'tpope/vim-endwise'
 Plug 'vim-ruby/vim-ruby'
@@ -37,9 +35,6 @@ Plug 'neomake/neomake'
 Plug 'tomtom/tcomment_vim'
   nmap <leader>/ :TComment<cr>
   vmap <leader>/ gc
-
-Plug 'rhysd/devdocs.vim'
-  cabbrev doc DevDocs
 
 Plug 'scrooloose/nerdtree'
   nmap <leader>s :NERDTreeToggle<cr>
@@ -72,7 +67,6 @@ Plug 'mileszs/ack.vim'
   let g:ackprg = 'ag --vimgrep'
 
 call plug#end()
-
 call expand_region#custom_text_objects({"t.": 1})
 
 " Delete trailing spaces on save
@@ -83,12 +77,11 @@ colorscheme solarized
 hi MatchParen guibg=lightgrey guifg=NONE
 
 set mouse=a
-set list listchars=trail:-,tab:>-
-set clipboard+=unnamedplus
 set hidden
 set completeopt-=preview
 
 " UI
+set list listchars=trail:-,tab:>-
 set cul
 set nu!
 set sidescroll=1
