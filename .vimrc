@@ -1,8 +1,8 @@
 let mapleader = "\<Space>"
+let g:loaded_matchit = 1
 
 call plug#begin('~/.vim/plugged')
 
-let g:loaded_matchit = 1
 Plug 'tpope/vim-sensible'
 Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
@@ -50,7 +50,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'Valloric/YouCompleteMe', {'do': 'python install.py'}
   let g:ycm_collect_identifiers_from_tags_files = 1
-  let g:ycm_min_num_of_chars_for_completion = 3
   let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
 
 Plug 'alisnic/tube.vim'
@@ -68,7 +67,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 set background=light
 colorscheme solarized
-hi MatchParen guibg=lightgrey guifg=NONE
 
 set mouse=a
 set hidden
@@ -82,8 +80,6 @@ set nu!
 set sidescroll=1
 set wrap!
 set colorcolumn=80
-set noshowmode
-set noshowcmd
 set laststatus=0
 
 " Filesystem
@@ -122,13 +118,7 @@ nnoremap <S-Right> <C-w><Right>
 
 cabbrev te tabedit
 command W w
-nmap ; :
-
-" nmap <leader>m <C-w>t<cr>
 nmap <leader>ln :setlocal nu!<cr>
-
 nmap q b
 nmap § ``
-vnoremap <S-UP> <NOP>
-vnoremap <S-Down> <NOP>
 vnoremap <leader>p "_dP
