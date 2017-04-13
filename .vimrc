@@ -24,6 +24,7 @@ Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_access_modifier_style = 'outdent'
   let g:ruby_indent_assignment_style = 'variable'
   autocmd FileType ruby setlocal indentkeys-=.
+  autocmd FileType ruby setlocal iskeyword+=!
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
