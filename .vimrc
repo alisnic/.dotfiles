@@ -57,8 +57,10 @@ Plug 'mileszs/ack.vim'
 call plug#end()
 call expand_region#custom_text_objects({"t.": 1})
 
-" Delete trailing spaces on save
-autocmd BufWritePre * :%s/\s\+$//e
+
+autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
+autocmd BufRead * nmap <buffer> <nowait> [ :BufSurfBack<cr>
+autocmd BufRead * nmap <buffer> <nowait> ] :BufSurfForward<cr>
 
 set background=light
 colorscheme solarized
@@ -76,6 +78,7 @@ set sidescroll=1
 set wrap!
 set colorcolumn=80
 set laststatus=0
+set splitright
 
 " Filesystem
 set nobackup
@@ -101,8 +104,7 @@ nmap ff za
 " Tag navigation
 set tags=.git/tags
 set tc=match
-nmap <leader>d g]
-vmap <leader>d g]
+map <leader>d g]
 
 " Split navigation
 nnoremap <S-UP> <C-w><UP>
@@ -110,9 +112,7 @@ nnoremap <S-Down> <C-w><Down>
 nnoremap <S-Left> <C-w><Left>
 nnoremap <S-Right> <C-w><Right>
 
-cabbrev te tabedit
 command W w
 nmap <leader>ln :setlocal nu!<cr>
 nmap q b
-nmap § ``
 vnoremap <leader>p "_dP
