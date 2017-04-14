@@ -27,3 +27,5 @@ nmap <D-/> :TComment<cr>
 vmap <D-/> gc
 nmap <D-F> :tabedit \| Ack<space>
 imap <D-F> :tabedit \| Ack<space>
+nmap <D-[> :BufSurfBack<cr>
+nmap <D-]> :BufSurfForward<cr>

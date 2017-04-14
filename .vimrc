@@ -1,5 +1,4 @@
 let mapleader = "\<Space>"
-let g:loaded_matchit = 1
 
 call plug#begin('~/.vim/plugged')
 
@@ -11,6 +10,7 @@ Plug 'bogado/file-line'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fugitive'
 Plug 'tomtom/tcomment_vim'
+Plug 'ton/vim-bufsurf'
 
 " Language support
 Plug 'moll/vim-node'
@@ -20,11 +20,9 @@ Plug 'pangloss/vim-javascript'
 
 Plug 'tpope/vim-endwise'
 Plug 'vim-ruby/vim-ruby'
-  let g:no_ruby_maps = 1
   let g:ruby_indent_access_modifier_style = 'outdent'
   let g:ruby_indent_assignment_style = 'variable'
   autocmd FileType ruby setlocal indentkeys-=.
-  autocmd FileType ruby setlocal iskeyword+=!
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
@@ -41,10 +39,6 @@ Plug 'scrooloose/nerdtree'
 
 Plug 'terryma/vim-expand-region'
   vmap v <Plug>(expand_region_expand)
-
-Plug 'ton/vim-bufsurf'
-  nmap [ :BufSurfBack<cr>
-  nmap ] :BufSurfForward<cr>
 
 Plug 'ctrlpvim/ctrlp.vim'
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
@@ -109,7 +103,6 @@ set tags=.git/tags
 set tc=match
 nmap <leader>d g]
 vmap <leader>d g]
-vmap ] <C-]>
 
 " Split navigation
 nnoremap <S-UP> <C-w><UP>
