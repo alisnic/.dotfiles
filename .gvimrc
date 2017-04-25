@@ -16,9 +16,6 @@ imap <D-t> <esc>:CtrlP<CR>
 macmenu &File.Print key=<nop>
 map <D-p> :CtrlPTag<cr>
 
-macmenu &Edit.Find.Find\ Next key=<nop>
-map <D-g> :CtrlPBuffer<cr>
-
 macmenu &Tools.Make key=<nop>
 map <D-b> :exec "Tube " . &makeprg . " && focusvim"<cr>
 imap <D-b> <esc>:exec "Tube " . &makeprg . " && focusvim"<cr>

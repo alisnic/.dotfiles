@@ -10,7 +10,7 @@ Plug 'bogado/file-line'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fugitive'
 Plug 'tomtom/tcomment_vim'
-Plug 'ton/vim-bufsurf'
+Plug 'artnez/vim-wipeout'
 
 " Language support
 Plug 'moll/vim-node'
@@ -23,6 +23,10 @@ Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_access_modifier_style = 'outdent'
   let g:ruby_indent_assignment_style = 'variable'
   autocmd FileType ruby setlocal indentkeys-=.
+
+Plug 'ton/vim-bufsurf'
+  nmap <backspace> :BufSurfBack<cr>
+  nmap <S-backspace> :BufSurfForward<cr>
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
@@ -42,6 +46,7 @@ Plug 'terryma/vim-expand-region'
 
 Plug 'ctrlpvim/ctrlp.vim'
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+  nmap <Tab> :CtrlPBuffer<cr>
 
 Plug 'Valloric/YouCompleteMe', {'do': 'python install.py'}
   let g:ycm_collect_identifiers_from_tags_files = 1
@@ -57,10 +62,7 @@ Plug 'mileszs/ack.vim'
 call plug#end()
 call expand_region#custom_text_objects({"t.": 1})
 
-
 autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
-autocmd BufRead * nmap <buffer> <nowait> [ :BufSurfBack<cr>
-autocmd BufRead * nmap <buffer> <nowait> ] :BufSurfForward<cr>
 
 set background=light
 colorscheme solarized
@@ -107,10 +109,11 @@ set tc=match
 map <leader>d g]
 
 " Split navigation
-nnoremap <S-UP> <C-w><UP>
-nnoremap <S-Down> <C-w><Down>
-nnoremap <S-Left> <C-w><Left>
-nnoremap <S-Right> <C-w><Right>
+map <S-UP> <C-w><UP>
+map <S-Down> <C-w><Down>
+map <S-Left> <C-w><Left>
+map <S-Right> <C-w><Right>
+cabbrev te tabedit
 
 command W w
 nmap <leader>ln :setlocal nu!<cr>
