@@ -5,8 +5,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
-Plug 'jszakmeister/vim-togglecursor'
-Plug 'bogado/file-line'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fugitive'
 Plug 'tomtom/tcomment_vim'
@@ -23,10 +21,6 @@ Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_access_modifier_style = 'outdent'
   let g:ruby_indent_assignment_style = 'variable'
   autocmd FileType ruby setlocal indentkeys-=.
-
-Plug 'ton/vim-bufsurf'
-  nmap <backspace> :BufSurfBack<cr>
-  nmap <S-backspace> :BufSurfForward<cr>
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
@@ -101,7 +95,6 @@ map <esc><esc> :nohlsearch<cr>
 " Folds
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
-nmap ff za
 
 " Tag navigation
 set tags=.git/tags
@@ -113,9 +106,11 @@ map <S-UP> <C-w><UP>
 map <S-Down> <C-w><Down>
 map <S-Left> <C-w><Left>
 map <S-Right> <C-w><Right>
-cabbrev te tabedit
+
+" Buffer navigation
+nmap <backspace> :bp<cr>
+nmap <S-backspace> :bn<cr>
 
 command W w
 nmap <leader>ln :setlocal nu!<cr>
-nmap q b
 vnoremap <leader>p "_dP
