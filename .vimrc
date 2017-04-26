@@ -3,6 +3,7 @@ let mapleader = "\<Space>"
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
+Plug 'jszakmeister/vim-togglecursor'
 Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
 Plug 'Raimondi/delimitMate'
@@ -67,7 +68,6 @@ set completeopt-=preview
 set clipboard=unnamed
 
 " UI
-set list listchars=trail:-,tab:>-
 set cul
 set nu!
 set sidescroll=1
