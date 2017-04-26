@@ -4,18 +4,17 @@
 [alias]
   aa = add .
   st = status -sb
-  cam = commit -a -m
   cm = commit
   co = checkout
   cp = cherry-pick
   df = diff --color
   dc = diff --color --cached
   ph = push
+  lg = log --pretty=oneline --abbrev-commit
   pl = pull
   sw = show --color
   this = !git init && git add . && git commit -m \"initial commit\"
   rhh  = reset HEAD --hard
-  sync = pull --rebase main
 
 [user]
   name = Andrei Lisnic
