@@ -1,5 +1,4 @@
 let mapleader = "\<Space>"
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
@@ -9,7 +8,6 @@ Plug 'godlygeek/tabular'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fugitive'
 Plug 'tomtom/tcomment_vim'
-Plug 'artnez/vim-wipeout'
 
 " Language support
 Plug 'moll/vim-node'
@@ -22,6 +20,10 @@ Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_access_modifier_style = 'outdent'
   let g:ruby_indent_assignment_style = 'variable'
   autocmd FileType ruby setlocal indentkeys-=.
+
+Plug 'ton/vim-bufsurf'
+  nmap <backspace> :BufSurfBack<cr>
+  nmap <S-backspace> :BufSurfForward<cr>
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
@@ -60,14 +62,12 @@ call expand_region#custom_text_objects({"t.": 1})
 autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
 
 set background=light
+set hidden
+set clipboard=unnamed
 colorscheme solarized
 
-set mouse=a
-set hidden
-set completeopt-=preview
-set clipboard=unnamed
-
 " UI
+set mouse=a
 set cul
 set nu!
 set sidescroll=1
@@ -99,7 +99,6 @@ set foldmethod=indent " foldmethod=syntax is slow
 " Tag navigation
 set tags=.git/tags
 set tc=match
-map <leader>d g]
 
 " Split navigation
 map <S-UP> <C-w><UP>
@@ -107,10 +106,7 @@ map <S-Down> <C-w><Down>
 map <S-Left> <C-w><Left>
 map <S-Right> <C-w><Right>
 
-" Buffer navigation
-nmap <backspace> :bp<cr>
-nmap <S-backspace> :bn<cr>
-
 command W w
+command Wipeout bufdo bw
 nmap <leader>ln :setlocal nu!<cr>
 vnoremap <leader>p "_dP
