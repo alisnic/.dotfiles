@@ -21,7 +21,7 @@ Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
   autocmd FileType ruby setlocal indentkeys-=.
 
-Plug 'ton/vim-bufsurf'
+Plug 'alisnic/vim-bufsurf'
   nmap <backspace> :BufSurfBack<cr>
   nmap <S-backspace> :BufSurfForward<cr>
 
@@ -107,6 +107,6 @@ map <S-Left> <C-w><Left>
 map <S-Right> <C-w><Right>
 
 command W w
-command Wipeout bufdo bw
+command Wipeout bufdo bw | BufSurfClear
 nmap <leader>ln :setlocal nu!<cr>
 vnoremap <leader>p "_dP
