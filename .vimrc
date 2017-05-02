@@ -2,11 +2,12 @@ let mapleader = "\<Space>"
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
 Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-fugitive'
 Plug 'tomtom/tcomment_vim'
 
 " Language support
@@ -15,7 +16,8 @@ Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 Plug 'pangloss/vim-javascript'
 
-Plug 'tpope/vim-endwise'
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_access_modifier_style = 'outdent'
   let g:ruby_indent_assignment_style = 'variable'
