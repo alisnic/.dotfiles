@@ -2,6 +2,7 @@
   status = always
 
 [alias]
+  aa = add .
   ap = add --patch
   st = status -sb
   cm = commit
