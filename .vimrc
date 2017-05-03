@@ -4,6 +4,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
@@ -22,6 +23,7 @@ Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_access_modifier_style = 'outdent'
   let g:ruby_indent_assignment_style = 'variable'
   autocmd FileType ruby setlocal indentkeys-=.
+  nmap <leader>c vt.<C-]>
 
 Plug 'alisnic/vim-bufsurf'
   nmap <backspace> :BufSurfBack<cr>
