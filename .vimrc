@@ -6,10 +6,12 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
 Plug 'jszakmeister/vim-togglecursor'
-Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
 Plug 'Raimondi/delimitMate'
 Plug 'tomtom/tcomment_vim'
+Plug 'sickill/vim-pasta'  " Preserve intendation when pasting
+Plug 'justinmk/vim-sneak' " Super fast motions
+Plug 'altercation/vim-colors-solarized'
 
 " Language support
 Plug 'moll/vim-node'
@@ -111,6 +113,6 @@ map <S-Left> <C-w><Left>
 map <S-Right> <C-w><Right>
 
 command W w
-command Wipeout bufdo bw | BufSurfClear
+command Q q
+command Wipeout bufdo bd | BufSurfClear
 nmap <leader>ln :setlocal nu!<cr>
-vnoremap <leader>p "_dP
