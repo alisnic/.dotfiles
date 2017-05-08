@@ -10,7 +10,6 @@ Plug 'godlygeek/tabular'
 Plug 'Raimondi/delimitMate'
 Plug 'tomtom/tcomment_vim'
 Plug 'sickill/vim-pasta'  " Preserve intendation when pasting
-Plug 'justinmk/vim-sneak' " Super fast motions
 Plug 'altercation/vim-colors-solarized'
 
 " Language support
@@ -19,8 +18,6 @@ Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 Plug 'pangloss/vim-javascript'
 
-Plug 'kana/vim-textobj-user'
-Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_access_modifier_style = 'outdent'
   let g:ruby_indent_assignment_style = 'variable'
@@ -35,8 +32,7 @@ Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
 
 Plug 'neomake/neomake'
-  let g:neomake_verbose = 0
-  autocmd BufRead,BufWrite *.coffee,*.rb,*.js Neomake
+  autocmd! BufWritePost * Neomake
 
 Plug 'scrooloose/nerdtree'
   nmap <leader>s :NERDTreeToggle<cr>

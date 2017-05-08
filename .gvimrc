@@ -4,10 +4,6 @@ set guifont=mononoki:h15
 set laststatus=0
 set noballooneval
 set showtabline=2
-set clipboard=unnamed
-
-macmenu &File.Close key=<nop>
-map <D-w> :tabclose<cr>
 
 macmenu &File.New\ Tab key=<nop>
 map <D-t> :CtrlP<CR>
