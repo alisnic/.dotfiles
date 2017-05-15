@@ -66,6 +66,7 @@ autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
 set background=light
 set hidden
 set clipboard=unnamed
+set virtualedit=all
 colorscheme solarized
 
 " UI
