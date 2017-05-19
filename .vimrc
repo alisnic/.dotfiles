@@ -24,6 +24,7 @@ Plug 'vim-ruby/vim-ruby'
   autocmd FileType ruby setlocal indentkeys-=.
   nmap <leader>c vt.<C-]>
 
+Plug 'alisnic/vim-bufferline'
 Plug 'alisnic/vim-bufsurf'
   nmap <backspace> :BufSurfBack<cr>
   nmap <S-backspace> :BufSurfForward<cr>
@@ -66,7 +67,6 @@ autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
 set background=light
 set hidden
 set clipboard=unnamed
-set virtualedit=all
 colorscheme solarized
 
 " UI
