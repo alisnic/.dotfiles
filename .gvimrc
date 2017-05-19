@@ -3,7 +3,6 @@ set guioptions-=L  "remove left-hand scroll bar
 set guifont=mononoki:h15
 set laststatus=0
 set noballooneval
-set showtabline=2
 
 macmenu &File.New\ Tab key=<nop>
 map <D-t> :CtrlP<CR>
@@ -18,5 +17,3 @@ imap <D-b> <esc>:exec "Tube " . &makeprg . " && focusvim"<cr>
 
 nmap <D-/> :TComment<cr>
 vmap <D-/> gc
-nmap <D-F> :tabedit \| Ack<space>
-imap <D-F> :tabedit \| Ack<space>
