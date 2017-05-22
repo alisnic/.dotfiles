@@ -24,7 +24,6 @@ Plug 'vim-ruby/vim-ruby'
   autocmd FileType ruby setlocal indentkeys-=.
   nmap <leader>c vt.<C-]>
 
-Plug 'alisnic/vim-bufferline'
 Plug 'alisnic/vim-bufsurf'
   nmap <backspace> :BufSurfBack<cr>
   nmap <S-backspace> :BufSurfForward<cr>
