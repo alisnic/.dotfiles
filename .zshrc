@@ -13,8 +13,8 @@ export HOMEBREW_GITHUB_API_TOKEN=995128975d5615332b7aab40ecdda3cf11f03d8c
 source $ZSH/oh-my-zsh.sh
 
 alias brb='bundle exec ruby'
-alias brails='bundle exec rails'
-alias brake='bundle exec rake'
+alias rails='bundle exec rails'
+alias rake='bundle exec rake'
 alias vim='reattach-to-user-namespace /Applications/MacVim.app/Contents/MacOS/Vim'
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
@@ -30,7 +30,7 @@ alias dc='docker-compose'
 alias mvim='reattach-to-user-namespace mvim'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby 2.3.3
+chruby 2.2.4
 
 function git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return

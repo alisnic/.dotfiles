@@ -24,10 +24,6 @@ Plug 'vim-ruby/vim-ruby'
   autocmd FileType ruby setlocal indentkeys-=.
   nmap <leader>c vt.<C-]>
 
-Plug 'alisnic/vim-bufferline'
-  autocmd VimEnter *
-    \ let &statusline='%{bufferline#refresh_status()}' . bufferline#get_status_string()
-
 Plug 'alisnic/vim-bufsurf'
   nmap <backspace> :BufSurfBack<cr>
   nmap <S-backspace> :BufSurfForward<cr>
@@ -80,6 +76,7 @@ set sidescroll=1
 set wrap!
 set colorcolumn=80
 set splitright
+set laststatus=0
 
 " Filesystem
 set nobackup
