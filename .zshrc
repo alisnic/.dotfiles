@@ -30,7 +30,7 @@ alias dc='docker-compose'
 alias mvim='reattach-to-user-namespace mvim'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby 2.2.4
+chruby 2.2.6
 
 function git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
