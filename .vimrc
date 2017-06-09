@@ -45,7 +45,6 @@ Plug 'terryma/vim-expand-region'
 
 Plug 'ctrlpvim/ctrlp.vim'
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-  nmap <Tab> :CtrlPBuffer<cr>
 
 Plug 'Valloric/YouCompleteMe', {'do': 'python install.py'}
   let g:ycm_collect_identifiers_from_tags_files = 1

@@ -5,7 +5,7 @@ set noballooneval
 set laststatus=0
 
 macmenu &File.New\ Tab key=<nop>
-map <D-t> :CtrlP<CR>
+map <D-t> :CtrlPMixed<CR>
 imap <D-t> <esc>:CtrlP<CR>
 
 macmenu &File.Print key=<nop>
