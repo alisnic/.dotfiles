@@ -44,6 +44,7 @@ Plug 'terryma/vim-expand-region'
   vmap v <Plug>(expand_region_expand)
 
 Plug 'ctrlpvim/ctrlp.vim'
+  let g:ctrlp_mruf_relative = 1
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
 Plug 'Valloric/YouCompleteMe', {'do': 'python install.py'}
@@ -111,3 +112,4 @@ command W w
 command Q q
 command Wipeout bufdo bd | BufSurfClear
 nmap <leader>ln :setlocal nu!<cr>
+
