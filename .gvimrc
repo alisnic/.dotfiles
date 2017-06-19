@@ -16,6 +16,3 @@ map <D-b> :exec "Tube " . &makeprg . " && focusvim"<cr>
 imap <D-b> <esc>:exec "Tube " . &makeprg . " && focusvim"<cr>
 
 map <D-r> :CtrlPBufTag<cr>
-
-nmap <D-/> :TComment<cr>
-vmap <D-/> gc

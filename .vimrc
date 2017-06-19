@@ -6,23 +6,18 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
 Plug 'jszakmeister/vim-togglecursor'
-Plug 'godlygeek/tabular'
 Plug 'Raimondi/delimitMate'
 Plug 'tomtom/tcomment_vim'
 Plug 'sickill/vim-pasta'  " Preserve intendation when pasting
 Plug 'altercation/vim-colors-solarized'
+Plug 'michaeljsmith/vim-indent-object'
 
-" Language support
-Plug 'moll/vim-node'
-Plug 'tpope/vim-haml'
-Plug 'kchmck/vim-coffee-script'
-Plug 'pangloss/vim-javascript'
+Plug 'tommcdo/vim-lion'
+  let g:lion_squeeze_spaces = 1
 
-Plug 'vim-ruby/vim-ruby'
+Plug 'sheerun/vim-polyglot'
   let g:ruby_indent_access_modifier_style = 'outdent'
   let g:ruby_indent_assignment_style = 'variable'
-  autocmd FileType ruby setlocal indentkeys-=.
-  nmap <leader>c vt.<C-]>
 
 Plug 'alisnic/vim-bufsurf'
   nmap <backspace> :BufSurfBack<cr>
@@ -110,6 +105,3 @@ map <S-Right> <C-w><Right>
 
 command W w
 command Q q
-command Wipeout bufdo bd | BufSurfClear
-nmap <leader>ln :setlocal nu!<cr>
-
