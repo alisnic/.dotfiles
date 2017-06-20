@@ -39,7 +39,7 @@ function git_prompt_info() {
 
 function gentags() {
   echo "Exporting tags..."
-  ctags -R --tag-relative -f .git/tags
+  ctags -R -f .git/tags --tag-relative=yes
 }
 
 function f_notifyme {
