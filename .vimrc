@@ -6,11 +6,14 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
 Plug 'jszakmeister/vim-togglecursor'
-Plug 'Raimondi/delimitMate'
 Plug 'tomtom/tcomment_vim'
 Plug 'sickill/vim-pasta'  " Preserve intendation when pasting
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'Raimondi/delimitMate'
+
+Plug 'vim-scripts/sessionman.vim'
+  nmap <leader>p :SessionList<cr>
 
 Plug 'tommcdo/vim-lion'
   let g:lion_squeeze_spaces = 1
