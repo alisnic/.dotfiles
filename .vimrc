@@ -98,6 +98,7 @@ set foldmethod=indent " foldmethod=syntax is slow
 " Tag navigation
 set tags=.git/tags
 set tc=match
+map <leader>d g<C-]>
 
 " Split navigation
 map <S-UP> <C-w><UP>
