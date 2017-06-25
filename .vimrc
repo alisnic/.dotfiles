@@ -35,8 +35,7 @@ Plug 'neomake/neomake'
 Plug 'scrooloose/nerdtree'
   nmap <leader>s :NERDTreeToggle<cr>
   nmap <leader>r :NERDTreeFind<cr>
-  let NERDTreeShowHidden=1
-  let NERDTreeIgnore = ['\.DS_Store$', '\.gitkeep$', '\.git$']
+  let NERDTreeShowHidden = 1
 
 Plug 'terryma/vim-expand-region'
   vmap v <Plug>(expand_region_expand)
