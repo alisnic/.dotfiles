@@ -12,6 +12,7 @@ Plug 'Konfekt/FastFold'              " Make folds fast again
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 
+" Git integration
 Plug 'tpope/vim-fugitive'
   nmap <leader>g :Gstatus<cr>gg<C-n>
 
