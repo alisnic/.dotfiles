@@ -24,7 +24,7 @@ Plug 'sheerun/vim-polyglot' " A collection of language plugins
   let g:ruby_indent_assignment_style = 'variable'
 
 " Preserve buffer navigation history
-Plug 'alisnic/vim-bufsurf'
+Plug 'ton/vim-bufsurf'
   nmap <backspace> :BufSurfBack<cr>
   nmap <S-backspace> :BufSurfForward<cr>
 
