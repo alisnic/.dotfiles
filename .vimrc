@@ -16,10 +16,12 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-fugitive'
   nmap <leader>g :Gstatus<cr>gg<C-n>
 
-Plug 'tommcdo/vim-lion' " Align code by characters
+" Align code by characters
+Plug 'tommcdo/vim-lion'
   let g:lion_squeeze_spaces = 1
 
-Plug 'sheerun/vim-polyglot' " A collection of language plugins
+" A collection of language plugins
+Plug 'sheerun/vim-polyglot'
   let g:ruby_indent_access_modifier_style = 'outdent'
   let g:ruby_indent_assignment_style = 'variable'
 
