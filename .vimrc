@@ -61,6 +61,7 @@ Plug 'alisnic/tube.vim'
 Plug 'mileszs/ack.vim'
   let g:ackpreview = 1
   let g:ackprg     = 'ag --vimgrep'
+  set keywordprg=:Ack " K searches current keyword
 
 call plug#end()
 call expand_region#custom_text_objects({"t.": 1})
