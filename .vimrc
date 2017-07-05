@@ -9,12 +9,9 @@ Plug 'tomtom/tcomment_vim'           " Comment code
 Plug 'sickill/vim-pasta'             " Preserve intendation when pasting
 Plug 'Raimondi/delimitMate'          " Auto-close quotes and parens
 Plug 'Konfekt/FastFold'              " Make folds fast again
+Plug 'tpope/vim-fugitive'            " Git integration
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
-
-" Git integration
-Plug 'tpope/vim-fugitive'
-  nmap <leader>g :Gstatus<cr>gg<C-n>
 
 " Align code by characters
 Plug 'tommcdo/vim-lion'
@@ -27,8 +24,8 @@ Plug 'sheerun/vim-polyglot'
 
 " Preserve buffer navigation history
 Plug 'ton/vim-bufsurf'
-  nmap <backspace> :BufSurfBack<cr>
-  nmap <S-backspace> :BufSurfForward<cr>
+  nnoremap <backspace> :BufSurfBack<cr>
+  nnoremap <S-backspace> :BufSurfForward<cr>
 
 " Per-project file mappings
 Plug 'tpope/vim-projectionist'
@@ -39,13 +36,13 @@ Plug 'neomake/neomake'
   autocmd! BufWritePost * Neomake
 
 Plug 'scrooloose/nerdtree'
-  nmap <leader>s :NERDTreeToggle<cr>
-  nmap <leader>r :NERDTreeFind<cr>
+  nnoremap <leader>s :NERDTreeToggle<cr>
+  nnoremap <leader>r :NERDTreeFind<cr>
   let NERDTreeShowHidden = 1
 
 " Expand a visual selection automatically
 Plug 'terryma/vim-expand-region'
-  vmap v <Plug>(expand_region_expand)
+  xnoremap v <Plug>(expand_region_expand)
 
 Plug 'ctrlpvim/ctrlp.vim'
   let g:ctrlp_mruf_relative = 1
@@ -97,22 +94,23 @@ set shiftwidth=2
 set hlsearch
 set ignorecase
 set smartcase
-map <esc><esc> :nohlsearch<cr>
+noremap <esc><esc> :nohlsearch<cr>
 
 " Folds
+set nofoldenable
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
 
 " Tag navigation
 set tags=.git/tags
 set tc=match
-map <leader>d g<C-]>
+noremap <leader>d g<C-]>
 
 " Split navigation
-map <S-UP> <C-w><UP>
-map <S-Down> <C-w><Down>
-map <S-Left> <C-w><Left>
-map <S-Right> <C-w><Right>
+noremap <S-UP> <C-w><UP>
+noremap <S-Down> <C-w><Down>
+noremap <S-Left> <C-w><Left>
+noremap <S-Right> <C-w><Right>
 
 " I do a lot of shift typos, these are the most common ones
 command W w

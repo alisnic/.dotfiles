@@ -5,14 +5,14 @@ set noballooneval
 set laststatus=0
 
 macmenu &File.New\ Tab key=<nop>
-map <D-t> :CtrlPMixed<CR>
-imap <D-t> <esc>:CtrlP<CR>
+noremap <D-t> :CtrlPMixed<CR>
+inoremap <D-t> <esc>:CtrlP<CR>
 
 macmenu &File.Print key=<nop>
-map <D-p> :CtrlPTag<cr>
+noremap <D-p> :CtrlPTag<cr>
 
 macmenu &Tools.Make key=<nop>
-map <D-b> :exec "Tube " . &makeprg . " && focusvim"<cr>
-imap <D-b> <esc>:exec "Tube " . &makeprg . " && focusvim"<cr>
+noremap <D-b> :exec "Tube " . &makeprg . " && focusvim"<cr>
+inoremap <D-b> <esc>:exec "Tube " . &makeprg . " && focusvim"<cr>
 
-map <D-r> :CtrlPBufTag<cr>
+noremap <D-r> :CtrlPBufTag<cr>
