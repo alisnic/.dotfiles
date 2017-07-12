@@ -1,15 +1,14 @@
 let mapleader = "\<Space>"
 call plug#begin('~/.vim/plugged')
 
-Plug 'tpope/vim-sensible'            " Vim defaults hopefully everyone agrees on
-Plug 'tpope/vim-endwise'             " Auto-insert end statements in code
-Plug 'tpope/vim-unimpaired'          " awesome pair mappings
-Plug 'jszakmeister/vim-togglecursor' " Toggle cursor shape in insert mode in term
-Plug 'tomtom/tcomment_vim'           " Comment code
-Plug 'sickill/vim-pasta'             " Preserve intendation when pasting
-Plug 'Raimondi/delimitMate'          " Auto-close quotes and parens
-Plug 'Konfekt/FastFold'              " Make folds fast again
-Plug 'tpope/vim-fugitive'            " Git integration
+Plug 'tpope/vim-sensible'   " Vim defaults hopefully everyone agrees on
+Plug 'tpope/vim-endwise'    " Auto-insert end statements in code
+Plug 'tpope/vim-unimpaired' " awesome pair mappings
+Plug 'tomtom/tcomment_vim'  " Comment code
+Plug 'sickill/vim-pasta'    " Preserve intendation when pasting
+Plug 'Raimondi/delimitMate' " Auto-close quotes and parens
+Plug 'Konfekt/FastFold'     " Make folds fast again
+Plug 'tpope/vim-fugitive'   " Git integration
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 
@@ -42,15 +41,15 @@ Plug 'scrooloose/nerdtree'
 
 " Expand a visual selection automatically
 Plug 'terryma/vim-expand-region'
-  xnoremap v <Plug>(expand_region_expand)
+  vmap v <Plug>(expand_region_expand)
 
 Plug 'ctrlpvim/ctrlp.vim'
   let g:ctrlp_mruf_relative = 1
+  let g:ctrlp_mruf_exclude  = '\.git/.*'
   let g:ctrlp_user_command  = 'ag %s -l --nocolor --hidden -g ""'
 
-Plug 'Valloric/YouCompleteMe', {'do': 'python install.py'}
-  let g:ycm_collect_identifiers_from_tags_files = 1
-  let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
+Plug 'ervandew/supertab'
+  let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " Execute commands in iTerm (used together with MacVim)
 Plug 'alisnic/tube.vim'
@@ -70,13 +69,14 @@ autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
 set background=light
 colorscheme solarized
 set mouse=a
-set cul
-set nu!
+set cursorline
+set number!
 set sidescroll=1
 set wrap!
 set colorcolumn=80
 set splitright
 set laststatus=0
+set showmode
 set hidden
 set clipboard=unnamed
 
@@ -104,7 +104,7 @@ set foldmethod=indent " foldmethod=syntax is slow
 " Tag navigation
 set tags=.git/tags
 set tc=match
-noremap <leader>d g<C-]>
+map <leader>d g<C-]>
 
 " Split navigation
 noremap <S-UP> <C-w><UP>
