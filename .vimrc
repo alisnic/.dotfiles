@@ -97,7 +97,6 @@ set smartcase
 noremap <esc><esc> :nohlsearch<cr>
 
 " Folds
-set nofoldenable
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
 
