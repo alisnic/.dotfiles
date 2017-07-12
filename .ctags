@@ -6,5 +6,9 @@
 --exclude=*.json
 --exclude=*.svg
 --exclude=public
+--exclude=vendor
 --languages=-html
 --fields=+l
+
+--regex-ruby=/(^|;)[ \t]*(class|module)[ \t]+([A-Z][[:alnum:]_]+(::[A-Z][[:alnum:]_]+)+)/\3/c,class,constant/
+--regex-ruby=/(^|[:;])[ \t]*([A-Z][[:alnum:]_]+) *=/\2/c,class,constant/
