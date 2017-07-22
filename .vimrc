@@ -44,9 +44,11 @@ Plug 'terryma/vim-expand-region'
   vmap v <Plug>(expand_region_expand)
 
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'FelikZ/ctrlp-py-matcher'
   let g:ctrlp_mruf_relative = 1
   let g:ctrlp_mruf_exclude  = '\.git/.*'
   let g:ctrlp_user_command  = 'ag %s -l --nocolor --hidden -g ""'
+  let g:ctrlp_match_func    = { 'match': 'pymatcher#PyMatch' }
 
 Plug 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = "<c-n>"
