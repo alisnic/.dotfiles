@@ -66,6 +66,8 @@ call plug#end()
 call expand_region#custom_text_objects({"t.": 1})
 
 autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
+autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
+autocmd BufLeave * silent! w
 
 set background=light
 colorscheme solarized
@@ -82,6 +84,7 @@ set hidden
 set clipboard=unnamed
 
 " Filesystem
+set autowriteall
 set nobackup
 set nowritebackup
 set noswapfile
