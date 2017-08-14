@@ -43,6 +43,17 @@ function gentags() {
   ctags -R -f .git/tags --tag-relative=yes
 }
 
+function p() {
+  cd ~/Work/$1
+}
+
+function _p() {
+  local -a projects
+  projects=($(ls ~/Work))
+  compadd -a projects
+}
+compdef _p p
+
 function f_notifyme {
   LAST_EXIT_CODE=$?
   CMD=$(fc -ln -1)
