@@ -18,7 +18,6 @@ Plug 'tommcdo/vim-lion'
 
 " A collection of language plugins
 Plug 'sheerun/vim-polyglot'
-  let g:ruby_indent_access_modifier_style = 'outdent'
   let g:ruby_indent_assignment_style = 'variable'
 
 " Preserve buffer navigation history
@@ -53,10 +52,6 @@ Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = "<c-n>"
 
-" Execute commands in iTerm (used together with MacVim)
-Plug 'alisnic/tube.vim'
-  let g:tube_terminal = "iterm"
-
 " Search code
 Plug 'mileszs/ack.vim'
   let g:ackpreview = 1
@@ -67,7 +62,6 @@ call expand_region#custom_text_objects({"t.": 1})
 
 autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
 autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
-autocmd BufLeave * silent! w
 
 set background=light
 colorscheme solarized
