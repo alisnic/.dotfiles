@@ -54,6 +54,7 @@ Plug 'FelikZ/ctrlp-py-matcher'
 
 Plug 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = "<c-n>"
+  set completeopt+=menuone
 
 " Search code
 Plug 'mileszs/ack.vim'
