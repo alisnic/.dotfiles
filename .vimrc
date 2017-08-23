@@ -8,9 +8,12 @@ Plug 'tomtom/tcomment_vim'  " Comment code
 Plug 'sickill/vim-pasta'    " Preserve intendation when pasting
 Plug 'Raimondi/delimitMate' " Auto-close quotes and parens
 Plug 'Konfekt/FastFold'     " Make folds fast again
-Plug 'tpope/vim-fugitive'   " Git integration
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
+
+" Git integration
+Plug 'tpope/vim-fugitive'
+  nmap <leader>gs :Gstatus \| wincmd T<cr>
 
 " Align code by characters
 Plug 'tommcdo/vim-lion'
