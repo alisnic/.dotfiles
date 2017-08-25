@@ -12,10 +12,10 @@ macmenu &File.Print key=<nop>
 noremap <D-p> :CtrlPTag<cr>
 
 macmenu &Tools.Make key=<nop>
-
 noremap <D-b> :exec("term " . &makeprg . " \| wincmd T")<cr>
 inoremap <D-b> <esc>:exec("term " . &makeprg . " \| wincmd T")<cr>
 
 noremap <D-r> :CtrlPBufTag<cr>
 
+" Resize window to fit the entire screen after closing penultimate tab
 autocmd TabClosed * set lines=50 columns=179
