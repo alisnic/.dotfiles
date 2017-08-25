@@ -5,7 +5,7 @@ LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 
 export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
-export PATH=~/.dotfiles/bin:$PATH
+export PATH=~/.dotfiles/bin:/Users/andrei/go/bin:$PATH
 export PGDATA=/usr/local/var/postgres
 export ANDROID_HOME=/usr/local/opt/android-sdk
 export HOMEBREW_GITHUB_API_TOKEN=995128975d5615332b7aab40ecdda3cf11f03d8c
@@ -28,7 +28,7 @@ alias rm='trash'
 alias gitx='reattach-to-user-namespace gitx'
 alias rebrew='brew update && brew upgrade && brew cleanup'
 alias dc='docker-compose'
-alias mvim='FEATURE=true reattach-to-user-namespace mvim'
+alias mvim='FEATURE=true chruby-exec system -- reattach-to-user-namespace mvim'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.2.6
