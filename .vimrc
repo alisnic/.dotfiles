@@ -66,6 +66,8 @@ call expand_region#custom_text_objects({"t.": 1})
 
 autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
 autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
+autocmd BufEnter * if &l:buftype ==# 'terminal' | hi Normal guibg=#ffffff | setlocal nocursorline | setlocal nu! | setlocal colorcolumn=0 | endif
+autocmd BufLeave * if &l:buftype ==# 'terminal' | hi Normal guibg=#fdf6e3 | endif
 
 set background=light
 colorscheme solarized
@@ -114,6 +116,14 @@ noremap <S-Down> <C-w><Down>
 noremap <S-Left> <C-w><Left>
 noremap <S-Right> <C-w><Right>
 
+nmap <leader>pr :silent !cpr<cr>
+
 " I do a lot of shift typos, these are the most common ones
 command W w
 command Q q
+
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
