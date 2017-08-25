@@ -28,7 +28,7 @@ alias rm='trash'
 alias gitx='reattach-to-user-namespace gitx'
 alias rebrew='brew update && brew upgrade && brew cleanup'
 alias dc='docker-compose'
-alias mvim='reattach-to-user-namespace mvim'
+alias mvim='FEATURE=true reattach-to-user-namespace mvim'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.2.6
