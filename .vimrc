@@ -64,10 +64,13 @@ Plug 'mileszs/ack.vim'
 call plug#end()
 call expand_region#custom_text_objects({"t.": 1})
 
-autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
-autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
-autocmd BufEnter * if &l:buftype ==# 'terminal' | hi Normal guibg=#ffffff | setlocal nocursorline | setlocal nu! | setlocal colorcolumn=0 | endif
-autocmd BufLeave * if &l:buftype ==# 'terminal' | hi Normal guibg=#fdf6e3 | endif
+augroup alisnic
+  autocmd!
+  autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
+  autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
+  autocmd BufEnter * if &l:buftype ==# 'terminal' | hi Normal guibg=#ffffff | setlocal nocursorline | setlocal nu! | setlocal colorcolumn=0 | endif
+  autocmd BufLeave * if &l:buftype ==# 'terminal' | hi Normal guibg=#fdf6e3 | endif
+augroup END
 
 set background=light
 colorscheme solarized
