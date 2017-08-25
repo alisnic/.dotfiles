@@ -6,7 +6,7 @@ Plug 'tpope/vim-endwise'    " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired' " awesome pair mappings
 Plug 'tomtom/tcomment_vim'  " Comment code
 Plug 'sickill/vim-pasta'    " Preserve intendation when pasting
-Plug 'Raimondi/delimitMate' " Auto-close quotes and parens
+" Plug 'Raimondi/delimitMate' " Auto-close quotes and parens
 Plug 'Konfekt/FastFold'     " Make folds fast again
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
@@ -20,8 +20,11 @@ Plug 'tommcdo/vim-lion'
   let g:lion_squeeze_spaces = 1
 
 " A collection of language plugins
-Plug 'sheerun/vim-polyglot'
+Plug 'fatih/vim-go'
+Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
+  let g:rubycomplete_rails = 1
+  let g:rubycomplete_buffer_loading = 1
 
 " Preserve buffer navigation history
 Plug 'ton/vim-bufsurf'
@@ -53,8 +56,10 @@ Plug 'FelikZ/ctrlp-py-matcher'
   let g:ctrlp_match_func    = { 'match': 'pymatcher#PyMatch' }
 
 Plug 'ervandew/supertab'
-  let g:SuperTabDefaultCompletionType = "<c-n>"
-  set completeopt+=menuone
+  let g:SuperTabDefaultCompletionType = "context"
+  let g:SuperTabContextDefaultCompletionType = "<c-n>"
+  set completeopt+=menuone,noselect,noinsert
+  set completeopt-=preview
 
 " Search code
 Plug 'mileszs/ack.vim'
