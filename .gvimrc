@@ -3,7 +3,6 @@ set guioptions-=L  "remove left-hand scroll bar
 set guifont=mononoki:h15
 set noballooneval
 set laststatus=0
-set showtabline=2
 
 macmenu &File.New\ Tab key=<nop>
 noremap <D-t> :CtrlPMixed<CR>
@@ -18,3 +17,5 @@ noremap <D-b> :exec("term " . &makeprg . " \| wincmd T")<cr>
 inoremap <D-b> <esc>:exec("term " . &makeprg . " \| wincmd T")<cr>
 
 noremap <D-r> :CtrlPBufTag<cr>
+
+autocmd TabClosed * set lines=50 columns=179
