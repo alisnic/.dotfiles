@@ -6,25 +6,20 @@ Plug 'tpope/vim-endwise'    " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired' " awesome pair mappings
 Plug 'tomtom/tcomment_vim'  " Comment code
 Plug 'sickill/vim-pasta'    " Preserve intendation when pasting
-" Plug 'Raimondi/delimitMate' " Auto-close quotes and parens
 Plug 'Konfekt/FastFold'     " Make folds fast again
+Plug 'tpope/vim-fugitive'   " Git integration
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
-
-" Git integration
-Plug 'tpope/vim-fugitive'
-  nmap <leader>gs :Gstatus \| wincmd T<cr>
 
 " Align code by characters
 Plug 'tommcdo/vim-lion'
   let g:lion_squeeze_spaces = 1
 
 " A collection of language plugins
+Plug 'kchmck/vim-coffee-script'
 Plug 'fatih/vim-go'
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
-  let g:rubycomplete_rails = 1
-  let g:rubycomplete_buffer_loading = 1
 
 " Preserve buffer navigation history
 Plug 'ton/vim-bufsurf'
@@ -58,7 +53,6 @@ Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = "context"
   let g:SuperTabContextDefaultCompletionType = "<c-n>"
-  set completeopt+=menuone,noselect,noinsert
   set completeopt-=preview
 
 " Search code
@@ -75,6 +69,7 @@ augroup alisnic
   autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
   autocmd BufEnter * if &l:buftype ==# 'terminal' | hi Normal guibg=#ffffff | setlocal nocursorline | setlocal nu! | setlocal colorcolumn=0 | endif
   autocmd BufLeave * if &l:buftype ==# 'terminal' | hi Normal guibg=#fdf6e3 | endif
+  autocmd FileType ruby let b:SuperTabContextTextOmniPrecedence = []
 augroup END
 
 set background=light
