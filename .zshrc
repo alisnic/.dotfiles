@@ -4,6 +4,7 @@ ZSH_THEME=amuse
 LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 
+export GOPATH='/Users/andrei/go'
 export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
 export PATH=~/.dotfiles/bin:/Users/andrei/go/bin:$PATH
 export PGDATA=/usr/local/var/postgres
@@ -28,7 +29,7 @@ alias rm='trash'
 alias gitx='reattach-to-user-namespace gitx'
 alias rebrew='brew update && brew upgrade && brew cleanup'
 alias dc='docker-compose'
-alias mvim='FEATURE=true chruby-exec system -- reattach-to-user-namespace mvim'
+alias mvim='FEATURE=true reattach-to-user-namespace mvim'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.2.6
