@@ -5,11 +5,15 @@ Plug 'tpope/vim-sensible'   " Vim defaults hopefully everyone agrees on
 Plug 'tpope/vim-endwise'    " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired' " awesome pair mappings
 Plug 'tomtom/tcomment_vim'  " Comment code
-Plug 'sickill/vim-pasta'    " Preserve intendation when pasting
 Plug 'Konfekt/FastFold'     " Make folds fast again
 Plug 'tpope/vim-fugitive'   " Git integration
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'tpope/vim-surround'
+
+" Preserve intendation when pasting
+Plug 'sickill/vim-pasta'
+  let g:pasta_disabled_filetypes = ['coffee', 'yaml', 'haml']
 
 " Align code by characters
 Plug 'tommcdo/vim-lion'
@@ -124,3 +128,6 @@ nmap <leader>pr :silent !cpr<cr>
 " I do a lot of shift typos, these are the most common ones
 command W w
 command Q q
+
+" Disable 'Entering Ex mode'
+nnoremap Q <Nop>
