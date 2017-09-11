@@ -14,9 +14,9 @@ export HOMEBREW_GITHUB_API_TOKEN=995128975d5615332b7aab40ecdda3cf11f03d8c
 source $ZSH/oh-my-zsh.sh
 
 alias rails='bundle exec rails'
-alias brails='bin/rails'
+alias brails='bin/spring rails'
 alias rake='bundle exec rake'
-alias brake='bin/rake'
+alias brake='bin/spring rake'
 alias vim='reattach-to-user-namespace /Applications/MacVim.app/Contents/MacOS/Vim'
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
