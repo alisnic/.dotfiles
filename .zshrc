@@ -22,11 +22,8 @@ alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
 alias mux='tmux new-session -s `basename \`pwd\``'
 alias be='bundle exec'
-alias focusvim="osascript -e 'activate application \"MacVim\"'"
-alias focussubl="osascript -e 'activate application \"Sublime Text\"'"
 alias sp='bin/spring'
 alias rm='trash'
-alias gitx='reattach-to-user-namespace gitx'
 alias rebrew='brew update && brew upgrade && brew cleanup'
 alias dc='docker-compose'
 alias mvim='FEATURE=true reattach-to-user-namespace mvim'
