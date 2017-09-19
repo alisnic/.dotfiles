@@ -4,12 +4,13 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'   " Vim defaults hopefully everyone agrees on
 Plug 'tpope/vim-endwise'    " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired' " awesome pair mappings
+Plug 'tpope/vim-surround'   " Surround stuff in chars
 Plug 'tomtom/tcomment_vim'  " Comment code
 Plug 'Konfekt/FastFold'     " Make folds fast again
 Plug 'tpope/vim-fugitive'   " Git integration
+Plug 'neomake/neomake'      " Async code linting
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'tpope/vim-surround'
 
 " Preserve intendation when pasting
 Plug 'sickill/vim-pasta'
@@ -24,6 +25,8 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'fatih/vim-go'
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
+  let g:rubycomplete_rails = 1
+  let g:rubycomplete_use_bundler = 1
 
 " Preserve buffer navigation history
 Plug 'ton/vim-bufsurf'
@@ -35,8 +38,6 @@ Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
 
 " Async code linting
-Plug 'neomake/neomake'
-  autocmd! BufWritePost,BufReadPost * Neomake
 
 Plug 'scrooloose/nerdtree'
   nnoremap <leader>s :NERDTreeToggle<cr>
@@ -55,9 +56,11 @@ Plug 'FelikZ/ctrlp-py-matcher'
   let g:ctrlp_match_func    = { 'match': 'pymatcher#PyMatch' }
 
 Plug 'ervandew/supertab'
-  let g:SuperTabDefaultCompletionType = "context"
-  let g:SuperTabContextDefaultCompletionType = "<c-n>"
   set completeopt-=preview
+  autocmd FileType *
+    \ if &omnifunc != '' |
+    \   call SuperTabChain(&omnifunc, "<c-n>", 0) |
+    \ endif
 
 " Search code
 Plug 'mileszs/ack.vim'
@@ -71,16 +74,15 @@ augroup alisnic
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
   autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
-  autocmd BufEnter * if &l:buftype ==# 'terminal' | hi Normal guibg=#ffffff | setlocal nocursorline | setlocal nu! | setlocal colorcolumn=0 | endif
+  autocmd BufEnter * if &l:buftype ==# 'terminal' | hi Normal guibg=#ffffff | setlocal nocursorline | setlocal colorcolumn=0 | endif
   autocmd BufLeave * if &l:buftype ==# 'terminal' | hi Normal guibg=#fdf6e3 | endif
-  autocmd FileType ruby let b:SuperTabContextTextOmniPrecedence = []
+  autocmd BufWritePost,BufReadPost *.rb,*.coffee Neomake
 augroup END
 
 set background=light
 colorscheme solarized
 set mouse=a
 set cursorline
-set number!
 set sidescroll=1
 set wrap!
 set colorcolumn=80
@@ -89,6 +91,7 @@ set laststatus=0
 set showmode
 set hidden
 set clipboard=unnamed
+set shell=$SHELL
 
 " Filesystem
 set autowriteall
@@ -122,8 +125,6 @@ noremap <S-UP> <C-w><UP>
 noremap <S-Down> <C-w><Down>
 noremap <S-Left> <C-w><Left>
 noremap <S-Right> <C-w><Right>
-
-nmap <leader>pr :silent !cpr<cr>
 
 " I do a lot of shift typos, these are the most common ones
 command W w
