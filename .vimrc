@@ -37,8 +37,6 @@ Plug 'ton/vim-bufsurf'
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
 
-" Async code linting
-
 Plug 'scrooloose/nerdtree'
   nnoremap <leader>s :NERDTreeToggle<cr>
   nnoremap <leader>r :NERDTreeFind<cr>
