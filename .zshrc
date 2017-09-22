@@ -17,7 +17,6 @@ alias rails='bundle exec rails'
 alias brails='bin/spring rails'
 alias rake='bundle exec rake'
 alias brake='bin/spring rake'
-alias vim='reattach-to-user-namespace /Applications/MacVim.app/Contents/MacOS/Vim'
 alias reload!='source ~/.zshrc'
 alias w='tmux attach -t'
 alias mux='tmux new-session -s `basename \`pwd\``'
@@ -26,7 +25,6 @@ alias sp='bin/spring'
 alias rm='trash'
 alias rebrew='brew update && brew upgrade && brew cleanup'
 alias dc='docker-compose'
-alias mvim='FEATURE=true reattach-to-user-namespace mvim'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.2.6
