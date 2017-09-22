@@ -27,6 +27,8 @@ Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
   let g:rubycomplete_rails = 1
   let g:rubycomplete_use_bundler = 1
+  let g:rubycomplete_buffer_loading = 1
+  let g:rubycomplete_classes_in_global = 1
 
 " Preserve buffer navigation history
 Plug 'ton/vim-bufsurf'
@@ -55,10 +57,7 @@ Plug 'FelikZ/ctrlp-py-matcher'
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
-  autocmd FileType *
-    \ if &omnifunc != '' |
-    \   call SuperTabChain(&omnifunc, "<c-n>", 0) |
-    \ endif
+  let g:SuperTabDefaultCompletionType = 'context'
 
 " Search code
 Plug 'mileszs/ack.vim'
@@ -75,10 +74,15 @@ augroup alisnic
   autocmd BufEnter * if &l:buftype ==# 'terminal' | hi Normal guibg=#ffffff | setlocal nocursorline | setlocal colorcolumn=0 | endif
   autocmd BufLeave * if &l:buftype ==# 'terminal' | hi Normal guibg=#fdf6e3 | endif
   autocmd BufWritePost,BufReadPost *.rb,*.coffee Neomake
+  autocmd FileType *
+    \ if &omnifunc != '' |
+    \   call SuperTabChain(&omnifunc, "<c-p>") |
+    \ endif
 augroup END
 
 set background=light
 colorscheme solarized
+hi MatchParen guibg=#cac3b0
 set mouse=a
 set cursorline
 set sidescroll=1
@@ -125,8 +129,8 @@ noremap <S-Left> <C-w><Left>
 noremap <S-Right> <C-w><Right>
 
 " I do a lot of shift typos, these are the most common ones
-command W w
-command Q q
+command! W w
+command! Q q
 
 " Disable 'Entering Ex mode'
 nnoremap Q <Nop>
