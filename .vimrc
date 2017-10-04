@@ -8,9 +8,12 @@ Plug 'tpope/vim-surround'   " Surround stuff in chars
 Plug 'tomtom/tcomment_vim'  " Comment code
 Plug 'Konfekt/FastFold'     " Make folds fast again
 Plug 'tpope/vim-fugitive'   " Git integration
-Plug 'neomake/neomake'      " Async code linting
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
+
+" Async code linting
+Plug 'neomake/neomake'
+  let g:neomake_ruby_enabled_makers = ['rubocop']
 
 " Preserve intendation when pasting
 Plug 'sickill/vim-pasta'
