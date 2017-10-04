@@ -1,17 +1,19 @@
-ZSH=$HOME/.oh-my-zsh
-ZSH_THEME=amuse
-
 LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 
-export GOPATH='/Users/andrei/go'
-export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
+export GOPATH='/Users/andrei/.go'
+export EDITOR='vim'
 export PATH=~/.dotfiles/bin:/Users/andrei/go/bin:$PATH
 export PGDATA=/usr/local/var/postgres
 export ANDROID_HOME=/usr/local/opt/android-sdk
 export HOMEBREW_GITHUB_API_TOKEN=995128975d5615332b7aab40ecdda3cf11f03d8c
 
-source $ZSH/oh-my-zsh.sh
+autoload -U compinit compdef promptinit
+compinit
+promptinit
+prompt pure
+
+export PURE_GIT_PULL=0
 
 alias rails='bundle exec rails'
 alias brails='bin/spring rails'
@@ -27,12 +29,7 @@ alias rebrew='brew update && brew upgrade && brew cleanup'
 alias dc='docker-compose'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby 2.2.6
-
-function git_prompt_info() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
-}
+chruby 2.4.2
 
 function gentags() {
   echo "Exporting tags..."
