@@ -27,7 +27,7 @@ alias rebrew='brew update && brew upgrade && brew cleanup'
 alias dc='docker-compose'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-# chruby 2.4.2
+chruby 2.4.2
 
 function git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
