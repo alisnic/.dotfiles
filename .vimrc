@@ -88,7 +88,6 @@ set mouse=a
 set cursorline
 set sidescroll=1
 set wrap!
-set colorcolumn=80
 set splitright
 set laststatus=0
 set showmode
@@ -97,6 +96,7 @@ set clipboard=unnamed
 set shell=$SHELL
 
 " Filesystem
+set path+=**
 set autowriteall
 set nobackup
 set nowritebackup
@@ -120,8 +120,6 @@ set foldmethod=indent " foldmethod=syntax is slow
 " Tag navigation
 set tags=.git/tags
 set tc=match
-map <leader>d g<C-]>
-nmap <leader>c vt.g<C-]>
 
 " Split navigation
 noremap <S-UP> <C-w><UP>
