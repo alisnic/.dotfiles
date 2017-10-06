@@ -1,19 +1,23 @@
-LANG="en_US.UTF-8"
-LC_ALL="en_US.UTF-8"
-
-export GOPATH='/Users/andrei/.go'
-export EDITOR='vim'
-export PATH=~/.dotfiles/bin:/Users/andrei/go/bin:$PATH
-export PGDATA=/usr/local/var/postgres
-export ANDROID_HOME=/usr/local/opt/android-sdk
-export HOMEBREW_GITHUB_API_TOKEN=995128975d5615332b7aab40ecdda3cf11f03d8c
-
 autoload -U compinit compdef promptinit
 compinit
 promptinit
 prompt pure
 
-export PURE_GIT_PULL=0
+LANG="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
+GOPATH='/Users/andrei/.go'
+EDITOR='vim'
+PATH=~/.dotfiles/bin:/Users/andrei/go/bin:$PATH
+PGDATA=/usr/local/var/postgres
+ANDROID_HOME=/usr/local/opt/android-sdk
+HOMEBREW_GITHUB_API_TOKEN=995128975d5615332b7aab40ecdda3cf11f03d8c
+PURE_GIT_PULL=0
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+bindkey -v
+bindkey '^R' history-incremental-search-backward
 
 alias rails='bundle exec rails'
 alias brails='bin/spring rails'
@@ -26,7 +30,6 @@ alias be='bundle exec'
 alias sp='bin/spring'
 alias rm='trash'
 alias rebrew='brew update && brew upgrade && brew cleanup'
-alias dc='docker-compose'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.4.2
