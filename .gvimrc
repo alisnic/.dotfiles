@@ -12,8 +12,8 @@ macmenu &File.Print key=<nop>
 noremap <D-p> :CtrlPTag<cr>
 
 macmenu &Tools.Make key=<nop>
-noremap <D-b> :exec("term " . &makeprg . " \| wincmd T")<cr>
-inoremap <D-b> <esc>:exec("term " . &makeprg . " \| wincmd T")<cr>
+noremap <D-b> :exec("term " . &makeprg) \| wincmd T<cr>
+inoremap <D-b> <esc>:exec("term " . &makeprg) \| wincmd T<cr>
 
 noremap <D-r> :CtrlPBufTag<cr>
 
