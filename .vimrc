@@ -74,8 +74,6 @@ augroup alisnic
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
   autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
-  autocmd BufEnter * if &l:buftype ==# 'terminal' | hi Normal guibg=#ffffff | setlocal nocursorline | setlocal colorcolumn=0 | endif
-  autocmd BufLeave * if &l:buftype ==# 'terminal' | hi Normal guibg=#fdf6e3 | endif
   autocmd BufWritePost,BufReadPost *.rb,*.coffee Neomake
   autocmd FileType *
     \ if &omnifunc != '' |
