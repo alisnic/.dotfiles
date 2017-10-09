@@ -8,9 +8,12 @@ Plug 'tpope/vim-surround'   " Surround stuff in chars
 Plug 'tomtom/tcomment_vim'  " Comment code
 Plug 'Konfekt/FastFold'     " Make folds fast again
 Plug 'tpope/vim-fugitive'   " Git integration
-Plug 'neomake/neomake'      " Async code linting
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
+
+" Async code linting
+Plug 'neomake/neomake'
+  let g:neomake_ruby_enabled_makers = ['rubocop']
 
 " Preserve intendation when pasting
 Plug 'sickill/vim-pasta'
@@ -71,8 +74,6 @@ augroup alisnic
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
   autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
-  autocmd BufEnter * if &l:buftype ==# 'terminal' | hi Normal guibg=#ffffff | setlocal nocursorline | setlocal colorcolumn=0 | endif
-  autocmd BufLeave * if &l:buftype ==# 'terminal' | hi Normal guibg=#fdf6e3 | endif
   autocmd BufWritePost,BufReadPost *.rb,*.coffee Neomake
   autocmd FileType *
     \ if &omnifunc != '' |
@@ -87,7 +88,6 @@ set mouse=a
 set cursorline
 set sidescroll=1
 set wrap!
-set colorcolumn=80
 set splitright
 set laststatus=0
 set showmode
@@ -96,6 +96,7 @@ set clipboard=unnamed
 set shell=$SHELL
 
 " Filesystem
+set path+=**
 set autowriteall
 set nobackup
 set nowritebackup
@@ -119,8 +120,6 @@ set foldmethod=indent " foldmethod=syntax is slow
 " Tag navigation
 set tags=.git/tags
 set tc=match
-map <leader>d g<C-]>
-nmap <leader>c vt.g<C-]>
 
 " Split navigation
 noremap <S-UP> <C-w><UP>
