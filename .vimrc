@@ -47,10 +47,6 @@ Plug 'scrooloose/nerdtree'
   nnoremap <leader>r :NERDTreeFind<cr>
   let NERDTreeShowHidden = 1
 
-" Expand a visual selection automatically
-Plug 'terryma/vim-expand-region'
-  vmap v <Plug>(expand_region_expand)
-
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
   let g:ctrlp_mruf_relative = 1
@@ -68,7 +64,6 @@ Plug 'mileszs/ack.vim'
   let g:ackprg     = 'ag --vimgrep'
 
 call plug#end()
-call expand_region#custom_text_objects({"t.": 1})
 
 augroup alisnic
   autocmd!
@@ -85,7 +80,6 @@ set background=light
 colorscheme solarized
 hi MatchParen guibg=#cac3b0
 set mouse=a
-set cursorline
 set sidescroll=1
 set wrap!
 set splitright
