@@ -105,7 +105,7 @@ set shiftwidth=2
 set hlsearch
 set ignorecase
 set smartcase
-noremap <esc><esc> :nohlsearch<cr>
+nnoremap <silent> <esc><esc> :nohlsearch<cr><esc>
 
 " Folds
 set foldlevelstart=99
@@ -123,6 +123,7 @@ noremap <S-Right> <C-w><Right>
 
 " I do a lot of shift typos, these are the most common ones
 command! W w
+command! Wq wq
 command! Q q
 
 " Disable 'Entering Ex mode'
