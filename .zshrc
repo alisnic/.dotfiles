@@ -1,10 +1,7 @@
-# load pure prompt
-autoload -U promptinit
-promptinit
-prompt pure
-
-bindkey -v
-bindkey '^R' history-incremental-search-backward
+export ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="amuse"
+plugins=()
+source $ZSH/oh-my-zsh.sh
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
@@ -14,10 +11,6 @@ export PATH=~/.dotfiles/bin:/Users/andrei/go/bin:$PATH
 export PGDATA=/usr/local/var/postgres
 export ANDROID_HOME=/usr/local/opt/android-sdk
 export HOMEBREW_GITHUB_API_TOKEN=995128975d5615332b7aab40ecdda3cf11f03d8c
-export PURE_GIT_PULL=0
-export HISTFILE=$HOME/.zsh_history
-export HISTSIZE=10000
-export SAVEHIST=10000
 
 alias rails='bundle exec rails'
 alias brails='bin/spring rails'
