@@ -3,6 +3,14 @@
     "make": "bin/spring rspec {file}"
   },
 
+  "Gemfile": {
+    "alternate": "Gemfile.lock"
+  },
+
+  "Gemfile.lock": {
+    "alternate": "Gemfile"
+  },
+
   "app/assets/javascripts/*.coffee": {
     "alternate": "spec/javascripts/{}_spec.coffee",
     "type": "js"
