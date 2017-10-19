@@ -5,9 +5,9 @@ Plug 'tpope/vim-sensible'   " Vim defaults hopefully everyone agrees on
 Plug 'tpope/vim-endwise'    " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired' " awesome pair mappings
 Plug 'tpope/vim-surround'   " Surround stuff in chars
+Plug 'tpope/vim-fugitive'   " Git integration
 Plug 'tomtom/tcomment_vim'  " Comment code
 Plug 'Konfekt/FastFold'     " Make folds fast again
-Plug 'tpope/vim-fugitive'   " Git integration
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 
@@ -79,18 +79,13 @@ augroup END
 set background=light
 colorscheme solarized
 hi MatchParen guibg=#cac3b0
-set mouse=a
-set sidescroll=1
 set wrap!
 set splitright
-set laststatus=0
-set showmode
 set hidden
 set clipboard=unnamed
 set shell=$SHELL
 
 " Filesystem
-set path+=**
 set autowriteall
 set nobackup
 set nowritebackup

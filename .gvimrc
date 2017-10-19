@@ -4,6 +4,7 @@ set guifont=mononoki:h15
 set noballooneval
 set laststatus=0
 set cursorline
+set mouse=a
 
 macmenu &File.New\ Tab key=<nop>
 noremap <D-t> :CtrlPMixed<CR>
