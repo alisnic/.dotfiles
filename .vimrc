@@ -28,10 +28,6 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'fatih/vim-go'
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
-  let g:rubycomplete_rails = 1
-  let g:rubycomplete_use_bundler = 1
-  let g:rubycomplete_buffer_loading = 1
-  let g:rubycomplete_classes_in_global = 1
 
 " Preserve buffer navigation history
 Plug 'ton/vim-bufsurf'
@@ -85,32 +81,26 @@ set hidden
 set clipboard=unnamed
 set shell=$SHELL
 
-" Filesystem
 set autowriteall
 set nobackup
 set nowritebackup
 set noswapfile
 
-" Indent
 set tabstop=2
 set expandtab
 set shiftwidth=2
 
-" Search
 set hlsearch
 set ignorecase
 set smartcase
 nnoremap <silent> <esc><esc> :nohlsearch<cr><esc>
 
-" Folds
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
 
-" Tag navigation
 set tags=.git/tags
-set tc=match
+set tagcase=match
 
-" Split navigation
 noremap <S-UP> <C-w><UP>
 noremap <S-Down> <C-w><Down>
 noremap <S-Left> <C-w><Left>
@@ -120,6 +110,4 @@ noremap <S-Right> <C-w><Right>
 command! W w
 command! Wq wq
 command! Q q
-
-" Disable 'Entering Ex mode'
 nnoremap Q <Nop>
