@@ -7,7 +7,6 @@ Plug 'tpope/vim-unimpaired' " awesome pair mappings
 Plug 'tpope/vim-surround'   " Surround stuff in chars
 Plug 'tpope/vim-fugitive'   " Git integration
 Plug 'tomtom/tcomment_vim'  " Comment code
-Plug 'Konfekt/FastFold'     " Make folds fast again
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 
@@ -75,11 +74,11 @@ augroup END
 set background=light
 colorscheme solarized
 hi MatchParen guibg=#cac3b0
+
 set wrap!
 set splitright
 set hidden
 set clipboard=unnamed
-set shell=$SHELL
 
 set autowriteall
 set nobackup
