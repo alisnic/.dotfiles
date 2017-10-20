@@ -7,6 +7,7 @@ Plug 'tpope/vim-unimpaired' " awesome pair mappings
 Plug 'tpope/vim-surround'   " Surround stuff in chars
 Plug 'tpope/vim-fugitive'   " Git integration
 Plug 'tomtom/tcomment_vim'  " Comment code
+Plug 'ap/vim-css-color'     " Preview css color
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 
