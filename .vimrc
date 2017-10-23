@@ -41,6 +41,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'scrooloose/nerdtree'
   nnoremap <leader>s :NERDTreeToggle<cr>
   nnoremap <leader>r :NERDTreeFind<cr>
+  let NERDTreeIgnore = ['\.DS_Store$']
   let NERDTreeShowHidden = 1
 
 Plug 'ctrlpvim/ctrlp.vim'
