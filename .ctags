@@ -5,16 +5,11 @@
 --exclude=*.css
 --exclude=*.json
 --exclude=*.svg
+--exclude=*.rb
 --exclude=public
 --exclude=vendor
 --languages=-html
 --fields=+l
-
---regex-ruby=/(^|;)[ \t]*(class|module)[ \t]+([A-Z][[:alnum:]_]+::([A-Z][[:alnum:]_]+)+)/\4/c,class,constant/
---regex-ruby=/(^|[:;])[ \t]*([A-Z][[:alnum:]_]+) *=/\2/c,class,constant/
---regex-ruby=/^[ \t]*scope[ \t]*:([a-zA-Z0-9_]+)/\1/
---regex-ruby=/^[ \t]*attr_accessor[ \t]*:([a-zA-Z0-9_]+)/\1/
---regex-ruby=/^[ \t]*attr_reader[ \t]*:([a-zA-Z0-9_]+)/\1/
 
 --langdef=CoffeeScript
 --langmap=CoffeeScript:.coffee

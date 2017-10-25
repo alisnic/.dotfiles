@@ -50,6 +50,7 @@ Plug 'FelikZ/ctrlp-py-matcher'
   let g:ctrlp_mruf_exclude  = '\.git/.*'
   let g:ctrlp_user_command  = 'ag %s -l --nocolor --hidden -g ""'
   let g:ctrlp_match_func    = { 'match': 'pymatcher#PyMatch' }
+  let g:ctrlp_max_depth     = 10
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
@@ -99,7 +100,7 @@ nnoremap <silent> <esc><esc> :nohlsearch<cr><esc>
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
 
-set tags=.git/tags
+set tags+=.git/tags,.git/rubytags
 set tagcase=match
 
 noremap <S-UP> <C-w><UP>
