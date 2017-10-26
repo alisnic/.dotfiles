@@ -30,7 +30,7 @@ chruby 2.4.2
 function gentags() {
   echo "Exporting tags..."
   ripper-tags -R -f .git/rubytags --tag-relative=yes
-  ctags -R -f .git/tags --tag-relative=yes
+  ctags -R -f .git/tags --tag-relative=yes --exclude=*.rb
 }
 
 function p() {
