@@ -26,6 +26,7 @@ Plug 'tommcdo/vim-lion'
 " A collection of language plugins
 Plug 'kchmck/vim-coffee-script'
 Plug 'fatih/vim-go'
+Plug 'artur-shaik/vim-javacomplete2'
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
 
@@ -68,6 +69,7 @@ augroup alisnic
   autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
   autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
   autocmd BufWritePost,BufReadPost *.rb,*.coffee Neomake
+  autocmd FileType java setlocal omnifunc=javacomplete#Complete
   autocmd FileType *
     \ if &omnifunc != '' |
     \   call SuperTabChain(&omnifunc, "<c-p>") |
@@ -77,6 +79,7 @@ augroup END
 set background=light
 colorscheme solarized
 hi MatchParen guibg=#cac3b0
+set synmaxcol=200
 
 set wrap!
 set splitright
