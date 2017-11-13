@@ -11,6 +11,12 @@ Plug 'ap/vim-css-color'     " Preview css color
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+  let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsJumpForwardTrigger="<tab>"
+  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
 " Async code linting
 Plug 'neomake/neomake'
   let g:neomake_ruby_enabled_makers = ['rubocop']
