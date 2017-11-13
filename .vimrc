@@ -11,6 +11,7 @@ Plug 'ap/vim-css-color'     " Preview css color
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 
+" Snippet generation
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
   let g:UltiSnipsExpandTrigger="<tab>"
@@ -112,8 +113,8 @@ set foldmethod=indent " foldmethod=syntax is slow
 set tags+=.git/tags,.git/rubytags
 set tagcase=match
 
-noremap  <leader>t :exec("term " . &makeprg) \| wincmd T<cr>
-noremap  <leader>f :exec("term " . &makeprg . ":" . line('.')) \| wincmd T<cr>
+noremap <leader>t :exec("term " . &makeprg) \| wincmd T<cr>
+noremap <leader>f :exec("term " . &makeprg . ":" . line('.')) \| wincmd T<cr>
 noremap <S-UP> <C-w><UP>
 noremap <S-Down> <C-w><Down>
 noremap <S-Left> <C-w><Left>
