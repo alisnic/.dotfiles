@@ -46,12 +46,6 @@ Plug 'ton/vim-bufsurf'
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
 
-Plug 'scrooloose/nerdtree'
-  nnoremap <leader>s :NERDTreeToggle<cr>
-  nnoremap <leader>r :NERDTreeFind<cr>
-  let NERDTreeIgnore = ['\.DS_Store$']
-  let NERDTreeShowHidden = 1
-
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
   let g:ctrlp_mruf_relative = 1
@@ -87,6 +81,10 @@ set background=light
 colorscheme solarized
 hi MatchParen guibg=#cac3b0
 set synmaxcol=200
+
+let g:netrw_banner = 0
+nnoremap <leader>s :e.<cr>
+nnoremap <leader>r :Explore<cr>
 
 set wrap!
 set splitright
