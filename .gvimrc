@@ -2,8 +2,8 @@ set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
 set guifont=mononoki:h15
 set noballooneval
+set balloonexpr=
 set laststatus=0
-set cursorline
 set mouse=a
 
 macmenu &File.New\ Tab key=<nop>
