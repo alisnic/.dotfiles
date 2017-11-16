@@ -113,6 +113,8 @@ set tagcase=match
 
 noremap <leader>t :exec("term " . &makeprg) \| wincmd T<cr>
 noremap <leader>f :exec("term " . &makeprg . ":" . line('.')) \| wincmd T<cr>
+tnoremap <Esc> <C-\><C-n>
+
 noremap <S-UP> <C-w><UP>
 noremap <S-Down> <C-w><Down>
 noremap <S-Left> <C-w><Left>
