@@ -82,7 +82,8 @@ colorscheme solarized
 hi MatchParen guibg=#cac3b0
 set synmaxcol=200
 
-let g:netrw_banner = 0
+let g:netrw_banner    = 0
+let g:netrw_liststyle = 3
 nnoremap <leader>s :e.<cr>
 nnoremap <leader>r :Explore<cr>
 
