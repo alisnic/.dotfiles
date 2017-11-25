@@ -6,6 +6,7 @@ Plug 'tpope/vim-endwise'    " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired' " awesome pair mappings
 Plug 'tpope/vim-surround'   " Surround stuff in chars
 Plug 'tpope/vim-fugitive'   " Git integration
+Plug 'tpope/vim-bundler'    " read tags from gems
 Plug 'tomtom/tcomment_vim'  " Comment code
 Plug 'ap/vim-css-color'     " Preview css color
 Plug 'altercation/vim-colors-solarized'
@@ -24,7 +25,7 @@ Plug 'neomake/neomake'
 
 " Preserve intendation when pasting
 Plug 'sickill/vim-pasta'
-  let g:pasta_disabled_filetypes = ['coffee', 'yaml', 'haml']
+  let g:pasta_disabled_filetypes = ['coffee', 'yaml', 'haml', 'netrw']
 
 " Align code by characters
 Plug 'tommcdo/vim-lion'
@@ -57,6 +58,7 @@ Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ervandew/supertab'
   set completeopt-=preview
   let g:SuperTabDefaultCompletionType = 'context'
+  let g:SuperTabContextDefaultCompletionType = '<c-n>'
 
 " Search code
 Plug 'mileszs/ack.vim'
@@ -73,7 +75,7 @@ augroup alisnic
   autocmd FileType java setlocal omnifunc=javacomplete#Complete
   autocmd FileType *
     \ if &omnifunc != '' |
-    \   call SuperTabChain(&omnifunc, "<c-p>") |
+    \   call SuperTabChain(&omnifunc, "<c-n>") |
     \ endif
 augroup END
 
