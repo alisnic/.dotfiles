@@ -11,6 +11,11 @@ Plug 'tomtom/tcomment_vim'  " Comment code
 Plug 'ap/vim-css-color'     " Preview css color
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'majutsushi/tagbar'
+
+Plug 'scrooloose/nerdtree'
+  let NERDTreeHijackNetrw=1
+  nnoremap <leader>r :NERDTreeFind<cr>
 
 " Snippet generation
 Plug 'SirVer/ultisnips'
@@ -34,7 +39,6 @@ Plug 'tommcdo/vim-lion'
 " A collection of language plugins
 Plug 'kchmck/vim-coffee-script'
 Plug 'fatih/vim-go'
-Plug 'artur-shaik/vim-javacomplete2'
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
 
@@ -72,7 +76,6 @@ augroup alisnic
   autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
   autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
   autocmd BufWritePost,BufReadPost *.rb,*.coffee Neomake
-  autocmd FileType java setlocal omnifunc=javacomplete#Complete
   autocmd FileType *
     \ if &omnifunc != '' |
     \   call SuperTabChain(&omnifunc, "<c-n>") |
@@ -84,15 +87,12 @@ colorscheme solarized
 hi MatchParen guibg=#cac3b0
 set synmaxcol=200
 
-let g:netrw_banner    = 0
-let g:netrw_liststyle = 3
 nnoremap <leader>s :e.<cr>
-nnoremap <leader>r :Explore<cr>
 
-set wrap!
 set splitright
 set hidden
 set clipboard=unnamed
+set cursorline
 
 set autowriteall
 set nobackup
