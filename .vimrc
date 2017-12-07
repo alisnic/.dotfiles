@@ -13,10 +13,6 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'majutsushi/tagbar'
 
-Plug 'scrooloose/nerdtree'
-  let NERDTreeHijackNetrw=1
-  nnoremap <leader>r :NERDTreeFind<cr>
-
 " Snippet generation
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
