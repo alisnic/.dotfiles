@@ -6,7 +6,7 @@ source $ZSH/oh-my-zsh.sh
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export GOPATH='/Users/andrei/.go'
-export EDITOR='vim'
+export EDITOR='nvim'
 export PATH=~/.dotfiles/bin:/Users/andrei/go/bin:/usr/local/bin:$PATH
 export PGDATA=/usr/local/var/postgres
 export ANDROID_HOME=/usr/local/opt/android-sdk
