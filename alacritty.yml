@@ -104,6 +104,12 @@ key_bindings:
   - { key: Q,        mods: Command, action: Quit                         }
   - { key: V,        mods: Command, action: Paste                        }
   - { key: C,        mods: Command, action: Copy                         }
+  - { key: Key1, mods: Command, command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t", "1"] } }
+  - { key: Key2, mods: Command, command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t", "2"] } }
+  - { key: Key3, mods: Command, command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t", "3"] } }
+  - { key: Key4, mods: Command, command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t", "4"] } }
+  - { key: RBracket, mods: Command, command: { program: "/usr/local/bin/tmux", args: ["next-window"] } }
+  - { key: LBracket, mods: Command, command: { program: "/usr/local/bin/tmux", args: ["previous-window"] } }
   - { key: Home,                    chars: "\x1b[H",   mode: ~AppCursor  }
   - { key: Home,                    chars: "\x1b[1~",  mode: AppCursor   }
   - { key: End,                     chars: "\x1b[F",   mode: ~AppCursor  }
