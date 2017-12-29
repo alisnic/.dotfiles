@@ -1,7 +1,6 @@
 let mapleader = "\<Space>"
 call plug#begin('~/.vim/plugged')
 
-Plug 'tpope/vim-sensible'   " Vim defaults hopefully everyone agrees on
 Plug 'tpope/vim-endwise'    " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired' " awesome pair mappings
 Plug 'tpope/vim-surround'   " Surround stuff in chars
@@ -12,6 +11,7 @@ Plug 'ap/vim-css-color'     " Preview css color
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'majutsushi/tagbar'
+Plug 'kchmck/vim-coffee-script'
 
 " Snippet generation
 Plug 'SirVer/ultisnips'
@@ -20,23 +20,21 @@ Plug 'honza/vim-snippets'
   let g:UltiSnipsJumpForwardTrigger="<tab>"
   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+Plug 'scrooloose/nerdtree'
+  nnoremap <leader>s :NERDTreeToggle<cr>
+  nnoremap <leader>r :NERDTreeFind<cr>
+
 " Async code linting
 Plug 'neomake/neomake'
   let g:neomake_ruby_enabled_makers = ['rubocop']
 
 " Preserve intendation when pasting
 Plug 'sickill/vim-pasta'
-  let g:pasta_disabled_filetypes = ['coffee', 'yaml', 'haml', 'netrw']
+  let g:pasta_disabled_filetypes = ['coffee', 'yaml', 'haml']
 
 " Align code by characters
 Plug 'tommcdo/vim-lion'
   let g:lion_squeeze_spaces = 1
-
-" A collection of language plugins
-Plug 'kchmck/vim-coffee-script'
-Plug 'fatih/vim-go'
-Plug 'vim-ruby/vim-ruby'
-  let g:ruby_indent_assignment_style = 'variable'
 
 " Preserve buffer navigation history
 Plug 'ton/vim-bufsurf'
@@ -47,13 +45,9 @@ Plug 'ton/vim-bufsurf'
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
 
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'FelikZ/ctrlp-py-matcher'
-  let g:ctrlp_mruf_relative = 1
-  let g:ctrlp_mruf_exclude  = '\.git/.*'
-  let g:ctrlp_user_command  = 'ag %s -l --nocolor --hidden -g ""'
-  let g:ctrlp_match_func    = { 'match': 'pymatcher#PyMatch' }
-  let g:ctrlp_max_depth     = 10
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+  nnoremap <leader>f :Files<cr>
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
@@ -80,14 +74,10 @@ augroup END
 
 set background=light
 colorscheme solarized
-hi MatchParen guibg=#cac3b0
 set synmaxcol=200
 
-let g:netrw_banner    = 0
-let g:netrw_liststyle = 3
-nnoremap <leader>s :e.<cr>
-nnoremap <leader>r :Explore<cr>
-
+set laststatus=0
+set mouse=a
 set splitright
 set hidden
 set clipboard=unnamed
@@ -102,7 +92,6 @@ set tabstop=2
 set expandtab
 set shiftwidth=2
 
-set hlsearch
 set ignorecase
 set smartcase
 nnoremap <silent> <esc><esc> :nohlsearch<cr><esc>
@@ -113,9 +102,10 @@ set foldmethod=indent " foldmethod=syntax is slow
 set tags+=.git/tags,.git/rubytags
 set tagcase=match
 
-noremap <leader>t :exec("term " . &makeprg) \| wincmd T<cr>
-noremap <leader>f :exec("term " . &makeprg . ":" . line('.')) \| wincmd T<cr>
-tnoremap <Esc> <C-\><C-n>
+noremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
+noremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
+
+imap <M-Backspace> <C-w>
 
 noremap <S-UP> <C-w><UP>
 noremap <S-Down> <C-w><Down>
