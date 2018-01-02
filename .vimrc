@@ -51,6 +51,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
+  let g:loaded_ruby_provider = 1
   let g:SuperTabDefaultCompletionType = 'context'
   let g:SuperTabContextDefaultCompletionType = '<c-n>'
 
@@ -102,11 +103,11 @@ set foldmethod=indent " foldmethod=syntax is slow
 set tags+=.git/tags,.git/rubytags
 set tagcase=match
 
-noremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
-noremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
-
 imap <M-Backspace> <C-w>
 
+noremap <leader>a ggVG
+noremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
+noremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
 noremap <S-UP> <C-w><UP>
 noremap <S-Down> <C-w><Down>
 noremap <S-Left> <C-w><Left>
