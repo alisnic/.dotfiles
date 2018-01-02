@@ -25,6 +25,9 @@ alias sp='bin/spring'
 alias rm='trash'
 alias rebrew='brew update && brew upgrade && brew cleanup'
 
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;3C" forward-word
+
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.4.2
 
