@@ -48,6 +48,8 @@ Plug 'tpope/vim-projectionist'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
   nnoremap <leader>f :Files<cr>
+  nnoremap <leader>b :BTags<cr>
+  nnoremap <leader>T :Tags<cr>
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
