@@ -107,13 +107,15 @@ set tagcase=match
 
 imap <M-Backspace> <C-w>
 
-noremap <leader>a ggVG
-noremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
-noremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
-noremap <S-UP> <C-w><UP>
-noremap <S-Down> <C-w><Down>
-noremap <S-Left> <C-w><Left>
-noremap <S-Right> <C-w><Right>
+nnoremap <leader>a ggVG
+nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
+nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
+nnoremap <S-UP> <C-w><UP>
+nnoremap <S-Down> <C-w><Down>
+nnoremap <S-Left> <C-w><Left>
+nnoremap <S-Right> <C-w><Right>
+nnoremap <UP> gk
+nnoremap <Down> gj
 
 " I do a lot of shift typos, these are the most common ones
 command! W w
