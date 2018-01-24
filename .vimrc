@@ -106,8 +106,8 @@ endfunction
 
 imap <M-Backspace> <C-w>
 
-nnoremap <backspace>   :call TryWithFallback("normal \<c-t>", "b#")<cr>
-nnoremap <S-backspace> :call TryWithFallback("tag", "b#")<cr>
+nnoremap <backspace> :call TryWithFallback("normal \<c-t>", "b#")<cr>
+nnoremap <leader>] :call TryWithFallback("tag", "b#")<cr>
 nnoremap <leader>a ggVG
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
