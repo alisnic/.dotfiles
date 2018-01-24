@@ -36,11 +36,6 @@ Plug 'sickill/vim-pasta'
 Plug 'tommcdo/vim-lion'
   let g:lion_squeeze_spaces = 1
 
-" Preserve buffer navigation history
-Plug 'ton/vim-bufsurf'
-  nnoremap <backspace> :BufSurfBack<cr>
-  nnoremap <S-backspace> :BufSurfForward<cr>
-
 " Per-project file mappings
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
@@ -49,18 +44,13 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
   nnoremap <leader>f :Files<cr>
   nnoremap <leader>b :BTags<cr>
-  nnoremap <leader>T :Tags<cr>
+  nnoremap <leader>c :Tags<cr>
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
   let g:loaded_ruby_provider = 1
   let g:SuperTabDefaultCompletionType = 'context'
   let g:SuperTabContextDefaultCompletionType = '<c-n>'
-
-" Search code
-Plug 'mileszs/ack.vim'
-  let g:ackpreview = 1
-  let g:ackprg     = 'ag --vimgrep'
 
 call plug#end()
 
@@ -79,6 +69,7 @@ set background=light
 colorscheme solarized
 set synmaxcol=200
 
+set grepprg=ag\ --nogroup\ --nocolor
 set laststatus=0
 set mouse=a
 set splitright
@@ -105,8 +96,18 @@ set foldmethod=indent " foldmethod=syntax is slow
 set tags+=.git/tags,.git/rubytags
 set tagcase=match
 
+function! TryWithFallback(cmd, fallback)
+  try
+    execute a:cmd
+  catch
+    execute a:fallback
+  endtry
+endfunction
+
 imap <M-Backspace> <C-w>
 
+nnoremap <backspace>   :call TryWithFallback("normal \<c-t>", "b#")<cr>
+nnoremap <S-backspace> :call TryWithFallback("tag", "b#")<cr>
 nnoremap <leader>a ggVG
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
@@ -116,6 +117,9 @@ nnoremap <S-Left> <C-w><Left>
 nnoremap <S-Right> <C-w><Right>
 nnoremap <UP> gk
 nnoremap <Down> gj
+nnoremap \ :Ag<SPACE>
+
+command! -nargs=+ -complete=file -bar Ag silent! grep <args>|cwindow|redraw!
 
 " I do a lot of shift typos, these are the most common ones
 command! W w
