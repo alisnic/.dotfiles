@@ -48,17 +48,18 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
+  set pumheight=10
   let g:loaded_ruby_provider = 1
   let g:SuperTabDefaultCompletionType = 'context'
   let g:SuperTabContextDefaultCompletionType = '<c-n>'
 
 call plug#end()
+call neomake#configure#automake('rw')
 
 augroup alisnic
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
   autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
-  autocmd BufWritePost,BufReadPost *.rb,*.coffee Neomake
   autocmd FileType *
     \ if &omnifunc != '' |
     \   call SuperTabChain(&omnifunc, "<c-n>") |
