@@ -48,7 +48,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
-  set pumheight=10
+  set pumheight=5
   let g:loaded_ruby_provider = 1
   let g:SuperTabDefaultCompletionType = 'context'
   let g:SuperTabContextDefaultCompletionType = '<c-n>'
@@ -119,6 +119,7 @@ nnoremap <S-Right> <C-w><Right>
 nnoremap <UP> gk
 nnoremap <Down> gj
 nnoremap \ :Ag<SPACE>
+nnoremap gb :b<SPACE>
 
 command! -nargs=+ -complete=file -bar Ag silent! grep <args>|cwindow|redraw!
 
