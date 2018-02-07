@@ -42,9 +42,10 @@ Plug 'tpope/vim-projectionist'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-  nnoremap <leader>f :Files<cr>
-  nnoremap <leader>b :BTags<cr>
-  nnoremap <leader>c :Tags<cr>
+  nnoremap ff :Files<cr>
+  nnoremap fm :BTags<cr>
+  nnoremap fc :Tags<cr>
+  nnoremap fb :Buffers<cr>
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
@@ -119,7 +120,6 @@ nnoremap <S-Right> <C-w><Right>
 nnoremap <UP> gk
 nnoremap <Down> gj
 nnoremap \ :Ag<SPACE>
-nnoremap gb :b<SPACE>
 
 command! -nargs=+ -complete=file -bar Ag silent! grep <args>|cwindow|redraw!
 
