@@ -13,13 +13,6 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'majutsushi/tagbar'
 Plug 'kchmck/vim-coffee-script'
 
-" Snippet generation
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-  let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsJumpForwardTrigger="<tab>"
-  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
 Plug 'scrooloose/nerdtree'
   nnoremap <leader>s :NERDTreeToggle<cr>
   nnoremap <leader>r :NERDTreeFind<cr>
@@ -42,10 +35,10 @@ Plug 'tpope/vim-projectionist'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-  nnoremap ff :Files<cr>
-  nnoremap fm :BTags<cr>
-  nnoremap fc :Tags<cr>
-  nnoremap fb :Buffers<cr>
+  nnoremap <leader>f :Files<cr>
+  nnoremap <leader>m :BTags<cr>
+  nnoremap <leader>c :Tags<cr>
+  nnoremap <leader>b :Buffers<cr>
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
