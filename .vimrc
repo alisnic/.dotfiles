@@ -47,6 +47,9 @@ Plug 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = 'context'
   let g:SuperTabContextDefaultCompletionType = '<c-n>'
 
+Plug 'mileszs/ack.vim'
+  let g:ackprg = 'ag --vimgrep'
+
 call plug#end()
 call neomake#configure#automake('rw')
 
@@ -64,7 +67,6 @@ set background=light
 colorscheme solarized
 set synmaxcol=200
 
-set grepprg=ag\ --nogroup\ --nocolor
 set laststatus=0
 set mouse=a
 set splitright
@@ -91,18 +93,9 @@ set foldmethod=indent " foldmethod=syntax is slow
 set tags+=.git/tags,.git/rubytags
 set tagcase=match
 
-function! TryWithFallback(cmd, fallback)
-  try
-    execute a:cmd
-  catch
-    execute a:fallback
-  endtry
-endfunction
-
 imap <M-Backspace> <C-w>
 
-nnoremap <backspace> :call TryWithFallback("normal \<c-t>", "b#")<cr>
-nnoremap <leader>] :call TryWithFallback("tag", "b#")<cr>
+nnoremap <backspace> <c-t>
 nnoremap <leader>a ggVG
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
@@ -112,9 +105,6 @@ nnoremap <S-Left> <C-w><Left>
 nnoremap <S-Right> <C-w><Right>
 nnoremap <UP> gk
 nnoremap <Down> gj
-nnoremap \ :Ag<SPACE>
-
-command! -nargs=+ -complete=file -bar Ag silent! grep <args>|cwindow|redraw!
 
 " I do a lot of shift typos, these are the most common ones
 command! W w
