@@ -1,13 +1,14 @@
 let mapleader = "\<Space>"
 call plug#begin('~/.vim/plugged')
 
-Plug 'tpope/vim-endwise'    " Auto-insert end statements in code
-Plug 'tpope/vim-unimpaired' " awesome pair mappings
-Plug 'tpope/vim-surround'   " Surround stuff in chars
-Plug 'tpope/vim-fugitive'   " Git integration
-Plug 'tpope/vim-bundler'    " read tags from gems
-Plug 'tomtom/tcomment_vim'  " Comment code
-Plug 'ap/vim-css-color'     " Preview css color
+Plug 'tpope/vim-endwise'       " Auto-insert end statements in code
+Plug 'tpope/vim-unimpaired'    " awesome pair mappings
+Plug 'tpope/vim-surround'      " Surround stuff in chars
+Plug 'tpope/vim-fugitive'      " Git integration
+Plug 'tpope/vim-bundler'       " read tags from gems
+Plug 'tpope/vim-projectionist' " Per-project file mappings
+Plug 'tomtom/tcomment_vim'     " Comment code
+Plug 'ap/vim-css-color'        " Preview css color
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'majutsushi/tagbar'
@@ -28,10 +29,6 @@ Plug 'sickill/vim-pasta'
 " Align code by characters
 Plug 'tommcdo/vim-lion'
   let g:lion_squeeze_spaces = 1
-
-" Per-project file mappings
-Plug 'tpope/vim-projectionist'
-  nnoremap <leader><leader> :AV<cr>
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -96,7 +93,7 @@ set tagcase=match
 imap <M-Backspace> <C-w>
 
 nnoremap <backspace> <c-t>
-nnoremap <leader>a ggVG
+nnoremap <leader><leader> :b#<cr>
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
 nnoremap <S-UP> <C-w><UP>
