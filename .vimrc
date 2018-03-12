@@ -6,7 +6,6 @@ Plug 'tpope/vim-unimpaired'    " awesome pair mappings
 Plug 'tpope/vim-surround'      " Surround stuff in chars
 Plug 'tpope/vim-fugitive'      " Git integration
 Plug 'tpope/vim-bundler'       " read tags from gems
-Plug 'tpope/vim-projectionist' " Per-project file mappings
 Plug 'tomtom/tcomment_vim'     " Comment code
 Plug 'ap/vim-css-color'        " Preview css color
 Plug 'altercation/vim-colors-solarized'
@@ -17,6 +16,9 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'scrooloose/nerdtree'
   nnoremap <leader>s :NERDTreeToggle<cr>
   nnoremap <leader>r :NERDTreeFind<cr>
+
+Plug 'tpope/vim-projectionist'
+  nnoremap <leader><leader> :AV<cr>
 
 " Async code linting
 Plug 'neomake/neomake'
@@ -93,7 +95,6 @@ set tagcase=match
 imap <M-Backspace> <C-w>
 
 nnoremap <backspace> <c-t>
-nnoremap <leader><leader> :b#<cr>
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
 nnoremap <S-UP> <C-w><UP>
