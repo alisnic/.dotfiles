@@ -108,4 +108,7 @@ nnoremap <Down> gj
 command! W w
 command! Wq wq
 command! Q q
-nnoremap Q <Nop>
+nnoremap Q <nop>
+nnoremap q: <nop>
+vnoremap <S-UP> <nop>
+vnoremap <S-Down> <nop>
