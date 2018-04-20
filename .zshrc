@@ -29,7 +29,7 @@ bindkey "^[[1;3D" backward-word
 bindkey "^[[1;3C" forward-word
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby 2.4.2
+chruby 2.4.4
 
 function gentags() {
   echo "Exporting tags..."
