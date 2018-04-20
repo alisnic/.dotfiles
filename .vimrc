@@ -67,7 +67,7 @@ colorscheme solarized
 set synmaxcol=200
 
 set title
-set titlestring=%t
+set titlestring=%f
 set laststatus=0
 set mouse=a
 set splitright
