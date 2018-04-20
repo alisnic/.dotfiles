@@ -66,6 +66,8 @@ set background=light
 colorscheme solarized
 set synmaxcol=200
 
+set title
+set titlestring=%t
 set laststatus=0
 set mouse=a
 set splitright
@@ -94,7 +96,7 @@ set tagcase=match
 
 imap <M-Backspace> <C-w>
 
-nnoremap <backspace> <c-t>
+nnoremap <leader>q @
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
 nnoremap <S-UP> <C-w><UP>
