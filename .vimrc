@@ -56,6 +56,8 @@ augroup alisnic
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
   autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
+  autocmd FocusGained * checktime
+  autocmd VimLeavePre * set titlestring=
   autocmd FileType *
     \ if &omnifunc != '' |
     \   call SuperTabChain(&omnifunc, "<c-n>") |
@@ -66,6 +68,8 @@ set background=light
 colorscheme solarized
 set synmaxcol=200
 
+let g:markdown_fenced_languages = ['ruby']
+
 set title
 set titlestring=%f
 set laststatus=0
@@ -75,6 +79,7 @@ set hidden
 set clipboard=unnamed
 set cursorline
 
+set autoread
 set autowriteall
 set nobackup
 set nowritebackup
@@ -97,8 +102,16 @@ set tagcase=match
 imap <M-Backspace> <C-w>
 
 nnoremap <leader>q @
-nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
-nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
+
+if has('nvim')
+  nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
+  nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
+else
+  nnoremap <leader>t :exec("term " . &makeprg) \| wincmd T<cr>
+  nnoremap <leader>l :exec("term " . &makeprg . ":" . line('.')) \| wincmd T<cr>
+  set backspace=indent,eol,start
+end
+
 nnoremap <S-UP> <C-w><UP>
 nnoremap <S-Down> <C-w><Down>
 nnoremap <S-Left> <C-w><Left>
