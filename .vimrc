@@ -51,6 +51,7 @@ Plug 'mileszs/ack.vim'
 
 call plug#end()
 call neomake#configure#automake('rw')
+let g:markdown_fenced_languages = ['ruby', 'coffee', 'yaml']
 
 augroup alisnic
   autocmd!
@@ -67,8 +68,6 @@ augroup END
 set background=light
 colorscheme solarized
 set synmaxcol=200
-
-let g:markdown_fenced_languages = ['ruby']
 
 set title
 set titlestring=%f
@@ -102,16 +101,8 @@ set tagcase=match
 imap <M-Backspace> <C-w>
 
 nnoremap <leader>q @
-
-if has('nvim')
-  nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
-  nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
-else
-  nnoremap <leader>t :exec("term " . &makeprg) \| wincmd T<cr>
-  nnoremap <leader>l :exec("term " . &makeprg . ":" . line('.')) \| wincmd T<cr>
-  set backspace=indent,eol,start
-end
-
+nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
+nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
 nnoremap <S-UP> <C-w><UP>
 nnoremap <S-Down> <C-w><Down>
 nnoremap <S-Left> <C-w><Left>
