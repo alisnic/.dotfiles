@@ -59,6 +59,8 @@ augroup alisnic
   autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
   autocmd FocusGained * checktime
   autocmd VimLeavePre * set titlestring=
+  autocmd BufEnter * highlight OverLength ctermbg=7 guibg=Grey90
+  autocmd BufEnter * match OverLength /\%80v.*/
   autocmd FileType *
     \ if &omnifunc != '' |
     \   call SuperTabChain(&omnifunc, "<c-n>") |
