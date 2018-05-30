@@ -20,6 +20,7 @@ alias be='bundle exec'
 alias sp='bin/spring'
 alias rm='trash'
 alias rebrew='brew update && brew upgrade && brew cleanup'
+alias w='tmux attach -t'
 
 bindkey "^[[1;3D" backward-word
 bindkey "^[[1;3C" forward-word

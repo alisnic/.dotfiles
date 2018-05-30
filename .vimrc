@@ -21,8 +21,7 @@ Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
 
 " Async code linting
-Plug 'neomake/neomake'
-  let g:neomake_ruby_enabled_makers = ['rubocop']
+Plug 'w0rp/ale'
 
 " Preserve intendation when pasting
 Plug 'sickill/vim-pasta'
@@ -50,7 +49,6 @@ Plug 'mileszs/ack.vim'
   let g:ackprg = 'ag --vimgrep'
 
 call plug#end()
-call neomake#configure#automake('rw')
 let g:markdown_fenced_languages = ['ruby', 'coffee', 'yaml']
 
 augroup alisnic
@@ -102,6 +100,7 @@ set tagcase=match
 
 imap <M-Backspace> <C-w>
 
+nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap <leader>q @
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
