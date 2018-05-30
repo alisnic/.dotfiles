@@ -22,6 +22,7 @@ Plug 'tpope/vim-projectionist'
 
 " Async code linting
 Plug 'w0rp/ale'
+  let g:ale_linters = {'ruby': ['rubocop']}
 
 " Preserve intendation when pasting
 Plug 'sickill/vim-pasta'
