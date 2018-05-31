@@ -22,7 +22,9 @@ Plug 'tpope/vim-projectionist'
 
 " Async code linting
 Plug 'w0rp/ale'
-  let g:ale_linters = {'ruby': ['rubocop']}
+  let g:ale_linters = {'ruby': ['ruby', 'rubocop']}
+  let g:ale_lint_on_text_changed = 'normal'
+  let g:ale_lint_on_insert_leave = 1
 
 " Preserve intendation when pasting
 Plug 'sickill/vim-pasta'
@@ -88,6 +90,7 @@ set noswapfile
 set tabstop=2
 set expandtab
 set shiftwidth=2
+set autoindent
 
 set ignorecase
 set smartcase
