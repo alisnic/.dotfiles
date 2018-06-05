@@ -1,17 +1,28 @@
 let mapleader = "\<Space>"
 call plug#begin('~/.vim/plugged')
 
-Plug 'tpope/vim-endwise'       " Auto-insert end statements in code
-Plug 'tpope/vim-unimpaired'    " awesome pair mappings
-Plug 'tpope/vim-surround'      " Surround stuff in chars
-Plug 'tpope/vim-fugitive'      " Git integration
-Plug 'tpope/vim-bundler'       " read tags from gems
-Plug 'tomtom/tcomment_vim'     " Comment code
-Plug 'ap/vim-css-color'        " Preview css color
+Plug 'tpope/vim-endwise'    " Auto-insert end statements in code
+Plug 'tpope/vim-unimpaired' " awesome pair mappings
+Plug 'tpope/vim-surround'   " Surround stuff in chars
+Plug 'tpope/vim-fugitive'   " Git integration
+Plug 'tpope/vim-bundler'    " read tags from gems
+Plug 'tomtom/tcomment_vim'  " Comment code
+Plug 'ap/vim-css-color'     " Preview css color
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'majutsushi/tagbar'
 Plug 'kchmck/vim-coffee-script'
+
+Plug 'majutsushi/tagbar'
+  let g:tagbar_type_coffee = {
+  \ 'ctagstype' : 'coffee',
+  \ 'kinds'     : [
+      \ 'c:classes',
+      \ 'm:methods',
+      \ 'f:functions',
+      \ 'v:variables',
+      \ 'f:fields',
+  \ ]
+  \ }
 
 Plug 'scrooloose/nerdtree'
   nnoremap <leader>s :NERDTreeToggle<cr>
@@ -22,9 +33,7 @@ Plug 'tpope/vim-projectionist'
 
 " Async code linting
 Plug 'w0rp/ale'
-  let g:ale_linters = {'ruby': ['ruby', 'rubocop']}
-  let g:ale_lint_on_text_changed = 'normal'
-  let g:ale_lint_on_insert_leave = 1
+  let g:ale_linters = {'ruby': ['rubocop']}
 
 " Preserve intendation when pasting
 Plug 'sickill/vim-pasta'
@@ -49,19 +58,26 @@ Plug 'ervandew/supertab'
   let g:SuperTabContextDefaultCompletionType = '<c-n>'
 
 Plug 'mileszs/ack.vim'
-  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'rg --vimgrep --no-heading'
 
 call plug#end()
 let g:markdown_fenced_languages = ['ruby', 'coffee', 'yaml']
 
 augroup alisnic
   autocmd!
-  autocmd BufWritePre * :%s/\s\+$//e " Delete trailing spaces on save
   autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
+
+  " Delete trailing spaces on save
+  autocmd BufWritePre * :%s/\s\+$//e
+
+  " Auto-reload file when gaining focus
   autocmd FocusGained * checktime
-  autocmd VimLeavePre * set titlestring=
+
+  " Highlight all characters past 80 columns
   autocmd BufEnter * highlight OverLength ctermbg=7 guibg=Grey90
   autocmd BufEnter * match OverLength /\%80v.*/
+
+  " Use omnifunc if it's available, otherwise use keyword completion
   autocmd FileType *
     \ if &omnifunc != '' |
     \   call SuperTabChain(&omnifunc, "<c-n>") |
