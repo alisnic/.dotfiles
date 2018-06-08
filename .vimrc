@@ -11,18 +11,7 @@ Plug 'ap/vim-css-color'     " Preview css color
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'kchmck/vim-coffee-script'
-
 Plug 'majutsushi/tagbar'
-  let g:tagbar_type_coffee = {
-  \ 'ctagstype' : 'coffee',
-  \ 'kinds'     : [
-      \ 'c:classes',
-      \ 'm:methods',
-      \ 'f:functions',
-      \ 'v:variables',
-      \ 'f:fields',
-  \ ]
-  \ }
 
 Plug 'scrooloose/nerdtree'
   nnoremap <leader>s :NERDTreeToggle<cr>
@@ -34,6 +23,8 @@ Plug 'tpope/vim-projectionist'
 " Async code linting
 Plug 'w0rp/ale'
   let g:ale_linters = {'ruby': ['rubocop']}
+  let g:ale_lint_on_text_changed = 'normal'
+  let g:ale_lint_on_insert_leave = 1
 
 " Preserve intendation when pasting
 Plug 'sickill/vim-pasta'
@@ -121,6 +112,7 @@ set tagcase=match
 imap <M-Backspace> <C-w>
 
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap <leader>ih viigl<space>
 nnoremap <leader>q @
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
