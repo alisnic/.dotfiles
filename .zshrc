@@ -15,6 +15,8 @@ export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "" 2> /dev/null'
 
 alias brails='bin/spring rails'
 alias brake='bin/spring rake'
+alias rake='bundle exec rake'
+alias rails='bundle exec rails'
 alias reload!='source ~/.zshrc'
 alias mux='tmux new-session -s `basename \`pwd\``'
 alias be='bundle exec'
