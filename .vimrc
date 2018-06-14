@@ -13,6 +13,9 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'kchmck/vim-coffee-script'
 Plug 'majutsushi/tagbar'
 
+Plug 'vim-ruby/vim-ruby'
+  let g:ruby_indent_assignment_style = 'variable'
+
 Plug 'scrooloose/nerdtree'
   nnoremap <leader>s :NERDTreeToggle<cr>
   nnoremap <leader>r :NERDTreeFind<cr>
