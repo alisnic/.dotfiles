@@ -1,7 +1,9 @@
-export ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="amuse"
-plugins=()
-source $ZSH/oh-my-zsh.sh
+fpath=(~/.zsh-completions $fpath)
+autoload -U compinit && compinit
+
+PROMPT="
+%~$
+$ "
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
