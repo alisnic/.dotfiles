@@ -2,7 +2,7 @@ fpath=(~/.zsh-completions $fpath)
 autoload -U compinit && compinit
 
 PROMPT="
-%~$
+%~
 $ "
 
 export LANG="en_US.UTF-8"
