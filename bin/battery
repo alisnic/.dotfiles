@@ -1,0 +1,2 @@
+#!/bin/sh
+pmset -g batt | grep -E -o "\d+%|\d+\:\d+" | paste -sd ' ' -
