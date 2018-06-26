@@ -1,8 +1,14 @@
 fpath=(~/.zsh-completions $fpath)
 autoload -U compinit && compinit
+autoload -U colors && colors
+
+bindkey -v
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;3C" forward-word
 
 PROMPT="
-%~
+$fg[black]%~$reset_color
 $ "
 
 export LANG="en_US.UTF-8"
@@ -27,14 +33,11 @@ alias rm='trash'
 alias rebrew='brew update && brew upgrade && brew cleanup'
 alias w='tmux attach -t'
 
-bindkey "^[[1;3D" backward-word
-bindkey "^[[1;3C" forward-word
-
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.4.4
 
 function gentags() {
   echo "Exporting tags..."
   ripper-tags -R -f .git/rubytags --tag-relative=yes
-  noglob ctags -R -f .git/tags --tag-relative=yes --exclude=*.rb
+  ctags -R -f .git/tags --tag-relative=yes --exclude=*.rb
 }
