@@ -14,7 +14,7 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'majutsushi/tagbar'
 
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'juanibiapina/vim-snippets'
   let g:UltiSnipsExpandTrigger="<tab>"
   let g:UltiSnipsJumpForwardTrigger="<tab>"
   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
