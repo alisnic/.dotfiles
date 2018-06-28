@@ -1,9 +1,10 @@
+source ~/.oh-my-zsh/lib/history.zsh
 fpath=(~/.zsh-completions $fpath)
 autoload -U compinit && compinit
 autoload -U colors && colors
 
 bindkey -v
-bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^R' history-incremental-search-backward
 bindkey "^[[1;3D" backward-word
 bindkey "^[[1;3C" forward-word
 
