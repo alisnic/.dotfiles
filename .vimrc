@@ -22,9 +22,10 @@ Plug 'juanibiapina/vim-snippets'
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
 
-Plug 'scrooloose/nerdtree'
-  nnoremap <leader>s :NERDTreeToggle<cr>
-  nnoremap <leader>r :NERDTreeFind<cr>
+Plug 'tpope/vim-eunuch'
+Plug 'justinmk/vim-dirvish'
+  nnoremap <leader>s :Dirvish<cr>
+  nnoremap <leader>r :Dirvish %<cr>
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
@@ -52,7 +53,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
-  set pumheight=5
+  set pumheight=10
   let g:loaded_ruby_provider = 1
   let g:SuperTabDefaultCompletionType = 'context'
   let g:SuperTabContextDefaultCompletionType = '<c-n>'
@@ -121,7 +122,6 @@ set tagcase=match
 imap <M-Backspace> <C-w>
 
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-nnoremap <leader>ih viigl<space>
 nnoremap <leader>q @
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
