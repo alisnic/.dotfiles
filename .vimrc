@@ -121,6 +121,9 @@ set tagcase=match
 
 imap <M-Backspace> <C-w>
 
+command! -nargs=1 Sh exec("tabedit \| term " . <q-args>) | startinsert
+
+nnoremap <leader>e :Sh<space>
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap <leader>q @
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
