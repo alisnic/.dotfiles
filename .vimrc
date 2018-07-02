@@ -24,6 +24,7 @@ Plug 'vim-ruby/vim-ruby'
 
 Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-dirvish'
+  let g:dirvish_mode = 2
   nnoremap <leader>s :Dirvish<cr>
   nnoremap <leader>r :Dirvish %<cr>
 
@@ -46,7 +47,7 @@ Plug 'tommcdo/vim-lion'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-  nnoremap <leader>f :Files<cr>
+  nnoremap <leader>f :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
   nnoremap <leader>m :BTags<cr>
   nnoremap <leader>c :Tags<cr>
   nnoremap <leader>b :Buffers<cr>
@@ -76,7 +77,10 @@ augroup alisnic
 
   " Highlight all characters past 80 columns
   autocmd BufEnter * highlight OverLength ctermbg=7 guibg=Grey90
-  autocmd BufEnter * match OverLength /\%80v.*/
+  autocmd BufEnter *
+    \ if &ft != '' |
+    \   match OverLength /\%80v.*/ |
+    \ endif
 
   " Use omnifunc if it's available, otherwise use keyword completion
   autocmd FileType *
