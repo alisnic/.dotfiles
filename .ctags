@@ -7,7 +7,7 @@
 --exclude=*.svg
 --exclude=public
 --exclude=vendor
---languages=-html
+--exclude=coverage
 --fields=+l
 
 --langdef=coffee
