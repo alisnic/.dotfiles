@@ -24,7 +24,7 @@ Plug 'vim-ruby/vim-ruby'
 
 Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-dirvish'
-  let g:dirvish_mode = 2
+  let dirvish_mode = ':sort | sort ,^.*/,'
   nnoremap <leader>s :Dirvish<cr>
   nnoremap <leader>r :Dirvish %<cr>
 
@@ -36,6 +36,7 @@ Plug 'w0rp/ale'
   let g:ale_linters = {'ruby': ['rubocop']}
   let g:ale_lint_on_text_changed = 'normal'
   let g:ale_lint_on_insert_leave = 1
+  let g:ale_pattern_options = {'.*\.gem.*\.rb$': {'ale_enabled': 0}}
 
 " Preserve intendation when pasting
 Plug 'sickill/vim-pasta'
@@ -47,7 +48,7 @@ Plug 'tommcdo/vim-lion'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-  nnoremap <leader>f :call fzf#vim#files('', fzf#vim#with_preview('right'))<cr>
+  nnoremap <leader>f :Files<cr>
   nnoremap <leader>m :BTags<cr>
   nnoremap <leader>c :Tags<cr>
   nnoremap <leader>b :Buffers<cr>
@@ -75,7 +76,7 @@ augroup alisnic
   " Auto-reload file when gaining focus
   autocmd FocusGained * checktime
 
-  " Highlight all characters past 80 columns
+  " Highlight all characters past 80 columns, but only if buffers with code
   autocmd BufEnter * highlight OverLength ctermbg=7 guibg=Grey90
   autocmd BufEnter *
     \ if &ft != '' |

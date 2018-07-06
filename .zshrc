@@ -8,6 +8,7 @@ bindkey '^R' history-incremental-search-backward
 bindkey "^[[1;3D" backward-word
 bindkey "^[[1;3C" forward-word
 
+zstyle ':completion:*' menu select
 PROMPT="
 $fg[black]%~$reset_color
 $ "
@@ -40,5 +41,5 @@ chruby 2.4.4
 function gentags() {
   echo "Exporting tags..."
   ripper-tags -R -f .git/rubytags --tag-relative=yes
-  ctags -R -f .git/tags --tag-relative=yes --exclude=*.rb
+  ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript
 }
