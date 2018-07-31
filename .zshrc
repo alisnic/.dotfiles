@@ -34,6 +34,7 @@ alias sp='bin/spring'
 alias rm='trash'
 alias rebrew='brew update && brew upgrade && brew cleanup'
 alias w='tmux attach -t'
+alias vim='nvim'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.4.4
