@@ -12,6 +12,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'kchmck/vim-coffee-script'
 Plug 'majutsushi/tagbar'
+Plug 'RRethy/vim-illuminate'
 
 Plug 'SirVer/ultisnips'
 Plug 'juanibiapina/vim-snippets'
@@ -37,6 +38,7 @@ Plug 'w0rp/ale'
   let g:ale_lint_on_text_changed = 'normal'
   let g:ale_lint_on_insert_leave = 1
   let g:ale_pattern_options = {'.*\.gem.*\.rb$': {'ale_enabled': 0}}
+  let g:ale_set_highlights = 0
 
 " Preserve intendation when pasting
 Plug 'sickill/vim-pasta'
