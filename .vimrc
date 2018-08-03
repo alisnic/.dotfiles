@@ -1,18 +1,18 @@
 let mapleader = "\<Space>"
 call plug#begin('~/.vim/plugged')
 
-Plug 'tpope/vim-endwise'    " Auto-insert end statements in code
-Plug 'tpope/vim-unimpaired' " awesome pair mappings
-Plug 'tpope/vim-surround'   " Surround stuff in chars
-Plug 'tpope/vim-fugitive'   " Git integration
-Plug 'tpope/vim-bundler'    " read tags from gems
-Plug 'tomtom/tcomment_vim'  " Comment code
-Plug 'ap/vim-css-color'     " Preview css color
+Plug 'tpope/vim-endwise'     " Auto-insert end statements in code
+Plug 'tpope/vim-unimpaired'  " awesome pair mappings
+Plug 'tpope/vim-surround'    " Surround stuff in chars
+Plug 'tpope/vim-fugitive'    " Git integration
+Plug 'tpope/vim-bundler'     " read tags from gems
+Plug 'tomtom/tcomment_vim'   " Comment code
+Plug 'ap/vim-css-color'      " Preview css color
+Plug 'majutsushi/tagbar'     " Tag explorer for a buffer
+Plug 'RRethy/vim-illuminate' " Highlight matches for current word under cursor
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'kchmck/vim-coffee-script'
-Plug 'majutsushi/tagbar'
-Plug 'RRethy/vim-illuminate'
 
 Plug 'SirVer/ultisnips'
 Plug 'juanibiapina/vim-snippets'
@@ -78,12 +78,9 @@ augroup alisnic
   " Auto-reload file when gaining focus
   autocmd FocusGained * checktime
 
-  " Highlight all characters past 80 columns, but only if buffers with code
+  " Highlight all characters past 80 columns, but only in buffers with code
   autocmd BufEnter * highlight OverLength ctermbg=7 guibg=Grey90
-  autocmd BufEnter *
-    \ if &ft != '' |
-    \   match OverLength /\%80v.*/ |
-    \ endif
+  autocmd BufEnter * if &ft != '' | match OverLength /\%81v.*/ | endif
 
   " Use omnifunc if it's available, otherwise use keyword completion
   autocmd FileType *
@@ -105,7 +102,6 @@ set hidden
 set clipboard=unnamed
 set cursorline
 
-set autoread
 set autowriteall
 set nobackup
 set nowritebackup
@@ -126,11 +122,6 @@ set foldmethod=indent " foldmethod=syntax is slow
 set tags+=.git/tags,.git/rubytags
 set tagcase=match
 
-imap <M-Backspace> <C-w>
-
-command! -nargs=1 Sh exec("tabedit \| term " . <q-args>) | startinsert
-
-nnoremap <leader>e :Sh<space>
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap <leader>q @
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
