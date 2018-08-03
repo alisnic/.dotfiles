@@ -12,6 +12,7 @@ Plug 'majutsushi/tagbar'     " Tag explorer for a buffer
 Plug 'RRethy/vim-illuminate' " Highlight matches for current word under cursor
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 
 Plug 'SirVer/ultisnips'
@@ -70,7 +71,6 @@ let g:markdown_fenced_languages = ['ruby', 'coffee', 'yaml']
 
 augroup alisnic
   autocmd!
-  autocmd BufNewFile,BufRead *.hamlc setlocal ft=haml
 
   " Delete trailing spaces on save
   autocmd BufWritePre * :%s/\s\+$//e
