@@ -16,7 +16,7 @@ Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 
 Plug 'SirVer/ultisnips'
-Plug 'juanibiapina/vim-snippets'
+  let g:UltiSnipsSnippetDirectories=[$HOME."/.dotfiles/snippets"]
   let g:UltiSnipsExpandTrigger="<tab>"
   let g:UltiSnipsJumpForwardTrigger="<tab>"
   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
@@ -65,6 +65,7 @@ Plug 'ervandew/supertab'
 
 Plug 'mileszs/ack.vim'
   let g:ackprg = 'rg --vimgrep --no-heading'
+  cabbrev ack Ack
 
 call plug#end()
 let g:markdown_fenced_languages = ['ruby', 'coffee', 'yaml']
@@ -100,7 +101,6 @@ set mouse=a
 set splitright
 set hidden
 set clipboard=unnamed
-set cursorline
 
 set autowriteall
 set nobackup
@@ -116,6 +116,7 @@ set ignorecase
 set smartcase
 nnoremap <silent> <esc><esc> :nohlsearch<cr><esc>
 
+set foldenable
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
 
