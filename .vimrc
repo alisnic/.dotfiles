@@ -1,4 +1,6 @@
 let mapleader = "\<Space>"
+let g:loaded_matchparen = 1
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-endwise'     " Auto-insert end statements in code
@@ -79,6 +81,9 @@ augroup alisnic
   " Auto-reload file when gaining focus
   autocmd FocusGained * checktime
 
+  " Add Ruby tags to Ruby file buffers
+  autocmd FileType ruby setlocal tags=.git/rubytags,~/.rubies/ruby-2.4.4/tags
+
   " Highlight all characters past 80 columns, but only in buffers with code
   autocmd BufEnter * highlight OverLength ctermbg=7 guibg=Grey90
   autocmd BufEnter * if &ft != '' | match OverLength /\%81v.*/ | endif
@@ -120,7 +125,7 @@ set foldenable
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
 
-set tags+=.git/tags,.git/rubytags
+set tags+=.git/tags
 set tagcase=match
 
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
