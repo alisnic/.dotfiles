@@ -1,6 +1,0 @@
---type-set=css=.scss
---type-add=hamlc=.hamlc
---ignore-dir=tmp
---ignore-dir=log
---ignore-dir=node_modules
-
