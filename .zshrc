@@ -1,10 +1,11 @@
 source ~/.oh-my-zsh/lib/history.zsh
+source /usr/local/Cellar/fzf/0.17.4/shell/key-bindings.zsh
+
 fpath=(~/.zsh-completions $fpath)
 autoload -U compinit && compinit
 autoload -U colors && colors
 
 bindkey -v
-bindkey '^R' history-incremental-search-backward
 bindkey "^[[1;3D" backward-word
 bindkey "^[[1;3C" forward-word
 
