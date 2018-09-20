@@ -10,7 +10,7 @@
   cp = cherry-pick
   df = diff --color
   dc = diff --color --cached
-  ph = push
+  ph = !git push origin $(git rev-parse --abbrev-ref HEAD)
   lg = log --pretty=oneline --abbrev-commit
   pl = pull
   sw = show --color
