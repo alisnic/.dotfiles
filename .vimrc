@@ -82,7 +82,7 @@ augroup alisnic
   autocmd FocusGained * checktime
 
   " Add Ruby tags to Ruby file buffers
-  autocmd FileType ruby,eruby setlocal tags=.git/rubytags,~/.rubies/ruby-2.4.4/tags
+  autocmd FileType ruby,eruby,haml setlocal tags=.git/rubytags,~/.rubies/ruby-2.4.4/tags
 
   " Highlight all characters past 80 columns, but only in buffers with code
   autocmd BufEnter * highlight OverLength ctermbg=7 guibg=Grey90
