@@ -22,7 +22,7 @@ export PATH=~/.dotfiles/bin:/Users/andrei/go/bin:/usr/local/bin:$PATH
 export PGDATA=/usr/local/var/postgres
 export ANDROID_HOME=/usr/local/opt/android-sdk
 export HOMEBREW_GITHUB_API_TOKEN=995128975d5615332b7aab40ecdda3cf11f03d8c
-export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "" 2> /dev/null'
+export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" 2> /dev/null'
 
 alias brails='bin/spring rails'
 alias brake='bin/spring rake'
