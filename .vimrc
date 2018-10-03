@@ -1,5 +1,7 @@
 let mapleader = "\<Space>"
 let g:loaded_matchparen = 1
+let g:python_host_prog = '/usr/local/bin/python2'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 call plug#begin('~/.vim/plugged')
 
@@ -20,8 +22,8 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'SirVer/ultisnips'
   let g:UltiSnipsSnippetDirectories=[$HOME."/.dotfiles/snippets"]
   let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsJumpForwardTrigger="<tab>"
-  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+  let g:UltiSnipsJumpForwardTrigger="<s-tab>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-tab>"
 
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
@@ -30,7 +32,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-dirvish'
   let dirvish_mode = ':sort | sort ,^.*/,'
   nnoremap <leader>s :Dirvish<cr>
-  nnoremap <leader>r :Dirvish %<cr>
+  autocmd FileType dirvish nnoremap <silent><buffer> r :silent exec "!open %"<cr>
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
@@ -58,12 +60,11 @@ Plug 'junegunn/fzf.vim'
   nnoremap <leader>c :Tags<cr>
   nnoremap <leader>b :Buffers<cr>
 
+Plug 'ternjs/tern_for_vim'
 Plug 'ervandew/supertab'
   set completeopt-=preview
   set pumheight=10
   let g:loaded_ruby_provider = 1
-  let g:SuperTabDefaultCompletionType = 'context'
-  let g:SuperTabContextDefaultCompletionType = '<c-n>'
 
 Plug 'mileszs/ack.vim'
   let g:ackprg = 'rg --vimgrep --no-heading'
@@ -83,6 +84,9 @@ augroup alisnic
 
   " Add Ruby tags to Ruby file buffers
   autocmd FileType ruby,eruby,haml setlocal tags=.git/rubytags,~/.rubies/ruby-2.4.4/tags
+
+  " Auto-complete js in html
+  autocmd FileType html setlocal omnifunc=tern#Complete | call tern#Enable()
 
   " Highlight all characters past 80 columns, but only in buffers with code
   autocmd BufEnter * highlight OverLength ctermbg=7 guibg=Grey90
