@@ -42,7 +42,7 @@ Plug 'w0rp/ale'
   let g:ale_linters = {'ruby': ['rubocop']}
   let g:ale_lint_on_text_changed = 'normal'
   let g:ale_lint_on_insert_leave = 1
-  let g:ale_pattern_options = {'.*\.gem.*\.rb$': {'ale_enabled': 0}}
+  let g:ale_pattern_options = {'.*\.gem.*\.rb$|.*\.rubies.*\.rb$': {'ale_enabled': 0}}
   let g:ale_set_highlights = 0
 
 " Preserve intendation when pasting
@@ -98,6 +98,12 @@ augroup alisnic
     \   call SuperTabChain(&omnifunc, "<c-n>") |
     \ endif
 augroup END
+
+function! s:FilterQuickfixList(bang, pattern)
+  let cmp = a:bang ? '!~#' : '=~#'
+  call setqflist(filter(getqflist(), "bufname(v:val['bufnr']) " . cmp . " a:pattern"))
+endfunction
+command! -bang -nargs=1 -complete=file QFilter call s:FilterQuickfixList(<bang>0, <q-args>)
 
 set background=light
 colorscheme solarized
