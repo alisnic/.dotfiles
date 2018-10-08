@@ -1,5 +1,4 @@
 source ~/.oh-my-zsh/lib/history.zsh
-source /usr/local/Cellar/fzf/0.17.4/shell/key-bindings.zsh
 
 fpath=(~/.zsh-completions $fpath)
 autoload -U compinit && compinit
@@ -45,3 +44,6 @@ function gentags() {
   ripper-tags -R -f .git/rubytags --tag-relative=yes
   ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript
 }
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+bindkey '^T' fzf-cd-widget
