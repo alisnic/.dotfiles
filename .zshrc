@@ -1,17 +1,25 @@
-source ~/.oh-my-zsh/lib/history.zsh
-
 fpath=(~/.zsh-completions $fpath)
 autoload -U compinit && compinit
 autoload -U colors && colors
+
+source ~/.oh-my-zsh/lib/history.zsh
 
 bindkey -v
 bindkey "^[[1;3D" backward-word
 bindkey "^[[1;3C" forward-word
 
 zstyle ':completion:*' menu select
-PROMPT="
-$fg[black]%~$reset_color
-$ "
+
+setopt PROMPT_SUBST
+
+precmd() {
+  if [ -d ".git" ]
+  then
+    PS1=$'\n$fg[black]%~$reset_color $(git rev-parse --abbrev-ref HEAD)\n$ '
+  else
+    PS1=$'\n$fg[black]%~$reset_color\n$ '
+  fi
+}
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
@@ -25,16 +33,13 @@ export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" 2> /dev/nul
 
 alias brails='bin/spring rails'
 alias brake='bin/spring rake'
-alias rake='bundle exec rake'
-alias rails='bundle exec rails'
 alias reload!='source ~/.zshrc'
-alias mux='tmux new-session -s `basename \`pwd\``'
 alias be='bundle exec'
 alias sp='bin/spring'
 alias rm='trash'
 alias rebrew='brew update && brew upgrade && brew cleanup'
-alias w='tmux attach -t'
 alias vim='nvim'
+alias marks="ls -lha ~/.marks"
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.4.4
@@ -45,5 +50,18 @@ function gentags() {
   ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript
 }
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-bindkey '^T' fzf-cd-widget
+export MARKPATH=$HOME/.marks
+
+function j {
+	cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
+}
+
+function mark {
+	mkdir -p "$MARKPATH"; ln -s "$(pwd)" "$MARKPATH/$1"
+}
+
+function _completemarks {
+  reply=($(ls $MARKPATH))
+}
+
+compctl -K _completemarks j
