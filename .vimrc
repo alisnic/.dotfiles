@@ -1,7 +1,5 @@
 let mapleader = "\<Space>"
 let g:loaded_matchparen = 1
-let g:python_host_prog = '/usr/local/bin/python2'
-let g:python3_host_prog = '/usr/local/bin/python3'
 
 call plug#begin('~/.vim/plugged')
 
@@ -64,7 +62,6 @@ Plug 'ternjs/tern_for_vim'
 Plug 'ervandew/supertab'
   set completeopt-=preview
   set pumheight=10
-  let g:loaded_ruby_provider = 1
 
 Plug 'mileszs/ack.vim'
   let g:ackprg = 'rg --vimgrep --no-heading'
@@ -134,12 +131,12 @@ nnoremap <silent> <esc><esc> :nohlsearch<cr><esc>
 set foldenable
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
+nnoremap <leader>z zMzv
 
 set tags+=.git/tags
 set tagcase=match
-
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-nnoremap <leader>q @
+
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
 nnoremap <S-UP> <C-w><UP>
