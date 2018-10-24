@@ -58,6 +58,14 @@ Plug 'junegunn/fzf.vim'
   nnoremap <leader>c :Tags<cr>
   nnoremap <leader>b :Buffers<cr>
 
+  function! s:switch_project(name)
+    execute 'cd ' . a:name . ' | Dirvish | %bd | e#'
+  endfunction
+
+  nnoremap <leader>p :call fzf#run(fzf#wrap(
+    \ {'source': 'find ~/Work/* -type d -maxdepth 0',
+    \  'sink': function('<sid>switch_project')}))<cr>
+
 Plug 'ternjs/tern_for_vim'
 Plug 'ervandew/supertab'
   set completeopt-=preview
