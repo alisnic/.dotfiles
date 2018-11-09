@@ -42,7 +42,7 @@ alias vim='nvim'
 alias marks="ls -lha ~/.marks"
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby 2.4.4
+chruby 2.4.5
 
 function gentags() {
   echo "Exporting tags..."
@@ -65,3 +65,6 @@ function _completemarks {
 }
 
 compctl -K _completemarks j
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+bindkey '^T' fzf-cd-widget
