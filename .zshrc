@@ -3,6 +3,7 @@ autoload -U compinit && compinit
 autoload -U colors && colors
 
 source ~/.oh-my-zsh/lib/history.zsh
+source ~/.dotfiles/.env
 
 bindkey -v
 bindkey "^[[1;3D" backward-word
@@ -30,6 +31,7 @@ export PGDATA=/usr/local/var/postgres
 export ANDROID_HOME=/usr/local/opt/android-sdk
 export HOMEBREW_GITHUB_API_TOKEN=995128975d5615332b7aab40ecdda3cf11f03d8c
 export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" 2> /dev/null'
+export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
 
 alias brails='bin/spring rails'
 alias brake='bin/spring rake'
@@ -39,7 +41,6 @@ alias sp='bin/spring'
 alias rm='trash'
 alias rebrew='brew update && brew upgrade && brew cleanup'
 alias vim='nvim'
-alias marks="ls -lha ~/.marks"
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 chruby 2.4.5
@@ -50,18 +51,12 @@ function gentags() {
   ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript
 }
 
-export MARKPATH=$HOME/.marks
-
 function j {
-	cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
-}
-
-function mark {
-	mkdir -p "$MARKPATH"; ln -s "$(pwd)" "$MARKPATH/$1"
+	cd -P "/Users/andrei/Work/$1"
 }
 
 function _completemarks {
-  reply=($(ls $MARKPATH))
+  reply=($(ls /Users/andrei/Work))
 }
 
 compctl -K _completemarks j
