@@ -6,7 +6,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-endwise'     " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired'  " awesome pair mappings
 Plug 'tpope/vim-surround'    " Surround stuff in chars
-Plug 'tpope/vim-fugitive'    " Git integration
 Plug 'tpope/vim-bundler'     " read tags from gems
 Plug 'tomtom/tcomment_vim'   " Comment code
 Plug 'ap/vim-css-color'      " Preview css color
@@ -17,11 +16,8 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 
-Plug 'SirVer/ultisnips'
-  let g:UltiSnipsSnippetDirectories=[$HOME."/.dotfiles/snippets"]
-  let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsJumpForwardTrigger="<s-tab>"
-  let g:UltiSnipsJumpBackwardTrigger="<c-tab>"
+Plug 'tpope/vim-fugitive'
+  nnoremap <leader>gs :Gstatus<cr>
 
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
@@ -53,17 +49,17 @@ Plug 'tommcdo/vim-lion'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+  function! s:switch_project(name)
+    execute 'cd ~/Work/' . a:name . ' | Dirvish | %bd | e#'
+  endfunction
+
   nnoremap <leader>f :Files<cr>
   nnoremap <leader>m :BTags<cr>
   nnoremap <leader>c :Tags<cr>
   nnoremap <leader>b :Buffers<cr>
-
-  function! s:switch_project(name)
-    execute 'cd ' . a:name . ' | Dirvish | %bd | e#'
-  endfunction
-
+  nnoremap <leader>d :call fzf#run(fzf#wrap({'source': 'find . -type d \| grep -v tmp \| grep -v .git'}))<cr>
   nnoremap <leader>p :call fzf#run(fzf#wrap(
-    \ {'source': 'find ~/Work/* -type d -maxdepth 0',
+    \ {'source': 'find ~/Work/* -type d -maxdepth 0 \| xargs basename',
     \  'sink': function('<sid>switch_project')}))<cr>
 
 Plug 'ternjs/tern_for_vim'
@@ -87,9 +83,6 @@ augroup alisnic
   " Auto-reload file when gaining focus
   autocmd FocusGained * checktime
 
-  " Add Ruby tags to Ruby file buffers
-  autocmd FileType ruby,eruby,haml setlocal tags=.git/rubytags,~/.rubies/ruby-2.4.4/tags
-
   " Auto-complete js in html
   autocmd FileType html setlocal omnifunc=tern#Complete | call tern#Enable()
 
@@ -108,7 +101,7 @@ function! s:FilterQuickfixList(bang, pattern)
   let cmp = a:bang ? '!~#' : '=~#'
   call setqflist(filter(getqflist(), "bufname(v:val['bufnr']) " . cmp . " a:pattern"))
 endfunction
-command! -bang -nargs=1 -complete=file QFilter call s:FilterQuickfixList(<bang>0, <q-args>)
+command! -bang -nargs=1 -complete=file Qfilter call s:FilterQuickfixList(<bang>0, <q-args>)
 
 set background=light
 colorscheme solarized
@@ -141,7 +134,7 @@ set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
 nnoremap <leader>z zMzv
 
-set tags+=.git/tags
+set tags+=.git/tags,.git/rubytags,~/.rubies/ruby-2.4.4/tags
 set tagcase=match
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
