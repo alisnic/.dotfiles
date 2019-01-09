@@ -29,9 +29,9 @@ export EDITOR='nvim'
 export PATH=~/.dotfiles/bin:/Users/andrei/go/bin:/usr/local/bin:$PATH
 export PGDATA=/usr/local/var/postgres
 export ANDROID_HOME=/usr/local/opt/android-sdk
-export HOMEBREW_GITHUB_API_TOKEN=995128975d5615332b7aab40ecdda3cf11f03d8c
 export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" 2> /dev/null'
 export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
+export HOMEBREW_INSTALL_CLEANUP=true
 
 alias brails='bin/spring rails'
 alias brake='bin/spring rake'
@@ -39,7 +39,6 @@ alias reload!='source ~/.zshrc'
 alias be='bundle exec'
 alias sp='bin/spring'
 alias rm='trash'
-alias rebrew='brew update && brew upgrade && brew cleanup'
 alias vim='nvim'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
