@@ -50,7 +50,7 @@ Plug 'tommcdo/vim-lion'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
   function! s:switch_project(name)
-    execute 'cd ~/Work/' . a:name . ' | Dirvish | %bd | e#'
+    execute 'cd ~/Work/' . a:name . ' | Dirvish | wa | %bd | e#'
   endfunction
 
   nnoremap <leader>f :Files<cr>
@@ -140,6 +140,8 @@ nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
 nnoremap <S-UP> <C-w><UP>
 nnoremap <S-Down> <C-w><Down>
 nnoremap <S-Left> <C-w><Left>
@@ -151,6 +153,7 @@ nnoremap <Down> gj
 command! W w
 command! Wq wq
 command! Q q
+command! Scratch :e ~/.scratch.txt
 nnoremap Q <nop>
 nnoremap q: <nop>
 vnoremap <S-UP> <nop>
