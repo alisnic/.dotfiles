@@ -19,9 +19,7 @@ tabspaces: 8
 draw_bold_text_with_bright_colors: true
 
 window:
-  dimensions:
-    columns: 300
-    lines: 300
+  start_maximized: true
 
 font:
   normal:
@@ -113,6 +111,7 @@ colors:
 # be escape sequences, but they can be configured to send arbitrary strings of
 # bytes. Possible values of `action` include `Paste` and `PasteSelection`.
 key_bindings:
+  - { key: J,        mods: Command, action: SpawnNewInstance             }
   - { key: Q,        mods: Command, action: Quit                         }
   - { key: V,        mods: Command, action: Paste                        }
   - { key: C,        mods: Command, action: Copy                         }
