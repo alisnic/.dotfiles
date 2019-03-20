@@ -15,9 +15,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
-
 Plug 'tpope/vim-fugitive'
-  nnoremap <leader>gs :Gstatus<cr>
 
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
@@ -153,7 +151,7 @@ nnoremap <Down> gj
 command! W w
 command! Wq wq
 command! Q q
-command! Scratch :e ~/.scratch.txt
+command! Scratch :exe "e " . "~/.scratch/" . strftime('%Y-%m-%d') . ".txt"
 nnoremap Q <nop>
 nnoremap q: <nop>
 vnoremap <S-UP> <nop>
