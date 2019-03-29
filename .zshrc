@@ -10,6 +10,7 @@ bindkey "^[[1;3D" backward-word
 bindkey "^[[1;3C" forward-word
 
 zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 setopt PROMPT_SUBST
 
