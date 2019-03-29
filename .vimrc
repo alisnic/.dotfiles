@@ -1,14 +1,11 @@
 let mapleader = "\<Space>"
-let g:loaded_matchparen = 1
 
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-endwise'     " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired'  " awesome pair mappings
-Plug 'tpope/vim-surround'    " Surround stuff in chars
 Plug 'tpope/vim-bundler'     " read tags from gems
 Plug 'tomtom/tcomment_vim'   " Comment code
-Plug 'ap/vim-css-color'      " Preview css color
 Plug 'majutsushi/tagbar'     " Tag explorer for a buffer
 Plug 'RRethy/vim-illuminate' " Highlight matches for current word under cursor
 Plug 'altercation/vim-colors-solarized'
@@ -130,7 +127,6 @@ nnoremap <silent> <esc><esc> :nohlsearch<cr><esc>
 set foldenable
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
-nnoremap <leader>z zMzv
 
 set tags+=.git/tags,.git/rubytags,~/.rubies/ruby-2.4.4/tags
 set tagcase=match
@@ -138,8 +134,6 @@ nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
-nnoremap <leader>1 1gt
-nnoremap <leader>2 2gt
 nnoremap <S-UP> <C-w><UP>
 nnoremap <S-Down> <C-w><Down>
 nnoremap <S-Left> <C-w><Left>
