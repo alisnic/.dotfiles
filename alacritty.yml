@@ -117,7 +117,7 @@ key_bindings:
   - { key: C,        mods: Command, action: Copy                         }
   - { key: Equals,   mods: Command, action: IncreaseFontSize             }
   - { key: Minus,    mods: Command, action: DecreaseFontSize             }
-  - { key: F,        mods: Command, chars: "\x01\x63"                    }
+  - { key: T,        mods: Command, chars: "\x01\x63"                    }
   - { key: Key1,     mods: Command, chars: "\x01\x31"                    }
   - { key: Key2,     mods: Command, chars: "\x01\x32"                    }
   - { key: Key3,     mods: Command, chars: "\x01\x33"                    }
