@@ -1,5 +1,9 @@
 let mapleader = "\<Space>"
 let g:loaded_matchparen = 1
+let g:loaded_python_provider = 1
+let g:loaded_python3_provider = 1
+let g:loaded_ruby_provider = 1
+let g:loaded_node_provider = 1
 
 call plug#begin('~/.vim/plugged')
 
@@ -62,7 +66,6 @@ Plug 'junegunn/fzf.vim'
     \ {'source': 'find ~/Work/* -type d -maxdepth 0 \| xargs basename',
     \  'sink': function('<sid>switch_project')}))<cr>
 
-Plug 'ternjs/tern_for_vim'
 Plug 'ervandew/supertab'
   set completeopt-=preview
   set pumheight=10
@@ -83,12 +86,7 @@ augroup alisnic
   " Auto-reload file when gaining focus
   autocmd FocusGained * checktime
 
-  " Auto-complete js in html
-  autocmd FileType html setlocal omnifunc=tern#Complete | call tern#Enable()
-
-  " Highlight all characters past 80 columns, but only in buffers with code
-  autocmd BufEnter * highlight OverLength ctermbg=7 guibg=Grey90
-  autocmd BufEnter * if &ft != '' | match OverLength /\%81v.*/ | endif
+  autocmd FileType markdown setlocal spell
 
   " Use omnifunc if it's available, otherwise use keyword completion
   autocmd FileType *
