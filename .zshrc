@@ -17,7 +17,8 @@ setopt PROMPT_SUBST
 precmd() {
   if [ -d ".git" ]
   then
-    PS1=$'\n$fg[black]%~$reset_color $(git rev-parse --abbrev-ref HEAD)\n$ '
+    export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    PS1=$'\n$fg[black]%~$reset_color $GIT_BRANCH\n$ '
   else
     PS1=$'\n$fg[black]%~$reset_color\n$ '
   fi
@@ -30,6 +31,7 @@ export EDITOR='nvim'
 export PATH=~/.dotfiles/bin:/Users/andrei/go/bin:/usr/local/bin:$PATH
 export PGDATA=/usr/local/var/postgres
 export ANDROID_HOME=/usr/local/opt/android-sdk
+export FZF_DEFAULT_OPTS="--bind ctrl-a:select-all"
 export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" 2> /dev/null'
 export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
 export HOMEBREW_INSTALL_CLEANUP=true
