@@ -128,7 +128,7 @@ set foldenable
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
 
-set tags+=.git/tags,.git/rubytags,~/.rubies/ruby-2.4.4/tags
+set tags+=.git/tags,.git/rubytags,~/.rubies/ruby-2.4.5/tags,/Users/andrei/src/ruby-2.4.5/tags
 set tagcase=match
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
