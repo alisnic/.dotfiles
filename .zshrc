@@ -2,7 +2,8 @@ fpath=(~/.zsh-completions $fpath)
 autoload -U compinit && compinit
 autoload -U colors && colors
 
-source ~/.oh-my-zsh/lib/history.zsh
+source ~/.dotfiles/zsh/history.zsh
+source /usr/local/Cellar/fzf/0.18.0/shell/key-bindings.zsh
 source ~/.dotfiles/.env
 
 bindkey -v
@@ -42,7 +43,6 @@ alias rm='trash'
 alias vim='nvim'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby 2.4.5
 
 function gentags() {
   echo "Exporting tags..."
@@ -51,14 +51,11 @@ function gentags() {
 }
 
 function j {
-	cd -P "/Users/andrei/Work/$1"
+	cd -P "$MARKDIR/$1"
 }
 
 function _completemarks {
-  reply=($(ls /Users/andrei/Work))
+  reply=($(ls $MARKDIR))
 }
 
 compctl -K _completemarks j
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-bindkey '^T' fzf-cd-widget
