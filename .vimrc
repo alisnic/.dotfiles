@@ -9,19 +9,15 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-endwise'     " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired'  " awesome pair mappings
-Plug 'tpope/vim-surround'    " Surround stuff in chars
 Plug 'tpope/vim-bundler'     " read tags from gems
 Plug 'tomtom/tcomment_vim'   " Comment code
-Plug 'ap/vim-css-color'      " Preview css color
 Plug 'majutsushi/tagbar'     " Tag explorer for a buffer
 Plug 'RRethy/vim-illuminate' " Highlight matches for current word under cursor
 Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
-
 Plug 'tpope/vim-fugitive'
-  nnoremap <leader>gs :Gstatus<cr>
 
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
@@ -130,16 +126,13 @@ nnoremap <silent> <esc><esc> :nohlsearch<cr><esc>
 set foldenable
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
-nnoremap <leader>z zMzv
 
-set tags+=.git/tags,.git/rubytags,~/.rubies/ruby-2.4.4/tags
+set tags+=.git/tags,.git/rubytags,~/.rubies/ruby-2.4.5/tags,/Users/andrei/src/ruby-2.4.5/tags
 set tagcase=match
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
-nnoremap <leader>1 1gt
-nnoremap <leader>2 2gt
 nnoremap <S-UP> <C-w><UP>
 nnoremap <S-Down> <C-w><Down>
 nnoremap <S-Left> <C-w><Left>
@@ -151,7 +144,7 @@ nnoremap <Down> gj
 command! W w
 command! Wq wq
 command! Q q
-command! Scratch :e ~/.scratch.txt
+command! Scratch :exe "e " . "~/.scratch/" . strftime('%Y-%m-%d') . ".txt"
 nnoremap Q <nop>
 nnoremap q: <nop>
 vnoremap <S-UP> <nop>

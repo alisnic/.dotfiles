@@ -3,3 +3,6 @@
 *.sublime-workspace
 *.sublime-project
 .DS_Store
+.env
+bin/cpr
+bin/ngrok

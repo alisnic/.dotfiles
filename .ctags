@@ -8,7 +8,15 @@
 --exclude=public
 --exclude=vendor
 --exclude=coverage
+--exclude=test
 --fields=+l
+
+--regex-C=/rb_define_global_function\("(.*)"/\1/f,function/
+--regex-C=/rb_define_singleton_method\(.*, "(.*)"/\1/f,function/
+--regex-C=/rb_define_method\(.*, "(.*)"/\1/f,function/
+--regex-C=/rb_define_private_method\(.*, "(.*)"/\1/f,function/
+--regex-C=/rb_define_class\("(.*)"/\1/c,class/
+--regex-C=/boot_defclass\("(.*)"/\1/c,class/
 
 --langdef=coffee
 --langmap=coffee:.coffee

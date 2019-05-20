@@ -1,3 +1,0 @@
-#!/bin/sh
-
-/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | grep -E 'CtlRSSI|[^B]SSID' | field 2 | sed -e N -e 's/\n/ dBm /'
