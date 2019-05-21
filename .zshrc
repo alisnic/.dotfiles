@@ -2,6 +2,7 @@ fpath=(~/.zsh-completions $fpath)
 autoload -U compinit && compinit
 autoload -U colors && colors
 
+source /usr/local/opt/chruby/share/chruby/chruby.sh
 source ~/.dotfiles/zsh/history.zsh
 source /usr/local/Cellar/fzf/0.18.0/shell/key-bindings.zsh
 source ~/.dotfiles/.env
@@ -44,8 +45,6 @@ alias be='bundle exec'
 alias sp='bin/spring'
 alias rm='trash'
 alias vim='nvim'
-
-source /usr/local/opt/chruby/share/chruby/chruby.sh
 
 function gentags() {
   echo "Exporting tags..."
