@@ -123,6 +123,7 @@ set ignorecase
 set smartcase
 nnoremap <silent> <esc><esc> :nohlsearch<cr><esc>
 
+set guicursor=
 set foldenable
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
