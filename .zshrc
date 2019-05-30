@@ -4,6 +4,7 @@ autoload -U colors && colors
 
 source ~/.dotfiles/zsh/history.zsh
 source /usr/local/Cellar/fzf/0.18.0/shell/key-bindings.zsh
+source /usr/local/opt/chruby/share/chruby/chruby.sh
 source ~/.dotfiles/.env
 
 bindkey -v
@@ -45,7 +46,6 @@ alias sp='bin/spring'
 alias rm='trash'
 alias vim='nvim'
 
-source /usr/local/opt/chruby/share/chruby/chruby.sh
 
 function gentags() {
   echo "Exporting tags..."
