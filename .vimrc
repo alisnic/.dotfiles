@@ -1,7 +1,5 @@
 let mapleader = "\<Space>"
 let g:loaded_matchparen = 1
-let g:loaded_python_provider = 1
-let g:loaded_python3_provider = 1
 let g:loaded_ruby_provider = 1
 let g:loaded_node_provider = 1
 
@@ -18,6 +16,9 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-fugitive'
+
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'mxw/vim-jsx'
 
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
