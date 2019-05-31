@@ -8,6 +8,10 @@ source /usr/local/Cellar/fzf/0.18.0/shell/key-bindings.zsh
 source ~/.dotfiles/.env
 
 bindkey -v
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd 'v' edit-command-line
+
 bindkey "^[[1;3D" backward-word
 bindkey "^[[1;3C" forward-word
 
@@ -28,15 +32,14 @@ precmd() {
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
-export GOPATH='/Users/andrei/.go'
 export EDITOR='nvim'
-export PATH=~/.dotfiles/bin:/Users/andrei/go/bin:/usr/local/bin:$PATH
+export PATH=~/.dotfiles/bin:/usr/local/bin:$PATH
 export PGDATA=/usr/local/var/postgres
 export ANDROID_HOME=/usr/local/opt/android-sdk
-export FZF_DEFAULT_OPTS="--bind ctrl-a:select-all"
 export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" 2> /dev/null'
 export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
 export HOMEBREW_INSTALL_CLEANUP=true
+export KEYTIMEOUT=1
 
 alias brails='bin/spring rails'
 alias brake='bin/spring rake'
