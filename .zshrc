@@ -34,10 +34,7 @@ export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export EDITOR='nvim'
 export PATH=~/.dotfiles/bin:/usr/local/bin:$PATH
-export PGDATA=/usr/local/var/postgres
-export ANDROID_HOME=/usr/local/opt/android-sdk
 export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" 2> /dev/null'
-export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
 export HOMEBREW_INSTALL_CLEANUP=true
 export KEYTIMEOUT=1
 
