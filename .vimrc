@@ -108,6 +108,7 @@ set mouse=a
 set splitright
 set hidden
 set clipboard=unnamed
+set guicursor=
 
 set autowriteall
 set nobackup
@@ -123,12 +124,11 @@ set ignorecase
 set smartcase
 nnoremap <silent> <esc><esc> :nohlsearch<cr><esc>
 
-set guicursor=
 set foldenable
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
 
-set tags+=.git/tags,.git/rubytags,~/.rubies/ruby-2.4.5/tags,/Users/andrei/src/ruby-2.4.5/tags
+set tags+=.git/tags,.git/rubytags,~/.rubies/ruby-2.4.5/tags,~/src/ruby-2.4.5/tags
 set tagcase=match
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
@@ -141,11 +141,13 @@ nnoremap <S-Right> <C-w><Right>
 nnoremap <UP> gk
 nnoremap <Down> gj
 
+command! Scratch :exe "e " . "~/.scratch/" . strftime('%Y-%m-%d') . ".txt"
+command! Focus :exe "normal! zMzv"
+
 " I do a lot of shift typos, these are the most common ones
 command! W w
 command! Wq wq
 command! Q q
-command! Scratch :exe "e " . "~/.scratch/" . strftime('%Y-%m-%d') . ".txt"
 nnoremap Q <nop>
 nnoremap q: <nop>
 vnoremap <S-UP> <nop>
