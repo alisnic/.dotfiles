@@ -37,7 +37,9 @@ export PATH=~/.dotfiles/bin:/usr/local/bin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" 2> /dev/null'
 export HOMEBREW_INSTALL_CLEANUP=true
 export KEYTIMEOUT=1
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
+alias ls='ls -G'
 alias brails='bin/spring rails'
 alias brake='bin/spring rake'
 alias reload!='source ~/.zshrc'
