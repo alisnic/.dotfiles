@@ -16,7 +16,11 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dadbod'
+Plug 'tpope/vim-dispatch'
+Plug 'radenling/vim-dispatch-neovim'
 
+Plug 'leafgarland/typescript-vim'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'mxw/vim-jsx'
 
@@ -26,7 +30,6 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-dirvish'
   let dirvish_mode = ':sort | sort ,^.*/,'
-  nnoremap <leader>s :Dirvish<cr>
   autocmd FileType dirvish nnoremap <silent><buffer> r :silent exec "!open %"<cr>
 
 Plug 'tpope/vim-projectionist'
@@ -35,8 +38,6 @@ Plug 'tpope/vim-projectionist'
 " Async code linting
 Plug 'w0rp/ale'
   let g:ale_linters = {'ruby': ['rubocop']}
-  let g:ale_lint_on_text_changed = 'normal'
-  let g:ale_lint_on_insert_leave = 1
   let g:ale_pattern_options = {'.*\.gem.*\.rb$|.*\.rubies.*\.rb$': {'ale_enabled': 0}}
   let g:ale_set_highlights = 0
 
@@ -109,7 +110,6 @@ set mouse=a
 set splitright
 set hidden
 set clipboard=unnamed
-set guicursor=
 
 set autowriteall
 set nobackup
