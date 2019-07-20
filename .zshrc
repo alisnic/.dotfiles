@@ -24,9 +24,9 @@ precmd() {
   if [ -d ".git" ]
   then
     export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    PS1=$'\n$fg[black]%~$reset_color $GIT_BRANCH\n$ '
+    PS1=$'\n$fg[white]%~$reset_color $GIT_BRANCH\n$ '
   else
-    PS1=$'\n$fg[black]%~$reset_color\n$ '
+    PS1=$'\n$fg[white]%~$reset_color\n$ '
   fi
 }
 

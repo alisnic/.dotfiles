@@ -11,7 +11,6 @@ Plug 'tpope/vim-bundler'     " read tags from gems
 Plug 'tomtom/tcomment_vim'   " Comment code
 Plug 'majutsushi/tagbar'     " Tag explorer for a buffer
 Plug 'RRethy/vim-illuminate' " Highlight matches for current word under cursor
-Plug 'altercation/vim-colors-solarized'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
@@ -19,6 +18,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
+Plug 'morhetz/gruvbox'
 
 Plug 'leafgarland/typescript-vim'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
@@ -99,8 +99,7 @@ function! s:FilterQuickfixList(bang, pattern)
 endfunction
 command! -bang -nargs=1 -complete=file Qfilter call s:FilterQuickfixList(<bang>0, <q-args>)
 
-set background=light
-colorscheme solarized
+colorscheme gruvbox
 set synmaxcol=200
 
 set title
