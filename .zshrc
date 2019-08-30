@@ -51,7 +51,7 @@ alias vim='nvim'
 function gentags() {
   echo "Exporting tags..."
   ripper-tags -R -f .git/rubytags --tag-relative=yes
-  ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript
+  ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript,python
 }
 
 function j {
