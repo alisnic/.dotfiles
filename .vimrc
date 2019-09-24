@@ -66,6 +66,9 @@ Plug 'junegunn/fzf.vim'
     \ {'source': 'find ~/Work/* -type d -maxdepth 0 \| xargs basename',
     \  'sink': function('<sid>switch_project')}))<cr>
 
+Plug 'zackhsi/fzf-tags'
+  nmap <C-]> <Plug>(fzf_tags)
+
 Plug 'ervandew/supertab'
   set completeopt-=preview
   set pumheight=10
