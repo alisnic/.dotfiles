@@ -14,7 +14,7 @@ function WindowResizer.moveWindowLeft()
     windowFrame.w = screenDimensions.w / 2
     windowFrame.h = screenDimensions.h
 
-    window:setFrame(windowFrame)
+    window:setFrame(windowFrame, 0)
 end
 
 function WindowResizer.moveWindowUp()
@@ -27,7 +27,7 @@ function WindowResizer.moveWindowUp()
     windowFrame.w = screenDimensions.w
     windowFrame.h = screenDimensions.h / 2
 
-    window:setFrame(windowFrame)
+    window:setFrame(windowFrame, 0)
 end
 
 function WindowResizer.moveWindowDown()
@@ -40,7 +40,7 @@ function WindowResizer.moveWindowDown()
     windowFrame.w = screenDimensions.w
     windowFrame.h = screenDimensions.h / 2
 
-    window:setFrame(windowFrame)
+    window:setFrame(windowFrame, 0)
 end
 
 -- Move window to the right half
@@ -54,7 +54,7 @@ function WindowResizer.moveWindowRight()
     windowFrame.w = screenDimensions.w / 2
     windowFrame.h = screenDimensions.h
 
-    window:setFrame(windowFrame)
+    window:setFrame(windowFrame, 0)
 end
 
 -- Move window to the upper left
@@ -70,7 +70,7 @@ function WindowResizer.moveWindowUpperLeft()
     windowFrame.w = screenWidth / 2
     windowFrame.h = (screenHeight / 2) - 25
 
-    win:setFrame(windowFrame)
+    win:setFrame(windowFrame, 0)
 end
 
 -- Move window to the upper right
@@ -86,7 +86,7 @@ function WindowResizer.moveWindowUpperRight()
     windowFrame.w = screenWidth / 2
     windowFrame.h = (screenHeight / 2) - 25
 
-    win:setFrame(windowFrame)
+    win:setFrame(windowFrame, 0)
 end
 
 -- Move window to the bottom left
@@ -102,7 +102,7 @@ function WindowResizer.moveWindowBottomLeft()
     windowFrame.w = screenWidth / 2
     windowFrame.h = (screenHeight / 2) + 50
 
-    win:setFrame(windowFrame)
+    win:setFrame(windowFrame, 0)
 end
 
 -- Move window to the bottom right
@@ -118,7 +118,7 @@ function WindowResizer.moveWindowBottomRight()
     windowFrame.w = screenWidth / 2
     windowFrame.h = (screenHeight / 2) + 50
 
-    win:setFrame(windowFrame)
+    win:setFrame(windowFrame, 0)
 end
 
 -- Maximize window
@@ -126,7 +126,7 @@ function WindowResizer.maximizeWindow()
     local win = hs.window.focusedWindow()
     local screenDimensions = WindowResizer.getScreenDimensions()
 
-    win:setFrame(screenDimensions)
+    win:setFrame(screenDimensions, 0)
 end
 
 -- Center window
@@ -140,7 +140,7 @@ function WindowResizer.centerWindow()
     windowFrame.w = screenDimensions.w * 0.5
     windowFrame.h = screenDimensions.h * 0.5
 
-    win:setFrame(windowFrame)
+    win:setFrame(windowFrame, 0)
 end
 
 -- Move window to an adjacent space (https://github.com/koekeishiya/kwm/issues/219)
@@ -191,7 +191,7 @@ function WindowResizer.moveWindowToNextMonitor()
     windowFrame.h = ((windowFrame.h / screenFrame.h) * nextScreenFrame.h)
     windowFrame.w = ((windowFrame.w / screenFrame.w) * nextScreenFrame.w)
 
-    win:setFrame(windowFrame)
+    win:setFrame(windowFrame, 0)
 end
 
 -- Screen dimensions utility function
