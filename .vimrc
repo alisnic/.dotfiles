@@ -14,11 +14,14 @@ Plug 'RRethy/vim-illuminate' " Highlight matches for current word under cursor
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-projectionist'
+
+Plug 'tpope/vim-fugitive'
+  nnoremap <leader>g :Gtabedit :<cr>
 
 Plug 'leafgarland/typescript-vim'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
@@ -32,8 +35,6 @@ Plug 'justinmk/vim-dirvish'
   let dirvish_mode = ':sort | sort ,^.*/,'
   autocmd FileType dirvish nnoremap <silent><buffer> r :silent exec "!open %"<cr>
 
-Plug 'tpope/vim-projectionist'
-  nnoremap <leader><leader> :AV<cr>
 
 " Async code linting
 Plug 'w0rp/ale'
@@ -55,10 +56,11 @@ Plug 'junegunn/fzf.vim'
     execute 'cd ~/Work/' . a:name . ' | Dirvish | wa | %bd | e#'
   endfunction
 
+  nnoremap <leader><leader> :Commands<cr>
   nnoremap <leader>f :Files<cr>
+  nnoremap <leader>b :Buffers<cr>
   nnoremap <leader>m :BTags<cr>
   nnoremap <leader>c :Tags<cr>
-  nnoremap <leader>b :Buffers<cr>
   nnoremap <leader>d :call fzf#run(fzf#wrap({'source': 'find . -type d \| grep -v tmp \| grep -v .git'}))<cr>
   nnoremap <leader>p :call fzf#run(fzf#wrap(
     \ {'source': 'find ~/Work/* -type d -maxdepth 0 \| xargs basename',
@@ -99,6 +101,7 @@ function! s:FilterQuickfixList(bang, pattern)
 endfunction
 command! -bang -nargs=1 -complete=file Qfilter call s:FilterQuickfixList(<bang>0, <q-args>)
 
+set termguicolors
 colorscheme gruvbox
 set synmaxcol=200
 
@@ -124,11 +127,12 @@ set ignorecase
 set smartcase
 nnoremap <silent> <esc><esc> :nohlsearch<cr><esc>
 
+set cul
 set foldenable
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
 
-set tags+=.git/tags,.git/rubytags,~/.rubies/ruby-2.4.5/tags,~/src/ruby-2.4.5/tags
+set tags+=.git/tags,.git/rubytags,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 set tagcase=match
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
@@ -140,6 +144,7 @@ nnoremap <S-Left> <C-w><Left>
 nnoremap <S-Right> <C-w><Right>
 nnoremap <UP> gk
 nnoremap <Down> gj
+nnoremap ; :
 
 command! Scratch :exe "e " . "~/.scratch/" . strftime('%Y-%m-%d') . ".txt"
 command! Focus :exe "normal! zMzv"
