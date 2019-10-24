@@ -1,17 +1,22 @@
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
-set guioptions-=e  "do not use native tabs
 set guifont=Monaco:h14
 set laststatus=0
+set showtabline=2
+set background=dark
+set shell=$SHELL\ -l
 
 macmenu &File.New\ Tab key=<nop>
-noremap <D-t> :CtrlPMixed<CR>
-inoremap <D-t> <esc>:CtrlP<CR>
+noremap <D-t> :tab terminal<cr>
 
-macmenu &File.Print key=<nop>
-noremap <D-p> :CtrlPTag<cr>
+nnoremap <leader>t :exec("tab term " . &makeprg)<cr>
+nnoremap <leader>l :exec("tab term " . &makeprg . ":" . line('.'))<cr>
 
-noremap <D-r> :CtrlPBufTag<cr>
+tmap <D-w> <C-d>
+tmap <ScrollWheelDown> <C-W>N
+tmap <ScrollWheelUp> <C-W>N
 
-" Resize window to fit the entire screen after closing penultimate tab
-autocmd TabClosed * set lines=50 columns=179
+tmap <D-]> <C-W>N:tabn<cr>
+tmap <D-[> <C-W>N:tabp<cr>
+nnoremap <D-]> :tabn<cr>
+nnoremap <D-[> :tabp<cr>
