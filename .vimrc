@@ -18,7 +18,9 @@ Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'morhetz/gruvbox'
+
 Plug 'tpope/vim-projectionist'
+  nnoremap <leader><leader> :AV<cr>
 
 Plug 'tpope/vim-fugitive'
   nnoremap <leader>g :Gtabedit :<cr>
@@ -34,7 +36,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-dirvish'
   let dirvish_mode = ':sort | sort ,^.*/,'
   autocmd FileType dirvish nnoremap <silent><buffer> r :silent exec "!open %"<cr>
-
 
 " Async code linting
 Plug 'w0rp/ale'
@@ -53,11 +54,15 @@ Plug 'tommcdo/vim-lion'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
   function! s:switch_project(name)
-    execute 'cd ~/Work/' . a:name . ' | Dirvish | wa | %bd | e#'
+    execute 'cd ~/Work/' . a:name . ' | Dirvish'
   endfunction
 
-  nnoremap <leader><leader> :Commands<cr>
+  function! s:edit_note(name)
+    execute 'e ~/.notes/' . a:name
+  endfunction
+
   nnoremap <leader>f :Files<cr>
+  nnoremap <leader>r :History:<cr>
   nnoremap <leader>b :Buffers<cr>
   nnoremap <leader>m :BTags<cr>
   nnoremap <leader>c :Tags<cr>
@@ -66,8 +71,9 @@ Plug 'junegunn/fzf.vim'
     \ {'source': 'find ~/Work/* -type d -maxdepth 0 \| xargs basename',
     \  'sink': function('<sid>switch_project')}))<cr>
 
-Plug 'zackhsi/fzf-tags'
-  nmap <C-]> <Plug>(fzf_tags)
+  nnoremap <leader>n :call fzf#run(fzf#wrap(
+    \ {'source': 'find ~/.notes/* -maxdepth 0 \| xargs basename',
+    \  'sink': function('<sid>edit_note')}))<cr>
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
@@ -135,7 +141,7 @@ set foldenable
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
 
-set tags+=.git/tags,.git/rubytags,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
+set tags+=.git/tags,.git/rubytags " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 set tagcase=match
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
@@ -147,9 +153,9 @@ nnoremap <S-Left> <C-w><Left>
 nnoremap <S-Right> <C-w><Right>
 nnoremap <UP> gk
 nnoremap <Down> gj
-nnoremap ; :
 
 command! Scratch :exe "e " . "~/.scratch/" . strftime('%Y-%m-%d') . ".txt"
+command! Notes :exe "e ~/.notes"
 command! Focus :exe "normal! zMzv"
 
 " I do a lot of shift typos, these are the most common ones
