@@ -20,3 +20,8 @@ tmap <D-]> <C-W>N:tabn<cr>
 tmap <D-[> <C-W>N:tabp<cr>
 nnoremap <D-]> :tabn<cr>
 nnoremap <D-[> :tabp<cr>
+
+nnoremap <D-1> 1gt
+nnoremap <D-2> 2gt
+nnoremap <D-3> 3gt
+nnoremap <D-4> 4gt
