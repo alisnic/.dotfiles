@@ -1,12 +1,3 @@
-fpath=(~/.zsh-completions $fpath)
-autoload -U compinit && compinit
-autoload -U colors && colors
-
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source ~/.dotfiles/zsh/history.zsh
-source /usr/local/Cellar/fzf/0.18.0/shell/key-bindings.zsh
-source ~/.dotfiles/.env
-
 bindkey -v
 autoload -Uz edit-command-line
 zle -N edit-command-line
@@ -32,12 +23,13 @@ precmd() {
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
-export EDITOR='nvim'
-export PATH=~/.dotfiles/bin:/usr/local/bin:$PATH
+export EDITOR='vim'
+export PATH=~/.dotfiles/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" 2> /dev/null'
 export HOMEBREW_INSTALL_CLEANUP=true
 export KEYTIMEOUT=1
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
+export EDITOR=nvim
 
 alias ls='ls -G'
 alias brails='bin/spring rails'
@@ -46,12 +38,11 @@ alias reload!='source ~/.zshrc'
 alias be='bundle exec'
 alias sp='bin/spring'
 alias rm='trash'
-alias vim='nvim'
 
 function gentags() {
   echo "Exporting tags..."
   ripper-tags -R -f .git/rubytags --tag-relative=yes
-  ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript,python
+  ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript,python,php
 }
 
 function j {
