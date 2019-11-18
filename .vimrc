@@ -96,6 +96,7 @@ augroup alisnic
   autocmd FocusGained * checktime
 
   autocmd FileType markdown setlocal spell
+  autocmd FileType markdown setlocal textwidth=80
 
   " Use omnifunc if it's available, otherwise use keyword completion
   autocmd FileType *
@@ -154,7 +155,7 @@ nnoremap <S-Right> <C-w><Right>
 nnoremap <UP> gk
 nnoremap <Down> gj
 
-command! Scratch :exe "e " . "~/.scratch/" . strftime('%Y-%m-%d') . ".txt"
+command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".txt"
 command! Notes :exe "e ~/.notes"
 command! Focus :exe "normal! zMzv"
 
