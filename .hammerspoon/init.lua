@@ -20,5 +20,7 @@ hs.hotkey.bind({"alt"}, "m", function() focusApp("Thunderbird") end)
 hs.hotkey.bind({"alt"}, "§", function() focusApp("Alacritty") end)
 hs.hotkey.bind({"alt"}, "p", function() focusApp("MacPass") end)
 hs.hotkey.bind({"alt"}, "f", function() focusApp("Finder") end)
-hs.hotkey.bind({"alt"}, "l", function() focusApp("Calendar") end)
+hs.hotkey.bind({"alt"}, "v", function() focusApp("MacVim") end)
+hs.hotkey.bind({"alt"}, "n", function() focusApp("Notes") end)
+
 
