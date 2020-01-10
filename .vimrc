@@ -18,6 +18,7 @@ Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'morhetz/gruvbox'
+Plug 'google/vim-searchindex'
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
@@ -96,7 +97,6 @@ augroup alisnic
   autocmd FocusGained * checktime
 
   autocmd FileType markdown setlocal spell
-  autocmd FileType markdown setlocal textwidth=80
 
   " Use omnifunc if it's available, otherwise use keyword completion
   autocmd FileType *
