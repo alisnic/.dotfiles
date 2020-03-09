@@ -5,20 +5,19 @@ let g:loaded_node_provider = 1
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'tpope/vim-endwise'     " Auto-insert end statements in code
-Plug 'tpope/vim-unimpaired'  " awesome pair mappings
-Plug 'tpope/vim-bundler'     " read tags from gems
+" Basic config
+Plug 'tpope/vim-endwise'      " Auto-insert end statements in code
+Plug 'tpope/vim-unimpaired'   " awesome pair mappings
+Plug 'tpope/vim-bundler'      " read tags from gems
+Plug 'google/vim-searchindex' " show number of search matches
+
 Plug 'tomtom/tcomment_vim'   " Comment code
 Plug 'majutsushi/tagbar'     " Tag explorer for a buffer
 Plug 'RRethy/vim-illuminate' " Highlight matches for current word under cursor
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
-Plug 'tpope/vim-dadbod'
-Plug 'tpope/vim-dispatch'
-Plug 'radenling/vim-dispatch-neovim'
 Plug 'morhetz/gruvbox'
-Plug 'google/vim-searchindex'
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
@@ -67,8 +66,8 @@ Plug 'junegunn/fzf.vim'
   nnoremap <leader>b :Buffers<cr>
   nnoremap <leader>m :BTags<cr>
   nnoremap <leader>c :Tags<cr>
-  nnoremap <leader>d :call fzf#run(fzf#wrap({'source': 'find . -type d \| grep -v tmp \| grep -v .git'}))<cr>
-  nnoremap <leader>p :call fzf#run(fzf#wrap(
+  nnoremap <leader>d :silent call fzf#run(fzf#wrap({'source': 'find . -type d \| grep -v tmp \| grep -v .git'}))<cr>
+  nnoremap <leader>p :silent call fzf#run(fzf#wrap(
     \ {'source': 'find ~/Work/* -type d -maxdepth 0 \| xargs basename',
     \  'sink': function('<sid>switch_project')}))<cr>
 
@@ -105,13 +104,21 @@ augroup alisnic
     \ endif
 augroup END
 
+augroup CursorLine
+    au!
+    au VimEnter * setlocal cursorline
+    au WinEnter * setlocal cursorline
+    au BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
+
 function! s:FilterQuickfixList(bang, pattern)
   let cmp = a:bang ? '!~#' : '=~#'
   call setqflist(filter(getqflist(), "bufname(v:val['bufnr']) " . cmp . " a:pattern"))
 endfunction
 command! -bang -nargs=1 -complete=file Qfilter call s:FilterQuickfixList(<bang>0, <q-args>)
 
-set termguicolors
+" set termguicolors
 colorscheme gruvbox
 set synmaxcol=200
 
