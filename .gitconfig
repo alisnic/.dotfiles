@@ -22,7 +22,7 @@
   name = Andrei Lisnic
   email = andrei.lisnic@gmail.com
 [push]
-  default = matching
+	default = current
 [difftool]
 	prompt = false
 [mergetool]
