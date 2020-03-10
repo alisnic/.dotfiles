@@ -10,10 +10,11 @@ Plug 'tpope/vim-endwise'      " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired'   " awesome pair mappings
 Plug 'tpope/vim-bundler'      " read tags from gems
 Plug 'google/vim-searchindex' " show number of search matches
+Plug 'blueyed/vim-diminactive'
+Plug 'RRethy/vim-illuminate'  " Highlight matches for current word under cursor
 
 Plug 'tomtom/tcomment_vim'   " Comment code
 Plug 'majutsushi/tagbar'     " Tag explorer for a buffer
-Plug 'RRethy/vim-illuminate' " Highlight matches for current word under cursor
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
@@ -104,14 +105,6 @@ augroup alisnic
     \ endif
 augroup END
 
-augroup CursorLine
-    au!
-    au VimEnter * setlocal cursorline
-    au WinEnter * setlocal cursorline
-    au BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
-
 function! s:FilterQuickfixList(bang, pattern)
   let cmp = a:bang ? '!~#' : '=~#'
   call setqflist(filter(getqflist(), "bufname(v:val['bufnr']) " . cmp . " a:pattern"))
@@ -129,6 +122,7 @@ set mouse=a
 set splitright
 set hidden
 set clipboard=unnamed
+set winwidth=79
 
 set autowriteall
 set nobackup
