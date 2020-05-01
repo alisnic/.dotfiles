@@ -9,16 +9,16 @@ bindkey "^[[1;3C" forward-word
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-source /usr/local/Cellar/fzf/0.20.0/shell/key-bindings.zsh
+source /usr/local/Cellar/fzf/0.21.1/shell/key-bindings.zsh
 setopt PROMPT_SUBST
 
 precmd() {
   if [ -d ".git" ]
   then
     export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    PS1=$'\n$fg[white]%~$reset_color $GIT_BRANCH\n$ '
+    PS1=$'\n%~ $fg[blue]$GIT_BRANCH$reset_color\n$ '
   else
-    PS1=$'\n$fg[white]%~$reset_color\n$ '
+    PS1=$'\n%~\n$ '
   fi
 }
 
