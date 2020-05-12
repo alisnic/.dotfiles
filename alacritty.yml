@@ -154,6 +154,7 @@ key_bindings:
   - { key: Equals,   mods: Command, action: IncreaseFontSize             }
   - { key: Minus,    mods: Command, action: DecreaseFontSize             }
   - { key: F,        mods: Command, chars: "\x01/"                    }
+  - { key: D,        mods: Command, chars: "\x01\\"                    }
   - { key: T,        mods: Command, chars: "\x01c"                    }
   - { key: Key1,     mods: Command, chars: "\x011"                    }
   - { key: Key2,     mods: Command, chars: "\x012"                    }
