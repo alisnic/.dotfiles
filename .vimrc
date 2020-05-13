@@ -10,7 +10,6 @@ Plug 'tpope/vim-endwise'      " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired'   " awesome pair mappings
 Plug 'tpope/vim-bundler'      " read tags from gems
 Plug 'google/vim-searchindex' " show number of search matches
-Plug 'blueyed/vim-diminactive'
 Plug 'RRethy/vim-illuminate'  " Highlight matches for current word under cursor
 
 Plug 'tomtom/tcomment_vim'   " Comment code
@@ -19,6 +18,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 Plug 'morhetz/gruvbox'
+Plug 'altercation/vim-colors-solarized'
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
@@ -58,10 +58,6 @@ Plug 'junegunn/fzf.vim'
     execute 'cd ~/Work/' . a:name . ' | Dirvish'
   endfunction
 
-  function! s:edit_note(name)
-    execute 'e ~/.notes/' . a:name
-  endfunction
-
   nnoremap <leader>f :Files<cr>
   nnoremap <leader>r :History:<cr>
   nnoremap <leader>b :Buffers<cr>
@@ -71,10 +67,6 @@ Plug 'junegunn/fzf.vim'
   nnoremap <leader>p :silent call fzf#run(fzf#wrap(
     \ {'source': 'find ~/Work/* -type d -maxdepth 0 \| xargs basename',
     \  'sink': function('<sid>switch_project')}))<cr>
-
-  nnoremap <leader>n :call fzf#run(fzf#wrap(
-    \ {'source': 'find ~/.notes/* -maxdepth 0 \| xargs basename',
-    \  'sink': function('<sid>edit_note')}))<cr>
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
@@ -96,6 +88,10 @@ augroup alisnic
   " Auto-reload file when gaining focus
   autocmd FocusGained * checktime
 
+  " Show cursorline only in active buffer
+  autocmd BufEnter * setlocal cursorline
+  autocmd BufLeave * setlocal nocursorline
+
   autocmd FileType markdown setlocal spell
 
   " Use omnifunc if it's available, otherwise use keyword completion
@@ -112,7 +108,8 @@ endfunction
 command! -bang -nargs=1 -complete=file Qfilter call s:FilterQuickfixList(<bang>0, <q-args>)
 
 " set termguicolors
-colorscheme gruvbox
+colorscheme solarized
+set background=light
 set synmaxcol=200
 
 set title
