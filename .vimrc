@@ -22,6 +22,7 @@ Plug 'altercation/vim-colors-solarized'
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
+  nnoremap <leader>a :A<cr>
 
 Plug 'tpope/vim-fugitive'
   nnoremap <leader>g :Gtabedit :<cr>
@@ -58,8 +59,13 @@ Plug 'junegunn/fzf.vim'
     execute 'cd ~/Work/' . a:name . ' | Dirvish'
   endfunction
 
+  function! s:build_quickfix_list(lines)
+    call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+    copen
+    cc
+  endfunction
+
   nnoremap <leader>f :Files<cr>
-  nnoremap <leader>r :History:<cr>
   nnoremap <leader>b :Buffers<cr>
   nnoremap <leader>m :BTags<cr>
   nnoremap <leader>c :Tags<cr>
@@ -68,13 +74,18 @@ Plug 'junegunn/fzf.vim'
     \ {'source': 'find ~/Work/* -type d -maxdepth 0 \| xargs basename',
     \  'sink': function('<sid>switch_project')}))<cr>
 
+  let g:fzf_preview_window = ''
+  let g:fzf_action = {
+    \ 'ctrl-q': function('s:build_quickfix_list'),
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-x': 'split',
+    \ 'ctrl-v': 'vsplit' }
+
+  cabbrev rg Rg
+
 Plug 'ervandew/supertab'
   set completeopt-=preview
   set pumheight=10
-
-Plug 'mileszs/ack.vim'
-  let g:ackprg = 'rg --vimgrep --no-heading'
-  cabbrev ack Ack
 
 call plug#end()
 let g:markdown_fenced_languages = ['ruby', 'coffee', 'yaml']
@@ -87,10 +98,6 @@ augroup alisnic
 
   " Auto-reload file when gaining focus
   autocmd FocusGained * checktime
-
-  " Show cursorline only in active buffer
-  autocmd BufEnter * setlocal cursorline
-  autocmd BufLeave * setlocal nocursorline
 
   autocmd FileType markdown setlocal spell
 

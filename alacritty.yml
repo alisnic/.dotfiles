@@ -36,13 +36,13 @@ font:
     style: Italic
 
   # Point size of the font
-  size: 15
+  size: 16
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
   offset:
     x: 0
-    y: -2
+    y: 0
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increase the x offset to move the glyph to
@@ -153,20 +153,20 @@ key_bindings:
   - { key: C,        mods: Command, action: Copy                         }
   - { key: Equals,   mods: Command, action: IncreaseFontSize             }
   - { key: Minus,    mods: Command, action: DecreaseFontSize             }
-  - { key: F,        mods: Command, chars: "\x01/"                    }
-  - { key: D,        mods: Command, chars: "\x01\\"                    }
-  - { key: T,        mods: Command, chars: "\x01c"                    }
-  - { key: Key1,     mods: Command, chars: "\x011"                    }
-  - { key: Key2,     mods: Command, chars: "\x012"                    }
-  - { key: Key3,     mods: Command, chars: "\x013"                    }
-  - { key: Key4,     mods: Command, chars: "\x014"                    }
-  - { key: Key5,     mods: Command, chars: "\x015"                    }
-  - { key: Key6,     mods: Command, chars: "\x016"                    }
-  - { key: Key7,     mods: Command, chars: "\x017"                    }
-  - { key: Key8,     mods: Command, chars: "\x018"                    }
-  - { key: Key9,     mods: Command, chars: "\x019"                    }
-  - { key: LBracket, mods: Command, chars: "\x01\x70"                    }
-  - { key: RBracket, mods: Command, chars: "\x01\x6e"                    }
+  - { key: F,        mods: Command, chars: "\x02/"                    }
+  - { key: D,        mods: Command, chars: "\x02\\"                    }
+  - { key: T,        mods: Command, chars: "\x02c"                    }
+  - { key: Key1,     mods: Command, chars: "\x021"                    }
+  - { key: Key2,     mods: Command, chars: "\x022"                    }
+  - { key: Key3,     mods: Command, chars: "\x023"                    }
+  - { key: Key4,     mods: Command, chars: "\x024"                    }
+  - { key: Key5,     mods: Command, chars: "\x025"                    }
+  - { key: Key6,     mods: Command, chars: "\x026"                    }
+  - { key: Key7,     mods: Command, chars: "\x027"                    }
+  - { key: Key8,     mods: Command, chars: "\x028"                    }
+  - { key: Key9,     mods: Command, chars: "\x029"                    }
+  - { key: LBracket, mods: Command, chars: "\x02\x70"                    }
+  - { key: RBracket, mods: Command, chars: "\x02\x6e"                    }
   - { key: Left,     mods: Shift,   chars: "\x1b[1;2D"                   }
   - { key: Left,     mods: Control, chars: "\x1b[1;5D"                   }
   - { key: Left,     mods: Alt,     chars: "\x1b[1;3D"                   }

@@ -28,6 +28,7 @@ export LC_ALL="en_US.UTF-8"
 export EDITOR='vim'
 export PATH=~/.dotfiles/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" 2> /dev/null'
+export FZF_DEFAULT_OPTS='--bind ctrl-a:select-all'
 export HOMEBREW_INSTALL_CLEANUP=true
 export KEYTIMEOUT=1
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
