@@ -11,12 +11,10 @@ Plug 'tpope/vim-unimpaired'   " awesome pair mappings
 Plug 'tpope/vim-bundler'      " read tags from gems
 Plug 'google/vim-searchindex' " show number of search matches
 Plug 'RRethy/vim-illuminate'  " Highlight matches for current word under cursor
-
-Plug 'tomtom/tcomment_vim'   " Comment code
-Plug 'majutsushi/tagbar'     " Tag explorer for a buffer
+Plug 'tomtom/tcomment_vim'    " Comment code
+Plug 'majutsushi/tagbar'      " Tag explorer for a buffer
+Plug 'tpope/vim-fugitive'     " Git explorer
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'tpope/vim-haml'
-Plug 'kchmck/vim-coffee-script'
 Plug 'morhetz/gruvbox'
 Plug 'altercation/vim-colors-solarized'
 
@@ -24,9 +22,8 @@ Plug 'tpope/vim-projectionist'
   nnoremap <leader><leader> :AV<cr>
   nnoremap <leader>a :A<cr>
 
-Plug 'tpope/vim-fugitive'
-  nnoremap <leader>g :Gtabedit :<cr>
-
+Plug 'tpope/vim-haml'
+Plug 'kchmck/vim-coffee-script'
 Plug 'leafgarland/typescript-vim'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'mxw/vim-jsx'
@@ -59,12 +56,6 @@ Plug 'junegunn/fzf.vim'
     execute 'cd ~/Work/' . a:name . ' | Dirvish'
   endfunction
 
-  function! s:build_quickfix_list(lines)
-    call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-    copen
-    cc
-  endfunction
-
   nnoremap <leader>f :Files<cr>
   nnoremap <leader>b :Buffers<cr>
   nnoremap <leader>m :BTags<cr>
@@ -75,31 +66,30 @@ Plug 'junegunn/fzf.vim'
     \  'sink': function('<sid>switch_project')}))<cr>
 
   let g:fzf_preview_window = ''
-  let g:fzf_action = {
-    \ 'ctrl-q': function('s:build_quickfix_list'),
-    \ 'ctrl-t': 'tab split',
-    \ 'ctrl-x': 'split',
-    \ 'ctrl-v': 'vsplit' }
-
-  cabbrev rg Rg
 
 Plug 'ervandew/supertab'
   set completeopt-=preview
   set pumheight=10
+
+Plug 'mileszs/ack.vim'
+  let g:ackprg = 'ag --vimgrep'
+  cabbrev ack Ack
+
+  function! s:FilterQuickfixList(bang, pattern)
+    let cmp = a:bang ? '!~#' : '=~#'
+    call setqflist(filter(getqflist(), "bufname(v:val['bufnr']) " . cmp . " a:pattern"))
+  endfunction
+  command! -bang -nargs=1 -complete=file Qfilter call s:FilterQuickfixList(<bang>0, <q-args>)
 
 call plug#end()
 let g:markdown_fenced_languages = ['ruby', 'coffee', 'yaml']
 
 augroup alisnic
   autocmd!
-
-  " Delete trailing spaces on save
   autocmd BufWritePre * :%s/\s\+$//e
-
-  " Auto-reload file when gaining focus
   autocmd FocusGained * checktime
-
   autocmd FileType markdown setlocal spell
+  autocmd FileType ruby setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
 
   " Use omnifunc if it's available, otherwise use keyword completion
   autocmd FileType *
@@ -107,12 +97,6 @@ augroup alisnic
     \   call SuperTabChain(&omnifunc, "<c-n>") |
     \ endif
 augroup END
-
-function! s:FilterQuickfixList(bang, pattern)
-  let cmp = a:bang ? '!~#' : '=~#'
-  call setqflist(filter(getqflist(), "bufname(v:val['bufnr']) " . cmp . " a:pattern"))
-endfunction
-command! -bang -nargs=1 -complete=file Qfilter call s:FilterQuickfixList(<bang>0, <q-args>)
 
 " set termguicolors
 colorscheme solarized
@@ -142,17 +126,17 @@ set ignorecase
 set smartcase
 nnoremap <silent> <esc><esc> :nohlsearch<cr><esc>
 
-set cul
 set foldenable
 set foldlevelstart=99
 set foldmethod=indent " foldmethod=syntax is slow
 
-set tags+=.git/tags,.git/rubytags " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
+set tags+=.git/tags " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 set tagcase=match
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
 nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
+nnoremap <leader>r :exec("tabedit \| term " . &makeprg . " --only-failures") \| startinsert<cr>
 nnoremap <S-UP> <C-w><UP>
 nnoremap <S-Down> <C-w><Down>
 nnoremap <S-Left> <C-w><Left>
@@ -161,7 +145,6 @@ nnoremap <UP> gk
 nnoremap <Down> gj
 
 command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".txt"
-command! Notes :exe "e ~/.notes"
 command! Focus :exe "normal! zMzv"
 
 " I do a lot of shift typos, these are the most common ones

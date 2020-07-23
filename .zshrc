@@ -45,7 +45,7 @@ alias rm='trash'
 function gentags() {
   echo "Exporting tags..."
   ripper-tags -R -f .git/rubytags --tag-relative=yes
-  ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript,python,php
+  ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript,python,php,java
 }
 
 function j {
