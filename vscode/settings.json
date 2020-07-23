@@ -2,9 +2,9 @@
     "editor.minimap.enabled": false,
     "window.zoomLevel": 1,
     "workbench.activityBar.visible": true,
-    "workbench.colorTheme": "Solarized Light+",
+    "workbench.colorTheme": "Visual Studio Light",
     "editor.fontFamily": "Monaco",
-    "editor.fontSize": 13,
+    "editor.fontSize": 12.5,
     "breadcrumbs.enabled": false,
     "editor.tabSize": 2,
     "glsl-linter.validatorPath": "/usr/local/bin/glslangValidator",
@@ -20,7 +20,10 @@
         "editor.formatOnSave": true,
         "editor.formatOnPaste": false
     },
-    "workbench.statusBar.visible": false,
+    "workbench.statusBar.visible": true,
     "telemetry.enableTelemetry": false,
-    "workbench.enableExperiments": false
+    "workbench.enableExperiments": false,
+    "scm.diffDecorationsGutterVisibility": "hover",
+    "editor.foldingStrategy": "indentation",
+    "editor.overviewRulerBorder": false
 }
