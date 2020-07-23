@@ -1,0 +1,26 @@
+{
+    "editor.minimap.enabled": false,
+    "window.zoomLevel": 1,
+    "workbench.activityBar.visible": true,
+    "workbench.colorTheme": "Solarized Light+",
+    "editor.fontFamily": "Monaco",
+    "editor.fontSize": 13,
+    "breadcrumbs.enabled": false,
+    "editor.tabSize": 2,
+    "glsl-linter.validatorPath": "/usr/local/bin/glslangValidator",
+    "glsl-linter.validatorArgs": [
+        ""
+    ],
+    "terminal.integrated.fontFamily": "Monaco",
+    "editor.highlightActiveIndentGuide": false,
+    "editor.occurrencesHighlight": false,
+    "editor.renderIndentGuides": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": false
+    },
+    "workbench.statusBar.visible": false,
+    "telemetry.enableTelemetry": false,
+    "workbench.enableExperiments": false
+}
