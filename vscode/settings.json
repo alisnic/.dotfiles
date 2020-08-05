@@ -4,7 +4,6 @@
     "workbench.activityBar.visible": true,
     "workbench.colorTheme": "Visual Studio Light",
     "editor.fontFamily": "Monaco",
-    "editor.fontSize": 12.5,
     "breadcrumbs.enabled": false,
     "editor.tabSize": 2,
     "glsl-linter.validatorPath": "/usr/local/bin/glslangValidator",
@@ -25,5 +24,17 @@
     "workbench.enableExperiments": false,
     "scm.diffDecorationsGutterVisibility": "hover",
     "editor.foldingStrategy": "indentation",
-    "editor.overviewRulerBorder": false
+    "editor.overviewRulerBorder": false,
+    "scm.diffDecorationsGutterWidth": 1,
+    "editor.lineNumbers": "off",
+    "search.showLineNumbers": true,
+    "editor.glyphMargin": false,
+    "editor.showFoldingControls": "always",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "diffEditor.renderSideBySide": false,
+    "scm.diffDecorations": "none",
+    "ruby.useLanguageServer": true,
+    "ruby.rubocop.useBundler": true,
+    "ruby.useBundler": true,
+    "ruby.intellisense": "rubyLocate"
 }
