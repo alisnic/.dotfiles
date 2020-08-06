@@ -9,7 +9,7 @@ bindkey "^[[1;3C" forward-word
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-source /usr/local/Cellar/fzf/0.21.1/shell/key-bindings.zsh
+source /usr/local/Cellar/fzf/0.22.0/shell/key-bindings.zsh
 setopt PROMPT_SUBST
 setopt +o nomatch
 

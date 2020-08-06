@@ -36,5 +36,8 @@
     "ruby.useLanguageServer": true,
     "ruby.rubocop.useBundler": true,
     "ruby.useBundler": true,
-    "ruby.intellisense": "rubyLocate"
+    "ruby.intellisense": "rubyLocate",
+    "rubyTestExplorer.logpanel": true,
+    "rubyTestExplorer.testFramework": "rspec",
+    "rubyTestExplorer.rspecCommand": "bin/spring rspec"
 }

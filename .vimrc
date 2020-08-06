@@ -53,15 +53,15 @@ Plug 'tommcdo/vim-lion'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
   function! s:switch_project(name)
-    execute 'cd ~/Work/' . a:name . ' | Dirvish'
+    execute 'cd ~/Work/' . a:name . ' | bufdo bd | Dirvish'
   endfunction
 
   nnoremap <leader>f :Files<cr>
   nnoremap <leader>b :Buffers<cr>
   nnoremap <leader>m :BTags<cr>
   nnoremap <leader>c :Tags<cr>
-  nnoremap <leader>d :silent call fzf#run(fzf#wrap({'source': 'find . -type d \| grep -v tmp \| grep -v .git'}))<cr>
-  nnoremap <leader>p :silent call fzf#run(fzf#wrap(
+  nnoremap <silent> <leader>d :call fzf#run(fzf#wrap({'source': 'find . -type d \| grep -v tmp \| grep -v .git'}))<cr>
+  nnoremap <silent> <leader>p :call fzf#run(fzf#wrap(
     \ {'source': 'find ~/Work/* -type d -maxdepth 0 \| xargs basename',
     \  'sink': function('<sid>switch_project')}))<cr>
 
