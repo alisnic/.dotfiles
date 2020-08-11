@@ -5,6 +5,10 @@ let g:loaded_node_provider = 1
 
 call plug#begin('~/.vim/plugged')
 
+if !has("nvim")
+  Plug 'tpope/vim-sensible'
+endif
+
 " Basic config
 Plug 'tpope/vim-endwise'      " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired'   " awesome pair mappings
@@ -19,7 +23,7 @@ Plug 'morhetz/gruvbox'
 Plug 'altercation/vim-colors-solarized'
 
 Plug 'tpope/vim-projectionist'
-  nnoremap <leader><leader> :AV<cr>
+  nnoremap <leader>va :AV<cr>
   nnoremap <leader>a :A<cr>
 
 Plug 'tpope/vim-haml'
@@ -134,13 +138,25 @@ set tags+=.git/tags " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 set tagcase=match
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-nnoremap <leader>t :exec("tabedit \| term " . &makeprg) \| startinsert<cr>
-nnoremap <leader>l :exec("tabedit \| term " . &makeprg . ":" . line('.')) \| startinsert<cr>
-nnoremap <leader>r :exec("tabedit \| term " . &makeprg . " --only-failures") \| startinsert<cr>
-nnoremap <S-UP> <C-w><UP>
-nnoremap <S-Down> <C-w><Down>
-nnoremap <S-Left> <C-w><Left>
-nnoremap <S-Right> <C-w><Right>
+function! RunInTerminal(cmd)
+  if has("nvim")
+    exec("tabedit \| term " . a:cmd)
+    startinsert
+  else
+    exec("tab terminal " . a:cmd)
+  endif
+endfunction
+
+nnoremap <leader>t :call RunInTerminal(&makeprg)<cr>
+nnoremap <leader>l :call RunInTerminal(&makeprg . ":" . line('.'))<cr>
+nnoremap <leader>r :call RunInTerminal(&makeprg . " --only-failures")<cr>
+nnoremap <leader><UP> <C-w><UP>
+nnoremap <leader><Down> <C-w><Down>
+nnoremap <leader><Left> <C-w><Left>
+nnoremap <leader><Right> <C-w><Right>
+nnoremap <leader><leader> :
+nnoremap <leader>s :w<cr>
+nnoremap <leader>w :q<cr>
 nnoremap <UP> gk
 nnoremap <Down> gj
 
