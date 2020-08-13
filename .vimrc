@@ -16,11 +16,22 @@ Plug 'tpope/vim-bundler'      " read tags from gems
 Plug 'google/vim-searchindex' " show number of search matches
 Plug 'RRethy/vim-illuminate'  " Highlight matches for current word under cursor
 Plug 'tomtom/tcomment_vim'    " Comment code
-Plug 'majutsushi/tagbar'      " Tag explorer for a buffer
 Plug 'tpope/vim-fugitive'     " Git explorer
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'morhetz/gruvbox'
 Plug 'altercation/vim-colors-solarized'
+
+Plug 'majutsushi/tagbar'
+  let g:tagbar_width = 20
+  let g:tagbar_zoomwidth = 0
+
+Plug 'fholgado/minibufexpl.vim'
+  let g:miniBufExplVSplit = 20
+  let g:miniBufExplMaxSize = 40
+  let g:miniBufExplBRSplit = 0
+  let g:miniBufExplUseSingleClick = 1
+  let g:miniBufExplShowBufNumbers = 0
+  nnoremap <leader>b :MBEToggle<cr>
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader>va :AV<cr>
@@ -45,6 +56,7 @@ Plug 'w0rp/ale'
   let g:ale_linters = {'ruby': ['rubocop']}
   let g:ale_pattern_options = {'.*\.gem.*\.rb$|.*\.rubies.*\.rb$': {'ale_enabled': 0}}
   let g:ale_set_highlights = 0
+  let g:ale_ruby_rubocop_executable = "bundle"
 
 " Preserve intendation when pasting
 Plug 'sickill/vim-pasta'
@@ -61,7 +73,7 @@ Plug 'junegunn/fzf.vim'
   endfunction
 
   nnoremap <leader>f :Files<cr>
-  nnoremap <leader>b :Buffers<cr>
+  nnoremap <leader>B :Buffers<cr>
   nnoremap <leader>m :BTags<cr>
   nnoremap <leader>c :Tags<cr>
   nnoremap <silent> <leader>d :call fzf#run(fzf#wrap({'source': 'find . -type d \| grep -v tmp \| grep -v .git'}))<cr>
