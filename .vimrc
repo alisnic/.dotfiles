@@ -183,3 +183,16 @@ nnoremap Q <nop>
 nnoremap q: <nop>
 vnoremap <S-UP> <nop>
 vnoremap <S-Down> <nop>
+
+" Switch between tabs
+nnoremap <Leader>1 1gt<CR>
+nnoremap <Leader>2 2gt<CR>
+nnoremap <Leader>3 3gt<CR>
+nnoremap <Leader>4 4gt<CR>
+nnoremap <Leader>5 5gt<CR>
+nnoremap <Leader>6 6gt<CR>
+nnoremap <Leader>7 7gt<CR>
+nnoremap <Leader>8 8gt<CR>
+nnoremap <Leader>9 9gt<CR>
+nnoremap <Leader><Left> gT<CR>
+nnoremap <Leader><Right> gt<CR>
