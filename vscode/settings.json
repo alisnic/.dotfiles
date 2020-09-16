@@ -1,8 +1,7 @@
 {
     "editor.minimap.enabled": false,
-    "window.zoomLevel": 1,
     "workbench.activityBar.visible": true,
-    "workbench.colorTheme": "Visual Studio Light",
+    "workbench.colorTheme": "Solarized Light+",
     "editor.fontFamily": "Monaco",
     "breadcrumbs.enabled": false,
     "editor.tabSize": 2,
@@ -13,7 +12,6 @@
     "terminal.integrated.fontFamily": "Monaco",
     "editor.highlightActiveIndentGuide": false,
     "editor.occurrencesHighlight": false,
-    "editor.renderIndentGuides": false,
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true,
@@ -33,11 +31,62 @@
     "javascript.updateImportsOnFileMove.enabled": "always",
     "diffEditor.renderSideBySide": false,
     "scm.diffDecorations": "none",
-    "ruby.useLanguageServer": true,
-    "ruby.rubocop.useBundler": true,
     "ruby.useBundler": true,
-    "ruby.intellisense": "rubyLocate",
-    "rubyTestExplorer.logpanel": true,
-    "rubyTestExplorer.testFramework": "rspec",
-    "rubyTestExplorer.rspecCommand": "bin/spring rspec"
+    "editor.colorDecorators": true,
+    "editor.fontSize": 14,
+    "debug.console.fontSize": 14,
+    "terminal.integrated.fontSize": 14,
+    "ruby.specCommand": "bin/spring rspec",
+    "vim.useSystemClipboard": true,
+    "vim.leader": "<space>",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+          "before": ["<leader>", "t"],
+          "commands": ["extension.runFileSpecs"]
+        },
+        {
+          "before": ["<leader>", "l"],
+          "commands": ["extension.runSpecLine"]
+        },
+        {
+          "before": ["<leader>", "p"],
+          "commands": ["projectManager.listProjects"]
+        },
+        {
+          "before": ["<leader>", "g", "c"],
+          "commands": ["git.checkout"]
+        },
+        {
+            "before": ["<leader>", "a"],
+            "commands": [
+                "alternate.alternateFile",
+            ]
+        }
+    ],
+    "editor.tokenColorCustomizations": {
+        "[Solarized Light+]": {
+
+        }
+    },
+    "ruby.lint": {
+        "rubocop": {
+            "useBundler": true // enable rubocop via bundler
+        }
+    },
+    "ruby.specSaveFile": true,
+    "solargraph.folding": false,
+    "ruby.rctComplete.commandPath": "/usr/local/bin/rct-complete",
+    "solargraph.hover": false,
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": false
+    },
+    "editor.snippetSuggestions": "none",
+    "editor.suggest.localityBonus": true,
+    "editor.suggestSelection": "first",
+    "gitlab.instanceUrl": "https://git.saltedge.com",
+    "gitlab.remoteName": "main",
+    "gitlab.pipelineGitRemoteName": "origin",
+    "extensions.ignoreRecommendations": false
 }
