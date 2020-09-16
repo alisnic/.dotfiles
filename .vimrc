@@ -20,18 +20,7 @@ Plug 'tpope/vim-fugitive'     " Git explorer
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'morhetz/gruvbox'
 Plug 'altercation/vim-colors-solarized'
-
 Plug 'majutsushi/tagbar'
-  let g:tagbar_width = 20
-  let g:tagbar_zoomwidth = 0
-
-Plug 'fholgado/minibufexpl.vim'
-  let g:miniBufExplVSplit = 20
-  let g:miniBufExplMaxSize = 40
-  let g:miniBufExplBRSplit = 0
-  let g:miniBufExplUseSingleClick = 1
-  let g:miniBufExplShowBufNumbers = 0
-  nnoremap <leader>b :MBEToggle<cr>
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader>va :AV<cr>
@@ -73,7 +62,7 @@ Plug 'junegunn/fzf.vim'
   endfunction
 
   nnoremap <leader>f :Files<cr>
-  nnoremap <leader>B :Buffers<cr>
+  nnoremap <leader>b :Buffers<cr>
   nnoremap <leader>m :BTags<cr>
   nnoremap <leader>c :Tags<cr>
   nnoremap <silent> <leader>d :call fzf#run(fzf#wrap({'source': 'find . -type d \| grep -v tmp \| grep -v .git'}))<cr>
@@ -162,18 +151,22 @@ endfunction
 nnoremap <leader>t :call RunInTerminal(&makeprg)<cr>
 nnoremap <leader>l :call RunInTerminal(&makeprg . ":" . line('.'))<cr>
 nnoremap <leader>r :call RunInTerminal(&makeprg . " --only-failures")<cr>
-nnoremap <leader><UP> <C-w><UP>
-nnoremap <leader><Down> <C-w><Down>
-nnoremap <leader><Left> <C-w><Left>
-nnoremap <leader><Right> <C-w><Right>
+nnoremap <S-UP> <C-w><UP>
+nnoremap <S-Down> <C-w><Down>
+nnoremap <S-Left> <C-w><Left>
+nnoremap <S-Right> <C-w><Right>
 nnoremap <leader><leader> :
 nnoremap <leader>s :w<cr>
-nnoremap <leader>w :q<cr>
+nnoremap <leader>q :q<cr>
 nnoremap <UP> gk
 nnoremap <Down> gj
 
 command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".txt"
 command! Focus :exe "normal! zMzv"
+
+nnoremap <leader>. :e ~/.vimrc<cr>
+command! Reload :source ~/.vimrc
+cabbrev reload Reload
 
 " I do a lot of shift typos, these are the most common ones
 command! W w
