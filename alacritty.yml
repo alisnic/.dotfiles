@@ -163,6 +163,7 @@ key_bindings:
   - { key: Key9,     mods: Command, chars: "\x029"                    }
   - { key: LBracket, mods: Command, chars: "\x02\x70"                    }
   - { key: RBracket, mods: Command, chars: "\x02\x6e"                    }
+  - { key: Back,     mods: Alt,     chars: "\x17"                   }
   - { key: Left,     mods: Shift,   chars: "\x1b[1;2D"                   }
   - { key: Left,     mods: Control, chars: "\x1b[1;5D"                   }
   - { key: Left,     mods: Alt,     chars: "\x1b[1;3D"                   }
