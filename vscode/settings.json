@@ -63,11 +63,6 @@
             ]
         }
     ],
-    "editor.tokenColorCustomizations": {
-        "[Solarized Light+]": {
-
-        }
-    },
     "ruby.lint": {
         "rubocop": {
             "useBundler": true // enable rubocop via bundler
@@ -88,5 +83,6 @@
     "gitlab.instanceUrl": "https://git.saltedge.com",
     "gitlab.remoteName": "main",
     "gitlab.pipelineGitRemoteName": "origin",
-    "extensions.ignoreRecommendations": false
+    "extensions.ignoreRecommendations": false,
+    "window.title": "${activeEditorLong}${separator}${rootName}"
 }
