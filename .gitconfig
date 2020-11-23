@@ -21,6 +21,8 @@
 
 [branch]
   sort = -committerdate
+[pull]
+  rebase = false
 [user]
   name = Andrei Lisnic
   email = andrei.lisnic@gmail.com
