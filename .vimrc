@@ -16,21 +16,33 @@ Plug 'tpope/vim-bundler'      " read tags from gems
 Plug 'google/vim-searchindex' " show number of search matches
 Plug 'RRethy/vim-illuminate'  " Highlight matches for current word under cursor
 Plug 'tomtom/tcomment_vim'    " Comment code
-Plug 'tpope/vim-fugitive'     " Git explorer
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'morhetz/gruvbox'
 Plug 'altercation/vim-colors-solarized'
 Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-haml'
+Plug 'alvan/vim-closetag'
+  let g:closetag_filetypes = 'html,xhtml,phtml,javascript'
 
 Plug 'tpope/vim-projectionist'
   nnoremap <leader>va :AV<cr>
   nnoremap <leader>a :A<cr>
 
-Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
 Plug 'leafgarland/typescript-vim'
+
+" Workflow: Git/Gitlab
+Plug 'tpope/vim-fugitive'
+Plug 'shumphrey/fugitive-gitlab.vim'
+
+" Workflow: JavaScript
+Plug 'prettier/vim-prettier'
+Plug 'ternjs/tern_for_vim', { 'do' : 'npm install' }
+  autocmd FileType javascript setlocal omnifunc=tern#Complete
+
+" Workflow: React
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-Plug 'mxw/vim-jsx'
+Plug 'MaxMEllon/vim-jsx-pretty'
 
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
@@ -80,12 +92,6 @@ Plug 'mileszs/ack.vim'
   let g:ackprg = 'ag --vimgrep'
   cabbrev ack Ack
 
-  function! s:FilterQuickfixList(bang, pattern)
-    let cmp = a:bang ? '!~#' : '=~#'
-    call setqflist(filter(getqflist(), "bufname(v:val['bufnr']) " . cmp . " a:pattern"))
-  endfunction
-  command! -bang -nargs=1 -complete=file Qfilter call s:FilterQuickfixList(<bang>0, <q-args>)
-
 call plug#end()
 let g:markdown_fenced_languages = ['ruby', 'coffee', 'yaml']
 
@@ -94,12 +100,15 @@ augroup alisnic
   autocmd BufWritePre * :%s/\s\+$//e
   autocmd FocusGained * checktime
   autocmd FileType markdown setlocal spell
-  autocmd FileType ruby setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
+  autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
 
-  " Use omnifunc if it's available, otherwise use keyword completion
+  autocmd QuickFixCmdPost [^l]* cwindow
+  autocmd QuickFixCmdPost l* lwindow
+
   autocmd FileType *
     \ if &omnifunc != '' |
-    \   call SuperTabChain(&omnifunc, "<c-n>") |
+    \   call SuperTabChain(&omnifunc, "<c-p>") |
+    \   call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
     \ endif
 augroup END
 
@@ -115,12 +124,15 @@ set mouse=a
 set splitright
 set hidden
 set clipboard=unnamed
-set winwidth=79
+set winwidth=78
+set virtualedit=block
 
 set autowriteall
 set nobackup
 set nowritebackup
 set noswapfile
+set exrc
+set secure
 
 set tabstop=2
 set expandtab
@@ -148,6 +160,15 @@ function! RunInTerminal(cmd)
   endif
 endfunction
 
+set grepprg=rg\ --vimgrep
+
+function! s:FilterQuickfixList(bang, pattern)
+  let cmp = a:bang ? '!~#' : '=~#'
+  call setqflist(filter(getqflist(), "bufname(v:val['bufnr']) " . cmp . " a:pattern"))
+endfunction
+command! -bang -nargs=1 -complete=file Qfilter call s:FilterQuickfixList(<bang>0, <q-args>)
+
+nnoremap <leader>w :tabclose<cr>
 nnoremap <leader>t :call RunInTerminal(&makeprg)<cr>
 nnoremap <leader>l :call RunInTerminal(&makeprg . ":" . line('.'))<cr>
 nnoremap <leader>r :call RunInTerminal(&makeprg . " --only-failures")<cr>
@@ -155,9 +176,7 @@ nnoremap <S-UP> <C-w><UP>
 nnoremap <S-Down> <C-w><Down>
 nnoremap <S-Left> <C-w><Left>
 nnoremap <S-Right> <C-w><Right>
-nnoremap <leader><leader> :
-nnoremap <leader>s :w<cr>
-nnoremap <leader>q :q<cr>
+nnoremap <leader><leader> :Files<cr>
 nnoremap <UP> gk
 nnoremap <Down> gj
 
@@ -167,6 +186,7 @@ command! Focus :exe "normal! zMzv"
 nnoremap <leader>. :e ~/.vimrc<cr>
 command! Reload :source ~/.vimrc
 cabbrev reload Reload
+cabbrev te tabedit
 
 " I do a lot of shift typos, these are the most common ones
 command! W w
@@ -176,3 +196,7 @@ nnoremap Q <nop>
 nnoremap q: <nop>
 vnoremap <S-UP> <nop>
 vnoremap <S-Down> <nop>
+
+if filereadable(expand("~/.vimrc.private"))
+  exe 'source ~/.vimrc.private'
+endif
