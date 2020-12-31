@@ -3,6 +3,15 @@ let g:loaded_matchparen = 1
 let g:loaded_ruby_provider = 1
 let g:loaded_node_provider = 1
 
+function! RunInTerminal(cmd)
+  if has("nvim")
+    exec("tabedit \| term " . a:cmd)
+    startinsert
+  else
+    exec("tab terminal " . a:cmd)
+  endif
+endfunction
+
 call plug#begin('~/.vim/plugged')
 
 if !has("nvim")
@@ -21,15 +30,17 @@ Plug 'morhetz/gruvbox'
 Plug 'altercation/vim-colors-solarized'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-haml'
+Plug 'kchmck/vim-coffee-script'
 Plug 'alvan/vim-closetag'
   let g:closetag_filetypes = 'html,xhtml,phtml,javascript'
 
+" Workflow: TDD
 Plug 'tpope/vim-projectionist'
   nnoremap <leader>va :AV<cr>
   nnoremap <leader>a :A<cr>
-
-Plug 'kchmck/vim-coffee-script'
-Plug 'leafgarland/typescript-vim'
+  nnoremap <leader>t :call RunInTerminal(&makeprg)<cr>
+  nnoremap <leader>l :call RunInTerminal(&makeprg . ":" . line('.'))<cr>
+  nnoremap <leader>r :call RunInTerminal(&makeprg . " --only-failures")<cr>
 
 " Workflow: Git/Gitlab
 Plug 'tpope/vim-fugitive'
@@ -38,32 +49,35 @@ Plug 'shumphrey/fugitive-gitlab.vim'
 " Workflow: JavaScript
 Plug 'prettier/vim-prettier'
 Plug 'ternjs/tern_for_vim', { 'do' : 'npm install' }
-  autocmd FileType javascript setlocal omnifunc=tern#Complete
+  autocmd FileType javascript setlocal omnifunc=tern#Complete | call SuperTabChain(&omnifunc, "<c-n>")
 
 " Workflow: React
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'MaxMEllon/vim-jsx-pretty'
 
+" Workflow: Ruby/RoR
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
+  autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
 
+" Workflow: File management
 Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-dirvish'
   let dirvish_mode = ':sort | sort ,^.*/,'
   autocmd FileType dirvish nnoremap <silent><buffer> r :silent exec "!open %"<cr>
 
-" Async code linting
+" Feature: Async code linting
 Plug 'w0rp/ale'
   let g:ale_linters = {'ruby': ['rubocop']}
   let g:ale_pattern_options = {'.*\.gem.*\.rb$|.*\.rubies.*\.rb$': {'ale_enabled': 0}}
   let g:ale_set_highlights = 0
   let g:ale_ruby_rubocop_executable = "bundle"
 
-" Preserve intendation when pasting
+" Feature: preserve intendation when pasting
 Plug 'sickill/vim-pasta'
   let g:pasta_disabled_filetypes = ['coffee', 'yaml', 'haml']
 
-" Align code by characters
+" Feature: align code by characters
 Plug 'tommcdo/vim-lion'
   let g:lion_squeeze_spaces = 1
 
@@ -84,10 +98,19 @@ Plug 'junegunn/fzf.vim'
 
   let g:fzf_preview_window = ''
 
+function! GitCheckoutBranch(branch)
+    let l:name = split(split(trim(a:branch), "", 1)[0], "/", 1)[-1]
+    silent execute "Git checkout ". l:name
+endfunction
+
+nnoremap <silent> <leader>gb :call fzf#run(fzf#wrap({'source': 'git branch -avv --color --sort=-committerdate \| grep -v remotes', 'sink': function('GitCheckoutBranch'), 'options': '--ansi --nth=1'}))<cr>
+
+" Feature: autocomplete
 Plug 'ervandew/supertab'
   set completeopt-=preview
   set pumheight=10
 
+" Feature: search in all files
 Plug 'mileszs/ack.vim'
   let g:ackprg = 'ag --vimgrep'
   cabbrev ack Ack
@@ -100,16 +123,13 @@ augroup alisnic
   autocmd BufWritePre * :%s/\s\+$//e
   autocmd FocusGained * checktime
   autocmd FileType markdown setlocal spell
-  autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
+  autocmd FileType markdown syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
+  autocmd FileType text setlocal modeline
 
-  autocmd QuickFixCmdPost [^l]* cwindow
-  autocmd QuickFixCmdPost l* lwindow
-
-  autocmd FileType *
-    \ if &omnifunc != '' |
-    \   call SuperTabChain(&omnifunc, "<c-p>") |
-    \   call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
-    \ endif
+  " autocmd FileType *
+  "   \ if &omnifunc != '' |
+  "   \   call SuperTabChain(&omnifunc, "<c-p>")
+  "   \ endif
 augroup END
 
 " set termguicolors
@@ -151,27 +171,13 @@ set tags+=.git/tags " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 set tagcase=match
 nnoremap <leader>] :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-function! RunInTerminal(cmd)
-  if has("nvim")
-    exec("tabedit \| term " . a:cmd)
-    startinsert
-  else
-    exec("tab terminal " . a:cmd)
-  endif
-endfunction
-
-set grepprg=rg\ --vimgrep
-
 function! s:FilterQuickfixList(bang, pattern)
   let cmp = a:bang ? '!~#' : '=~#'
   call setqflist(filter(getqflist(), "bufname(v:val['bufnr']) " . cmp . " a:pattern"))
 endfunction
 command! -bang -nargs=1 -complete=file Qfilter call s:FilterQuickfixList(<bang>0, <q-args>)
 
-nnoremap <leader>w :tabclose<cr>
-nnoremap <leader>t :call RunInTerminal(&makeprg)<cr>
-nnoremap <leader>l :call RunInTerminal(&makeprg . ":" . line('.'))<cr>
-nnoremap <leader>r :call RunInTerminal(&makeprg . " --only-failures")<cr>
+" nnoremap <leader>w :tabclose<cr>
 nnoremap <S-UP> <C-w><UP>
 nnoremap <S-Down> <C-w><Down>
 nnoremap <S-Left> <C-w><Left>

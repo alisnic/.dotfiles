@@ -1,5 +1,13 @@
 // Place your key bindings in this file to override the defaultsauto[]
 [
+  { "key": "cmd+1","command": "workbench.action.openEditorAtIndex1" },
+  { "key": "cmd+2","command": "workbench.action.openEditorAtIndex2" },
+  { "key": "cmd+3","command": "workbench.action.openEditorAtIndex3" },
+  { "key": "cmd+4","command": "workbench.action.openEditorAtIndex4" },
+  {
+    "key": "cmd+5",
+    "command": "workbench.action.openEditorAtIndex5"
+  },
   {
     "key": "cmd+r",
     "command": "-workbench.action.reloadWindow",
@@ -15,15 +23,10 @@
   },
   {
     "key": "cmd+t",
-    "command": "workbench.action.terminal.toggleTerminal"
+    "command": "workbench.action.togglePanel"
   },
   {
-    "key": "ctrl+`",
-    "command": "-workbench.action.terminal.toggleTerminal"
+    "key": "cmd+j",
+    "command": "-workbench.action.togglePanel"
   },
-  { "key": "cmd+1","command": "workbench.action.openEditorAtIndex1" },
-  { "key": "cmd+2","command": "workbench.action.openEditorAtIndex2" },
-  { "key": "cmd+3","command": "workbench.action.openEditorAtIndex3" },
-  { "key": "cmd+4","command": "workbench.action.openEditorAtIndex4" },
-  { "key": "cmd+5","command": "workbench.action.openEditorAtIndex5" },
 ]

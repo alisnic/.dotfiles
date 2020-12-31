@@ -14,7 +14,7 @@ function focusApp(applicationName)
   end
 end
 
-hs.hotkey.bind({"alt"}, "c", function() focusApp("Safari") end)
+hs.hotkey.bind({"alt"}, "c", function() focusApp("Google Chrome") end)
 hs.hotkey.bind({"alt"}, "x", function() focusApp("Mattermost") end)
 hs.hotkey.bind({"alt"}, "m", function() focusApp("Thunderbird") end)
 hs.hotkey.bind({"alt"}, "§", function() focusApp("iTerm") end)

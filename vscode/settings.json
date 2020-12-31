@@ -18,6 +18,7 @@
         "editor.formatOnPaste": false
     },
     "workbench.statusBar.visible": true,
+    "workbench.editor.enablePreview": false,
     "telemetry.enableTelemetry": false,
     "workbench.enableExperiments": false,
     "scm.diffDecorationsGutterVisibility": "hover",
@@ -84,5 +85,7 @@
     "gitlab.remoteName": "main",
     "gitlab.pipelineGitRemoteName": "origin",
     "extensions.ignoreRecommendations": false,
-    "window.title": "${activeEditorLong}${separator}${rootName}"
+    "window.title": "${activeEditorLong}${separator}${rootName}",
+    "rubyTestExplorer.rspecCommand": "bin/spring rspec",
+    // "rubyTestExplorer.logfile": "/Users/andrei/ruby-test-explorer.log"
 }
