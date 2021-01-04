@@ -16,7 +16,7 @@ end
 
 hs.hotkey.bind({"alt"}, "c", function() focusApp("Google Chrome") end)
 hs.hotkey.bind({"alt"}, "x", function() focusApp("Mattermost") end)
-hs.hotkey.bind({"alt"}, "m", function() focusApp("Thunderbird") end)
+hs.hotkey.bind({"alt"}, "m", function() focusApp("Mail") end)
 hs.hotkey.bind({"alt"}, "§", function() focusApp("iTerm") end)
 hs.hotkey.bind({"alt"}, "p", function() focusApp("MacPass") end)
 hs.hotkey.bind({"alt"}, "f", function() focusApp("Finder") end)
