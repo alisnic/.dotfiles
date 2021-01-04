@@ -9,7 +9,6 @@ bindkey "^[[1;3C" forward-word
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-source /usr/local/Cellar/fzf/$(ls /usr/local/Cellar/fzf)/shell/key-bindings.zsh
 setopt PROMPT_SUBST
 setopt +o nomatch
 
@@ -34,15 +33,18 @@ export KEYTIMEOUT=1
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export EDITOR=nvim
 
-source /usr/local/opt/chruby/share/chruby/chruby.sh
 if [[ $(uname -m) == "arm64" ]]; then
+  echo "Loading ARM env"
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+  source /opt/homebrew/Cellar/fzf/$(ls /opt/homebrew/Cellar/fzf)/shell/key-bindings.zsh
+  export PATH="$PATH:$HOME/.rvm/bin"
   export PATH=/opt/homebrew/bin:$PATH
-  chruby ruby-2.5.8-arm
-  export GEM_HOME=/Users/alisnic/.gem/ruby/2.5.8-arm
-  export GEM_PATH=/Users/alisnic/.gem/ruby/2.5.8-arm:/Users/alisnic/.rubies/ruby-2.5.8-arm/lib/ruby/gems/2.5.0
   export PATH="/opt/homebrew/opt/postgresql@10/bin:$PATH"
   export PATH="/opt/homebrew/opt/node@10/bin:$PATH"
+  export PATH="/opt/neovim/bin:$PATH"
 else
+  source /usr/local/Cellar/fzf/$(ls /usr/local/Cellar/fzf)/shell/key-bindings.zsh
+  source /usr/local/opt/chruby/share/chruby/chruby.sh
   export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
   export PATH="/usr/local/opt/node@10/bin:$PATH"
   chruby 2.5
