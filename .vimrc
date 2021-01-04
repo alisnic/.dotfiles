@@ -36,7 +36,7 @@ Plug 'alvan/vim-closetag'
 
 " Workflow: TDD
 Plug 'tpope/vim-projectionist'
-  nnoremap <leader>va :AV<cr>
+  nnoremap <leader>va :AT<cr>
   nnoremap <leader>a :A<cr>
   nnoremap <leader>t :call RunInTerminal(&makeprg)<cr>
   nnoremap <leader>l :call RunInTerminal(&makeprg . ":" . line('.'))<cr>
@@ -112,7 +112,7 @@ Plug 'ervandew/supertab'
 
 " Feature: search in all files
 Plug 'mileszs/ack.vim'
-  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'rg --vimgrep'
   cabbrev ack Ack
 
 call plug#end()
