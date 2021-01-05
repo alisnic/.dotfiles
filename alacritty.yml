@@ -4,15 +4,15 @@ scrolling:
 
 # The FreeType rasterizer needs to know the device DPI for best results
 # (changes require restart)
-dpi:
-  x: 96.0
-  y: 96.0
+# dpi:
+#   x: 96.0
+#   y: 96.0
 
 # Display tabs using this many cells (changes require restart)
 # tabspaces: 8
 
 # When true, bold text is drawn using the bright variant of colors.
-draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: false
 
 url:
   modifiers: Command
@@ -22,30 +22,32 @@ window:
 
 font:
   normal:
-    family: Monaco
+    family: SF Mono
+    style: Regular
 
   bold:
-    family: Monaco
+    family: SF Mono
+    style: Bold
 
   italic:
-    family: Monaco
+    family: SF Mono
     style: Italic
 
   # Point size of the font
-  size: 15.5
+  size: 16
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
-  offset:
-    x: 0
-    y: 0
+  # offset:
+  #   x: 0
+  #   y: 0
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increase the x offset to move the glyph to
   # the right, increase the y offset to move the glyph upward.
-  glyph_offset:
-    x: 0
-    y: 0
+  # glyph_offset:
+  #   x: 0
+  #   y: 0
 
   use_thin_strokes: true
 
