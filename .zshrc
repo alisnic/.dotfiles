@@ -34,14 +34,11 @@ export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export EDITOR=nvim
 
 if [[ $(uname -m) == "arm64" ]]; then
-  echo "Loading ARM env"
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
   source /opt/homebrew/Cellar/fzf/$(ls /opt/homebrew/Cellar/fzf)/shell/key-bindings.zsh
   export PATH="$PATH:$HOME/.rvm/bin"
   export PATH=/opt/homebrew/bin:$PATH
   export PATH="/opt/homebrew/opt/postgresql@10/bin:$PATH"
-  export PATH="/opt/homebrew/opt/node@10/bin:$PATH"
-  export PATH="/opt/neovim/bin:$PATH"
 else
   source /usr/local/Cellar/fzf/$(ls /usr/local/Cellar/fzf)/shell/key-bindings.zsh
   source /usr/local/opt/chruby/share/chruby/chruby.sh
@@ -61,7 +58,7 @@ alias rm='trash'
 function gentags() {
   echo "Exporting tags..."
   ripper-tags -R -f .git/rubytags --tag-relative=yes
-  /usr/local/bin/ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript,python,php,java
+  ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript,python,php,java
 }
 
 function j {
