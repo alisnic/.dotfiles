@@ -27,14 +27,14 @@ font:
 
   bold:
     family: SF Mono
-    style: Bold
+    style: Semibold
 
   italic:
     family: SF Mono
     style: Italic
 
   # Point size of the font
-  size: 16
+  size: 17
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
