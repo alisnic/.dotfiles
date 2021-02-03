@@ -39,6 +39,7 @@ if [[ $(uname -m) == "arm64" ]]; then
   export PATH="$PATH:$HOME/.rvm/bin"
   export PATH=/opt/homebrew/bin:$PATH
   export PATH="/opt/homebrew/opt/postgresql@10/bin:$PATH"
+  export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
 else
   source /usr/local/Cellar/fzf/$(ls /usr/local/Cellar/fzf)/shell/key-bindings.zsh
   source /usr/local/opt/chruby/share/chruby/chruby.sh
