@@ -16,30 +16,30 @@ precmd() {
   if [ -d ".git" ]
   then
     export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    PS1=$'\n%~ $fg[blue]$GIT_BRANCH$reset_color\n$ '
+    PS1=$'\n%~ $fg[blue]$GIT_BRANCH$reset_color (%j)\n$ '
   else
-    PS1=$'\n%~\n$ '
+    PS1=$'\n%~ (%j)\n$ '
   fi
 }
 
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-export EDITOR='vim'
-export PATH=~/.dotfiles/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export EDITOR=nvim
 export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" 2> /dev/null'
 export FZF_DEFAULT_OPTS='--bind ctrl-a:select-all'
 export HOMEBREW_INSTALL_CLEANUP=true
 export KEYTIMEOUT=1
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
-export EDITOR=nvim
+export PATH=~/.dotfiles/bin:~/Library/Python/3.9/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 if [[ $(uname -m) == "arm64" ]]; then
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-  source /opt/homebrew/Cellar/fzf/$(ls /opt/homebrew/Cellar/fzf)/shell/key-bindings.zsh
+  source ~/.fzf.zsh
   export PATH="$PATH:$HOME/.rvm/bin"
   export PATH=/opt/homebrew/bin:$PATH
   export PATH="/opt/homebrew/opt/postgresql@10/bin:$PATH"
   export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
+  export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
 else
   source /usr/local/Cellar/fzf/$(ls /usr/local/Cellar/fzf)/shell/key-bindings.zsh
   source /usr/local/opt/chruby/share/chruby/chruby.sh
@@ -49,12 +49,11 @@ else
 fi
 
 alias ls='ls -G'
-alias brails='bin/spring rails'
-alias brake='bin/spring rake'
 alias reload!='source ~/.zshrc'
 alias be='bundle exec'
 alias sp='bin/spring'
 alias rm='trash'
+alias dc='docker-compose'
 
 function gentags() {
   echo "Exporting tags..."
