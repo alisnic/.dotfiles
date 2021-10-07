@@ -14,16 +14,12 @@ endfunction
 
 call plug#begin('~/.vim/plugged')
 
-if has("nvim")
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-else
-  Plug 'tpope/vim-sensible'
-  Plug 'tpope/vim-haml'
-  Plug 'kchmck/vim-coffee-script'
-  Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-haml'
+Plug 'kchmck/vim-coffee-script'
+Plug 'vim-ruby/vim-ruby'
 
-  set synmaxcol=200
-endif
+set synmaxcol=200
 
 Plug 'tpope/vim-endwise'      " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired'   " awesome pair mappings
@@ -49,6 +45,7 @@ Plug 'tpope/vim-projectionist'
 " Workflow: Git/Gitlab
 Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
+  cabbrev git Git
 
 " Workflow: JavaScript
 Plug 'prettier/vim-prettier'
@@ -110,14 +107,6 @@ Plug 'ervandew/supertab'
 call plug#end()
 let g:markdown_fenced_languages = ['ruby', 'coffee', 'yaml']
 
-lua <<EOF
-  require'nvim-treesitter.configs'.setup {
-    highlight = {
-      enable = true
-    },
-  }
-EOF
-
 augroup alisnic
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
@@ -125,9 +114,9 @@ augroup alisnic
   autocmd FileType markdown setlocal spell
   autocmd FileType markdown syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
   autocmd FileType text setlocal modeline
+  autocmd FileType eruby set ft=html
 augroup END
 
-" set termguicolors
 colorscheme solarized
 set background=light
 
@@ -182,11 +171,6 @@ nnoremap <Down> gj
 
 command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".txt"
 command! Focus :exe "normal! zMzv"
-
-nnoremap <leader>. :e ~/.vimrc<cr>
-command! Reload :source ~/.vimrc
-cabbrev reload Reload
-cabbrev te tabedit
 
 " I do a lot of shift typos, these are the most common ones
 command! W w
