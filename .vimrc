@@ -3,24 +3,10 @@ let g:loaded_matchparen = 1
 let g:loaded_ruby_provider = 1
 let g:loaded_node_provider = 1
 
-function! RunInTerminal(cmd)
-  if has("nvim")
-    exec("tabedit \| term " . a:cmd)
-    startinsert
-  else
-    exec("tab terminal " . a:cmd)
-  endif
-endfunction
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-haml'
 Plug 'kchmck/vim-coffee-script'
-Plug 'vim-ruby/vim-ruby'
-
-set synmaxcol=200
-
 Plug 'tpope/vim-endwise'      " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired'   " awesome pair mappings
 Plug 'tpope/vim-bundler'      " read tags from gems
@@ -35,8 +21,16 @@ Plug 'alvan/vim-closetag'
   let g:closetag_filetypes = 'html,xhtml,phtml,javascript'
 
 " Workflow: TDD
+function! RunInTerminal(cmd)
+  if has("nvim")
+    exec("tabedit \| term " . a:cmd)
+    startinsert
+  else
+    exec("tab terminal " . a:cmd)
+  endif
+endfunction
+
 Plug 'tpope/vim-projectionist'
-  nnoremap <leader>va :AT<cr>
   nnoremap <leader>a :A<cr>
   nnoremap <leader>t :call RunInTerminal(&makeprg)<cr>
   nnoremap <leader>l :call RunInTerminal(&makeprg . ":" . line('.'))<cr>
@@ -53,6 +47,8 @@ Plug 'prettier/vim-prettier'
   " autocmd FileType javascript setlocal omnifunc=tern#Complete | call SuperTabChain(&omnifunc, "<c-n>")
 
 " Workflow: Ruby/RoR
+Plug 'tpope/vim-haml'
+Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
   autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
 
@@ -95,6 +91,13 @@ Plug 'junegunn/fzf.vim'
   let g:fzf_preview_window = ''
 
 " Feature: search in all files
+function! s:FilterQuickfixList(bang, pattern)
+  let cmp = a:bang ? '!~#' : '=~#'
+  call setqflist(filter(getqflist(), "bufname(v:val['bufnr']) " . cmp . " a:pattern"))
+endfunction
+
+command! -bang -nargs=1 -complete=file Qfilter call s:FilterQuickfixList(<bang>0, <q-args>)
+
 Plug 'mileszs/ack.vim'
   let g:ackprg = 'rg --vimgrep'
   cabbrev ack Ack
@@ -129,6 +132,7 @@ set hidden
 set clipboard=unnamed
 set winwidth=78
 set virtualedit=block
+set synmaxcol=200
 
 set autowriteall
 set nobackup
@@ -153,12 +157,6 @@ set foldmethod=indent " foldmethod=syntax is slow
 set tags+=.git/tags " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 set tagcase=match
 nnoremap <leader>] :exec("tabedit \| tag ".expand("<cword>"))<CR>
-
-function! s:FilterQuickfixList(bang, pattern)
-  let cmp = a:bang ? '!~#' : '=~#'
-  call setqflist(filter(getqflist(), "bufname(v:val['bufnr']) " . cmp . " a:pattern"))
-endfunction
-command! -bang -nargs=1 -complete=file Qfilter call s:FilterQuickfixList(<bang>0, <q-args>)
 
 nnoremap <S-UP> <C-w><UP>
 nnoremap <S-Down> <C-w><Down>
