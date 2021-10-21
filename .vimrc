@@ -6,10 +6,8 @@ let g:loaded_node_provider = 1
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
-Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-endwise'      " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired'   " awesome pair mappings
-Plug 'tpope/vim-bundler'      " read tags from gems
 Plug 'tpope/vim-sleuth'       " Detect intendation
 Plug 'google/vim-searchindex' " show number of search matches
 Plug 'RRethy/vim-illuminate'  " Highlight matches for current word under cursor
@@ -20,10 +18,18 @@ Plug 'majutsushi/tagbar'
 Plug 'alvan/vim-closetag'
   let g:closetag_filetypes = 'html,xhtml,phtml,javascript'
 
+Plug 'kchmck/vim-coffee-script'
+
 " Workflow: TDD
+let g:term_split = 0
 function! RunInTerminal(cmd)
   if has("nvim")
-    exec("tabedit \| term " . a:cmd)
+    if g:term_split
+      exec("vsplit \| term " . a:cmd)
+    else
+      exec("tabedit \| term " . a:cmd)
+    endif
+
     startinsert
   else
     exec("tab terminal " . a:cmd)
@@ -34,7 +40,7 @@ Plug 'tpope/vim-projectionist'
   nnoremap <leader>a :A<cr>
   nnoremap <leader>t :call RunInTerminal(&makeprg)<cr>
   nnoremap <leader>l :call RunInTerminal(&makeprg . ":" . line('.'))<cr>
-  nnoremap <leader>r :call RunInTerminal(&makeprg . " --only-failures")<cr>
+  nnoremap <leader>r :call RunInTerminal(&makeprg . " --only-failures --fail-fast")<cr>
 
 " Workflow: Git/Gitlab
 Plug 'tpope/vim-fugitive'
@@ -47,6 +53,7 @@ Plug 'prettier/vim-prettier'
   " autocmd FileType javascript setlocal omnifunc=tern#Complete | call SuperTabChain(&omnifunc, "<c-n>")
 
 " Workflow: Ruby/RoR
+Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-haml'
 Plug 'vim-ruby/vim-ruby'
   let g:ruby_indent_assignment_style = 'variable'
