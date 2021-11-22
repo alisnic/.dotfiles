@@ -47,10 +47,12 @@ Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
   cabbrev git Git
 
+  if filereadable(expand("~/.vimrc.private"))
+    exe 'source ~/.vimrc.private'
+  endif
+
 " Workflow: JavaScript
 Plug 'prettier/vim-prettier'
-" Plug 'ternjs/tern_for_vim', { 'do' : 'npm install' }
-  " autocmd FileType javascript setlocal omnifunc=tern#Complete | call SuperTabChain(&omnifunc, "<c-n>")
 
 " Workflow: Ruby/RoR
 Plug 'tpope/vim-bundler'
@@ -69,8 +71,8 @@ Plug 'justinmk/vim-dirvish'
 Plug 'w0rp/ale'
   let g:ale_linters = {'ruby': ['rubocop']}
   let g:ale_pattern_options = {'.*\.gem.*\.rb$|.*\.rubies.*\.rb$': {'ale_enabled': 0}}
-  let g:ale_set_highlights = 0
   let g:ale_ruby_rubocop_executable = "bundle"
+  let g:ale_virtualtext_cursor = 1
 
 " Feature: preserve intendation when pasting
 Plug 'sickill/vim-pasta'
@@ -110,12 +112,71 @@ Plug 'mileszs/ack.vim'
   cabbrev ack Ack
 
 " Feature: autocomplete
-Plug 'ervandew/supertab'
-  set completeopt-=preview
-  set pumheight=10
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'quangnguyen30192/cmp-nvim-tags'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'onsails/lspkind-nvim'
+  set completeopt=menu,menuone,noselect
 
 call plug#end()
 let g:markdown_fenced_languages = ['ruby', 'coffee', 'yaml']
+
+lua <<EOF
+  -- Setup nvim-cmp.
+  local cmp = require'cmp'
+  local lspkind = require('lspkind')
+
+  cmp.setup({
+    formatting = {
+      format = lspkind.cmp_format({
+        with_text = true,
+          menu = ({
+            buffer = "[Buf]",
+            tags = "[Tag]",
+            nvim_lsp = "[LSP]"
+          })
+      }),
+    },
+    completion = {
+      keyword_length = 3
+    },
+    mapping = {
+      -- ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      -- ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      -- ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      -- ['<C-y>'] = cmp.config.disable,
+      -- ['<C-e>'] = cmp.mapping({
+      --   i = cmp.mapping.abort(),
+      --   c = cmp.mapping.close(),
+      -- }),
+      -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' })
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'buffer' },
+      { name = 'tags' }
+    })
+  })
+
+  cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  require('lspconfig')['solargraph'].setup {
+    capabilities = capabilities,
+    settings = { solargraph = { formatting = false, diagnostics = false } }
+  }
+EOF
 
 augroup alisnic
   autocmd!
@@ -123,6 +184,7 @@ augroup alisnic
   autocmd FocusGained * checktime
   autocmd FileType markdown setlocal spell
   autocmd FileType markdown syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
+  " autocmd FileType markdown lua require('cmp').setup.buffer { enabled = false }
   autocmd FileType text setlocal modeline
   autocmd FileType eruby set ft=html
 augroup END
@@ -185,7 +247,3 @@ nnoremap Q <nop>
 nnoremap q: <nop>
 vnoremap <S-UP> <nop>
 vnoremap <S-Down> <nop>
-
-if filereadable(expand("~/.vimrc.private"))
-  exe 'source ~/.vimrc.private'
-endif
