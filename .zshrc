@@ -58,7 +58,7 @@ alias dc='docker-compose'
 function gentags() {
   echo "Exporting tags..."
   ripper-tags -R -f .git/rubytags --tag-relative=yes
-  ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript,python,php,java
+  # ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript,python,php,java
 }
 
 function j {
