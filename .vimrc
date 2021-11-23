@@ -16,7 +16,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'altercation/vim-colors-solarized'
 Plug 'majutsushi/tagbar'
 Plug 'alvan/vim-closetag'
-  let g:closetag_filetypes = 'html,xhtml,phtml,javascript'
+  let g:closetag_filetypes = 'html,xhtml,phtml,javascript,typescriptreact'
 
 Plug 'kchmck/vim-coffee-script'
 
@@ -111,8 +111,13 @@ Plug 'mileszs/ack.vim'
   let g:ackprg = 'rg --vimgrep'
   cabbrev ack Ack
 
-" Feature: autocomplete
+" Feature: LSP
 Plug 'neovim/nvim-lspconfig'
+  nnoremap K  :lua vim.lsp.buf.hover()<cr>
+  nnoremap gd :lua vim.lsp.buf.definition()<cr>
+  nnoremap gr :lua vim.lsp.buf.references()<cr>
+
+" Feature: autocomplete
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -126,7 +131,6 @@ call plug#end()
 let g:markdown_fenced_languages = ['ruby', 'coffee', 'yaml']
 
 lua <<EOF
-  -- Setup nvim-cmp.
   local cmp = require'cmp'
   local lspkind = require('lspkind')
 
@@ -134,26 +138,19 @@ lua <<EOF
     formatting = {
       format = lspkind.cmp_format({
         with_text = true,
-          menu = ({
-            buffer = "[Buf]",
-            tags = "[Tag]",
-            nvim_lsp = "[LSP]"
-          })
+        menu = ({
+          buffer = "[Buf]",
+          tags = "[Tag]",
+          nvim_lsp = "[LSP]"
+        })
       }),
     },
     completion = {
       keyword_length = 3
     },
     mapping = {
-      -- ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-      -- ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-      -- ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-      -- ['<C-y>'] = cmp.config.disable,
-      -- ['<C-e>'] = cmp.mapping({
-      --   i = cmp.mapping.abort(),
-      --   c = cmp.mapping.close(),
-      -- }),
-      -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' })
     },
     sources = cmp.config.sources({
@@ -175,6 +172,10 @@ lua <<EOF
   require('lspconfig')['solargraph'].setup {
     capabilities = capabilities,
     settings = { solargraph = { formatting = false, diagnostics = false } }
+  }
+
+  require('lspconfig')['tsserver'].setup {
+    capabilities = capabilities
   }
 EOF
 
@@ -231,8 +232,6 @@ nnoremap <S-UP> <C-w><UP>
 nnoremap <S-Down> <C-w><Down>
 nnoremap <S-Left> <C-w><Left>
 nnoremap <S-Right> <C-w><Right>
-nnoremap ]d :tabnext<cr>
-nnoremap [d :tabprev<cr>
 nnoremap <UP> gk
 nnoremap <Down> gj
 
