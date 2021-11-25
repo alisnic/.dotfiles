@@ -91,7 +91,7 @@ Plug 'junegunn/fzf.vim'
   nnoremap <leader>f :Files<cr>
   nnoremap <leader>b :Buffers<cr>
   nnoremap <leader>m :BTags<cr>
-  nnoremap <leader>c :Tags<cr>
+  nnoremap <leader>T :Tags<cr>
   nnoremap <silent> <leader>d :call fzf#run(fzf#wrap({'source': 'find . -type d \| grep -v tmp \| grep -v .git'}))<cr>
   nnoremap <silent> <leader>p :call fzf#run(fzf#wrap(
     \ {'source': 'find ~/Work/* -type d -maxdepth 0 \| xargs basename',
@@ -116,6 +116,10 @@ Plug 'neovim/nvim-lspconfig'
   nnoremap K  :lua vim.lsp.buf.hover()<cr>
   nnoremap gd :lua vim.lsp.buf.definition()<cr>
   nnoremap gr :lua vim.lsp.buf.references()<cr>
+  nnoremap <C-LeftMouse> <LeftMouse>:lua vim.lsp.buf.definition()<cr>
+
+Plug 'gfanto/fzf-lsp.nvim'
+  nnoremap <leader>c :WorkspaceSymbol<cr>
 
 " Feature: autocomplete
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -146,7 +150,7 @@ lua <<EOF
       }),
     },
     completion = {
-      keyword_length = 3
+      keyword_length = 2
     },
     mapping = {
       ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
@@ -171,7 +175,8 @@ lua <<EOF
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   require('lspconfig')['solargraph'].setup {
     capabilities = capabilities,
-    settings = { solargraph = { formatting = false, diagnostics = false } }
+    -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#solargraph
+    settings = { solargraph = { formatting = false, diagnostics = false, useBundler = false } }
   }
 
   require('lspconfig')['tsserver'].setup {
@@ -232,6 +237,9 @@ nnoremap <S-UP> <C-w><UP>
 nnoremap <S-Down> <C-w><Down>
 nnoremap <S-Left> <C-w><Left>
 nnoremap <S-Right> <C-w><Right>
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
 nnoremap <UP> gk
 nnoremap <Down> gj
 
