@@ -23,7 +23,7 @@ precmd() {
 }
 
 export EDITOR=nvim
-export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" 2> /dev/null'
+export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" -g "!node_modules" -g "!.cache" 2> /dev/null'
 export FZF_DEFAULT_OPTS='--bind ctrl-a:select-all'
 export HOMEBREW_INSTALL_CLEANUP=true
 export KEYTIMEOUT=1
@@ -32,21 +32,13 @@ export LC_ALL="en_US.UTF-8"
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export PATH=~/.dotfiles/bin:~/Library/Python/3.9/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
-if [[ $(uname -m) == "arm64" ]]; then
-  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-  source ~/.fzf.zsh
-  export PATH="$PATH:$HOME/.rvm/bin"
-  export PATH=/opt/homebrew/bin:$PATH
-  export PATH="/opt/homebrew/opt/postgresql@10/bin:$PATH"
-  export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
-  export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
-else
-  source /usr/local/Cellar/fzf/$(ls /usr/local/Cellar/fzf)/shell/key-bindings.zsh
-  source /usr/local/opt/chruby/share/chruby/chruby.sh
-  export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
-  export PATH="/usr/local/opt/node@10/bin:$PATH"
-  chruby 2.5
-fi
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+source ~/.fzf.zsh
+export PATH="$PATH:$HOME/.rvm/bin"
+export PATH=/opt/homebrew/bin:$PATH
+export PATH="/opt/homebrew/opt/postgresql@10/bin:$PATH"
+# export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
+export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
 
 alias ls='ls -G'
 alias reload!='source ~/.zshrc'
@@ -62,11 +54,21 @@ function gentags() {
 }
 
 function j {
-	cd -P "$MARKDIR/$1"
+  cd -P "$MARKDIR/$1"
+}
+
+
+function p {
+  cd -P "$HOME/Play/$1"
 }
 
 function _completemarks {
   reply=($(ls $MARKDIR))
 }
 
+function _completeplays {
+  reply=($(ls ~/Play))
+}
+
 compctl -K _completemarks j
+compctl -K _completeplays p
