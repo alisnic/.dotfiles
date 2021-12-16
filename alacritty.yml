@@ -22,19 +22,19 @@ window:
 
 font:
   normal:
-    family: SF Mono
+    family: RobotoMono Nerd Font
     style: Regular
 
   bold:
-    family: SF Mono
-    style: Semibold
+    family: RobotoMono Nerd Font
+    style: Medium
 
   italic:
-    family: SF Mono
+    family: RobotoMono Nerd Font
     style: Italic
 
   # Point size of the font
-  size: 16
+  size: 15
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
