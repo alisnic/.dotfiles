@@ -6,19 +6,17 @@ let g:loaded_node_provider = 1
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-endwise'      " Auto-insert end statements in code
 Plug 'tpope/vim-unimpaired'   " awesome pair mappings
 Plug 'tpope/vim-sleuth'       " Detect intendation
 Plug 'google/vim-searchindex' " show number of search matches
 Plug 'RRethy/vim-illuminate'  " Highlight matches for current word under cursor
 Plug 'tomtom/tcomment_vim'    " Comment code
-Plug 'michaeljsmith/vim-indent-object'
 Plug 'altercation/vim-colors-solarized'
 Plug 'majutsushi/tagbar'
-Plug 'alvan/vim-closetag'
-  let g:closetag_filetypes = 'html,xhtml,phtml,javascript,typescriptreact'
-
-Plug 'kchmck/vim-coffee-script'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'windwp/nvim-autopairs'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'nvim-lua/plenary.nvim'
 
 " Workflow: TDD
 let g:term_split = 0
@@ -54,25 +52,11 @@ Plug 'shumphrey/fugitive-gitlab.vim'
 " Workflow: JavaScript
 Plug 'prettier/vim-prettier'
 
-" Workflow: Ruby/RoR
-Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-haml'
-Plug 'vim-ruby/vim-ruby'
-  let g:ruby_indent_assignment_style = 'variable'
-  autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
-
 " Workflow: File management
 Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-dirvish'
   let dirvish_mode = ':sort | sort ,^.*/,'
   autocmd FileType dirvish nnoremap <silent><buffer> r :silent exec "!open %"<cr>
-
-" Feature: Async code linting
-Plug 'w0rp/ale'
-  let g:ale_linters = {'ruby': ['rubocop']}
-  let g:ale_pattern_options = {'.*\.gem.*\.rb$|.*\.rubies.*\.rb$': {'ale_enabled': 0}}
-  let g:ale_ruby_rubocop_executable = "bundle"
-  let g:ale_virtualtext_cursor = 1
 
 " Feature: preserve intendation when pasting
 Plug 'sickill/vim-pasta'
@@ -110,13 +94,13 @@ command! -bang -nargs=1 -complete=file Qfilter call s:FilterQuickfixList(<bang>0
 Plug 'mileszs/ack.vim'
   let g:ackprg = 'rg --vimgrep'
   cabbrev ack Ack
+  nnoremap <leader>c :Ack<cr>
 
 " Feature: LSP
 Plug 'neovim/nvim-lspconfig'
   nnoremap K  :lua vim.lsp.buf.hover()<cr>
   nnoremap gd :lua vim.lsp.buf.definition()<cr>
   nnoremap gr :lua vim.lsp.buf.references()<cr>
-  nnoremap <C-LeftMouse> <LeftMouse>:lua vim.lsp.buf.definition()<cr>
 
 Plug 'gfanto/fzf-lsp.nvim'
   nnoremap <leader>c :WorkspaceSymbol<cr>
@@ -137,6 +121,18 @@ let g:markdown_fenced_languages = ['ruby', 'coffee', 'yaml']
 lua <<EOF
   local cmp = require'cmp'
   local lspkind = require('lspkind')
+  npairs = require('nvim-autopairs')
+  npairs.setup{}
+  npairs.add_rules(require('nvim-autopairs.rules.endwise-ruby'))
+
+  require("null-ls").setup({
+    sources = {
+      require("null-ls").builtins.diagnostics.rubocop.with({
+        command = "bundle",
+        args = { "exec", "rubocop", "-f", "json", "--stdin", "$FILENAME" }
+      })
+    }
+  })
 
   cmp.setup({
     formatting = {
@@ -158,8 +154,9 @@ lua <<EOF
       ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' })
     },
     sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
       { name = 'buffer' },
+      { name = 'nvim_lsp' }
+    }, {
       { name = 'tags' }
     })
   })
@@ -172,15 +169,34 @@ lua <<EOF
     })
   })
 
+  function dump(o)
+     if type(o) == 'table' then
+        local s = '{ '
+        for k,v in pairs(o) do
+           if type(k) ~= 'number' then k = '"'..k..'"' end
+           s = s .. '['..k..'] = ' .. dump(v) .. ','
+        end
+        return s .. '} '
+     else
+        return tostring(o)
+     end
+  end
+
+  function on_attach_callback(client, bufnr)
+    print("LSP Attached.")
+  end
+
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   require('lspconfig')['solargraph'].setup {
     capabilities = capabilities,
     -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#solargraph
-    settings = { solargraph = { formatting = false, diagnostics = false, useBundler = false } }
+    settings = { solargraph = { formatting = false, diagnostics = false, useBundler = true, folding = true } },
+    on_attach = on_attach_callback
   }
 
   require('lspconfig')['tsserver'].setup {
-    capabilities = capabilities
+    capabilities = capabilities,
+    on_attach = on_attach_callback
   }
 EOF
 
@@ -192,7 +208,8 @@ augroup alisnic
   autocmd FileType markdown syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
   " autocmd FileType markdown lua require('cmp').setup.buffer { enabled = false }
   autocmd FileType text setlocal modeline
-  autocmd FileType eruby set ft=html
+  " autocmd FileType eruby set ft=html
+  autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
 augroup END
 
 colorscheme solarized
@@ -227,7 +244,7 @@ nnoremap <silent> <esc><esc> :nohlsearch<cr><esc>
 
 set foldenable
 set foldlevelstart=99
-set foldmethod=indent " foldmethod=syntax is slow
+set foldmethod=indent
 
 set tags+=.git/tags " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 set tagcase=match
@@ -249,8 +266,5 @@ command! Focus :exe "normal! zMzv"
 " I do a lot of shift typos, these are the most common ones
 command! W w
 command! Wq wq
-command! Q q
-nnoremap Q <nop>
-nnoremap q: <nop>
 vnoremap <S-UP> <nop>
 vnoremap <S-Down> <nop>
