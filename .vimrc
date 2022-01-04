@@ -18,6 +18,9 @@ Plug 'windwp/nvim-autopairs'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'nvim-lua/plenary.nvim'
 
+" Not supported by nvim-treesitter
+Plug 'kchmck/vim-coffee-script'
+
 " Workflow: TDD
 let g:term_split = 0
 function! RunInTerminal(cmd)
@@ -116,7 +119,6 @@ Plug 'onsails/lspkind-nvim'
   set completeopt=menu,menuone,noselect
 
 call plug#end()
-let g:markdown_fenced_languages = ['ruby', 'coffee', 'yaml']
 
 lua <<EOF
   local cmp = require'cmp'
@@ -190,7 +192,7 @@ lua <<EOF
   require('lspconfig')['solargraph'].setup {
     capabilities = capabilities,
     -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#solargraph
-    settings = { solargraph = { formatting = false, diagnostics = false, useBundler = true, folding = true } },
+    settings = { solargraph = { formatting = false, diagnostics = false, useBundler = false, folding = true } },
     on_attach = on_attach_callback
   }
 
@@ -204,11 +206,7 @@ augroup alisnic
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
   autocmd FocusGained * checktime
-  autocmd FileType markdown setlocal spell
-  autocmd FileType markdown syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
-  " autocmd FileType markdown lua require('cmp').setup.buffer { enabled = false }
   autocmd FileType text setlocal modeline
-  " autocmd FileType eruby set ft=html
   autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
 augroup END
 
