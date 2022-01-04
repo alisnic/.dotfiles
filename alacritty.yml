@@ -34,7 +34,7 @@ font:
     style: Italic
 
   # Point size of the font
-  size: 15
+  size: 16
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
@@ -154,6 +154,7 @@ key_bindings:
   - { key: F,        mods: Command, chars: "\x02/"                    }
   - { key: D,        mods: Command, chars: "\x02\\"                    }
   - { key: T,        mods: Command, chars: "\x02c"                    }
+  - { key: W,        mods: Command, chars: "\x02x"                    }
   - { key: Key1,     mods: Command, chars: "\x021"                    }
   - { key: Key2,     mods: Command, chars: "\x022"                    }
   - { key: Key3,     mods: Command, chars: "\x023"                    }
