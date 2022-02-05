@@ -135,17 +135,6 @@ lua <<EOF
 
   require("trouble").setup({ icons = false, padding = false })
 
-  null_ls = require("null-ls")
-  null_ls.setup({
-    sources = {
-      null_ls.builtins.diagnostics.rubocop.with({
-        command = "bundle",
-        args = { "exec", "rubocop", "-f", "json", "--stdin", "$FILENAME" }
-      }),
-      null_ls.builtins.formatting.prettier
-    }
-  })
-
   cmp.setup({
     formatting = {
       format = lspkind.cmp_format({
@@ -194,8 +183,32 @@ lua <<EOF
      end
   end
 
+  vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
+    local bufnr = ctx['bufnr']
+
+    if err ~= nil or result == nil then
+        return
+    end
+    if not vim.api.nvim_buf_get_option(bufnr, "modified") then
+        local view = vim.fn.winsaveview()
+        vim.lsp.util.apply_text_edits(result, bufnr)
+        vim.fn.winrestview(view)
+        if bufnr == vim.api.nvim_get_current_buf() then
+            vim.api.nvim_command("noautocmd :update")
+        end
+    end
+  end
+
   function on_attach_callback(client, bufnr)
     require "lsp_signature".on_attach()
+
+    if client.resolved_capabilities.document_formatting then
+        vim.api.nvim_command [[augroup Format]]
+        vim.api.nvim_command [[autocmd! * <buffer>]]
+        vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
+        vim.api.nvim_command [[augroup END]]
+    end
+
     print("LSP Attached.")
   end
 
@@ -217,8 +230,7 @@ lua <<EOF
     on_attach = function(client, bufnr)
       client.resolved_capabilities.document_formatting = false
       client.resolved_capabilities.document_range_formatting = false
-      require "lsp_signature".on_attach()
-      print("LSP Attached.")
+      on_attach_callback(client, bufnr)
     end
   }
 
@@ -226,15 +238,25 @@ lua <<EOF
     capabilities = capabilities,
     on_attach = on_attach_callback
   }
+
+  null_ls = require("null-ls")
+  null_ls.setup({
+    on_attach = function(client)
+      on_attach_callback(client, 1)
+    end,
+    sources = {
+      null_ls.builtins.diagnostics.rubocop.with({
+        command = "bundle",
+        args = { "exec", "rubocop", "-f", "json", "--stdin", "$FILENAME" }
+      }),
+      null_ls.builtins.formatting.prettier
+    }
+  })
 EOF
 
 augroup alisnic
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
-  autocmd BufWritePre *.rs :lua vim.lsp.buf.formatting_sync()
-  autocmd BufWritePre *.prisma :lua vim.lsp.buf.formatting_sync()
-  autocmd BufWritePre *.tsx :lua vim.lsp.buf.formatting_sync()
-  autocmd BufWritePre *.ts :lua vim.lsp.buf.formatting_sync()
   autocmd FocusGained * checktime
   autocmd FileType text setlocal modeline
   autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
