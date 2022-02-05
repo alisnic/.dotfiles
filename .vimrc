@@ -72,19 +72,22 @@ Plug 'tommcdo/vim-lion'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
   function! s:switch_project(name)
+    execute 'LspStop'
     execute 'cd ~/Work/' . a:name . ' | bufdo bd | Dirvish'
   endfunction
 
   nnoremap <leader>f :Files<cr>
   nnoremap <leader>b :Buffers<cr>
-  nnoremap <leader>m :BTags<cr>
-  nnoremap <leader>T :Tags<cr>
   nnoremap <silent> <leader>d :call fzf#run(fzf#wrap({'source': 'find . -type d \| grep -v tmp \| grep -v .git'}))<cr>
   nnoremap <silent> <leader>p :call fzf#run(fzf#wrap(
     \ {'source': 'find ~/Work/* -type d -maxdepth 0 \| xargs basename',
     \  'sink': function('<sid>switch_project')}))<cr>
 
   let g:fzf_preview_window = ''
+
+Plug 'gfanto/fzf-lsp.nvim'
+  nnoremap <leader>c :WorkspaceSymbol<cr>
+  nnoremap <leader>m :DocumentSymbols<cr>
 
 " Feature: search in all files
 function! s:FilterQuickfixList(bang, pattern)
@@ -101,12 +104,15 @@ Plug 'mileszs/ack.vim'
 
 " Feature: LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'ray-x/lsp_signature.nvim'
   nnoremap K  :lua vim.lsp.buf.hover()<cr>
   nnoremap gd :lua vim.lsp.buf.definition()<cr>
+  nnoremap gD :vsplit<cr>:lua vim.lsp.buf.definition()<cr>
   nnoremap gr :lua vim.lsp.buf.references()<cr>
+  nnoremap <leader>ca :lua vim.lsp.buf.code_action()<cr>
 
-Plug 'gfanto/fzf-lsp.nvim'
-  nnoremap <leader>c :WorkspaceSymbol<cr>
+Plug 'folke/trouble.nvim'
+  nnoremap <leader>ce :TroubleToggle<cr>
 
 " Feature: autocomplete
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -127,12 +133,16 @@ lua <<EOF
   npairs.setup{}
   npairs.add_rules(require('nvim-autopairs.rules.endwise-ruby'))
 
-  require("null-ls").setup({
+  require("trouble").setup({ icons = false, padding = false })
+
+  null_ls = require("null-ls")
+  null_ls.setup({
     sources = {
-      require("null-ls").builtins.diagnostics.rubocop.with({
+      null_ls.builtins.diagnostics.rubocop.with({
         command = "bundle",
         args = { "exec", "rubocop", "-f", "json", "--stdin", "$FILENAME" }
-      })
+      }),
+      null_ls.builtins.formatting.prettier
     }
   })
 
@@ -185,6 +195,7 @@ lua <<EOF
   end
 
   function on_attach_callback(client, bufnr)
+    require "lsp_signature".on_attach()
     print("LSP Attached.")
   end
 
@@ -196,7 +207,22 @@ lua <<EOF
     on_attach = on_attach_callback
   }
 
-  require('lspconfig')['tsserver'].setup {
+  require('lspconfig').rust_analyzer.setup {
+    capabilities = capabilities,
+    on_attach = on_attach_callback
+  }
+
+  require('lspconfig').tsserver.setup {
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+      client.resolved_capabilities.document_formatting = false
+      client.resolved_capabilities.document_range_formatting = false
+      require "lsp_signature".on_attach()
+      print("LSP Attached.")
+    end
+  }
+
+  require('lspconfig').prismals.setup {
     capabilities = capabilities,
     on_attach = on_attach_callback
   }
@@ -205,6 +231,10 @@ EOF
 augroup alisnic
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
+  autocmd BufWritePre *.rs :lua vim.lsp.buf.formatting_sync()
+  autocmd BufWritePre *.prisma :lua vim.lsp.buf.formatting_sync()
+  autocmd BufWritePre *.tsx :lua vim.lsp.buf.formatting_sync()
+  autocmd BufWritePre *.ts :lua vim.lsp.buf.formatting_sync()
   autocmd FocusGained * checktime
   autocmd FileType text setlocal modeline
   autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
