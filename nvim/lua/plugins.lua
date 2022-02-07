@@ -15,7 +15,6 @@ vim.cmd([[
   augroup end
 ]])
 
-
 function on_attach_callback(client, _)
   require("lsp_signature").on_attach()
 
@@ -37,22 +36,23 @@ require('packer').startup(function(use)
   use 'google/vim-searchindex'
   use 'RRethy/vim-illuminate'
   use 'tomtom/tcomment_vim'
-  use 'kchmck/vim-coffee-script'
   use 'majutsushi/tagbar'
-  use 'windwp/nvim-autopairs'
 
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use 'windwp/nvim-autopairs'
   use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    requires = {{ 'RRethy/nvim-treesitter-endwise' }},
+    'RRethy/nvim-treesitter-endwise',
     config = function()
       require('nvim-treesitter.configs').setup {
+          highlight = { enable = true },
           endwise = {
               enable = true,
           },
       }
     end
   }
+
+  -- use 'kchmck/vim-coffee-script'
 
   use {
     'altercation/vim-colors-solarized',
@@ -194,6 +194,7 @@ require('packer').startup(function(use)
             },
             diagnostics = {
               globals = {'vim', 'hs'},
+              disable = {"lowercase-global"}
             },
             workspace = {
               library = vim.api.nvim_get_runtime_file("", true),
