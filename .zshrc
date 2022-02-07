@@ -46,6 +46,7 @@ alias be='bundle exec'
 alias sp='bin/spring'
 alias rm='trash'
 alias dc='docker-compose'
+alias k=kubectl
 
 function gentags() {
   echo "Exporting tags..."
