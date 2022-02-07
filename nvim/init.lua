@@ -56,6 +56,8 @@ util.nmap('<leader>2', '2gt')
 util.nmap('<leader>3', '3gt')
 util.nmap('<UP>', 'gk')
 util.nmap('<Down>', 'gj')
+util.nmap('<leader>.', ':e ~/.dotfiles/nvim/init.lua<cr>')
+util.nmap('<leader>,', ':e ~/.dotfiles/nvim/lua/plugins.lua<cr>')
 
 util.vmap('<S-UP>', '<nop>')
 util.vmap('<S-Down>', '<nop>')

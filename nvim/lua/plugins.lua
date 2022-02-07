@@ -39,8 +39,20 @@ require('packer').startup(function(use)
   use 'tomtom/tcomment_vim'
   use 'kchmck/vim-coffee-script'
   use 'majutsushi/tagbar'
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'windwp/nvim-autopairs'
+
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    requires = {{ 'RRethy/nvim-treesitter-endwise' }},
+    config = function()
+      require('nvim-treesitter.configs').setup {
+          endwise = {
+              enable = true,
+          },
+      }
+    end
+  }
 
   use {
     'altercation/vim-colors-solarized',
@@ -125,10 +137,19 @@ require('packer').startup(function(use)
   use {
     'folke/trouble.nvim',
     config = function ()
-      require("trouble").setup({ icons = false, padding = false })
+      require("trouble").setup({
+        icons = false,
+        padding = false,
+        auto_open = true,
+        auto_close = true
+      })
 
-      local util = require('util')
-      util.nmap('<leader>ce', ':TroubleToggle<cr>')
+      vim.cmd([[
+        augroup packer_trouble
+          autocmd!
+          autocmd FileType Trouble setlocal wrap
+        augroup end
+      ]])
     end
   }
 
@@ -216,7 +237,7 @@ require('packer').startup(function(use)
         settings = {
           yaml = {
             schemas = {
-              ["/Users/alisnic/.local/schema/k8s-1.20.2-strict/all.json"] = "*.k8s.yaml"
+              kubernetes = "/*.k8s.yaml"
             },
           },
         }
