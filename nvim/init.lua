@@ -28,10 +28,10 @@ vim.opt.smartcase=true
 vim.opt.foldenable=true
 vim.opt.foldlevelstart=99
 vim.opt.foldmethod='indent'
-vim.completeopt = { 'menu', 'menuone', 'noselect' }
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 -- set tags+=.git/tags " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
--- set tagcase=match
+vim.opt.tagcase='match'
 -- nnoremap <leader>] :exec("tabedit \| tag ".expand("<cword>"))<CR>
 
 vim.cmd([[
@@ -59,9 +59,9 @@ util.nmap('<Down>', 'gj')
 
 util.vmap('<S-UP>', '<nop>')
 util.vmap('<S-Down>', '<nop>')
+
 vim.cmd([[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".txt"]])
 vim.cmd('command! Focus :exe "normal! zMzv"')
-
 vim.cmd("command! W w")
 vim.cmd("command! Wq wq")
 

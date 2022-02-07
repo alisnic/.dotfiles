@@ -16,7 +16,7 @@ vim.cmd([[
 ]])
 
 
-local function on_attach_callback(client, _)
+function on_attach_callback(client, _)
   require("lsp_signature").on_attach()
 
   if client.resolved_capabilities.document_formatting then
