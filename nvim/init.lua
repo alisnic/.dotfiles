@@ -28,6 +28,7 @@ vim.opt.smartcase=true
 vim.opt.foldenable=true
 vim.opt.foldlevelstart=99
 vim.opt.foldmethod='indent'
+vim.completeopt = { 'menu', 'menuone', 'noselect' }
 
 -- set tags+=.git/tags " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 -- set tagcase=match
@@ -43,33 +44,26 @@ vim.cmd([[
   augroup END
 ]])
 
-local function nmap(key, cmd)
-  vim.api.nvim_set_keymap('n', key, cmd, { noremap = true })
-end
-
-local function vmap(key, cmd)
-  vim.api.nvim_set_keymap('v', key, cmd, { noremap = true })
-end
-
 vim.api.nvim_set_keymap('n', '<esc><esc>', ':nohlsearch<cr><esc>', { noremap = true, silent = true })
-nmap('<S-UP>', '<C-w><UP>')
-nmap('<S-Down>', '<C-w><Down>')
-nmap('<S-Left>', '<C-w><Left>')
-nmap('<S-Right>', '<C-w><Right>')
-nmap('<leader>1', '1gt')
-nmap('<leader>2', '2gt')
-nmap('<leader>3', '3gt')
-nmap('<UP>', 'gk')
-nmap('<Down>', 'gj')
 
-vmap('<S-UP>', '<nop>')
-vmap('<S-Down>', '<nop>')
---
--- command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".txt"
--- command! Focus :exe "normal! zMzv"
+local util = require('util')
+util.nmap('<S-UP>', '<C-w><UP>')
+util.nmap('<S-Down>', '<C-w><Down>')
+util.nmap('<S-Left>', '<C-w><Left>')
+util.nmap('<S-Right>', '<C-w><Right>')
+util.nmap('<leader>1', '1gt')
+util.nmap('<leader>2', '2gt')
+util.nmap('<leader>3', '3gt')
+util.nmap('<UP>', 'gk')
+util.nmap('<Down>', 'gj')
 
--- command! W w
--- command! Wq wq
+util.vmap('<S-UP>', '<nop>')
+util.vmap('<S-Down>', '<nop>')
+vim.cmd([[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".txt"]])
+vim.cmd('command! Focus :exe "normal! zMzv"')
+
+vim.cmd("command! W w")
+vim.cmd("command! Wq wq")
 
 vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
   local bufnr = ctx['bufnr']

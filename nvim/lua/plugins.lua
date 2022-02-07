@@ -79,6 +79,60 @@ require('packer').startup(function(use)
   }
 
   use {
+    'junegunn/fzf.vim',
+    requires = {{ '/usr/local/opt/fzf' }},
+    config = function()
+      vim.g.fzf_preview_window = ''
+
+      local util = require('util')
+      util.nmap('<leader>f', ':Files<cr>')
+      util.nmap('<leader>b', ':Buffers<cr>')
+    end
+  }
+
+  use {
+    'gfanto/fzf-lsp.nvim',
+    config = function()
+      local util = require('util')
+      util.nmap('<leader>c', ':WorkspaceSymbol<cr>')
+      util.nmap('<leader>m', ':DocumentSymbols<cr>')
+    end
+  }
+
+  use {
+    'mileszs/ack.vim',
+    config = function()
+      vim.g.ackprg = 'rg --vimgrep'
+      vim.cmd('cabbrev ack Ack')
+
+      local util = require('util')
+      util.nmap('<leader>c', ':Ack<cr>')
+    end
+  }
+
+  use {
+    'ray-x/lsp_signature.nvim',
+    config = function ()
+      local util = require('util')
+      util.nmap('K',  ':lua vim.lsp.buf.hover()<cr>')
+      util.nmap('gd', ':lua vim.lsp.buf.definition()<cr>')
+      util.nmap('gD', ':vsplit<cr>:lua vim.lsp.buf.definition()<cr>')
+      util.nmap('gr', ':lua vim.lsp.buf.references()<cr>')
+      util.nmap('<leader>ca', ':lua vim.lsp.buf.code_action()<cr>')
+    end
+  }
+
+  use {
+    'folke/trouble.nvim',
+    config = function ()
+      require("trouble").setup({ icons = false, padding = false })
+
+      local util = require('util')
+      util.nmap('<leader>ce', ':TroubleToggle<cr>')
+    end
+  }
+
+  use {
     'jose-elias-alvarez/null-ls.nvim',
     requires = {{ 'nvim-lua/plenary.nvim' }},
     config = function()
@@ -95,13 +149,6 @@ require('packer').startup(function(use)
           null_ls.builtins.formatting.prettier
         }
       })
-    end
-  }
-
-  use {
-    'folke/trouble.nvim',
-    config = function ()
-      require("trouble").setup({ icons = false, padding = false })
     end
   }
 
