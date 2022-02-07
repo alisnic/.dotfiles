@@ -50,6 +50,34 @@ require('packer').startup(function(use)
     end
   }
 
+  use 'tpope/vim-eunuch'
+  use {
+    'justinmk/vim-dirvish',
+    config = function()
+      vim.cmd([[
+        let dirvish_mode = ':sort | sort ,^.*/,'
+
+        augroup dirvish
+          autocmd FileType dirvish nnoremap <silent><buffer> r :silent exec "!open %"<cr>
+        augroup END
+      ]])
+    end
+  }
+
+  use {
+    'sickill/vim-pasta',
+    config = function()
+      vim.g.pasta_disabled_filetypes = {'coffee', 'yaml', 'haml'}
+    end
+  }
+
+  use {
+    'tommcdo/vim-lion',
+    config = function ()
+      vim.g.lion_squeeze_spaces = 1
+    end
+  }
+
   use {
     'jose-elias-alvarez/null-ls.nvim',
     requires = {{ 'nvim-lua/plenary.nvim' }},
