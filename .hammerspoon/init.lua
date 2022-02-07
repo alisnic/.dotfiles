@@ -6,7 +6,7 @@
 -- hs.hotkey.bind({"cmd", "alt"}, "down", function() WindowResizer.moveWindowDown() end)
 -- hs.hotkey.bind({"cmd", "alt"}, "t", function() WindowResizer.maximizeWindow() end)
 
-function focusApp(applicationName)
+local function focusApp(applicationName)
   if hs.application.frontmostApplication():name() ~= applicationName then
     hs.application.launchOrFocus(applicationName)
   else
