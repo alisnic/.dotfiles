@@ -56,29 +56,37 @@ require('packer').startup(function(use)
   use {
     'tpope/vim-projectionist',
     config = function()
-      -- TODO: migrate to lua
-      vim.cmd([[
-        let g:term_split = 0
-        function! RunInTerminal(cmd)
-          if has("nvim")
-            if g:term_split
-              exec("vsplit \| term " . a:cmd)
-            else
-              exec("tabedit \| term " . a:cmd)
-            endif
-
-            startinsert
-          else
-            exec("tab terminal " . a:cmd)
-          endif
-        endfunction
-      ]])
+      vim.g.term_split = 0
 
       local util = require('util')
+      local function runInTerminal(cmd)
+        if vim.g.term_split == 1 then
+          vim.cmd("vsplit | term " .. cmd)
+        else
+          vim.cmd("tabedit | term " .. cmd)
+        end
+
+        vim.cmd("startinsert")
+      end
+
       util.nmap('<leader>a', ':A<cr>')
-      util.nmap('<leader>t', ':call RunInTerminal(&makeprg)<cr>')
-      util.nmap('<leader>l', [[:call RunInTerminal(&makeprg . ":" . line('.'))<cr>]])
-      util.nmap('<leader>r', ':call RunInTerminal(&makeprg . " --only-failures --fail-fast")<cr>')
+
+      util.nmap_func('<leader>t', function()
+        local prg = vim.api.nvim_buf_get_option(0, 'makeprg')
+        runInTerminal(prg)
+      end)
+
+      util.nmap_func('<leader>r', function()
+        local prg = vim.api.nvim_buf_get_option(0, 'makeprg')
+        runInTerminal(prg .. " --only-failures --fail-fast")
+      end)
+
+      util.nmap_func('<leader>l', function()
+        local prg  = vim.api.nvim_buf_get_option(0, 'makeprg')
+        local line = vim.api.nvim_win_get_cursor(0)[1]
+
+        runInTerminal(prg .. ":" .. line)
+      end)
     end
   }
 
@@ -168,8 +176,7 @@ require('packer').startup(function(use)
       require("trouble").setup({
         icons = false,
         padding = false,
-        auto_open = true,
-        auto_close = true
+        auto_open = true
       })
 
       vim.cmd([[
@@ -186,6 +193,7 @@ require('packer').startup(function(use)
     requires = {{ 'nvim-lua/plenary.nvim' }},
     config = function()
       local null_ls = require("null-ls")
+
       null_ls.setup({
         on_attach = function(client)
           on_attach_callback(client, 1)
@@ -208,12 +216,23 @@ require('packer').startup(function(use)
         vim.lsp.protocol.make_client_capabilities()
       )
 
+      local servers = { 'rust_analyzer', 'prismals' }
+      for _, lsp in pairs(servers) do
+        require('lspconfig')[lsp].setup {
+          capabilities = capabilities,
+          on_attach = on_attach_callback
+        }
+      end
+
       local runtime_path = vim.split(package.path, ';')
       table.insert(runtime_path, "lua/?.lua")
       table.insert(runtime_path, "lua/?/init.lua")
 
-      require'lspconfig'.sumneko_lua.setup {
+      require('lspconfig').sumneko_lua.setup {
         capabilities = capabilities,
+        flags = {
+          debounce_text_changes = 200,
+        },
         settings = {
           Lua = {
             runtime = {
@@ -241,11 +260,6 @@ require('packer').startup(function(use)
         on_attach = on_attach_callback
       }
 
-      require('lspconfig').rust_analyzer.setup {
-        capabilities = capabilities,
-        on_attach = on_attach_callback
-      }
-
       require('lspconfig').tsserver.setup {
         capabilities = capabilities,
         on_attach = function(client, bufnr)
@@ -253,11 +267,6 @@ require('packer').startup(function(use)
           client.resolved_capabilities.document_range_formatting = false
           on_attach_callback(client, bufnr)
         end
-      }
-
-      require('lspconfig').prismals.setup {
-        capabilities = capabilities,
-        on_attach = on_attach_callback
       }
 
       require('lspconfig').yamlls.setup {
