@@ -37,9 +37,10 @@ require('packer').startup(function(use)
   use 'RRethy/vim-illuminate'
   use 'tomtom/tcomment_vim'
   use 'majutsushi/tagbar'
+  use 'windwp/nvim-autopairs'
+  use 'tpope/vim-fugitive'
 
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use 'windwp/nvim-autopairs'
   use {
     'RRethy/nvim-treesitter-endwise',
     config = function()
@@ -52,7 +53,34 @@ require('packer').startup(function(use)
     end
   }
 
-  -- use 'kchmck/vim-coffee-script'
+  use {
+    'tpope/vim-projectionist',
+    config = function()
+      -- TODO: migrate to lua
+      vim.cmd([[
+        let g:term_split = 0
+        function! RunInTerminal(cmd)
+          if has("nvim")
+            if g:term_split
+              exec("vsplit \| term " . a:cmd)
+            else
+              exec("tabedit \| term " . a:cmd)
+            endif
+
+            startinsert
+          else
+            exec("tab terminal " . a:cmd)
+          endif
+        endfunction
+      ]])
+
+      local util = require('util')
+      util.nmap('<leader>a', ':A<cr>')
+      util.nmap('<leader>t', ':call RunInTerminal(&makeprg)<cr>')
+      util.nmap('<leader>l', [[:call RunInTerminal(&makeprg . ":" . line('.'))<cr>]])
+      util.nmap('<leader>r', ':call RunInTerminal(&makeprg . " --only-failures --fail-fast")<cr>')
+    end
+  }
 
   use {
     'altercation/vim-colors-solarized',
