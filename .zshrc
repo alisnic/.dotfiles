@@ -10,6 +10,7 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 setopt PROMPT_SUBST
+setopt auto_pushd
 setopt +o nomatch
 
 precmd() {
