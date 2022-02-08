@@ -56,11 +56,9 @@ require('packer').startup(function(use)
   use {
     'tpope/vim-projectionist',
     config = function()
-      vim.g.term_split = 0
-
       local util = require('util')
       local function runInTerminal(cmd)
-        if vim.g.term_split == 1 then
+        if vim.api.nvim_win_get_width(0) > 150 then
           vim.cmd("vsplit | term " .. cmd)
         else
           vim.cmd("tabedit | term " .. cmd)
