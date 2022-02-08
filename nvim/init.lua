@@ -1,4 +1,29 @@
 vim.g.mapleader = " "
+
+local disabledPlugins = {
+  "netrw",
+  "netrwPlugin",
+  "netrwSettings",
+  "netrwFileHandlers",
+  "gzip",
+  "zip",
+  "zipPlugin",
+  "tar",
+  "tarPlugin",
+  "getscript",
+  "getscriptPlugin",
+  "vimball",
+  "vimballPlugin",
+  "2html_plugin",
+  "logipat",
+  "rrhelper",
+  "spellfile_plugin",
+}
+
+for _, plugin in pairs(disabledPlugins) do
+  vim.g["loaded_" .. plugin] = 1
+end
+
 require('plugins')
 
 vim.opt.title=true
@@ -30,7 +55,7 @@ vim.opt.foldlevelstart=99
 vim.opt.foldmethod='indent'
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
--- set tags+=.git/tags " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
+vim.opt.tags:append({ ".git/tags" }) -- " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 vim.opt.tagcase='match'
 -- nnoremap <leader>] :exec("tabedit \| tag ".expand("<cword>"))<CR>
 
