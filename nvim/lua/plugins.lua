@@ -104,6 +104,7 @@ require('packer').startup(function(use)
         let dirvish_mode = ':sort | sort ,^.*/,'
 
         augroup dirvish
+          autocmd!
           autocmd FileType dirvish nnoremap <silent><buffer> r :silent exec "!open %"<cr>
         augroup END
       ]])
@@ -133,6 +134,7 @@ require('packer').startup(function(use)
       local util = require('util')
       util.nmap('<leader>f', ':Files<cr>')
       util.nmap('<leader>b', ':Buffers<cr>')
+      util.nmap('<leader>d', [[:call fzf#run(fzf#wrap({'source': "git ls-files | xargs -n 1 dirname | sort | uniq"}))<cr>]])
     end
   }
 
@@ -197,10 +199,10 @@ require('packer').startup(function(use)
           on_attach_callback(client, 1)
         end,
         sources = {
-          null_ls.builtins.diagnostics.rubocop.with({
-            command = "bundle",
-            args = { "exec", "rubocop", "-f", "json", "--stdin", "$FILENAME" }
-          }),
+          -- null_ls.builtins.diagnostics.rubocop.with({
+          --   command = "bundle",
+          --   args = { "exec", "rubocop", "-f", "json", "--stdin", "$FILENAME" }
+          -- }),
           null_ls.builtins.formatting.prettier
         }
       })
@@ -255,7 +257,11 @@ require('packer').startup(function(use)
         capabilities = capabilities,
         -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#solargraph
         settings = { solargraph = { formatting = false, diagnostics = false, useBundler = false, folding = true } },
-        on_attach = on_attach_callback
+        on_attach = function(client, bufnr)
+          client.resolved_capabilities.document_formatting = false
+          client.resolved_capabilities.document_range_formatting = false
+          on_attach_callback(client, bufnr)
+        end
       }
 
       require('lspconfig').tsserver.setup {
@@ -320,6 +326,12 @@ require('packer').startup(function(use)
         }, {
           { name = 'tags' }
         })
+      })
+
+      cmp.setup.cmdline('/', {
+        sources = {
+          { name = 'buffer' }
+        }
       })
 
       cmp.setup.cmdline(':', {
