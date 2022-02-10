@@ -7,7 +7,7 @@ for i = 65,  90 do table.insert(charset, string.char(i)) end
 for i = 97, 122 do table.insert(charset, string.char(i)) end
 
 function M.randomString(length)
-  math.randomseed(os.time())
+  math.randomseed(os.clock()^5)
 
   if length > 0 then
     return M.randomString(length - 1) .. charset[math.random(1, #charset)]
