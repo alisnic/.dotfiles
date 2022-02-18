@@ -31,7 +31,7 @@ export KEYTIMEOUT=1
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
-export PATH=~/.dotfiles/bin:~/Library/Python/3.9/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=~/.dotfiles/bin:~/Library/Python/3.9/bin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/sbin:$PATH
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 source ~/.fzf.zsh
@@ -40,6 +40,8 @@ export PATH=/opt/homebrew/bin:$PATH
 export PATH="/opt/homebrew/opt/postgresql@10/bin:$PATH"
 # export PATH="/opt/homebrew/opt/node@12/bin:$PATH"
 export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
+export MANPAGER='nvim +Man!'
+export MANWIDTH=999
 
 alias ls='ls -G'
 alias reload!='source ~/.zshrc'
@@ -48,6 +50,7 @@ alias sp='bin/spring'
 alias rm='trash'
 alias dc='docker-compose'
 alias k=kubectl
+alias vagrant=~/Play/vagrant/exec/vagrant
 
 function gentags() {
   echo "Exporting tags..."
