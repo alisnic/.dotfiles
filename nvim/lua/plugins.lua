@@ -39,6 +39,7 @@ require('packer').startup(function(use)
   use 'majutsushi/tagbar'
   use 'windwp/nvim-autopairs'
   use 'tpope/vim-fugitive'
+  use 'tpope/vim-rhubarb'
 
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use {
@@ -93,6 +94,7 @@ require('packer').startup(function(use)
     config = function()
       vim.cmd('colorscheme solarized')
       vim.opt.background = 'light'
+      vim.cmd('hi clear SignColumn')
     end
   }
 
@@ -176,7 +178,7 @@ require('packer').startup(function(use)
       require("trouble").setup({
         icons = false,
         padding = false,
-        auto_open = true
+        auto_open = false
       })
 
       vim.cmd([[
@@ -210,11 +212,34 @@ require('packer').startup(function(use)
   }
 
   use {
+    'nvim-lualine/lualine.nvim',
+    config = function()
+      require('lualine').setup({
+        options = { theme = "solarized_light" },
+        sections = {
+          lualine_a = {'mode'},
+          lualine_b = {'branch', 'diagnostics'},
+          lualine_c = {'filename'},
+          lualine_x = {},
+          lualine_y = {'progress'},
+          lualine_z = {'location'}
+        }
+      })
+    end
+  }
+
+  use {
     'neovim/nvim-lspconfig',
     config = function()
       local capabilities = require('cmp_nvim_lsp').update_capabilities(
         vim.lsp.protocol.make_client_capabilities()
       )
+
+      local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+      for type, icon in pairs(signs) do
+        local hl = "DiagnosticSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+      end
 
       local servers = { 'rust_analyzer', 'prismals' }
       for _, lsp in pairs(servers) do
@@ -295,13 +320,19 @@ require('packer').startup(function(use)
       { 'hrsh7th/cmp-buffer' },
       { 'hrsh7th/cmp-path' },
       { 'hrsh7th/cmp-cmdline' },
-      { 'quangnguyen30192/cmp-nvim-tags' }
+      { 'quangnguyen30192/cmp-nvim-tags' },
+      { 'dcampos/nvim-snippy' }
     },
     config = function ()
       local cmp = require'cmp'
       local lspkind = require('lspkind')
 
       cmp.setup({
+        snippet = {
+          expand = function(args)
+            require'snippy'.expand_snippet(args.body)
+          end,
+        },
         formatting = {
           format = lspkind.cmp_format({
             with_text = true,
