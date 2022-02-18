@@ -1,10 +1,10 @@
 vim.g.mapleader = " "
 
 local disabledPlugins = {
-  "netrw",
-  "netrwPlugin",
-  "netrwSettings",
-  "netrwFileHandlers",
+  -- "netrw",
+  -- "netrwPlugin",
+  -- "netrwSettings",
+  -- "netrwFileHandlers",
   "gzip",
   "zip",
   "zipPlugin",
