@@ -47,8 +47,25 @@ require("packer").startup(function(use)
   use("windwp/nvim-autopairs")
   use("tpope/vim-fugitive")
   use("tpope/vim-rhubarb")
-
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+  use({ "kevinhwang91/nvim-bqf", ft = "qf" })
+
+  use({
+    "altercation/vim-colors-solarized",
+    config = function()
+      vim.cmd("colorscheme solarized")
+      vim.opt.background = "light"
+      vim.cmd("hi clear SignColumn")
+    end,
+  })
+
+  use({
+    "hoschi/yode-nvim",
+    config = function()
+      require("yode-nvim").setup({})
+    end,
+  })
+
   use({
     "RRethy/nvim-treesitter-endwise",
     config = function()
@@ -93,15 +110,6 @@ require("packer").startup(function(use)
 
         runInTerminal(prg .. ":" .. line)
       end)
-    end,
-  })
-
-  use({
-    "altercation/vim-colors-solarized",
-    config = function()
-      vim.cmd("colorscheme solarized")
-      vim.opt.background = "light"
-      vim.cmd("hi clear SignColumn")
     end,
   })
 
@@ -163,10 +171,7 @@ require("packer").startup(function(use)
     "mileszs/ack.vim",
     config = function()
       vim.g.ackprg = "rg --vimgrep"
-      vim.cmd("cabbrev ack Ack")
-
-      local util = require("util")
-      util.nmap("<leader>c", ":Ack<cr>")
+      vim.cmd("cabbrev ack Ack!")
     end,
   })
 
@@ -211,11 +216,9 @@ require("packer").startup(function(use)
           on_attach_callback(client, 1)
         end,
         sources = {
-          -- null_ls.builtins.diagnostics.rubocop.with({
-          --   command = "bundle",
-          --   args = { "exec", "rubocop", "-f", "json", "--stdin", "$FILENAME" }
-          -- }),
-          null_ls.builtins.formatting.prettier,
+          null_ls.builtins.formatting.prettier.with({
+            filetypes = { "ruby" },
+          }),
           null_ls.builtins.formatting.stylua.with({
             extra_args = { "--config-path", vim.fn.expand("~/.config/stylua.toml") },
           }),
@@ -287,6 +290,11 @@ require("packer").startup(function(use)
             },
           },
         },
+        on_attach = function(client, bufnr)
+          client.resolved_capabilities.document_formatting = false
+          client.resolved_capabilities.document_range_formatting = false
+          on_attach_callback(client, bufnr)
+        end,
       })
 
       require("lspconfig")["solargraph"].setup({
@@ -326,6 +334,20 @@ require("packer").startup(function(use)
   })
 
   use({
+    "dcampos/nvim-snippy",
+    config = function()
+      require("snippy").setup({
+        mappings = {
+          is = {
+            ["<Tab>"] = "expand_or_advance",
+            ["<S-Tab>"] = "previous",
+          },
+        },
+      })
+    end,
+  })
+
+  use({
     "hrsh7th/nvim-cmp",
     requires = {
       { "onsails/lspkind-nvim" },
@@ -334,7 +356,6 @@ require("packer").startup(function(use)
       { "hrsh7th/cmp-path" },
       { "hrsh7th/cmp-cmdline" },
       { "quangnguyen30192/cmp-nvim-tags" },
-      { "dcampos/nvim-snippy" },
     },
     config = function()
       local cmp = require("cmp")
@@ -363,6 +384,7 @@ require("packer").startup(function(use)
           ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
           ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
           ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
         },
         sources = cmp.config.sources({
           { name = "buffer" },

@@ -72,9 +72,6 @@ util.nmap("<S-UP>", "<C-w><UP>")
 util.nmap("<S-Down>", "<C-w><Down>")
 util.nmap("<S-Left>", "<C-w><Left>")
 util.nmap("<S-Right>", "<C-w><Right>")
-util.nmap("<leader>1", "1gt")
-util.nmap("<leader>2", "2gt")
-util.nmap("<leader>3", "3gt")
 util.nmap("<UP>", "gk")
 util.nmap("<Down>", "gj")
 util.nmap("<leader>.", ":e ~/.dotfiles/nvim/init.lua<cr>")
@@ -94,6 +91,7 @@ vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
   if err ~= nil or result == nil then
     return
   end
+
   if not vim.api.nvim_buf_get_option(bufnr, "modified") then
     local view = vim.fn.winsaveview()
     vim.lsp.util.apply_text_edits(result, bufnr)
