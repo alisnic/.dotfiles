@@ -1,87 +1,87 @@
 local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 local packer_bootstrap = false
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({
+  packer_bootstrap = fn.system {
     "git",
     "clone",
     "--depth",
     "1",
     "https://github.com/wbthomason/packer.nvim",
     install_path,
-  })
+  }
 end
 
 -- Load packer.nvim
-vim.cmd("packadd packer.nvim")
-vim.cmd([[
+vim.cmd "packadd packer.nvim"
+vim.cmd [[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
-]])
+]]
 
 function on_attach_callback(client, _)
   require("lsp_signature").on_attach()
 
   if client.resolved_capabilities.document_formatting then
-    vim.api.nvim_command([[augroup Format]])
-    vim.api.nvim_command([[autocmd! * <buffer>]])
-    vim.api.nvim_command([[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]])
-    vim.api.nvim_command([[augroup END]])
+    vim.api.nvim_command [[augroup Format]]
+    vim.api.nvim_command [[autocmd! * <buffer>]]
+    vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
+    vim.api.nvim_command [[augroup END]]
   end
 
-  print("LSP Attached.")
+  print "LSP Attached."
 end
 
 require("packer").startup(function(use)
-  use("wbthomason/packer.nvim")
-  use("tpope/vim-sensible")
-  use("tpope/vim-unimpaired")
-  use("tpope/vim-sleuth")
-  use("google/vim-searchindex")
-  use("RRethy/vim-illuminate")
-  use("tomtom/tcomment_vim")
-  use("majutsushi/tagbar")
-  use("windwp/nvim-autopairs")
-  use("tpope/vim-fugitive")
-  use("tpope/vim-rhubarb")
-  use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-  use({ "kevinhwang91/nvim-bqf", ft = "qf" })
+  use "wbthomason/packer.nvim"
+  use "tpope/vim-sensible"
+  use "tpope/vim-unimpaired"
+  use "tpope/vim-sleuth"
+  use "google/vim-searchindex"
+  use "RRethy/vim-illuminate"
+  use "tomtom/tcomment_vim"
+  use "majutsushi/tagbar"
+  use "windwp/nvim-autopairs"
+  use "tpope/vim-fugitive"
+  use "tpope/vim-rhubarb"
+  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+  use { "kevinhwang91/nvim-bqf", ft = "qf" }
 
-  use({
+  use {
     "altercation/vim-colors-solarized",
     config = function()
-      vim.cmd("colorscheme solarized")
+      vim.cmd "colorscheme solarized"
       vim.opt.background = "light"
-      vim.cmd("hi clear SignColumn")
+      vim.cmd "hi clear SignColumn"
     end,
-  })
+  }
 
-  use({
+  use {
     "hoschi/yode-nvim",
     config = function()
-      require("yode-nvim").setup({})
+      require("yode-nvim").setup {}
     end,
-  })
+  }
 
-  use({
+  use {
     "RRethy/nvim-treesitter-endwise",
     config = function()
-      require("nvim-treesitter.configs").setup({
+      require("nvim-treesitter.configs").setup {
         highlight = { enable = true },
         endwise = {
           enable = true,
         },
-      })
+      }
     end,
-  })
+  }
 
-  use({
+  use {
     "tpope/vim-projectionist",
     config = function()
-      local util = require("util")
+      local util = require "util"
       local function runInTerminal(cmd)
         if vim.api.nvim_win_get_width(0) > 150 then
           vim.cmd("vsplit | term " .. cmd)
@@ -89,7 +89,7 @@ require("packer").startup(function(use)
           vim.cmd("tabedit | term " .. cmd)
         end
 
-        vim.cmd("startinsert")
+        vim.cmd "startinsert"
       end
 
       util.nmap("<leader>a", ":A<cr>")
@@ -111,44 +111,44 @@ require("packer").startup(function(use)
         runInTerminal(prg .. ":" .. line)
       end)
     end,
-  })
+  }
 
-  use("tpope/vim-eunuch")
-  use({
+  use "tpope/vim-eunuch"
+  use {
     "justinmk/vim-dirvish",
     config = function()
-      vim.cmd([[
+      vim.cmd [[
         let dirvish_mode = ':sort | sort ,^.*/,'
 
         augroup dirvish
           autocmd!
           autocmd FileType dirvish nnoremap <silent><buffer> r :silent exec "!open %"<cr>
         augroup END
-      ]])
+      ]]
     end,
-  })
+  }
 
-  use({
+  use {
     "sickill/vim-pasta",
     config = function()
       vim.g.pasta_disabled_filetypes = { "coffee", "yaml", "haml" }
     end,
-  })
+  }
 
-  use({
+  use {
     "tommcdo/vim-lion",
     config = function()
       vim.g.lion_squeeze_spaces = 1
     end,
-  })
+  }
 
-  use({
+  use {
     "junegunn/fzf.vim",
     requires = { { "/usr/local/opt/fzf" } },
     config = function()
       vim.g.fzf_preview_window = ""
 
-      local util = require("util")
+      local util = require "util"
       util.nmap("<leader>f", ":Files<cr>")
       util.nmap("<leader>b", ":Buffers<cr>")
       util.nmap(
@@ -156,81 +156,74 @@ require("packer").startup(function(use)
         [[:call fzf#run(fzf#wrap({'source': "git ls-files | xargs -n 1 dirname | sort | uniq"}))<cr>]]
       )
     end,
-  })
+  }
 
-  use({
+  use {
     "gfanto/fzf-lsp.nvim",
     config = function()
-      local util = require("util")
+      local util = require "util"
       util.nmap("<leader>c", ":WorkspaceSymbol<cr>")
       util.nmap("<leader>m", ":DocumentSymbols<cr>")
     end,
-  })
+  }
 
-  use({
+  use {
     "mileszs/ack.vim",
     config = function()
       vim.g.ackprg = "rg --vimgrep"
-      vim.cmd("cabbrev ack Ack!")
+      vim.cmd "cabbrev ack Ack!"
     end,
-  })
+  }
 
-  use({
-    "ray-x/lsp_signature.nvim",
-    config = function()
-      local util = require("util")
-      util.nmap("K", ":lua vim.lsp.buf.hover()<cr>")
-      util.nmap("gd", ":lua vim.lsp.buf.definition()<cr>")
-      util.nmap("gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
-      util.nmap("gr", ":lua vim.lsp.buf.references()<cr>")
-      util.nmap("<leader>ca", ":lua vim.lsp.buf.code_action()<cr>")
-    end,
-  })
-
-  use({
+  use {
     "folke/trouble.nvim",
     config = function()
-      require("trouble").setup({
+      require("trouble").setup {
         icons = false,
         padding = false,
         auto_open = false,
-      })
+      }
 
-      vim.cmd([[
+      vim.cmd [[
         augroup packer_trouble
           autocmd!
           autocmd FileType Trouble setlocal wrap
         augroup end
-      ]])
+      ]]
     end,
-  })
+  }
 
-  use({
+  use {
     "jose-elias-alvarez/null-ls.nvim",
-    requires = { { "nvim-lua/plenary.nvim" } },
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+    },
     config = function()
-      local null_ls = require("null-ls")
+      local null_ls = require "null-ls"
 
-      null_ls.setup({
+      null_ls.setup {
         on_attach = function(client)
           on_attach_callback(client, 1)
         end,
         sources = {
-          null_ls.builtins.formatting.prettier.with({
+          null_ls.builtins.formatting.prettier.with {
             filetypes = { "ruby" },
-          }),
-          null_ls.builtins.formatting.stylua.with({
-            extra_args = { "--config-path", vim.fn.expand("~/.config/stylua.toml") },
-          }),
+          },
+          null_ls.builtins.formatting.stylua.with {
+            extra_args = {
+              "--config-path",
+              vim.fn.expand "~/.config/stylua.toml",
+            },
+          },
         },
-      })
+      }
     end,
-  })
+  }
 
-  use({
+  use {
     "nvim-lualine/lualine.nvim",
     config = function()
-      require("lualine").setup({
+      require("lualine").setup {
         options = { theme = "solarized_light" },
         sections = {
           lualine_a = { "mode" },
@@ -240,16 +233,34 @@ require("packer").startup(function(use)
           lualine_y = { "progress" },
           lualine_z = { "location" },
         },
-      })
+      }
     end,
-  })
+  }
 
-  use({
+  use {
     "neovim/nvim-lspconfig",
+    requires = {
+      { "ray-x/lsp_signature.nvim" },
+    },
     config = function()
-      local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+      local util = require "util"
+      util.nmap("K", ":lua vim.lsp.buf.hover()<cr>")
+      util.nmap("gd", ":lua vim.lsp.buf.definition()<cr>")
+      util.nmap("gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
+      util.nmap("gr", ":lua vim.lsp.buf.references()<cr>")
+      util.nmap("<leader>ca", ":lua vim.lsp.buf.code_action()<cr>")
 
-      local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+      local capabilities = require("cmp_nvim_lsp").update_capabilities(
+        vim.lsp.protocol.make_client_capabilities()
+      )
+
+      local signs = {
+        Error = " ",
+        Warn = " ",
+        Hint = " ",
+        Info = " ",
+      }
+
       for type, icon in pairs(signs) do
         local hl = "DiagnosticSign" .. type
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -257,17 +268,17 @@ require("packer").startup(function(use)
 
       local servers = { "rust_analyzer", "prismals" }
       for _, lsp in pairs(servers) do
-        require("lspconfig")[lsp].setup({
+        require("lspconfig")[lsp].setup {
           capabilities = capabilities,
           on_attach = on_attach_callback,
-        })
+        }
       end
 
       local runtime_path = vim.split(package.path, ";")
       table.insert(runtime_path, "lua/?.lua")
       table.insert(runtime_path, "lua/?/init.lua")
 
-      require("lspconfig").sumneko_lua.setup({
+      require("lspconfig").sumneko_lua.setup {
         capabilities = capabilities,
         flags = {
           debounce_text_changes = 200,
@@ -295,31 +306,36 @@ require("packer").startup(function(use)
           client.resolved_capabilities.document_range_formatting = false
           on_attach_callback(client, bufnr)
         end,
-      })
+      }
 
-      require("lspconfig")["solargraph"].setup({
+      require("lspconfig")["solargraph"].setup {
         capabilities = capabilities,
         -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#solargraph
         settings = {
-          solargraph = { formatting = false, diagnostics = false, useBundler = false, folding = true },
+          solargraph = {
+            formatting = false,
+            diagnostics = false,
+            useBundler = false,
+            folding = true,
+          },
         },
         on_attach = function(client, bufnr)
           client.resolved_capabilities.document_formatting = false
           client.resolved_capabilities.document_range_formatting = false
           on_attach_callback(client, bufnr)
         end,
-      })
+      }
 
-      require("lspconfig").tsserver.setup({
+      require("lspconfig").tsserver.setup {
         capabilities = capabilities,
         on_attach = function(client, bufnr)
           client.resolved_capabilities.document_formatting = false
           client.resolved_capabilities.document_range_formatting = false
           on_attach_callback(client, bufnr)
         end,
-      })
+      }
 
-      require("lspconfig").yamlls.setup({
+      require("lspconfig").yamlls.setup {
         capabilities = capabilities,
         on_attach = on_attach_callback,
         settings = {
@@ -329,25 +345,41 @@ require("packer").startup(function(use)
             },
           },
         },
-      })
+      }
     end,
-  })
+  }
 
-  use({
+  use {
     "dcampos/nvim-snippy",
     config = function()
-      require("snippy").setup({
+      require("snippy").setup {
         mappings = {
           is = {
             ["<Tab>"] = "expand_or_advance",
             ["<S-Tab>"] = "previous",
           },
         },
-      })
+      }
     end,
-  })
+  }
 
-  use({
+  use {
+    "mfussenegger/nvim-dap",
+    requires = {
+      { "suketa/nvim-dap-ruby" },
+    },
+    config = function()
+      local util = require "util"
+
+      util.nmap_func("<leader>B", function()
+        require("dap").toggle_breakpoint()
+      end)
+
+      require("dap-ruby").setup()
+    end,
+  }
+
+  use {
     "hrsh7th/nvim-cmp",
     requires = {
       { "onsails/lspkind-nvim" },
@@ -358,24 +390,24 @@ require("packer").startup(function(use)
       { "quangnguyen30192/cmp-nvim-tags" },
     },
     config = function()
-      local cmp = require("cmp")
-      local lspkind = require("lspkind")
+      local cmp = require "cmp"
+      local lspkind = require "lspkind"
 
-      cmp.setup({
+      cmp.setup {
         snippet = {
           expand = function(args)
             require("snippy").expand_snippet(args.body)
           end,
         },
         formatting = {
-          format = lspkind.cmp_format({
+          format = lspkind.cmp_format {
             with_text = true,
             menu = {
               buffer = "[Buf]",
               tags = "[Tag]",
               nvim_lsp = "[LSP]",
             },
-          }),
+          },
         },
         completion = {
           keyword_length = 2,
@@ -384,7 +416,7 @@ require("packer").startup(function(use)
           ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
           ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
           ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          ["<CR>"] = cmp.mapping.confirm { select = true },
         },
         sources = cmp.config.sources({
           { name = "buffer" },
@@ -392,7 +424,7 @@ require("packer").startup(function(use)
         }, {
           { name = "tags" },
         }),
-      })
+      }
 
       cmp.setup.cmdline("/", {
         sources = {
@@ -408,7 +440,7 @@ require("packer").startup(function(use)
         }),
       })
     end,
-  })
+  }
 
   if packer_bootstrap then
     require("packer").sync()
