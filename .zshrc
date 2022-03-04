@@ -21,6 +21,7 @@ precmd() {
   else
     PS1=$'\n%~ (%j)\n$ '
   fi
+  print -Pn "\e]2;%n@%M | %~\a"
 }
 
 export EDITOR=nvim
@@ -37,8 +38,6 @@ export PATH=~/.dotfiles/bin:~/Library/Python/3.9/bin:/usr/local/bin:/usr/local/s
 source ~/.fzf.zsh
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH=/opt/homebrew/bin:$PATH
-export PATH="/opt/homebrew/opt/postgresql@10/bin:$PATH"
-# export PATH="/opt/homebrew/opt/node@12/bin:$PATH"
 export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
