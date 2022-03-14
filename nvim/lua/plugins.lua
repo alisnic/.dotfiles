@@ -335,6 +335,8 @@ require("packer").startup(function(use)
         end,
       }
 
+      require("lspconfig").tailwindcss.setup {}
+
       require("lspconfig").yamlls.setup {
         capabilities = capabilities,
         on_attach = on_attach_callback,
