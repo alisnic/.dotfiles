@@ -60,13 +60,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "hoschi/yode-nvim",
-    config = function()
-      require("yode-nvim").setup {}
-    end,
-  }
-
-  use {
     "RRethy/nvim-treesitter-endwise",
     config = function()
       require("nvim-treesitter.configs").setup {
@@ -207,7 +200,7 @@ require("packer").startup(function(use)
         end,
         sources = {
           null_ls.builtins.formatting.prettier.with {
-            filetypes = { "ruby" },
+            filetypes = { "ruby", "typescript", "typescriptreact", "eruby" },
           },
           null_ls.builtins.formatting.stylua.with {
             extra_args = {
@@ -266,7 +259,7 @@ require("packer").startup(function(use)
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
       end
 
-      local servers = { "rust_analyzer", "prismals" }
+      local servers = { "rust_analyzer", "prismals", "tailwindcss" }
       for _, lsp in pairs(servers) do
         require("lspconfig")[lsp].setup {
           capabilities = capabilities,
@@ -334,8 +327,6 @@ require("packer").startup(function(use)
           on_attach_callback(client, bufnr)
         end,
       }
-
-      require("lspconfig").tailwindcss.setup {}
 
       require("lspconfig").yamlls.setup {
         capabilities = capabilities,
@@ -418,7 +409,7 @@ require("packer").startup(function(use)
           ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
           ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
           ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
-          ["<CR>"] = cmp.mapping.confirm { select = true },
+          -- ["<CR>"] = cmp.mapping.confirm { select = true },
         },
         sources = cmp.config.sources({
           { name = "buffer" },
