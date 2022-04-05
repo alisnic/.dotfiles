@@ -59,6 +59,7 @@ require("packer").startup(function(use)
     end,
   }
 
+  use { "windwp/nvim-ts-autotag" }
   use {
     "RRethy/nvim-treesitter-endwise",
     config = function()
@@ -66,6 +67,10 @@ require("packer").startup(function(use)
         highlight = { enable = true },
         endwise = {
           enable = true,
+        },
+        autotag = {
+          enable = true,
+          filetypes = { "html", "eruby" },
         },
       }
     end,
@@ -200,7 +205,12 @@ require("packer").startup(function(use)
         end,
         sources = {
           null_ls.builtins.formatting.prettier.with {
-            filetypes = { "ruby", "typescript", "typescriptreact", "eruby" },
+            filetypes = {
+              "ruby",
+              "typescript",
+              "typescriptreact",
+              "javascriptreact",
+            },
           },
           null_ls.builtins.formatting.stylua.with {
             extra_args = {
@@ -266,6 +276,22 @@ require("packer").startup(function(use)
           on_attach = on_attach_callback,
         }
       end
+
+      require("lspconfig").html.setup {
+        capabilities = capabilities,
+        filetypes = { "html", "eruby" },
+        on_attach = function(client, bufnr)
+          capabilities.textDocument.completion.completionItem.snippetSupport =
+            true
+
+          if vim.bo.filetype == "eruby" then
+            client.resolved_capabilities.document_formatting = false
+            client.resolved_capabilities.document_range_formatting = false
+          end
+
+          on_attach_callback(client, bufnr)
+        end,
+      }
 
       local runtime_path = vim.split(package.path, ";")
       table.insert(runtime_path, "lua/?.lua")
@@ -409,7 +435,7 @@ require("packer").startup(function(use)
           ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
           ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
           ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
-          -- ["<CR>"] = cmp.mapping.confirm { select = true },
+          ["<S-CR>"] = cmp.mapping.confirm { select = true },
         },
         sources = cmp.config.sources({
           { name = "buffer" },
