@@ -51,11 +51,10 @@ require("packer").startup(function(use)
   use { "kevinhwang91/nvim-bqf", ft = "qf" }
 
   use {
-    "altercation/vim-colors-solarized",
+    'ishan9299/nvim-solarized-lua',
     config = function()
       vim.cmd "colorscheme solarized"
       vim.opt.background = "light"
-      vim.cmd "hi clear SignColumn"
     end,
   }
 
@@ -142,7 +141,7 @@ require("packer").startup(function(use)
 
   use {
     "junegunn/fzf.vim",
-    requires = { { "/usr/local/opt/fzf" } },
+    requires = { { "/opt/homebrew/opt/fzf" } },
     config = function()
       vim.g.fzf_preview_window = ""
 
@@ -218,11 +217,14 @@ require("packer").startup(function(use)
               vim.fn.expand "~/.config/stylua.toml",
             },
           },
+          null_ls.builtins.diagnostics.eslint_d,
+          null_ls.builtins.code_actions.eslint_d
         },
       }
     end,
   }
 
+  use 'arkav/lualine-lsp-progress'
   use {
     "nvim-lualine/lualine.nvim",
     config = function()
@@ -231,8 +233,8 @@ require("packer").startup(function(use)
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diagnostics" },
-          lualine_c = { "filename" },
-          lualine_x = {},
+          lualine_c = { "filename", "lsp_progress" },
+          lualine_x = { },
           lualine_y = { "progress" },
           lualine_z = { "location" },
         },
@@ -252,6 +254,7 @@ require("packer").startup(function(use)
       util.nmap("gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
       util.nmap("gr", ":lua vim.lsp.buf.references()<cr>")
       util.nmap("<leader>ca", ":lua vim.lsp.buf.code_action()<cr>")
+      util.nmap("<leader>cr", ":lua vim.lsp.buf.rename()<cr>")
 
       local capabilities = require("cmp_nvim_lsp").update_capabilities(
         vim.lsp.protocol.make_client_capabilities()
@@ -269,7 +272,7 @@ require("packer").startup(function(use)
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
       end
 
-      local servers = { "rust_analyzer", "prismals", "tailwindcss" }
+      local servers = { "rust_analyzer", "prismals" }
       for _, lsp in pairs(servers) do
         require("lspconfig")[lsp].setup {
           capabilities = capabilities,
