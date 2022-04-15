@@ -64,6 +64,7 @@ vim.cmd [[
     autocmd BufWritePre * :%s/\s\+$//e
     autocmd FocusGained * checktime
     autocmd FileType text setlocal modeline
+    autocmd FileType gitcommit setlocal spell
     autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
     autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
   augroup END
