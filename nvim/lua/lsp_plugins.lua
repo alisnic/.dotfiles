@@ -58,6 +58,7 @@ function M.setup(use)
       local util = require "util"
       util.nmap("<leader>c", ":WorkspaceSymbol<cr>")
       util.nmap("<leader>m", ":DocumentSymbols<cr>")
+      require("fzf_lsp").setup()
     end,
   }
 
@@ -127,6 +128,8 @@ function M.setup(use)
       util.nmap("gr", ":lua vim.lsp.buf.references()<cr>")
       util.nmap("<leader>ca", ":lua vim.lsp.buf.code_action()<cr>")
       util.nmap("<leader>cr", ":lua vim.lsp.buf.rename()<cr>")
+      util.nmap("[d", ":lua vim.diagnostic.goto_prev()<CR><cr>")
+      util.nmap("]d", ":lua vim.diagnostic.goto_next()<cr>")
 
       local capabilities = require("cmp_nvim_lsp").update_capabilities(
         vim.lsp.protocol.make_client_capabilities()
@@ -228,22 +231,6 @@ function M.setup(use)
           },
         },
       }
-    end,
-  }
-
-  use {
-    "RishabhRD/nvim-lsputils",
-    requires = {
-      { "RishabhRD/popfix" },
-    },
-    config = function()
-      -- vim.lsp.handlers['workspace/symbol'] = require('lsputil.symbols').workspace_handler
-      vim.lsp.handlers["textDocument/codeAction"] = require(
-        "lsputil.codeAction"
-      ).code_action_handler
-      -- vim.lsp.handlers['textDocument/codeAction'] = function(_, _, actions)
-      --   require('lsputil.codeAction').code_action_handler(nil, actions, nil, nil, nil)
-      -- end
     end,
   }
 end
