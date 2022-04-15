@@ -24,8 +24,7 @@ require "plugins"
 
 vim.opt.termguicolors = true
 vim.opt.updatetime = 250
--- vim.opt.spell = true
-vim.opt.spelllang = { "en_us" }
+vim.opt.spelllang = { "en_US" }
 vim.opt.title = true
 vim.opt.titlestring = "%f"
 vim.opt.laststatus = 0
@@ -66,7 +65,6 @@ vim.cmd [[
     autocmd FileType text setlocal modeline
     autocmd FileType gitcommit setlocal spell
     autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
-    autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
   augroup END
 ]]
 
@@ -93,34 +91,3 @@ vim.cmd [[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d'
 vim.cmd 'command! Focus :exe "normal! zMzv"'
 vim.cmd "command! W w"
 vim.cmd "command! Wq wq"
-
-vim.diagnostic.config { virtual_text = false, source = true }
-
-local signs = {
-  Error = " ",
-  Warn = " ",
-  Hint = " ",
-  Info = " ",
-}
-
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
-vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
-  local bufnr = ctx["bufnr"]
-
-  if err ~= nil or result == nil then
-    return
-  end
-
-  if not vim.api.nvim_buf_get_option(bufnr, "modified") then
-    local view = vim.fn.winsaveview()
-    vim.lsp.util.apply_text_edits(result, bufnr)
-    vim.fn.winrestview(view)
-    if bufnr == vim.api.nvim_get_current_buf() then
-      vim.api.nvim_command "noautocmd :update"
-    end
-  end
-end
