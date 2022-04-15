@@ -24,7 +24,7 @@ require "plugins"
 
 vim.opt.termguicolors = true
 vim.opt.updatetime = 250
-vim.opt.spell = true
+-- vim.opt.spell = true
 vim.opt.spelllang = { "en_us" }
 vim.opt.title = true
 vim.opt.titlestring = "%f"
@@ -57,17 +57,6 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 vim.opt.tags:append { ".git/tags" } -- " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 vim.opt.tagcase = "match"
--- nnoremap <leader>] :exec("tabedit \| tag ".expand("<cword>"))<CR>
-
-vim.cmd [[
-  ab ewip 🚧
-  ab ebug 🐞
-  ab edoc 📓
-  ab eimp 👌
-  ab eper ⚡️
-  ab eref ♻️
-  ab ecle ✨
-]]
 
 vim.cmd [[
   augroup alisnic
