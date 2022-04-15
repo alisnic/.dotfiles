@@ -26,7 +26,7 @@
   rebase = false
 [user]
   name = Andrei Lisnic
-  email = andrei.lisnic@gmail.com
+  email = andrei@planable.io
 [push]
 	default = current
 [difftool]

@@ -20,10 +20,12 @@ for _, plugin in pairs(disabledPlugins) do
   vim.g["loaded_" .. plugin] = 1
 end
 
-require("plugins")
+require "plugins"
 
-vim.o.termguicolors = true
-vim.o.updatetime = 250
+vim.opt.termguicolors = true
+vim.opt.updatetime = 250
+vim.opt.spell = true
+vim.opt.spelllang = { "en_us" }
 vim.opt.title = true
 vim.opt.titlestring = "%f"
 vim.opt.laststatus = 0
@@ -53,11 +55,21 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldmethod = "indent"
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
-vim.opt.tags:append({ ".git/tags" }) -- " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
+vim.opt.tags:append { ".git/tags" } -- " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 vim.opt.tagcase = "match"
 -- nnoremap <leader>] :exec("tabedit \| tag ".expand("<cword>"))<CR>
 
-vim.cmd([[
+vim.cmd [[
+  ab ewip 🚧
+  ab ebug 🐞
+  ab edoc 📓
+  ab eimp 👌
+  ab eper ⚡️
+  ab eref ♻️
+  ab ecle ✨
+]]
+
+vim.cmd [[
   augroup alisnic
     autocmd!
     autocmd BufWritePre * :%s/\s\+$//e
@@ -66,27 +78,45 @@ vim.cmd([[
     autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
     autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
   augroup END
-]])
+]]
 
-vim.api.nvim_set_keymap("n", "<esc><esc>", ":nohlsearch<cr><esc>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  "n",
+  "<esc><esc>",
+  ":nohlsearch<cr><esc>",
+  { noremap = true, silent = true }
+)
 
-local util = require("util")
+local util = require "util"
 util.nmap("<S-UP>", "<C-w><UP>")
 util.nmap("<S-Down>", "<C-w><Down>")
 util.nmap("<S-Left>", "<C-w><Left>")
 util.nmap("<S-Right>", "<C-w><Right>")
 util.nmap("<UP>", "gk")
 util.nmap("<Down>", "gj")
-util.nmap("<leader>.", ":e ~/.dotfiles/nvim/init.lua<cr>")
-util.nmap("<leader>,", ":e ~/.dotfiles/nvim/lua/plugins.lua<cr>")
+util.nmap("<leader>.", ":e ~/.dotfiles/nvim<cr>")
 
 util.vmap("<S-UP>", "<nop>")
 util.vmap("<S-Down>", "<nop>")
 
-vim.cmd([[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".txt"]])
-vim.cmd('command! Focus :exe "normal! zMzv"')
-vim.cmd("command! W w")
-vim.cmd("command! Wq wq")
+vim.cmd [[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".txt"]]
+vim.cmd 'command! Focus :exe "normal! zMzv"'
+vim.cmd "command! W w"
+vim.cmd "command! Wq wq"
+
+vim.diagnostic.config { virtual_text = false, source = true }
+
+local signs = {
+  Error = " ",
+  Warn = " ",
+  Hint = " ",
+  Info = " ",
+}
+
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 
 vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
   local bufnr = ctx["bufnr"]
@@ -100,7 +130,7 @@ vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
     vim.lsp.util.apply_text_edits(result, bufnr)
     vim.fn.winrestview(view)
     if bufnr == vim.api.nvim_get_current_buf() then
-      vim.api.nvim_command("noautocmd :update")
+      vim.api.nvim_command "noautocmd :update"
     end
   end
 end
