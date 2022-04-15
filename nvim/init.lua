@@ -22,6 +22,8 @@ end
 
 require("plugins")
 
+vim.o.termguicolors = true
+vim.o.updatetime = 250
 vim.opt.title = true
 vim.opt.titlestring = "%f"
 vim.opt.laststatus = 0
@@ -62,6 +64,7 @@ vim.cmd([[
     autocmd FocusGained * checktime
     autocmd FileType text setlocal modeline
     autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
+    autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
   augroup END
 ]])
 
