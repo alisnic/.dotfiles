@@ -30,7 +30,10 @@ vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
 
   if not vim.api.nvim_buf_get_option(bufnr, "modified") then
     local view = vim.fn.winsaveview()
-    vim.lsp.util.apply_text_edits(result, bufnr)
+
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
+    vim.lsp.util.apply_text_edits(result, bufnr, client.offset_encoding)
+
     vim.fn.winrestview(view)
     if bufnr == vim.api.nvim_get_current_buf() then
       vim.api.nvim_command "noautocmd :update"
@@ -56,6 +59,8 @@ function M.setup(use)
     "gfanto/fzf-lsp.nvim",
     config = function()
       local util = require "util"
+      -- vim.api.nvim_set_keymap('n', '<leader>c', ':WorkspaceSymbol<cr>')
+
       util.nmap("<leader>c", ":WorkspaceSymbol<cr>")
       util.nmap("<leader>m", ":DocumentSymbols<cr>")
       require("fzf_lsp").setup()
