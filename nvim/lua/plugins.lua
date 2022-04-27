@@ -40,9 +40,8 @@ require("packer").startup(function(use)
   use {
     "gfanto/fzf-lsp.nvim",
     config = function()
-      local util = require "util"
-      util.nmap("<leader>ws", ":WorkspaceSymbol ")
-      util.nmap("<leader>m", ":DocumentSymbols<cr>")
+      vim.keymap.set("n", "<leader>ws", ":WorkspaceSymbol ")
+      vim.keymap.set("n", "<leader>m", ":DocumentSymbols<cr>")
     end,
   }
 
@@ -112,8 +111,7 @@ require("packer").startup(function(use)
   use {
     "weilbith/nvim-code-action-menu",
     config = function()
-      local util = require "util"
-      util.nmap("<leader>ca", ":CodeActionMenu<cr>")
+      vim.keymap.set("n", "<leader>ca", ":CodeActionMenu<cr>")
     end,
   }
 
@@ -173,10 +171,10 @@ require("packer").startup(function(use)
     "junegunn/fzf.vim",
     requires = { { "/opt/homebrew/opt/fzf" } },
     config = function()
-      local util = require "util"
-      util.nmap("<leader>f", ":Files<cr>")
-      util.nmap("<leader>b", ":Buffers<cr>")
-      util.nmap(
+      vim.keymap.set("n", "<leader>f", ":Files<cr>")
+      vim.keymap.set("n", "<leader>b", ":Buffers<cr>")
+      vim.keymap.set(
+        "n",
         "<leader>d",
         [[:call fzf#run(fzf#wrap({'source': "fd -t d"}))<cr>]]
       )
@@ -291,7 +289,6 @@ function treesitter_setup()
 end
 
 function projectionist_setup()
-  local util = require "util"
   local function runInTerminal(cmd)
     if vim.api.nvim_win_get_width(0) > 150 then
       vim.cmd("vsplit | term " .. cmd)
@@ -302,19 +299,19 @@ function projectionist_setup()
     vim.cmd "startinsert"
   end
 
-  util.nmap("<leader>a", ":A<cr>")
+  vim.keymap.set("n", "<leader>a", ":A<cr>")
 
-  util.nmap_func("<leader>t", function()
+  vim.keymap.set("n", "<leader>t", function()
     local prg = vim.api.nvim_buf_get_option(0, "makeprg")
     runInTerminal(prg)
   end)
 
-  util.nmap_func("<leader>r", function()
+  vim.keymap.set("n", "<leader>r", function()
     local prg = vim.api.nvim_buf_get_option(0, "makeprg")
     runInTerminal(prg .. " --only-failures --fail-fast")
   end)
 
-  util.nmap_func("<leader>l", function()
+  vim.keymap.set("n", "<leader>l", function()
     local prg = vim.api.nvim_buf_get_option(0, "makeprg")
     local line = vim.api.nvim_win_get_cursor(0)[1]
 
@@ -365,16 +362,14 @@ function on_attach_callback(client, _)
 end
 
 function lsp_setup()
-  local util = require "util"
-  util.nmap("k", ":lua vim.lsp.buf.hover()<cr>")
-  util.nmap("gd", ":lua vim.lsp.buf.definition()<cr>")
-  util.nmap("gi", ":lua vim.lsp.buf.implementation()<cr>")
-  util.nmap("gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
-  util.nmap("gr", ":lua vim.lsp.buf.references()<cr>")
-  util.nmap("<leader>ca", ":lua vim.lsp.buf.code_action()<cr>")
-  util.nmap("<leader>cr", ":lua vim.lsp.buf.rename()<cr>")
-  util.nmap("[d", ":lua vim.diagnostic.goto_prev()<CR><cr>")
-  util.nmap("]d", ":lua vim.diagnostic.goto_next()<cr>")
+  vim.keymap.set("n", "k", vim.lsp.buf.hover)
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+  vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
+  vim.keymap.set("n", "gD", ":vsplit<cr>:lua vim.lsp.buf.definition")
+  vim.keymap.set("n", "gr", vim.lsp.buf.references)
+  vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
+  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+  vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 
   local capabilities = require("cmp_nvim_lsp").update_capabilities(
     vim.lsp.protocol.make_client_capabilities()

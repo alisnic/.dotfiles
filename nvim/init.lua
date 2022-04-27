@@ -27,7 +27,7 @@ vim.opt.updatetime = 250
 vim.opt.spelllang = { "en_US" }
 vim.opt.title = true
 vim.opt.titlestring = "%f"
-vim.opt.laststatus = 0
+vim.opt.laststatus = 3
 vim.opt.mouse = "a"
 vim.opt.splitright = true
 vim.opt.hidden = true
@@ -103,24 +103,17 @@ vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
   end
 end
 
-vim.api.nvim_set_keymap(
-  "n",
-  "<esc><esc>",
-  ":nohlsearch<cr><esc>",
-  { noremap = true, silent = true }
-)
+vim.keymap.set("n", "<esc><esc>", ":nohlsearch<cr><esc>")
+vim.keymap.set("n", "<S-UP>", "<C-w><UP>")
+vim.keymap.set("n", "<S-Down>", "<C-w><Down>")
+vim.keymap.set("n", "<S-Left>", "<C-w><Left>")
+vim.keymap.set("n", "<S-Right>", "<C-w><Right>")
+vim.keymap.set("n", "<UP>", "gk")
+vim.keymap.set("n", "<Down>", "gj")
+vim.keymap.set("n", "<leader>.", ":e ~/.dotfiles/nvim<cr>")
 
-local util = require "util"
-util.nmap("<S-UP>", "<C-w><UP>")
-util.nmap("<S-Down>", "<C-w><Down>")
-util.nmap("<S-Left>", "<C-w><Left>")
-util.nmap("<S-Right>", "<C-w><Right>")
-util.nmap("<UP>", "gk")
-util.nmap("<Down>", "gj")
-util.nmap("<leader>.", ":e ~/.dotfiles/nvim<cr>")
-
-util.vmap("<S-UP>", "<nop>")
-util.vmap("<S-Down>", "<nop>")
+vim.keymap.set("v", "<S-UP>", "<nop>")
+vim.keymap.set("v", "<S-Down>", "<nop>")
 
 vim.cmd [[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".txt"]]
 vim.cmd 'command! Focus :exe "normal! zMzv"'
