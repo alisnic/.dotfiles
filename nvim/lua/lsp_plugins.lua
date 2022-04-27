@@ -140,7 +140,7 @@ function M.setup(use)
         vim.lsp.protocol.make_client_capabilities()
       )
 
-      local servers = { "rust_analyzer", "prismals" }
+      local servers = { "rust_analyzer", "prismals", "jsonls" }
       for _, lsp in pairs(servers) do
         require("lspconfig")[lsp].setup {
           capabilities = capabilities,

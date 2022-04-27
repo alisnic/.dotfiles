@@ -40,11 +40,13 @@ require("packer").startup(function(use)
   require("lsp_plugins").setup(use)
   require("autocomplete").setup(use)
 
+  use "ellisonleao/gruvbox.nvim"
+
   use {
     "ishan9299/nvim-solarized-lua",
     config = function()
-      vim.cmd "colorscheme solarized"
-      vim.opt.background = "light"
+      vim.cmd "colorscheme gruvbox"
+      vim.opt.background = "dark"
     end,
   }
 
@@ -158,7 +160,7 @@ require("packer").startup(function(use)
     },
     config = function()
       require("lualine").setup {
-        options = { theme = "solarized_light" },
+        options = { theme = "gruvbox" },
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diagnostics" },
