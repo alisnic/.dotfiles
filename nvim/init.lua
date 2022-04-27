@@ -53,6 +53,7 @@ vim.opt.foldenable = true
 vim.opt.foldlevelstart = 99
 vim.opt.foldmethod = "indent"
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.pumheight = 10
 
 vim.opt.tags:append { ".git/tags" } -- " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 vim.opt.tagcase = "match"
@@ -65,11 +66,10 @@ vim.cmd [[
     autocmd FileType text setlocal modeline
     autocmd FileType gitcommit setlocal spell
     autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
-    autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
   augroup END
 ]]
 
-vim.diagnostic.config { virtual_text = false, source = true }
+vim.diagnostic.config { source = true }
 
 local signs = {
   Error = " ",
