@@ -37,10 +37,18 @@ require("packer").startup(function(use)
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
   use { "kevinhwang91/nvim-bqf", ft = "qf" }
 
+  use "ellisonleao/gruvbox.nvim"
+
   require("lsp_plugins").setup(use)
   require("autocomplete").setup(use)
 
-  use "ellisonleao/gruvbox.nvim"
+  require("packer").use {
+    "weilbith/nvim-code-action-menu",
+    config = function()
+      local util = require "util"
+      util.nmap("<leader>ca", ":CodeActionMenu<cr>")
+    end,
+  }
 
   use {
     "ishan9299/nvim-solarized-lua",
