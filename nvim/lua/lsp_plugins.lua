@@ -61,9 +61,8 @@ function M.setup(use)
       local util = require "util"
       -- vim.api.nvim_set_keymap('n', '<leader>c', ':WorkspaceSymbol<cr>')
 
-      util.nmap("<leader>c", ":WorkspaceSymbol<cr>")
+      util.nmap("<leader>ws", ":WorkspaceSymbol ")
       util.nmap("<leader>m", ":DocumentSymbols<cr>")
-      require("fzf_lsp").setup()
     end,
   }
 
@@ -114,6 +113,7 @@ function M.setup(use)
           },
           null_ls.builtins.diagnostics.eslint_d,
           null_ls.builtins.code_actions.eslint_d,
+          null_ls.builtins.diagnostics.cspell,
         },
       }
     end,

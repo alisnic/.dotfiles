@@ -40,6 +40,14 @@ require("packer").startup(function(use)
   require("lsp_plugins").setup(use)
   require("autocomplete").setup(use)
 
+  require("packer").use {
+    "weilbith/nvim-code-action-menu",
+    config = function()
+      local util = require "util"
+      util.nmap("<leader>ca", ":CodeActionMenu<cr>")
+    end,
+  }
+
   use {
     "ishan9299/nvim-solarized-lua",
     config = function()
