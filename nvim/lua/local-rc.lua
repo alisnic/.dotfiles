@@ -4,8 +4,6 @@ ffi.cdef [[
  int getuid(void);
 ]]
 
-local loaded_dirs = {}
-
 local function file_owned_by_me(file)
   return ffi.C.getuid() == vim.loop.fs_stat(file).uid
 end
@@ -24,17 +22,6 @@ local function load()
   end
 end
 
-local function on_dir_change()
-  local cwd = vim.fn.getcwd()
-
-  if not loaded_dirs[cwd] then
-    load()
-  end
-
-  loaded_dirs[cwd] = true
-end
-
 return {
   load = load,
-  on_dir_change = on_dir_change,
 }

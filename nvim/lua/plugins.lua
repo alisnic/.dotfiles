@@ -170,7 +170,7 @@ require("packer").startup(function(use)
   use {
     "tpope/vim-projectionist",
     config = function()
-      projectionist_setup()
+      vim.keymap.set("n", "<leader>a", ":A<cr>")
     end,
   }
 
@@ -333,37 +333,6 @@ function treesitter_setup()
   }
 end
 
-function projectionist_setup()
-  local function runInTerminal(cmd)
-    if vim.api.nvim_win_get_width(0) > 150 then
-      vim.cmd("vsplit | term " .. cmd)
-    else
-      vim.cmd("tabedit | term " .. cmd)
-    end
-
-    vim.cmd "startinsert"
-  end
-
-  vim.keymap.set("n", "<leader>a", ":A<cr>")
-
-  vim.keymap.set("n", "<leader>t", function()
-    local prg = vim.api.nvim_buf_get_option(0, "makeprg")
-    runInTerminal(prg)
-  end)
-
-  vim.keymap.set("n", "<leader>r", function()
-    local prg = vim.api.nvim_buf_get_option(0, "makeprg")
-    runInTerminal(prg .. " --only-failures --fail-fast")
-  end)
-
-  vim.keymap.set("n", "<leader>l", function()
-    local prg = vim.api.nvim_buf_get_option(0, "makeprg")
-    local line = vim.api.nvim_win_get_cursor(0)[1]
-
-    runInTerminal(prg .. ":" .. line)
-  end)
-end
-
 function null_ls_setup()
   local null_ls = require "null-ls"
 
@@ -374,7 +343,6 @@ function null_ls_setup()
     sources = {
       null_ls.builtins.formatting.prettier.with {
         filetypes = {
-          "ruby",
           "typescript",
           "typescriptreact",
           "javascriptreact",
@@ -421,73 +389,13 @@ function lsp_setup()
     vim.lsp.protocol.make_client_capabilities()
   )
 
-  local servers = { "rust_analyzer", "prismals", "eslint" }
+  local servers = { "rust_analyzer" }
   for _, lsp in pairs(servers) do
     require("lspconfig")[lsp].setup {
       capabilities = capabilities,
       on_attach = on_attach_callback,
     }
   end
-
-  require("lspconfig").html.setup {
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-      capabilities.textDocument.completion.completionItem.snippetSupport = true
-      on_attach_callback(client, bufnr)
-    end,
-  }
-
-  -- local runtime_path = vim.split(package.path, ";")
-  -- table.insert(runtime_path, "lua/?.lua")
-  -- table.insert(runtime_path, "lua/?/init.lua")
-  --
-  -- require("lspconfig").sumneko_lua.setup {
-  --   capabilities = capabilities,
-  --   flags = {
-  --     debounce_text_changes = 200,
-  --   },
-  --   settings = {
-  --     Lua = {
-  --       runtime = {
-  --         version = "LuaJIT",
-  --         path = runtime_path,
-  --       },
-  --       diagnostics = {
-  --         globals = { "vim", "hs" },
-  --         disable = { "lowercase-global" },
-  --       },
-  --       workspace = {
-  --         library = vim.api.nvim_get_runtime_file("", true),
-  --       },
-  --       telemetry = {
-  --         enable = false,
-  --       },
-  --     },
-  --   },
-  --   on_attach = function(client, bufnr)
-  --     client.resolved_capabilities.document_formatting = false
-  --     client.resolved_capabilities.document_range_formatting = false
-  --     on_attach_callback(client, bufnr)
-  --   end,
-  -- }
-
-  require("lspconfig")["solargraph"].setup {
-    capabilities = capabilities,
-    -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#solargraph
-    settings = {
-      solargraph = {
-        formatting = false,
-        diagnostics = false,
-        useBundler = false,
-        folding = true,
-      },
-    },
-    on_attach = function(client, bufnr)
-      client.resolved_capabilities.document_formatting = false
-      client.resolved_capabilities.document_range_formatting = false
-      on_attach_callback(client, bufnr)
-    end,
-  }
 
   require("lspconfig").tsserver.setup {
     capabilities = capabilities,
@@ -496,17 +404,5 @@ function lsp_setup()
       client.resolved_capabilities.document_range_formatting = false
       on_attach_callback(client, bufnr)
     end,
-  }
-
-  require("lspconfig").yamlls.setup {
-    capabilities = capabilities,
-    on_attach = on_attach_callback,
-    settings = {
-      yaml = {
-        schemas = {
-          kubernetes = "/*.k8s.yaml",
-        },
-      },
-    },
   }
 end

@@ -65,7 +65,6 @@ vim.cmd [[
     autocmd BufWritePre * :%s/\s\+$//e
     autocmd FocusGained * checktime
     autocmd FileType gitcommit setlocal spell
-    autocmd DirChanged * :lua require('local-rc').on_dir_change()
     autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
   augroup END
 ]]
