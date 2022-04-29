@@ -23,11 +23,11 @@ window:
 font:
   normal:
     family: RobotoMono Nerd Font
-    style: Regular
+    style: Light
 
   bold:
     family: RobotoMono Nerd Font
-    style: Medium
+    style: Light
 
   italic:
     family: RobotoMono Nerd Font
