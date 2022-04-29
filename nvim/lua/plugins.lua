@@ -24,16 +24,42 @@ vim.cmd [[
 
 require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
-  use "tpope/vim-sensible"
+  -- use "tpope/vim-sensible"
   use "tpope/vim-unimpaired"
   use "tpope/vim-sleuth"
   use "google/vim-searchindex"
   use "RRethy/vim-illuminate"
   use "tomtom/tcomment_vim"
   use "majutsushi/tagbar"
-  use "tpope/vim-fugitive"
   use "tpope/vim-rhubarb"
-  use { "kevinhwang91/nvim-bqf", ft = "qf" }
+
+  use {
+    "tpope/vim-fugitive",
+    config = function()
+      vim.keymap.set("n", "<leader>gs", ":tab Git<cr>")
+      vim.keymap.set("n", "<leader>gb", ":Git blame<cr>")
+
+      vim.cmd [[
+        augroup packer_fugitive
+          autocmd!
+          autocmd FileType fugitiveblame nmap <silent><buffer> q gq
+        augroup end
+      ]]
+    end,
+  }
+
+  use {
+    "kevinhwang91/nvim-bqf",
+    ft = "qf",
+    config = function()
+      vim.cmd [[
+        augroup packer_bqf
+          autocmd!
+          autocmd FileType qf nnoremap <silent><buffer> q :cclose<cr>
+        augroup end
+      ]]
+    end,
+  }
 
   use "ellisonleao/gruvbox.nvim"
 
@@ -68,7 +94,9 @@ require("packer").startup(function(use)
     requires = {
       { "nvim-lua/plenary.nvim" },
     },
-    config = null_ls_setup,
+    config = function()
+      null_ls_setup()
+    end,
   }
 
   use {
@@ -76,7 +104,9 @@ require("packer").startup(function(use)
     requires = {
       { "ray-x/lsp_signature.nvim" },
     },
-    config = lsp_setup,
+    config = function()
+      lsp_setup()
+    end,
   }
 
   use {
@@ -105,7 +135,9 @@ require("packer").startup(function(use)
       { "f3fora/cmp-spell" },
       { "quangnguyen30192/cmp-nvim-tags" },
     },
-    config = cmp_setup,
+    config = function()
+      cmp_setup()
+    end,
   }
 
   use {
@@ -130,12 +162,16 @@ require("packer").startup(function(use)
       { "windwp/nvim-ts-autotag" },
       { "RRethy/nvim-treesitter-endwise" },
     },
-    config = treesitter_setup,
+    config = function()
+      treesitter_setup()
+    end,
   }
 
   use {
     "tpope/vim-projectionist",
-    config = projectionist_setup,
+    config = function()
+      projectionist_setup()
+    end,
   }
 
   use "tpope/vim-eunuch"
@@ -341,8 +377,6 @@ function null_ls_setup()
           vim.fn.expand "~/.config/stylua.toml",
         },
       },
-      null_ls.builtins.diagnostics.eslint_d,
-      null_ls.builtins.code_actions.eslint_d,
       null_ls.builtins.diagnostics.cspell,
     },
   }
@@ -378,7 +412,7 @@ function lsp_setup()
     vim.lsp.protocol.make_client_capabilities()
   )
 
-  local servers = { "rust_analyzer", "prismals", "jsonls" }
+  local servers = { "rust_analyzer", "prismals", "eslint" }
   for _, lsp in pairs(servers) do
     require("lspconfig")[lsp].setup {
       capabilities = capabilities,
