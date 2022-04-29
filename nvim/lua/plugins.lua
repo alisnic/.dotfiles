@@ -24,14 +24,13 @@ vim.cmd [[
 
 require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
-  -- use "tpope/vim-sensible"
   use "tpope/vim-unimpaired"
   use "tpope/vim-sleuth"
   use "google/vim-searchindex"
   use "RRethy/vim-illuminate"
   use "tomtom/tcomment_vim"
-  use "majutsushi/tagbar"
   use "tpope/vim-rhubarb"
+  use "stevearc/dressing.nvim"
 
   use {
     "tpope/vim-fugitive",
@@ -161,6 +160,7 @@ require("packer").startup(function(use)
     requires = {
       { "windwp/nvim-ts-autotag" },
       { "RRethy/nvim-treesitter-endwise" },
+      { "nvim-treesitter/nvim-treesitter-textobjects" },
     },
     config = function()
       treesitter_setup()
@@ -232,7 +232,7 @@ require("packer").startup(function(use)
     },
     config = function()
       require("lualine").setup {
-        options = { theme = "gruvbox" },
+        options = { theme = "gruvbox", globalstatus = true },
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diagnostics" },
@@ -320,6 +320,15 @@ function treesitter_setup()
     autotag = {
       enable = true,
       filetypes = { "html", "eruby" },
+    },
+    textobjects = {
+      lsp_interop = {
+        enable = true,
+        border = "none",
+        peek_definition_code = {
+          ["gp"] = "@function.outer",
+        },
+      },
     },
   }
 end
