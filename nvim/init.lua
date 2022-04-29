@@ -21,6 +21,7 @@ for _, plugin in pairs(disabledPlugins) do
 end
 
 require "plugins"
+require("local-rc").load()
 
 vim.opt.termguicolors = true
 vim.opt.updatetime = 250
@@ -63,8 +64,8 @@ vim.cmd [[
     autocmd!
     autocmd BufWritePre * :%s/\s\+$//e
     autocmd FocusGained * checktime
-    autocmd FileType text setlocal modeline
     autocmd FileType gitcommit setlocal spell
+    autocmd DirChanged * :lua require('local-rc').on_dir_change()
     autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
   augroup END
 ]]

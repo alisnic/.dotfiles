@@ -232,7 +232,7 @@ require("packer").startup(function(use)
     },
     config = function()
       require("lualine").setup {
-        options = { theme = "gruvbox" },
+        options = { theme = "gruvbox", globalstatus = true },
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diagnostics" },
@@ -435,39 +435,39 @@ function lsp_setup()
     end,
   }
 
-  local runtime_path = vim.split(package.path, ";")
-  table.insert(runtime_path, "lua/?.lua")
-  table.insert(runtime_path, "lua/?/init.lua")
-
-  require("lspconfig").sumneko_lua.setup {
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 200,
-    },
-    settings = {
-      Lua = {
-        runtime = {
-          version = "LuaJIT",
-          path = runtime_path,
-        },
-        diagnostics = {
-          globals = { "vim", "hs" },
-          disable = { "lowercase-global" },
-        },
-        workspace = {
-          library = vim.api.nvim_get_runtime_file("", true),
-        },
-        telemetry = {
-          enable = false,
-        },
-      },
-    },
-    on_attach = function(client, bufnr)
-      client.resolved_capabilities.document_formatting = false
-      client.resolved_capabilities.document_range_formatting = false
-      on_attach_callback(client, bufnr)
-    end,
-  }
+  -- local runtime_path = vim.split(package.path, ";")
+  -- table.insert(runtime_path, "lua/?.lua")
+  -- table.insert(runtime_path, "lua/?/init.lua")
+  --
+  -- require("lspconfig").sumneko_lua.setup {
+  --   capabilities = capabilities,
+  --   flags = {
+  --     debounce_text_changes = 200,
+  --   },
+  --   settings = {
+  --     Lua = {
+  --       runtime = {
+  --         version = "LuaJIT",
+  --         path = runtime_path,
+  --       },
+  --       diagnostics = {
+  --         globals = { "vim", "hs" },
+  --         disable = { "lowercase-global" },
+  --       },
+  --       workspace = {
+  --         library = vim.api.nvim_get_runtime_file("", true),
+  --       },
+  --       telemetry = {
+  --         enable = false,
+  --       },
+  --     },
+  --   },
+  --   on_attach = function(client, bufnr)
+  --     client.resolved_capabilities.document_formatting = false
+  --     client.resolved_capabilities.document_range_formatting = false
+  --     on_attach_callback(client, bufnr)
+  --   end,
+  -- }
 
   require("lspconfig")["solargraph"].setup {
     capabilities = capabilities,
