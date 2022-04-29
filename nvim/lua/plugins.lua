@@ -431,15 +431,8 @@ function lsp_setup()
 
   require("lspconfig").html.setup {
     capabilities = capabilities,
-    filetypes = { "html", "eruby" },
     on_attach = function(client, bufnr)
       capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-      if vim.bo.filetype == "eruby" then
-        client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
-      end
-
       on_attach_callback(client, bufnr)
     end,
   }
