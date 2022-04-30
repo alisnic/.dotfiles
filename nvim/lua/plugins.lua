@@ -31,6 +31,12 @@ require("packer").startup(function(use)
   use "tomtom/tcomment_vim"
   use "tpope/vim-rhubarb"
   use "stevearc/dressing.nvim"
+  use {
+    "Mofiqul/trld.nvim",
+    config = function()
+      require("trld").setup()
+    end,
+  }
 
   use {
     "tpope/vim-fugitive",

@@ -69,7 +69,7 @@ vim.cmd [[
   augroup END
 ]]
 
-vim.diagnostic.config { source = true }
+vim.diagnostic.config { source = true, virtual_text = false }
 
 local signs = {
   Error = " ",
