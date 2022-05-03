@@ -360,7 +360,6 @@ function null_ls_setup()
           vim.fn.expand "~/.config/stylua.toml",
         },
       },
-      null_ls.builtins.diagnostics.cspell,
     },
   }
 end
