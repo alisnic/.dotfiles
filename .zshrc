@@ -44,7 +44,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
 export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
-export PATH="$(pyenv root)/shims:${PATH}"
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 
