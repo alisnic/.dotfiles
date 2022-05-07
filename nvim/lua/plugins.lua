@@ -123,6 +123,7 @@ require("packer").startup(function(use)
       { "hrsh7th/cmp-path" },
       { "hrsh7th/cmp-cmdline" },
       { "hrsh7th/cmp-emoji" },
+      { "hrsh7th/cmp-nvim-lsp-signature-help" },
       { "f3fora/cmp-spell" },
       { "quangnguyen30192/cmp-nvim-tags" },
       { "saadparwaiz1/cmp_luasnip" },
@@ -314,6 +315,7 @@ function cmp_setup()
       ["<CR>"] = cmp.mapping.confirm { select = false },
     },
     sources = cmp.config.sources({
+      { name = "nvim_lsp_signature_help" },
       { name = "nvim_lsp" },
       { name = "luasnip" },
       { name = "buffer" },
@@ -394,7 +396,7 @@ function null_ls_setup()
 end
 
 function on_attach_callback(client, _)
-  require("lsp_signature").on_attach()
+  -- require("lsp_signature").on_attach()
 
   if client.resolved_capabilities.document_formatting then
     vim.api.nvim_command [[augroup Format]]
