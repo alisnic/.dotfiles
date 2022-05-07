@@ -115,20 +115,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "dcampos/nvim-snippy",
-    config = function()
-      require("snippy").setup {
-        mappings = {
-          is = {
-            ["<Tab>"] = "expand_or_advance",
-            ["<S-Tab>"] = "previous",
-          },
-        },
-      }
-    end,
-  }
-
-  use {
     "hrsh7th/nvim-cmp",
     requires = {
       { "onsails/lspkind-nvim" },
@@ -139,6 +125,7 @@ require("packer").startup(function(use)
       { "hrsh7th/cmp-emoji" },
       { "f3fora/cmp-spell" },
       { "quangnguyen30192/cmp-nvim-tags" },
+      { "saadparwaiz1/cmp_luasnip" },
     },
     config = function()
       cmp_setup()
@@ -251,19 +238,37 @@ require("packer").startup(function(use)
     end,
   }
 
+  use {
+    "L3MON4D3/LuaSnip",
+    config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end,
+  }
+  use "rafamadriz/friendly-snippets"
+
   if packer_bootstrap then
     require("packer").sync()
   end
 end)
 
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0
+    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+        :sub(col, col)
+        :match "%s"
+      == nil
+end
+
 function cmp_setup()
   local cmp = require "cmp"
   local lspkind = require "lspkind"
+  local luasnip = require "luasnip"
 
   cmp.setup {
     snippet = {
       expand = function(args)
-        require("snippy").expand_snippet(args.body)
+        luasnip.lsp_expand(args.body)
       end,
     },
     formatting = {
@@ -282,12 +287,36 @@ function cmp_setup()
     mapping = {
       ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
       ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-      ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
+
+      ["<Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        elseif has_words_before() then
+          cmp.complete()
+        else
+          fallback()
+        end
+      end, { "i", "s" }),
+
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item()
+        elseif luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          fallback()
+        end
+      end, { "i", "s" }),
+
+      -- ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
       ["<CR>"] = cmp.mapping.confirm { select = false },
     },
     sources = cmp.config.sources({
-      { name = "buffer" },
       { name = "nvim_lsp" },
+      { name = "luasnip" },
+      { name = "buffer" },
     }, {
       { name = "tags" },
     }),
