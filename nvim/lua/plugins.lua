@@ -31,12 +31,6 @@ require("packer").startup(function(use)
   use "tomtom/tcomment_vim"
   use "tpope/vim-rhubarb"
   use "stevearc/dressing.nvim"
-  use {
-    "Mofiqul/trld.nvim",
-    config = function()
-      require("trld").setup()
-    end,
-  }
 
   use {
     "tpope/vim-fugitive",
@@ -69,10 +63,11 @@ require("packer").startup(function(use)
   use "ellisonleao/gruvbox.nvim"
 
   use {
-    "gfanto/fzf-lsp.nvim",
+    'ojroques/nvim-lspfuzzy',
     config = function()
-      vim.keymap.set("n", "<leader>ws", ":WorkspaceSymbol ")
-      vim.keymap.set("n", "<leader>m", ":DocumentSymbols<cr>")
+      require('lspfuzzy').setup {}
+      vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol)
+      vim.keymap.set("n", "<leader>m", vim.lsp.buf.document_symbol)
     end,
   }
 
