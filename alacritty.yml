@@ -27,11 +27,11 @@ font:
 
   bold:
     family: RobotoMono Nerd Font
-    style: Light
+    style: Regular
 
   italic:
     family: RobotoMono Nerd Font
-    style: Italic
+    style: Light Italic
 
   # Point size of the font
   size: 16
