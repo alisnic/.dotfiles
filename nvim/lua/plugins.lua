@@ -60,14 +60,18 @@ require("packer").startup(function(use)
     end,
   }
 
-  use "ellisonleao/gruvbox.nvim"
+  use {
+    "ellisonleao/gruvbox.nvim",
+    config = function()
+      vim.g.gruvbox_bold = 0
+    end,
+  }
 
   use {
-    'ojroques/nvim-lspfuzzy',
+    "nvim-telescope/telescope.nvim",
+    requires = { { "nvim-lua/plenary.nvim" } },
     config = function()
-      require('lspfuzzy').setup {}
-      vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol)
-      vim.keymap.set("n", "<leader>m", vim.lsp.buf.document_symbol)
+      vim.keymap.set("n", "<leader>m", ":Telescope lsp_document_symbols<cr>")
     end,
   }
 
@@ -196,6 +200,8 @@ require("packer").startup(function(use)
     "junegunn/fzf.vim",
     requires = { { "/opt/homebrew/opt/fzf" } },
     config = function()
+      vim.g.fzf_preview_window = { "down:50%", "ctrl-/" }
+
       vim.keymap.set("n", "<leader>f", ":Files<cr>")
       vim.keymap.set("n", "<leader>b", ":Buffers<cr>")
       vim.keymap.set(
@@ -391,8 +397,6 @@ function null_ls_setup()
 end
 
 function on_attach_callback(client, _)
-  -- require("lsp_signature").on_attach()
-
   if client.resolved_capabilities.document_formatting then
     vim.api.nvim_command [[augroup Format]]
     vim.api.nvim_command [[autocmd! * <buffer>]]
@@ -412,9 +416,10 @@ function lsp_setup()
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
   vim.keymap.set("n", "gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
   vim.keymap.set("n", "gr", vim.lsp.buf.references)
-  vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+  vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
+  vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol)
 
   local capabilities = require("cmp_nvim_lsp").update_capabilities(
     vim.lsp.protocol.make_client_capabilities()
