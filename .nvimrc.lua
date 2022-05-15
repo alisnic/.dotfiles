@@ -6,19 +6,6 @@ local capabilities = require("cmp_nvim_lsp").update_capabilities(
   vim.lsp.protocol.make_client_capabilities()
 )
 
-function on_attach_callback(client, _)
-  require("lsp_signature").on_attach()
-
-  if client.resolved_capabilities.document_formatting then
-    vim.api.nvim_command [[augroup Format]]
-    vim.api.nvim_command [[autocmd! * <buffer>]]
-    vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
-    vim.api.nvim_command [[augroup END]]
-  end
-
-  print "LSP Attached."
-end
-
 require("lspconfig").sumneko_lua.setup {
   capabilities = capabilities,
   flags = {
@@ -45,6 +32,6 @@ require("lspconfig").sumneko_lua.setup {
   on_attach = function(client, bufnr)
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
-    on_attach_callback(client, bufnr)
+    _G.on_attach_callback(client, bufnr)
   end,
 }

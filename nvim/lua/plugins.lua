@@ -64,6 +64,8 @@ require("packer").startup(function(use)
     "ellisonleao/gruvbox.nvim",
     config = function()
       vim.g.gruvbox_bold = 0
+      vim.cmd "colorscheme gruvbox"
+      vim.opt.background = "dark"
     end,
   }
 
@@ -136,14 +138,6 @@ require("packer").startup(function(use)
     "weilbith/nvim-code-action-menu",
     config = function()
       vim.keymap.set("n", "<leader>ca", ":CodeActionMenu<cr>")
-    end,
-  }
-
-  use {
-    "ishan9299/nvim-solarized-lua",
-    config = function()
-      vim.cmd "colorscheme gruvbox"
-      vim.opt.background = "dark"
     end,
   }
 
@@ -376,7 +370,7 @@ function null_ls_setup()
 
   null_ls.setup {
     on_attach = function(client)
-      on_attach_callback(client, 1)
+      _G.on_attach_callback(client, 1)
     end,
     sources = {
       null_ls.builtins.formatting.prettier.with {
@@ -396,7 +390,7 @@ function null_ls_setup()
   }
 end
 
-function on_attach_callback(client, _)
+function _G.on_attach_callback(client, _)
   if client.resolved_capabilities.document_formatting then
     vim.api.nvim_command [[augroup Format]]
     vim.api.nvim_command [[autocmd! * <buffer>]]
@@ -429,7 +423,7 @@ function lsp_setup()
   for _, lsp in pairs(servers) do
     require("lspconfig")[lsp].setup {
       capabilities = capabilities,
-      on_attach = on_attach_callback,
+      on_attach = _G.on_attach_callback,
     }
   end
 
@@ -438,7 +432,7 @@ function lsp_setup()
     on_attach = function(client, bufnr)
       client.resolved_capabilities.document_formatting = false
       client.resolved_capabilities.document_range_formatting = false
-      on_attach_callback(client, bufnr)
+      _G.on_attach_callback(client, bufnr)
     end,
   }
 end
