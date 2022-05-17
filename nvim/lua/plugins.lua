@@ -36,7 +36,6 @@ require("packer").startup(function(use)
     "tpope/vim-fugitive",
     config = function()
       vim.keymap.set("n", "<leader>gs", ":tab Git<cr>")
-      vim.keymap.set("n", "<leader>gb", ":Git blame<cr>")
 
       vim.cmd [[
         augroup packer_fugitive
@@ -55,6 +54,8 @@ require("packer").startup(function(use)
         augroup packer_bqf
           autocmd!
           autocmd FileType qf nnoremap <silent><buffer> q :cclose<cr>
+          autocmd FileType qf nnoremap <slient><buffer> [f :colder<cr>
+          autocmd FileType qf nnoremap <slient><buffer> ]f :cnewer<cr>
         augroup end
       ]]
     end,
@@ -219,10 +220,10 @@ require("packer").startup(function(use)
     "nvim-lualine/lualine.nvim",
     requires = {
       { "arkav/lualine-lsp-progress" },
-      { "SmiteshP/nvim-gps" }
+      { "SmiteshP/nvim-gps" },
     },
     config = function()
-      local gps = require("nvim-gps")
+      local gps = require "nvim-gps"
       gps.setup()
 
       require("lualine").setup {
