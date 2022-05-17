@@ -64,6 +64,7 @@ require("packer").startup(function(use)
     "ellisonleao/gruvbox.nvim",
     config = function()
       vim.g.gruvbox_bold = 0
+      vim.g.gruvbox_contrast_dark = "medium"
       vim.cmd "colorscheme gruvbox"
       vim.opt.background = "dark"
     end,
