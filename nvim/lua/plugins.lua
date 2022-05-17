@@ -127,7 +127,6 @@ require("packer").startup(function(use)
       { "hrsh7th/cmp-cmdline" },
       { "hrsh7th/cmp-emoji" },
       { "hrsh7th/cmp-nvim-lsp-signature-help" },
-      { "f3fora/cmp-spell" },
       { "quangnguyen30192/cmp-nvim-tags" },
       { "saadparwaiz1/cmp_luasnip" },
     },
@@ -197,6 +196,7 @@ require("packer").startup(function(use)
     requires = { { "/opt/homebrew/opt/fzf" } },
     config = function()
       vim.g.fzf_preview_window = { "down:50%", "ctrl-/" }
+      vim.g.fzf_layout = { window = { width = 1, height = 1 } }
 
       vim.keymap.set("n", "<leader>f", ":Files<cr>")
       vim.keymap.set("n", "<leader>b", ":Buffers<cr>")
@@ -343,7 +343,6 @@ function cmp_setup()
   cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
       { name = "emoji" },
-      { name = "spell" },
     }, {
       { name = "buffer" },
     }),
