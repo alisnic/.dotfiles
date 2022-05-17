@@ -218,15 +218,19 @@ require("packer").startup(function(use)
     "nvim-lualine/lualine.nvim",
     requires = {
       { "arkav/lualine-lsp-progress" },
+      { "SmiteshP/nvim-gps" }
     },
     config = function()
+      local gps = require("nvim-gps")
+      gps.setup()
+
       require("lualine").setup {
         options = { theme = "gruvbox", globalstatus = true },
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diagnostics" },
           lualine_c = { "filename", "lsp_progress" },
-          lualine_x = {},
+          lualine_x = { { gps.get_location, cond = gps.is_available } },
           lualine_y = { "progress" },
           lualine_z = { "location" },
         },
