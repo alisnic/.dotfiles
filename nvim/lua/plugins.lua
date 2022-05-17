@@ -321,6 +321,7 @@ function cmp_setup()
     }, {
       { name = "tags" },
     }),
+    experimental = { ghost_text = true },
   }
 
   cmp.setup.cmdline("/", {
