@@ -400,6 +400,7 @@ function lsp_setup()
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
   vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
+  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
   vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol)
 
   local capabilities = require("cmp_nvim_lsp").update_capabilities(
