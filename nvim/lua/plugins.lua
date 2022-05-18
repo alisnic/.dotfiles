@@ -38,6 +38,7 @@ require("packer").startup(function(use)
       vim.keymap.set("n", "<leader>gs", ":tab Git<cr>")
 
       vim.cmd [[
+        cabbrev git Git
         augroup packer_fugitive
           autocmd!
           autocmd FileType fugitiveblame nmap <silent><buffer> q gq
