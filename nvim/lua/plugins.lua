@@ -72,14 +72,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "nvim-telescope/telescope.nvim",
-    requires = { { "nvim-lua/plenary.nvim" } },
-    config = function()
-      vim.keymap.set("n", "<leader>m", ":Telescope lsp_document_symbols<cr>")
-    end,
-  }
-
-  use {
     "folke/trouble.nvim",
     config = function()
       require("trouble").setup {
@@ -136,13 +128,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "weilbith/nvim-code-action-menu",
-    config = function()
-      vim.keymap.set("n", "<leader>ca", ":CodeActionMenu<cr>")
-    end,
-  }
-
-  use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     requires = {
@@ -192,19 +177,15 @@ require("packer").startup(function(use)
   }
 
   use {
-    "junegunn/fzf.vim",
-    requires = { { "/opt/homebrew/opt/fzf" } },
+    "ibhagwan/fzf-lua",
     config = function()
-      vim.g.fzf_preview_window = { "down:50%", "ctrl-/" }
-      vim.g.fzf_layout = { window = { width = 1, height = 1 } }
+      require("fzf-lua").setup {
+        winopts = { preview = { layout = "vertical" } },
+      }
 
-      vim.keymap.set("n", "<leader>f", ":Files<cr>")
-      vim.keymap.set("n", "<leader>b", ":Buffers<cr>")
-      vim.keymap.set(
-        "n",
-        "<leader>d",
-        [[:call fzf#run(fzf#wrap({'source': "fd -t d"}))<cr>]]
-      )
+      vim.keymap.set("n", "<leader>f", ":FzfLua files<cr>")
+      vim.keymap.set("n", "<leader>b", ":FzfLua buffers<cr>")
+      vim.keymap.set("n", "<leader>b", ":FzfLua lsp_document_symbols<cr>")
     end,
   }
 
