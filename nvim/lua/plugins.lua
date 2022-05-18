@@ -35,8 +35,6 @@ require("packer").startup(function(use)
   use {
     "tpope/vim-fugitive",
     config = function()
-      vim.keymap.set("n", "<leader>gs", ":tab Git<cr>")
-
       vim.cmd [[
         cabbrev git Git
         augroup packer_fugitive
@@ -181,12 +179,12 @@ require("packer").startup(function(use)
     "ibhagwan/fzf-lua",
     config = function()
       require("fzf-lua").setup {
-        winopts = { preview = { layout = "vertical" } },
+        winopts = { preview = { layout = "vertical", vertical = "up:50%" } },
       }
 
       vim.keymap.set("n", "<leader>f", ":FzfLua files<cr>")
       vim.keymap.set("n", "<leader>b", ":FzfLua buffers<cr>")
-      vim.keymap.set("n", "<leader>b", ":FzfLua lsp_document_symbols<cr>")
+      vim.keymap.set("n", "<leader>m", ":FzfLua lsp_document_symbols<cr>")
     end,
   }
 
@@ -294,7 +292,6 @@ function cmp_setup()
         end
       end, { "i", "s" }),
 
-      -- ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
       ["<CR>"] = cmp.mapping.confirm { select = false },
     },
     sources = cmp.config.sources({
@@ -315,19 +312,17 @@ function cmp_setup()
   })
 
   cmp.setup.cmdline(":", {
-    sources = cmp.config.sources({
-      { name = "path" },
-    }, {
+    sources = cmp.config.sources {
       { name = "cmdline" },
-    }),
+      { name = "path" },
+    },
   })
 
   cmp.setup.filetype("gitcommit", {
-    sources = cmp.config.sources({
-      { name = "emoji" },
-    }, {
+    sources = cmp.config.sources {
       { name = "buffer" },
-    }),
+      { name = "emoji" },
+    },
   })
 end
 
