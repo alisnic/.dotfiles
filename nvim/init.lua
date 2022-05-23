@@ -110,7 +110,7 @@ vim.keymap.set("n", "<S-Left>", "<C-w><Left>")
 vim.keymap.set("n", "<S-Right>", "<C-w><Right>")
 vim.keymap.set("n", "<UP>", "gk")
 vim.keymap.set("n", "<Down>", "gj")
-vim.keymap.set("n", "<leader>.", ":e ~/.dotfiles/nvim<cr>")
+vim.keymap.set("n", "<leader>.", ":e ~/.dotfiles/nvim/lua/plugins.lua<cr>")
 
 vim.keymap.set("v", "<S-UP>", "<nop>")
 vim.keymap.set("v", "<S-Down>", "<nop>")

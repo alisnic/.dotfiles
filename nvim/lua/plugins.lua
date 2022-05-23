@@ -28,9 +28,9 @@ require("packer").startup(function(use)
   use "tpope/vim-sleuth"
   use "google/vim-searchindex"
   use "RRethy/vim-illuminate"
-  use "tomtom/tcomment_vim"
   use "tpope/vim-rhubarb"
   use "stevearc/dressing.nvim"
+  use 'tpope/vim-commentary'
 
   use {
     "tpope/vim-fugitive",
@@ -133,6 +133,7 @@ require("packer").startup(function(use)
       { "windwp/nvim-ts-autotag" },
       { "RRethy/nvim-treesitter-endwise" },
       { "nvim-treesitter/nvim-treesitter-textobjects" },
+      { 'JoosepAlviste/nvim-ts-context-commentstring' }
     },
     config = function()
       treesitter_setup()
@@ -329,6 +330,9 @@ end
 function treesitter_setup()
   require("nvim-treesitter.configs").setup {
     highlight = { enable = true },
+    context_commentstring = {
+      enable = true
+    },
     endwise = {
       enable = true,
     },
