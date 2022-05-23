@@ -26,7 +26,7 @@ precmd() {
 
 parse_git_stash() {
   if [[ -n $(git stash list 2> /dev/null) ]]; then
-    echo " 📦"
+    echo " 🧳"
   else
     echo ""
   fi
