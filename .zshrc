@@ -17,11 +17,19 @@ precmd() {
   if [ -d ".git" ]
   then
     export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    PS1=$'\n%~ $fg[blue]$GIT_BRANCH$reset_color (%j)\n$ '
+    PS1=$'\n%~ $fg[blue]$GIT_BRANCH$reset_color$(parse_git_stash) (%j)\n$ '
   else
     PS1=$'\n%~ (%j)\n$ '
   fi
   print -Pn "\e]2;%n@%M | %~\a"
+}
+
+parse_git_stash() {
+  if [[ -n $(git stash list 2> /dev/null) ]]; then
+    echo " 📦"
+  else
+    echo ""
+  fi
 }
 
 export EDITOR=nvim
