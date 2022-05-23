@@ -30,7 +30,7 @@ require("packer").startup(function(use)
   use "RRethy/vim-illuminate"
   use "tpope/vim-rhubarb"
   use "stevearc/dressing.nvim"
-  use 'tpope/vim-commentary'
+  use "tpope/vim-commentary"
 
   use {
     "tpope/vim-fugitive",
@@ -117,7 +117,6 @@ require("packer").startup(function(use)
       { "hrsh7th/cmp-path" },
       { "hrsh7th/cmp-cmdline" },
       { "hrsh7th/cmp-emoji" },
-      { "hrsh7th/cmp-nvim-lsp-signature-help" },
       { "quangnguyen30192/cmp-nvim-tags" },
       { "saadparwaiz1/cmp_luasnip" },
     },
@@ -133,7 +132,7 @@ require("packer").startup(function(use)
       { "windwp/nvim-ts-autotag" },
       { "RRethy/nvim-treesitter-endwise" },
       { "nvim-treesitter/nvim-treesitter-textobjects" },
-      { 'JoosepAlviste/nvim-ts-context-commentstring' }
+      { "JoosepAlviste/nvim-ts-context-commentstring" },
     },
     config = function()
       treesitter_setup()
@@ -198,6 +197,13 @@ require("packer").startup(function(use)
   }
 
   use {
+    "ray-x/lsp_signature.nvim",
+    config = function()
+      require("lsp_signature").setup { hint_enable = false }
+    end,
+  }
+
+  use {
     "nvim-lualine/lualine.nvim",
     requires = {
       { "arkav/lualine-lsp-progress" },
@@ -254,6 +260,9 @@ function cmp_setup()
         luasnip.lsp_expand(args.body)
       end,
     },
+    window = {
+      documentation = cmp.config.window.bordered(),
+    },
     formatting = {
       format = lspkind.cmp_format {
         with_text = true,
@@ -296,7 +305,6 @@ function cmp_setup()
       ["<CR>"] = cmp.mapping.confirm { select = false },
     },
     sources = cmp.config.sources({
-      -- { name = "nvim_lsp_signature_help" },
       { name = "nvim_lsp" },
       { name = "luasnip" },
       { name = "buffer" },
@@ -331,7 +339,7 @@ function treesitter_setup()
   require("nvim-treesitter.configs").setup {
     highlight = { enable = true },
     context_commentstring = {
-      enable = true
+      enable = true,
     },
     endwise = {
       enable = true,
