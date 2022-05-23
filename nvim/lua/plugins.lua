@@ -61,6 +61,13 @@ require("packer").startup(function(use)
   }
 
   use {
+    "nvim-pack/nvim-spectre",
+    config = function()
+      vim.keymap.set("n", "<leader>s", require("spectre").open)
+    end,
+  }
+
+  use {
     "ellisonleao/gruvbox.nvim",
     config = function()
       vim.g.gruvbox_bold = 0
