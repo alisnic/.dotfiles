@@ -26,11 +26,11 @@ require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
   use "tpope/vim-unimpaired"
   use "tpope/vim-sleuth"
+  use "tpope/vim-rhubarb"
+  use "tpope/vim-commentary"
   use "google/vim-searchindex"
   use "RRethy/vim-illuminate"
-  use "tpope/vim-rhubarb"
   use "stevearc/dressing.nvim"
-  use "tpope/vim-commentary"
 
   use {
     "tpope/vim-fugitive",
@@ -185,6 +185,7 @@ require("packer").startup(function(use)
       vim.keymap.set("n", "<leader>f", ":FzfLua files<cr>")
       vim.keymap.set("n", "<leader>b", ":FzfLua buffers<cr>")
       vim.keymap.set("n", "<leader>m", ":FzfLua lsp_document_symbols<cr>")
+      vim.keymap.set("n", "<leader>w", ":FzfLua lsp_live_workspace_symbols<cr>")
     end,
   }
 
@@ -409,7 +410,6 @@ function lsp_setup()
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
   vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
-  vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol)
 
   local capabilities = require("cmp_nvim_lsp").update_capabilities(
     vim.lsp.protocol.make_client_capabilities()
