@@ -33,6 +33,33 @@ require("packer").startup(function(use)
   use "stevearc/dressing.nvim"
 
   use {
+    "nvim-telescope/telescope.nvim",
+    config = function()
+      local actions = require "telescope.actions"
+
+      require("telescope").setup {
+        defaults = {
+          layout_strategy = "vertical",
+          mappings = {
+            i = {
+              ["<esc>"] = actions.close,
+            },
+          },
+        },
+      }
+
+      vim.keymap.set("n", "<leader>f", ":Telescope find_files<cr>")
+      vim.keymap.set("n", "<leader>b", ":Telescope buffers<cr>")
+      vim.keymap.set("n", "<leader>m", ":Telescope lsp_document_symbols<cr>")
+      vim.keymap.set(
+        "n",
+        "<leader>w",
+        ":Telescope lsp_dynamic_workspace_symbols<cr>"
+      )
+    end,
+  }
+
+  use {
     "tpope/vim-fugitive",
     config = function()
       vim.cmd [[
@@ -179,20 +206,6 @@ require("packer").startup(function(use)
     "tommcdo/vim-lion",
     config = function()
       vim.g.lion_squeeze_spaces = 1
-    end,
-  }
-
-  use {
-    "ibhagwan/fzf-lua",
-    config = function()
-      require("fzf-lua").setup {
-        winopts = { preview = { layout = "vertical", vertical = "up:50%" } },
-      }
-
-      vim.keymap.set("n", "<leader>f", ":FzfLua files<cr>")
-      vim.keymap.set("n", "<leader>b", ":FzfLua buffers<cr>")
-      vim.keymap.set("n", "<leader>m", ":FzfLua lsp_document_symbols<cr>")
-      vim.keymap.set("n", "<leader>w", ":FzfLua lsp_live_workspace_symbols<cr>")
     end,
   }
 
