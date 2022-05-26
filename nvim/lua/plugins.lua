@@ -31,6 +31,8 @@ require("packer").startup(function(use)
   use "google/vim-searchindex"
   use "RRethy/vim-illuminate"
   use "stevearc/dressing.nvim"
+  use "kchmck/vim-coffee-script"
+  use "folke/lua-dev.nvim"
 
   use {
     "nvim-telescope/telescope.nvim",
@@ -225,9 +227,15 @@ require("packer").startup(function(use)
   }
 
   use {
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup {}
+    end,
+  }
+
+  use {
     "nvim-lualine/lualine.nvim",
     requires = {
-      { "arkav/lualine-lsp-progress" },
       { "SmiteshP/nvim-gps" },
     },
     config = function()
@@ -239,7 +247,7 @@ require("packer").startup(function(use)
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diagnostics" },
-          lualine_c = { "filename", "lsp_progress" },
+          lualine_c = { "filename" },
           lualine_x = { { gps.get_location, cond = gps.is_available } },
           lualine_y = { "progress" },
           lualine_z = { "location" },
