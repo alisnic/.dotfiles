@@ -397,8 +397,8 @@ function lualine_setup()
         "diagnostics",
       },
       lualine_c = { "GetCurrentDiagnosticString()" },
+      lualine_y = {},
       lualine_x = { { gps.get_location, cond = gps.is_available } },
-      lualine_y = { "progress" },
       lualine_z = { "location" },
     },
   }
