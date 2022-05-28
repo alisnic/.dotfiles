@@ -249,9 +249,8 @@ require("packer").startup(function(use)
           lualine_b = {
             "branch",
             "diagnostics",
-            "GetCurrentDiagnosticString()",
           },
-          lualine_c = { "filename" },
+          lualine_c = { "GetCurrentDiagnosticString()" },
           lualine_x = { { gps.get_location, cond = gps.is_available } },
           lualine_y = { "progress" },
           lualine_z = { "location" },
