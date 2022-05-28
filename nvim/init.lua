@@ -59,6 +59,67 @@ vim.opt.pumheight = 10
 vim.opt.tags:append { ".git/tags" } -- " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 vim.opt.tagcase = "match"
 
+local diag_hi = {}
+diag_hi[1] = "DiagnosticError"
+diag_hi[2] = "DiagnosticWarn"
+diag_hi[3] = "DiagnosticInfo"
+diag_hi[4] = "DiagnosticHint"
+
+function GetCurrentDiagnostic()
+  bufnr = 0
+  line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
+  opts = { ["lnum"] = line_nr }
+
+  local line_diagnostics = vim.diagnostic.get(bufnr, opts)
+  if vim.tbl_isempty(line_diagnostics) then
+    return
+  end
+
+  local best_diagnostic = nil
+
+  for i, diagnostic in ipairs(line_diagnostics) do
+    if
+      best_diagnostic == nil or diagnostic.severity < best_diagnostic.severity
+    then
+      best_diagnostic = diagnostic
+    end
+  end
+
+  return best_diagnostic
+end
+
+function GetCurrentDiagnosticString()
+  local diagnostic = GetCurrentDiagnostic()
+
+  if not diagnostic or not diagnostic.message then
+    return
+  end
+
+  return diagnostic.message
+end
+
+function PrintDiagnostics()
+  local diagnostic = GetCurrentDiagnostic()
+
+  if not diagnostic then
+    return
+  end
+
+  local diagnostic_message = string.format(
+    "%s: %s",
+    diagnostic.source,
+    diagnostic.message or ""
+  )
+
+  vim.api.nvim_echo(
+    { { diagnostic_message, diag_hi[diagnostic.severity] } },
+    false,
+    {}
+  )
+end
+
+-- autocmd CursorHold * lua PrintDiagnostics()
+
 vim.cmd [[
   augroup alisnic
     autocmd!
@@ -69,7 +130,7 @@ vim.cmd [[
   augroup END
 ]]
 
-vim.diagnostic.config { source = true, virtual_text = false }
+vim.diagnostic.config { float = { source = "always" }, virtual_text = false }
 
 local signs = {
   Error = " ",

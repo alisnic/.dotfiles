@@ -50,7 +50,7 @@ require("packer").startup(function(use)
         },
       }
 
-      vim.keymap.set("n", "<leader>f", ":Telescope find_files<cr>")
+      vim.keymap.set("n", "<leader>f", ":Telescope find_files hidden=true<cr>")
       vim.keymap.set("n", "<leader>b", ":Telescope buffers<cr>")
       vim.keymap.set("n", "<leader>m", ":Telescope lsp_document_symbols<cr>")
       vim.keymap.set(
@@ -246,7 +246,11 @@ require("packer").startup(function(use)
         options = { theme = "gruvbox", globalstatus = true },
         sections = {
           lualine_a = { "mode" },
-          lualine_b = { "branch", "diagnostics" },
+          lualine_b = {
+            "branch",
+            "diagnostics",
+            "GetCurrentDiagnosticString()",
+          },
           lualine_c = { "filename" },
           lualine_x = { { gps.get_location, cond = gps.is_available } },
           lualine_y = { "progress" },
