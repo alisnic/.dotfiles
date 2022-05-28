@@ -381,7 +381,7 @@ function GetCurrentDiagnosticString()
     return
   end
 
-  return diagnostic.message
+  return vim.split(diagnostic.message, "\n")[1]
 end
 
 function lualine_setup()
