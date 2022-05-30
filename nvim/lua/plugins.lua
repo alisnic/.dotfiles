@@ -381,7 +381,13 @@ function GetCurrentDiagnosticString()
     return
   end
 
-  return vim.split(diagnostic.message, "\n")[1]
+  local message = vim.split(diagnostic.message, "\n")[1]
+
+  if string.len(message) < 95 then
+    return message
+  else
+    return string.sub(message, 1, 90) .. "..."
+  end
 end
 
 function lualine_setup()
