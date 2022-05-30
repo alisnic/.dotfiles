@@ -383,10 +383,10 @@ function GetCurrentDiagnosticString()
 
   local message = vim.split(diagnostic.message, "\n")[1]
 
-  if string.len(message) < 120 then
+  if string.len(message) < 140 then
     return message
   else
-    return string.sub(message, 1, 120) .. "..."
+    return string.sub(message, 1, 140) .. "..."
   end
 end
 
@@ -403,7 +403,6 @@ function lualine_setup()
     sections = {
       lualine_a = { "mode" },
       lualine_b = {
-        "branch",
         "diagnostics",
       },
       lualine_c = { "GetCurrentDiagnosticString()" },
