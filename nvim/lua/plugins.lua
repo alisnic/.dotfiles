@@ -383,16 +383,20 @@ function GetCurrentDiagnosticString()
 
   local message = vim.split(diagnostic.message, "\n")[1]
 
-  if string.len(message) < 95 then
+  if string.len(message) < 120 then
     return message
   else
-    return string.sub(message, 1, 90) .. "..."
+    return string.sub(message, 1, 120) .. "..."
   end
 end
 
 function lualine_setup()
   local gps = require "nvim-gps"
   gps.setup()
+
+  local function should_show_gps()
+    return gps.is_available() and GetCurrentDiagnostic() == nil
+  end
 
   require("lualine").setup {
     options = { theme = "gruvbox", globalstatus = true },
@@ -404,7 +408,7 @@ function lualine_setup()
       },
       lualine_c = { "GetCurrentDiagnosticString()" },
       lualine_y = {},
-      lualine_x = { { gps.get_location, cond = gps.is_available } },
+      lualine_x = { { gps.get_location, cond = should_show_gps } },
       lualine_z = { "location" },
     },
   }
