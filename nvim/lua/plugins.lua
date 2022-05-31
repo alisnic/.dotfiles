@@ -51,7 +51,7 @@ require("packer").startup(function(use)
       }
 
       vim.keymap.set("n", "<leader>f", ":Telescope find_files hidden=true<cr>")
-      vim.keymap.set("n", "<leader>b", ":Telescope buffers<cr>")
+      vim.keymap.set("n", "<leader>b", ":Telescope oldfiles<cr>")
       vim.keymap.set("n", "<leader>m", ":Telescope lsp_document_symbols<cr>")
       vim.keymap.set(
         "n",
@@ -382,11 +382,12 @@ function GetCurrentDiagnosticString()
   end
 
   local message = vim.split(diagnostic.message, "\n")[1]
+  local max_width = vim.api.nvim_win_get_width(0) - 35
 
-  if string.len(message) < 140 then
+  if string.len(message) < max_width then
     return message
   else
-    return string.sub(message, 1, 140) .. "..."
+    return string.sub(message, 1, max_width) .. "..."
   end
 end
 
