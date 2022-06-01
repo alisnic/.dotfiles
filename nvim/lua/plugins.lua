@@ -29,7 +29,7 @@ require("packer").startup(function(use)
   use "tpope/vim-rhubarb"
   use "tpope/vim-commentary"
   use "google/vim-searchindex"
-  use "RRethy/vim-illuminate"
+  -- use "RRethy/vim-illuminate"
   use "stevearc/dressing.nvim"
   use "kchmck/vim-coffee-script"
   use "folke/lua-dev.nvim"
@@ -42,6 +42,7 @@ require("packer").startup(function(use)
       require("telescope").setup {
         defaults = {
           layout_strategy = "vertical",
+          layout_config = { width = 0.99, height = 0.99 },
           mappings = {
             i = {
               ["<esc>"] = actions.close,
@@ -50,7 +51,7 @@ require("packer").startup(function(use)
         },
       }
 
-      vim.keymap.set("n", "<leader>f", ":Telescope find_files hidden=true<cr>")
+      vim.keymap.set("n", "<leader>f", ":Telescope git_files<cr>")
       vim.keymap.set("n", "<leader>b", ":Telescope oldfiles<cr>")
       vim.keymap.set("n", "<leader>m", ":Telescope lsp_document_symbols<cr>")
       vim.keymap.set(
@@ -226,12 +227,12 @@ require("packer").startup(function(use)
     end,
   }
 
-  use {
-    "ray-x/lsp_signature.nvim",
-    config = function()
-      require("lsp_signature").setup { hint_enable = false }
-    end,
-  }
+  -- use {
+  --   "ray-x/lsp_signature.nvim",
+  --   config = function()
+  --     require("lsp_signature").setup { hint_enable = false }
+  --   end,
+  -- }
 
   use {
     "j-hui/fidget.nvim",
@@ -371,9 +372,9 @@ function GetCurrentDiagnostic()
   local best_diagnostic = nil
 
   for _, diagnostic in ipairs(line_diagnostics) do
-    if
-      best_diagnostic == nil or diagnostic.severity < best_diagnostic.severity
-    then
+    if best_diagnostic == nil then
+      best_diagnostic = diagnostic
+    elseif diagnostic.severity < best_diagnostic.severity then
       best_diagnostic = diagnostic
     end
   end
@@ -471,15 +472,6 @@ function null_ls_setup()
   }
 end
 
-function _G.on_attach_callback(client, _)
-  if client.resolved_capabilities.document_formatting then
-    vim.api.nvim_command [[augroup Format]]
-    vim.api.nvim_command [[autocmd! * <buffer>]]
-    vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
-    vim.api.nvim_command [[augroup END]]
-  end
-end
-
 function lsp_setup()
   vim.keymap.set("n", "k", vim.lsp.buf.hover)
   vim.keymap.set("n", "K", function()
@@ -488,6 +480,7 @@ function lsp_setup()
   vim.keymap.set("n", "gd", vim.lsp.buf.definition)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
   vim.keymap.set("n", "gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
+  vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
   vim.keymap.set("n", "gr", vim.lsp.buf.references)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next)

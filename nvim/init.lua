@@ -41,6 +41,7 @@ vim.opt.writebackup = false
 vim.opt.swapfile = false
 vim.opt.exrc = true
 vim.opt.secure = true
+vim.opt.cursorline = true
 
 vim.opt.tabstop = 2
 vim.opt.expandtab = true
@@ -104,6 +105,41 @@ vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
     if bufnr == vim.api.nvim_get_current_buf() then
       vim.api.nvim_command "noautocmd :update"
     end
+  end
+end
+
+function _G.on_attach_callback(client, _)
+  if client.resolved_capabilities.document_formatting then
+    vim.api.nvim_command [[augroup Format]]
+    vim.api.nvim_command [[autocmd! * <buffer>]]
+    vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
+    vim.api.nvim_command [[augroup END]]
+  end
+
+  if client.resolved_capabilities.document_highlight then
+    vim.cmd [[
+      hi! LspReferenceRead cterm=underline gui=underline guibg=NONE ctermbg=NONE
+      hi! LspReferenceText cterm=underline gui=underline guibg=NONE ctermbg=NONE
+      hi! LspReferenceWrite cterm=underline gui=underline guibg=NONE ctermbg=NONE
+    ]]
+
+    vim.api.nvim_create_augroup("lsp_document_highlight", {
+      clear = false,
+    })
+    vim.api.nvim_clear_autocmds {
+      buffer = bufnr,
+      group = "lsp_document_highlight",
+    }
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      group = "lsp_document_highlight",
+      buffer = bufnr,
+      callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd("CursorMoved", {
+      group = "lsp_document_highlight",
+      buffer = bufnr,
+      callback = vim.lsp.buf.clear_references,
+    })
   end
 end
 
