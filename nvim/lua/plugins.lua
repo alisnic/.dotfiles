@@ -93,6 +93,13 @@ require("packer").startup(function(use)
     "nvim-pack/nvim-spectre",
     config = function()
       vim.keymap.set("n", "<leader>s", require("spectre").open)
+
+      vim.cmd [[
+        augroup packer_spectre
+          autocmd!
+          autocmd FileType spectre_panel nnoremap <silent><buffer> q :q!<cr>
+        augroup end
+      ]]
     end,
   }
 
@@ -471,8 +478,6 @@ function _G.on_attach_callback(client, _)
     vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
     vim.api.nvim_command [[augroup END]]
   end
-
-  print "LSP Attached."
 end
 
 function lsp_setup()

@@ -69,7 +69,11 @@ vim.cmd [[
   augroup END
 ]]
 
-vim.diagnostic.config { float = { source = "always" }, virtual_text = false }
+vim.diagnostic.config {
+  float = { source = "always" },
+  signs = false,
+  virtual_text = false,
+}
 
 local signs = {
   Error = " ",
