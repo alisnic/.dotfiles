@@ -109,8 +109,16 @@ require("packer").startup(function(use)
     config = function()
       vim.g.gruvbox_bold = 0
       vim.g.gruvbox_contrast_dark = "medium"
-      vim.cmd "colorscheme gruvbox"
-      vim.opt.background = "dark"
+      -- vim.cmd "colorscheme gruvbox"
+      -- vim.opt.background = "dark"
+    end,
+  }
+
+  use {
+    "ericbn/vim-solarized",
+    config = function()
+      vim.opt.background = "light"
+      vim.cmd "colorscheme solarized"
     end,
   }
 
@@ -409,7 +417,7 @@ function lualine_setup()
   end
 
   require("lualine").setup {
-    options = { theme = "gruvbox", globalstatus = true },
+    options = { theme = "solarized", globalstatus = true },
     sections = {
       lualine_a = { "mode" },
       lualine_b = {

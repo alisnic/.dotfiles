@@ -23,7 +23,7 @@ end
 require "plugins"
 require("local-rc").load()
 
-vim.opt.termguicolors = true
+-- vim.opt.termguicolors = true
 vim.opt.updatetime = 250
 vim.opt.spelllang = { "en_US" }
 vim.opt.title = true
