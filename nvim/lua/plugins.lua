@@ -444,6 +444,22 @@ function treesitter_setup()
           ["gp"] = "@function.outer",
         },
       },
+      move = {
+        enable = true,
+        set_jumps = true, -- whether to set jumps in the jumplist
+        goto_next_start = {
+          ["]m"] = "@function.outer",
+        },
+        goto_next_end = {
+          ["]M"] = "@function.outer",
+        },
+        goto_previous_start = {
+          ["[m"] = "@function.outer",
+        },
+        goto_previous_end = {
+          ["[M"] = "@function.outer",
+        },
+      },
     },
   }
 end
@@ -481,6 +497,7 @@ function lsp_setup()
   vim.keymap.set("n", "gd", vim.lsp.buf.definition)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
   vim.keymap.set("n", "gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
+  vim.keymap.set("n", "gt", vim.lsp.buf.type_definition)
   vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
   vim.keymap.set("n", "gr", vim.lsp.buf.references)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
