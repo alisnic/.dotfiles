@@ -32,6 +32,16 @@ parse_git_stash() {
   fi
 }
 
+npm() {
+  if [[ -d .meteor ]]
+  then
+    echo "Meteor project detected. Running via meteor npm"
+    meteor npm $@
+  else
+    eval /opt/homebrew/opt/node@14/bin/npm $@
+  fi
+}
+
 export EDITOR=nvim
 export BAT_THEME='Solarized (light)'
 export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" -g "!node_modules" -g "!.cache" 2> /dev/null'
@@ -56,10 +66,10 @@ export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 
 alias ls='ls -G'
+alias lg=lazygit
 alias reload!='source ~/.zshrc'
 alias be='bundle exec'
 alias sp='bin/spring'
-alias rm='trash'
 alias dc='docker-compose'
 alias k=kubectl
 alias vagrant=~/Play/vagrant/exec/vagrant
