@@ -115,7 +115,7 @@ require("packer").startup(function(use)
   }
 
   use {
-    "ericbn/vim-solarized",
+    "shaunsingh/solarized.nvim",
     config = function()
       vim.opt.background = "light"
       vim.cmd "colorscheme solarized"
@@ -417,7 +417,12 @@ function lualine_setup()
   end
 
   require("lualine").setup {
-    options = { theme = "solarized", globalstatus = true },
+    options = {
+      theme = "solarized",
+      globalstatus = true,
+      component_separators = { left = "", right = "" },
+      section_separators = { left = "", right = "" },
+    },
     sections = {
       lualine_a = { "mode" },
       lualine_b = {

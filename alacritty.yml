@@ -22,16 +22,16 @@ window:
 
 font:
   normal:
-    family: RobotoMono Nerd Font
-    style: Light
+    family: Monaco Nerd Font Mono
+    style: Regular
 
   bold:
-    family: RobotoMono Nerd Font
+    family: Monaco Nerd Font Mono
     style: Regular
 
   italic:
-    family: RobotoMono Nerd Font
-    style: Light Italic
+    family: Monaco Nerd Font Mono
+    style: Regular
 
   # Point size of the font
   size: 16
