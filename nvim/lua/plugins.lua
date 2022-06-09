@@ -29,7 +29,6 @@ require("packer").startup(function(use)
   use "tpope/vim-rhubarb"
   use "tpope/vim-commentary"
   use "google/vim-searchindex"
-  -- use "RRethy/vim-illuminate"
   use "stevearc/dressing.nvim"
   use "kchmck/vim-coffee-script"
   use "folke/lua-dev.nvim"
@@ -109,16 +108,19 @@ require("packer").startup(function(use)
     config = function()
       vim.g.gruvbox_bold = 0
       vim.g.gruvbox_contrast_dark = "medium"
-      -- vim.cmd "colorscheme gruvbox"
-      -- vim.opt.background = "dark"
+      vim.g.gruvbox_contrast_light = "hard"
+      vim.opt.background = "light"
+      vim.cmd "colorscheme gruvbox"
+      -- Use solarized background color
+      vim.cmd "hi Normal guifg=#657b83 guibg=#fdf6e3"
     end,
   }
 
   use {
     "shaunsingh/solarized.nvim",
     config = function()
-      vim.opt.background = "light"
-      vim.cmd "colorscheme solarized"
+      -- vim.opt.background = "light"
+      -- vim.cmd "colorscheme solarized"
     end,
   }
 
@@ -418,7 +420,7 @@ function lualine_setup()
 
   require("lualine").setup {
     options = {
-      theme = "solarized",
+      theme = "gruvbox",
       globalstatus = true,
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
@@ -444,6 +446,9 @@ function treesitter_setup()
     },
     endwise = {
       enable = true,
+    },
+    indent = {
+      enable = true
     },
     autotag = {
       enable = true,
