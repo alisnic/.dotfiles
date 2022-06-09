@@ -112,7 +112,8 @@ require("packer").startup(function(use)
       vim.opt.background = "light"
       vim.cmd "colorscheme gruvbox"
       -- Use solarized background color
-      vim.cmd "hi Normal guifg=#657b83 guibg=#fdf6e3"
+      vim.cmd "hi Normal guibg=#fdf6e3"
+      vim.cmd "hi VertSplit guibg=#fdf6e3"
     end,
   }
 
