@@ -37,7 +37,7 @@
 	tool = vimdiff
 [core]
 	excludesfile = /Users/andrei/.gitignore_global
-	pager = less -+F
+	pager = less --mouse
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
