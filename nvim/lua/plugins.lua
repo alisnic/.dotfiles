@@ -51,7 +51,7 @@ require("packer").startup(function(use)
       }
 
       vim.keymap.set("n", "<leader>f", ":Telescope git_files<cr>")
-      vim.keymap.set("n", "<leader>b", ":Telescope oldfiles<cr>")
+      vim.keymap.set("n", "<leader>b", function() require('telescope.builtin').buffers({ sort_mru = true }) end)
       vim.keymap.set("n", "<leader>m", ":Telescope lsp_document_symbols<cr>")
       vim.keymap.set(
         "n",
@@ -78,14 +78,14 @@ require("packer").startup(function(use)
     "kevinhwang91/nvim-bqf",
     ft = "qf",
     config = function()
-      vim.cmd [[
-        augroup packer_bqf
-          autocmd!
-          autocmd FileType qf nnoremap <silent><buffer> q :cclose<cr>
-          autocmd FileType qf nnoremap <slient><buffer> [f :colder<cr>
-          autocmd FileType qf nnoremap <slient><buffer> ]f :cnewer<cr>
-        augroup end
-      ]]
+      -- vim.cmd [[
+      --   augroup packer_bqf
+      --     autocmd!
+      --     autocmd FileType qf nnoremap <silent><buffer> q :cclose<cr>
+      --     autocmd FileType qf nnoremap <slient><buffer> [f :colder<cr>
+      --     autocmd FileType qf nnoremap <slient><buffer> ]f :cnewer<cr>
+      --   augroup end
+      -- ]]
     end,
   }
 
