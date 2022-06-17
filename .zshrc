@@ -51,10 +51,7 @@ npm() {
 export EDITOR=nvim
 export BAT_THEME='Solarized (light)'
 export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" -g "!node_modules" -g "!.cache" 2> /dev/null'
-export FZF_DEFAULT_OPTS="
-  --bind ctrl-a:select-all
-  --preview 'bat {}'
-"
+export FZF_DEFAULT_OPTS="--bind ctrl-a:select-all"
 export HOMEBREW_INSTALL_CLEANUP=true
 export KEYTIMEOUT=1
 export LANG="en_US.UTF-8"
