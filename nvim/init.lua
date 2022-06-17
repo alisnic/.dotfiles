@@ -144,6 +144,7 @@ function _G.on_attach_callback(client, _)
 end
 
 vim.keymap.set("n", "<esc><esc>", ":nohlsearch<cr><esc>")
+vim.keymap.set("n", "C", ":cclose<cr>")
 vim.keymap.set("n", "<S-UP>", "<C-w><UP>")
 vim.keymap.set("n", "<S-Down>", "<C-w><Down>")
 vim.keymap.set("n", "<S-Left>", "<C-w><Left>")

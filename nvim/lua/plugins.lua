@@ -51,7 +51,10 @@ require("packer").startup(function(use)
       }
 
       vim.keymap.set("n", "<leader>f", ":Telescope git_files<cr>")
-      vim.keymap.set("n", "<leader>b", function() require('telescope.builtin').buffers({ sort_mru = true }) end)
+      vim.keymap.set("n", "<leader>p", ":Telescope git_files<cr>")
+      vim.keymap.set("n", "<leader>b", function()
+        require("telescope.builtin").buffers { sort_mru = true }
+      end)
       vim.keymap.set("n", "<leader>m", ":Telescope lsp_document_symbols<cr>")
       vim.keymap.set(
         "n",
@@ -449,7 +452,7 @@ function treesitter_setup()
       enable = true,
     },
     indent = {
-      enable = true
+      enable = true,
     },
     autotag = {
       enable = true,
@@ -516,13 +519,13 @@ function lsp_setup()
   vim.keymap.set("n", "gd", vim.lsp.buf.definition)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
   vim.keymap.set("n", "gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
-  vim.keymap.set("n", "gt", vim.lsp.buf.type_definition)
   vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
   vim.keymap.set("n", "gr", vim.lsp.buf.references)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
   vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
+  vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
 
   local capabilities = require("cmp_nvim_lsp").update_capabilities(
     vim.lsp.protocol.make_client_capabilities()
