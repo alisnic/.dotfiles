@@ -117,12 +117,6 @@ function _G.on_attach_callback(client, _)
   end
 
   if client.resolved_capabilities.document_highlight then
-    vim.cmd [[
-      hi! LspReferenceRead cterm=underline gui=underline guibg=NONE ctermbg=NONE
-      hi! LspReferenceText cterm=underline gui=underline guibg=NONE ctermbg=NONE
-      hi! LspReferenceWrite cterm=underline gui=underline guibg=NONE ctermbg=NONE
-    ]]
-
     vim.api.nvim_create_augroup("lsp_document_highlight", {
       clear = false,
     })
