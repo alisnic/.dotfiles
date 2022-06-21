@@ -60,6 +60,58 @@ vim.opt.pumheight = 10
 vim.opt.tags:append { ".git/tags" } -- " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 vim.opt.tagcase = "match"
 
+local function GetCurrentDiagnostic()
+  bufnr = 0
+  line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
+  opts = { ["lnum"] = line_nr }
+
+  local line_diagnostics = vim.diagnostic.get(bufnr, opts)
+  if vim.tbl_isempty(line_diagnostics) then
+    return
+  end
+
+  local best_diagnostic = nil
+
+  for _, diagnostic in ipairs(line_diagnostics) do
+    if best_diagnostic == nil then
+      best_diagnostic = diagnostic
+    elseif diagnostic.severity < best_diagnostic.severity then
+      best_diagnostic = diagnostic
+    end
+  end
+
+  return best_diagnostic
+end
+
+local virt_handler = vim.diagnostic.handlers.virtual_text
+local ns = vim.api.nvim_create_namespace "current_line_virt"
+
+vim.diagnostic.handlers.current_line_virt = {
+  show = function(_, bufnr, _, opts)
+    -- TODO: filter diagnostics that already come here
+    local diagnostic = GetCurrentDiagnostic()
+    if not diagnostic then
+      return
+    end
+
+    local filtered_diagnostics = { diagnostic }
+    virt_handler.show(ns, bufnr, filtered_diagnostics, opts)
+  end,
+  hide = function(_, bufnr)
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+    virt_handler.hide(ns, bufnr)
+    -- vim.api.nvim_buf_clear_namespace(bufnr, ns, 0, -1)
+  end,
+}
+
+vim.diagnostic.config {
+  float = { source = "always" },
+  signs = false,
+  virtual_text = false,
+  severity_sort = true,
+  current_line_virt = true,
+}
+
 vim.cmd [[
   augroup alisnic
     autocmd!
@@ -67,14 +119,10 @@ vim.cmd [[
     autocmd FocusGained * checktime
     autocmd FileType gitcommit setlocal spell
     autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
+    autocmd CursorHold  <buffer> lua vim.diagnostic.handlers.current_line_virt.show(nil, 0, nil, nil)
+    autocmd CursorMoved <buffer> lua vim.diagnostic.handlers.current_line_virt.hide(nil, nil)
   augroup END
 ]]
-
-vim.diagnostic.config {
-  float = { source = "always" },
-  signs = false,
-  virtual_text = false,
-}
 
 local signs = {
   Error = " ",
