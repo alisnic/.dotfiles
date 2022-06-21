@@ -89,6 +89,8 @@ local ns = vim.api.nvim_create_namespace "current_line_virt"
 vim.diagnostic.handlers.current_line_virt = {
   show = function(_, bufnr, _, opts)
     -- TODO: filter diagnostics that already come here
+    -- TODO: format diagnostic with icon
+    -- TODO: color diagnostic in comment highlight group
     local diagnostic = GetCurrentDiagnostic()
     if not diagnostic then
       return
@@ -119,8 +121,6 @@ vim.cmd [[
     autocmd FocusGained * checktime
     autocmd FileType gitcommit setlocal spell
     autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
-    autocmd CursorHold  <buffer> lua vim.diagnostic.handlers.current_line_virt.show(nil, 0, nil, nil)
-    autocmd CursorMoved <buffer> lua vim.diagnostic.handlers.current_line_virt.hide(nil, nil)
   augroup END
 ]]
 
@@ -131,10 +131,10 @@ local signs = {
   Info = " ",
 }
 
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
+-- for type, icon in pairs(signs) do
+--   local hl = "DiagnosticSign" .. type
+--   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+-- end
 
 vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
   local bufnr = ctx["bufnr"]
@@ -163,6 +163,14 @@ function _G.on_attach_callback(client, _)
     vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
     vim.api.nvim_command [[augroup END]]
   end
+
+  vim.cmd [[
+    augroup Diagnostic
+      autocmd!
+      autocmd CursorHold  <buffer> lua vim.diagnostic.handlers.current_line_virt.show(nil, 0, nil, nil)
+      autocmd CursorMoved <buffer> lua vim.diagnostic.handlers.current_line_virt.hide(nil, nil)
+    augroup END
+  ]]
 
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_create_augroup("lsp_document_highlight", {
