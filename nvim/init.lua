@@ -60,17 +60,20 @@ vim.opt.pumheight = 10
 vim.opt.tags:append { ".git/tags" } -- " ,~/.rubies/ruby-2.4.6/tags,~/src/ruby-2.4.6/tags
 vim.opt.tagcase = "match"
 
-local function GetCurrentDiagnostic()
-  bufnr = 0
-  line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
-  opts = { ["lnum"] = line_nr }
-
-  local line_diagnostics = vim.diagnostic.get(bufnr, opts)
-  if vim.tbl_isempty(line_diagnostics) then
+local function best_diagnostic(diagnostics)
+  if vim.tbl_isempty(diagnostics) then
     return
   end
 
   local best_diagnostic = nil
+  local line_diagnostics = {}
+  local line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
+
+  for k, v in pairs(diagnostics) do
+    if v.lnum == line_nr then
+      line_diagnostics[k] = v
+    end
+  end
 
   for _, diagnostic in ipairs(line_diagnostics) do
     if best_diagnostic == nil then
@@ -81,6 +84,14 @@ local function GetCurrentDiagnostic()
   end
 
   return best_diagnostic
+end
+
+local function current_line_diagnostics()
+  local bufnr = 0
+  local line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
+  local opts = { ["lnum"] = line_nr }
+
+  return vim.diagnostic.get(bufnr, opts)
 end
 
 local signs = {
@@ -111,17 +122,17 @@ local virt_options = {
 }
 
 vim.diagnostic.handlers.current_line_virt = {
-  show = function(_, bufnr, _, _)
-    -- TODO: filter diagnostics that already come here
-    -- TODO: format diagnostic with icon
-    -- TODO: color diagnostic in comment highlight group
-    local diagnostic = GetCurrentDiagnostic()
+  show = function(_, bufnr, diagnostics, _)
+    local diagnostic = best_diagnostic(diagnostics)
     if not diagnostic then
       return
     end
 
     local filtered_diagnostics = { diagnostic }
-    virt_handler.show(
+
+    -- vim.diagnostic.handlers.current_line_virt.hide(nil, nil)
+    pcall(
+      virt_handler.show,
       ns,
       bufnr,
       filtered_diagnostics,
@@ -131,7 +142,6 @@ vim.diagnostic.handlers.current_line_virt = {
   hide = function(_, bufnr)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
     virt_handler.hide(ns, bufnr)
-    -- vim.api.nvim_buf_clear_namespace(bufnr, ns, 0, -1)
   end,
 }
 
@@ -204,7 +214,12 @@ function _G.on_attach_callback(client, bufnr)
     group = "lsp_diagnostic_current_line",
     buffer = bufnr,
     callback = function()
-      vim.diagnostic.handlers.current_line_virt.show(nil, 0, nil, nil)
+      vim.diagnostic.handlers.current_line_virt.show(
+        nil,
+        0,
+        current_line_diagnostics(),
+        nil
+      )
     end,
   })
   vim.api.nvim_create_autocmd("CursorMoved", {
