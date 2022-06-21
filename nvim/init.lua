@@ -83,11 +83,35 @@ local function GetCurrentDiagnostic()
   return best_diagnostic
 end
 
+local signs = {
+  Error = " ",
+  Warn = " ",
+  Hint = " ",
+  Info = " ",
+}
+
 local virt_handler = vim.diagnostic.handlers.virtual_text
 local ns = vim.api.nvim_create_namespace "current_line_virt"
+local severity = vim.diagnostic.severity
+local virt_options = {
+  prefix = "",
+  format = function(diagnostic)
+    if diagnostic.severity == severity.ERROR then
+      return signs.Error .. diagnostic.message
+    elseif diagnostic.severity == severity.INFO then
+      return signs.Info .. diagnostic.message
+    elseif diagnostic.severity == severity.WARN then
+      return signs.Warn .. diagnostic.message
+    elseif diagnostic.severity == severity.HINT then
+      return signs.Hint .. diagnostic.message
+    else
+      return diagnostic.message
+    end
+  end,
+}
 
 vim.diagnostic.handlers.current_line_virt = {
-  show = function(_, bufnr, _, opts)
+  show = function(_, bufnr, _, _)
     -- TODO: filter diagnostics that already come here
     -- TODO: format diagnostic with icon
     -- TODO: color diagnostic in comment highlight group
@@ -97,7 +121,12 @@ vim.diagnostic.handlers.current_line_virt = {
     end
 
     local filtered_diagnostics = { diagnostic }
-    virt_handler.show(ns, bufnr, filtered_diagnostics, opts)
+    virt_handler.show(
+      ns,
+      bufnr,
+      filtered_diagnostics,
+      { virtual_text = virt_options }
+    )
   end,
   hide = function(_, bufnr)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
@@ -124,17 +153,10 @@ vim.cmd [[
   augroup END
 ]]
 
-local signs = {
-  Error = " ",
-  Warn = " ",
-  Hint = " ",
-  Info = " ",
-}
-
--- for type, icon in pairs(signs) do
---   local hl = "DiagnosticSign" .. type
---   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
--- end
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 
 vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
   local bufnr = ctx["bufnr"]
@@ -156,7 +178,7 @@ vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
   end
 end
 
-function _G.on_attach_callback(client, _)
+function _G.on_attach_callback(client, bufnr)
   if client.resolved_capabilities.document_formatting then
     vim.api.nvim_command [[augroup Format]]
     vim.api.nvim_command [[autocmd! * <buffer>]]
@@ -165,12 +187,33 @@ function _G.on_attach_callback(client, _)
   end
 
   vim.cmd [[
-    augroup Diagnostic
-      autocmd!
-      autocmd CursorHold  <buffer> lua vim.diagnostic.handlers.current_line_virt.show(nil, 0, nil, nil)
-      autocmd CursorMoved <buffer> lua vim.diagnostic.handlers.current_line_virt.hide(nil, nil)
-    augroup END
+    hi! link DiagnosticVirtualTextHint Comment
+    hi! link DiagnosticVirtualTextInfo Comment
+    hi! link DiagnosticVirtualTextWarn Comment
+    hi! link DiagnosticVirtualTextError Comment
   ]]
+
+  vim.api.nvim_create_augroup("lsp_diagnostic_current_line", {
+    clear = false,
+  })
+  vim.api.nvim_clear_autocmds {
+    buffer = bufnr,
+    group = "lsp_diagnostic_current_line",
+  }
+  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+    group = "lsp_diagnostic_current_line",
+    buffer = bufnr,
+    callback = function()
+      vim.diagnostic.handlers.current_line_virt.show(nil, 0, nil, nil)
+    end,
+  })
+  vim.api.nvim_create_autocmd("CursorMoved", {
+    group = "lsp_diagnostic_current_line",
+    buffer = bufnr,
+    callback = function()
+      vim.diagnostic.handlers.current_line_virt.hide(nil, nil)
+    end,
+  })
 
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_create_augroup("lsp_document_highlight", {
