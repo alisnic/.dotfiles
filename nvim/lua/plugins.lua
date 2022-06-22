@@ -309,12 +309,7 @@ function cmp_setup()
     },
     formatting = {
       format = lspkind.cmp_format {
-        with_text = true,
-        menu = {
-          buffer = "[Buf]",
-          tags = "[Tag]",
-          nvim_lsp = "[LSP]",
-        },
+        mode = "text_symbol",
       },
     },
     completion = {
@@ -323,7 +318,6 @@ function cmp_setup()
     mapping = {
       ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
       ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
@@ -351,8 +345,8 @@ function cmp_setup()
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "luasnip" },
-      { name = "buffer" },
     }, {
+      { name = "buffer" },
       { name = "tags" },
     }),
     experimental = { ghost_text = true },
