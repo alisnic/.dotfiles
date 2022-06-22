@@ -111,17 +111,17 @@ require("packer").startup(function(use)
     config = function()
       vim.g.gruvbox_bold = 0
       vim.g.gruvbox_contrast_dark = "medium"
-      vim.g.gruvbox_contrast_light = "hard"
+      vim.g.gruvbox_contrast_light = "medium"
       vim.opt.background = "light"
       vim.cmd "colorscheme gruvbox"
 
       -- Use solarized background color
-      vim.cmd "hi Normal guibg=#fdf6e3"
-      vim.cmd "hi VertSplit guibg=#fdf6e3"
+      -- vim.cmd "hi Normal guibg=#fdf6e3"
+      -- vim.cmd "hi VertSplit guibg=#fdf6e3"
       vim.cmd [[
-        hi! LspReferenceRead guibg=#eee8d5 gui=NONE cterm=NONE
-        hi! LspReferenceText guibg=#eee8d5 gui=NONE cterm=NONE
-        hi! LspReferenceWrite guibg=#eee8d5 gui=NONE cterm=NONE
+        hi! LspReferenceRead guibg=#ebdbb2 gui=NONE cterm=NONE
+        hi! LspReferenceText guibg=#ebdbb2 gui=NONE cterm=NONE
+        hi! LspReferenceWrite guibg=#ebdbb2 gui=NONE cterm=NONE
       ]]
     end,
   }

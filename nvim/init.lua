@@ -214,6 +214,7 @@ function _G.on_attach_callback(client, bufnr)
     group = "lsp_diagnostic_current_line",
     buffer = bufnr,
     callback = function()
+      -- vim.diagnostic.show()
       vim.diagnostic.handlers.current_line_virt.show(
         nil,
         0,
