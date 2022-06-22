@@ -377,10 +377,6 @@ function lualine_setup()
   local gps = require "nvim-gps"
   gps.setup()
 
-  local function should_show_gps()
-    return gps.is_available()
-  end
-
   require("lualine").setup {
     options = {
       theme = "gruvbox",
@@ -393,9 +389,9 @@ function lualine_setup()
       lualine_b = {
         "diagnostics",
       },
-      lualine_c = {},
+      lualine_c = { { gps.get_location, cond = gps.is_available } },
+      lualine_x = {},
       lualine_y = {},
-      lualine_x = { { gps.get_location, cond = gps.is_available } },
       lualine_z = { "location" },
     },
   }
