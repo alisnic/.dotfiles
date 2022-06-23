@@ -262,6 +262,19 @@ require("packer").startup(function(use)
   }
 
   use {
+    "kosayoda/nvim-lightbulb",
+    requires = 'antoinemadec/FixCursorHold.nvim',
+    config = function()
+      require('nvim-lightbulb').setup({
+        sign = { enabled = false },
+        autocmd = { enabled = true },
+        virtual_text = { enabled = false },
+        status_text = { text = "♻️" }
+      })
+    end
+  }
+
+  use {
     "nvim-lualine/lualine.nvim",
     requires = {
       { "SmiteshP/nvim-gps" },
@@ -386,12 +399,10 @@ function lualine_setup()
     },
     sections = {
       lualine_a = { "mode" },
-      lualine_b = {
-        "diagnostics",
-      },
+      lualine_b = {},
       lualine_c = { { gps.get_location, cond = gps.is_available } },
-      lualine_x = {},
-      lualine_y = {},
+      lualine_x = { "require('nvim-lightbulb').get_status_text()" },
+      lualine_y = { "diagnostics" },
       lualine_z = { "location" },
     },
   }
