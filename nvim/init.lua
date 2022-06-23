@@ -26,6 +26,9 @@ require "plugins"
 require "lsp"
 require("local-rc").load()
 
+vim.opt.background = "light"
+vim.cmd "colorscheme gruvbox"
+
 -- vim.opt.termguicolors = true
 vim.opt.updatetime = 250
 vim.opt.spelllang = { "en_US" }
