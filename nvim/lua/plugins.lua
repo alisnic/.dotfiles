@@ -123,28 +123,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "shaunsingh/solarized.nvim",
-  }
-
-  use {
-    "folke/trouble.nvim",
-    config = function()
-      require("trouble").setup {
-        icons = false,
-        padding = false,
-        auto_open = false,
-      }
-
-      vim.cmd [[
-        augroup packer_trouble
-          autocmd!
-          autocmd FileType Trouble setlocal wrap
-        augroup end
-      ]]
-    end,
-  }
-
-  use {
     "jose-elias-alvarez/null-ls.nvim",
     requires = {
       { "nvim-lua/plenary.nvim" },
@@ -226,7 +204,7 @@ require("packer").startup(function(use)
       local clipboard_actions = require "lir.clipboard.actions"
 
       require("lir").setup {
-        show_hidden_files = false,
+        show_hidden_files = true,
         devicons_enable = true,
         mappings = {
           ["<cr>"] = actions.edit,
