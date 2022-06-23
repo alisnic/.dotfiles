@@ -32,6 +32,7 @@ require("packer").startup(function(use)
   use "stevearc/dressing.nvim"
   use "kchmck/vim-coffee-script"
   use "folke/lua-dev.nvim"
+  use "kyazdani42/nvim-web-devicons"
 
   use {
     "nvim-telescope/telescope.nvim",
@@ -211,17 +212,57 @@ require("packer").startup(function(use)
   }
 
   use "tpope/vim-eunuch"
-  use {
-    "justinmk/vim-dirvish",
-    config = function()
-      vim.cmd [[
-        let dirvish_mode = ':sort | sort ,^.*/,'
+  -- use {
+  --   "justinmk/vim-dirvish",
+  --   config = function()
+  --     vim.cmd [[
+  --       let dirvish_mode = ':sort | sort ,^.*/,'
 
-        augroup dirvish
-          autocmd!
-          autocmd FileType dirvish nnoremap <silent><buffer> r :silent exec "!open %"<cr>
-        augroup END
-      ]]
+  --       augroup dirvish
+  --         autocmd!
+  --         autocmd FileType dirvish nnoremap <silent><buffer> r :silent exec "!open %"<cr>
+  --       augroup END
+  --     ]]
+  --   end,
+  -- }
+  use {
+    "tamago324/lir.nvim",
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+    },
+    config = function()
+      local actions = require "lir.actions"
+      local clipboard_actions = require "lir.clipboard.actions"
+
+      require("lir").setup {
+        show_hidden_files = false,
+        devicons_enable = true,
+        mappings = {
+          ["<cr>"] = actions.edit,
+          ["<C-s>"] = actions.split,
+          ["<C-v>"] = actions.vsplit,
+          ["<C-t>"] = actions.tabedit,
+          ["-"] = actions.up,
+          ["q"] = actions.quit,
+          ["K"] = actions.mkdir,
+          ["N"] = actions.newfile,
+          ["R"] = actions.rename,
+          ["Y"] = actions.yank_path,
+          ["."] = actions.toggle_show_hidden,
+          ["D"] = actions.delete,
+          ["C"] = clipboard_actions.copy,
+          ["X"] = clipboard_actions.cut,
+          ["P"] = clipboard_actions.paste,
+        },
+        on_init = function() end,
+      }
+
+      vim.api.nvim_set_keymap(
+        "n",
+        "-",
+        [[<Cmd>execute 'e ' .. expand('%:p:h')<CR>]],
+        { noremap = true }
+      )
     end,
   }
 
@@ -263,15 +304,15 @@ require("packer").startup(function(use)
 
   use {
     "kosayoda/nvim-lightbulb",
-    requires = 'antoinemadec/FixCursorHold.nvim',
+    requires = "antoinemadec/FixCursorHold.nvim",
     config = function()
-      require('nvim-lightbulb').setup({
+      require("nvim-lightbulb").setup {
         sign = { enabled = false },
         autocmd = { enabled = true },
         virtual_text = { enabled = false },
-        status_text = { text = "♻️" }
-      })
-    end
+        status_text = { enabled = true, text = "♻️" },
+      }
+    end,
   }
 
   use {

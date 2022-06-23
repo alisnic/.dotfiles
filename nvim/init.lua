@@ -14,6 +14,8 @@ local disabledPlugins = {
   "logipat",
   "rrhelper",
   "spellfile_plugin",
+  "netrw",
+  "netrwPlugin",
 }
 
 for _, plugin in pairs(disabledPlugins) do
