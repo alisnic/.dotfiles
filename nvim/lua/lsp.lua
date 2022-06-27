@@ -116,6 +116,24 @@ vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
   end
 end
 
+local util = require "vim.lsp.util"
+local api = vim.api
+
+vim.lsp.handlers["textDocument/references"] = function(_, result, ctx, _)
+  if not result then
+    vim.notify "No references found"
+    return
+  end
+
+  local client = vim.lsp.get_client_by_id(ctx.client_id)
+  vim.fn.setloclist(0, {}, " ", {
+    title = "References",
+    items = util.locations_to_items(result, client.offset_encoding),
+    context = ctx,
+  })
+  api.nvim_command "lopen"
+end
+
 function _G.on_attach_callback(client, bufnr)
   if client.resolved_capabilities.document_formatting then
     vim.api.nvim_command [[augroup Format]]
