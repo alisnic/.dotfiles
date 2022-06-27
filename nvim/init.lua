@@ -49,6 +49,7 @@ vim.opt.writebackup = false
 vim.opt.swapfile = false
 vim.opt.exrc = true
 vim.opt.secure = true
+vim.opt.spelllang = "en"
 -- vim.opt.cursorline = true
 
 vim.opt.tabstop = 2

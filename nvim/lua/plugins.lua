@@ -81,7 +81,7 @@ require("packer").startup(function(use)
 
   use {
     "kevinhwang91/nvim-bqf",
-    ft = "qf"
+    ft = "qf",
   }
 
   use {
@@ -152,9 +152,9 @@ require("packer").startup(function(use)
 
   use {
     "lewis6991/spellsitter.nvim",
-    config=function()
-      require('spellsitter').setup()
-    end
+    config = function()
+      require("spellsitter").setup()
+    end,
   }
 
   use {
@@ -281,11 +281,13 @@ require("packer").startup(function(use)
   use {
     "L3MON4D3/LuaSnip",
     config = function()
-      require("luasnip.loaders.from_vscode").lazy_load()
-      require('luasnip').filetype_extend("typescript", {"javascript"})
+      require("luasnip.loaders.from_vscode").load {
+        paths = vim.fn.stdpath "config" .. "/snippets",
+      }
+      -- require('luasnip').filetype_extend("typescript", {"javascript"})
     end,
   }
-  use "rafamadriz/friendly-snippets"
+  -- use "rafamadriz/friendly-snippets"
 
   if packer_bootstrap then
     require("packer").sync()
