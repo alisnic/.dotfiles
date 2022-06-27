@@ -42,7 +42,7 @@ require("packer").startup(function(use)
       require("telescope").setup {
         defaults = {
           layout_strategy = "vertical",
-          layout_config = { width = 0.99, height = 0.99 },
+          layout_config = { width = 0.9, height = 0.9 },
           mappings = {
             i = {
               ["<esc>"] = actions.close,
@@ -52,6 +52,7 @@ require("packer").startup(function(use)
       }
 
       vim.keymap.set("n", "<leader>f", ":Telescope git_files<cr>")
+      vim.keymap.set("n", "<leader>D", ":Telescope diagnostics bufnr=0<cr>")
       vim.keymap.set("n", "<leader>p", ":Telescope git_files<cr>")
       vim.keymap.set("n", "<leader>b", function()
         require("telescope.builtin").buffers { sort_mru = true }
@@ -80,31 +81,7 @@ require("packer").startup(function(use)
 
   use {
     "kevinhwang91/nvim-bqf",
-    ft = "qf",
-    config = function()
-      -- vim.cmd [[
-      --   augroup packer_bqf
-      --     autocmd!
-      --     autocmd FileType qf nnoremap <silent><buffer> q :cclose<cr>
-      --     autocmd FileType qf nnoremap <slient><buffer> [f :colder<cr>
-      --     autocmd FileType qf nnoremap <slient><buffer> ]f :cnewer<cr>
-      --   augroup end
-      -- ]]
-    end,
-  }
-
-  use {
-    "nvim-pack/nvim-spectre",
-    config = function()
-      vim.keymap.set("n", "<leader>s", require("spectre").open)
-
-      vim.cmd [[
-        augroup packer_spectre
-          autocmd!
-          autocmd FileType spectre_panel nnoremap <silent><buffer> q :q!<cr>
-        augroup end
-      ]]
-    end,
+    ft = "qf"
   }
 
   use {
@@ -171,6 +148,13 @@ require("packer").startup(function(use)
     config = function()
       treesitter_setup()
     end,
+  }
+
+  use {
+    "lewis6991/spellsitter.nvim",
+    config=function()
+      require('spellsitter').setup()
+    end
   }
 
   use {
@@ -253,7 +237,7 @@ require("packer").startup(function(use)
     "mileszs/ack.vim",
     config = function()
       vim.g.ackprg = "rg --vimgrep"
-      vim.cmd "cabbrev ack Ack!"
+      vim.cmd "cabbrev ack LAck!"
     end,
   }
 
@@ -298,6 +282,7 @@ require("packer").startup(function(use)
     "L3MON4D3/LuaSnip",
     config = function()
       require("luasnip.loaders.from_vscode").lazy_load()
+      require('luasnip').filetype_extend("typescript", {"javascript"})
     end,
   }
   use "rafamadriz/friendly-snippets"

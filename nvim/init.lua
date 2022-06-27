@@ -22,6 +22,8 @@ for _, plugin in pairs(disabledPlugins) do
   vim.g["loaded_" .. plugin] = 1
 end
 
+vim.cmd "packadd cfilter"
+
 require "plugins"
 require "lsp"
 require("local-rc").load()
@@ -77,7 +79,7 @@ vim.cmd [[
 ]]
 
 vim.keymap.set("n", "<esc><esc>", ":nohlsearch<cr><esc>")
-vim.keymap.set("n", "C", ":cclose<cr>")
+vim.keymap.set("n", "C", ":lclose<cr>")
 vim.keymap.set("n", "<S-UP>", "<C-w><UP>")
 vim.keymap.set("n", "<S-Down>", "<C-w><Down>")
 vim.keymap.set("n", "<S-Left>", "<C-w><Left>")
