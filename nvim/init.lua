@@ -33,7 +33,6 @@ vim.cmd "colorscheme gruvbox"
 
 -- vim.opt.termguicolors = true
 vim.opt.updatetime = 250
-vim.opt.spelllang = { "en_US" }
 vim.opt.title = true
 vim.opt.titlestring = "%f"
 vim.opt.laststatus = 3
@@ -80,7 +79,7 @@ vim.cmd [[
 ]]
 
 vim.keymap.set("n", "<esc><esc>", ":nohlsearch<cr><esc>")
-vim.keymap.set("n", "C", ":lclose<cr>")
+vim.keymap.set("n", "C", ":windo lcl|ccl<CR>")
 vim.keymap.set("n", "<S-UP>", "<C-w><UP>")
 vim.keymap.set("n", "<S-Down>", "<C-w><Down>")
 vim.keymap.set("n", "<S-Left>", "<C-w><Left>")
