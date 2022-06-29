@@ -74,7 +74,6 @@ vim.cmd [[
     autocmd BufWritePre * :%s/\s\+$//e
     autocmd FocusGained * checktime
     autocmd FileType gitcommit setlocal spell
-    autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
   augroup END
 ]]
 
@@ -91,6 +90,8 @@ vim.keymap.set("n", "<leader>.", ":e ~/.dotfiles/nvim/lua/plugins.lua<cr>")
 vim.keymap.set("v", "<S-UP>", "<nop>")
 vim.keymap.set("v", "<S-Down>", "<nop>")
 
+vim.cmd [[nnoremap d "_d]]
+vim.cmd [[vnoremap d "_d]]
 vim.cmd [[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".txt"]]
 vim.cmd 'command! Focus :exe "normal! zMzv"'
 vim.cmd "command! W w"

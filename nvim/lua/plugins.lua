@@ -35,6 +35,13 @@ require("packer").startup(function(use)
   use "kyazdani42/nvim-web-devicons"
 
   use {
+    "ggandor/leap.nvim",
+    config=function()
+      require('leap').set_default_keymaps()
+    end
+  }
+
+  use {
     "nvim-telescope/telescope.nvim",
     config = function()
       local actions = require "telescope.actions"
