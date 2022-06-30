@@ -74,6 +74,7 @@ vim.cmd [[
     autocmd BufWritePre * :%s/\s\+$//e
     autocmd FocusGained * checktime
     autocmd FileType gitcommit setlocal spell
+    autocmd VimResized * :wincmd =
   augroup END
 ]]
 
