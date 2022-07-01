@@ -152,6 +152,7 @@ require("packer").startup(function(use)
       { "RRethy/nvim-treesitter-endwise" },
       { "nvim-treesitter/nvim-treesitter-textobjects" },
       { "JoosepAlviste/nvim-ts-context-commentstring" },
+      { "nvim-treesitter/playground" }
     },
     config = function()
       treesitter_setup()
