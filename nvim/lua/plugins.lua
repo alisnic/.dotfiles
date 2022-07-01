@@ -102,6 +102,7 @@ require("packer").startup(function(use)
         hi! LspReferenceRead guibg=#ebdbb2 gui=NONE cterm=NONE
         hi! LspReferenceText guibg=#ebdbb2 gui=NONE cterm=NONE
         hi! LspReferenceWrite guibg=#ebdbb2 gui=NONE cterm=NONE
+        hi! link Comment SpecialKey
       ]]
     end,
   }
@@ -172,19 +173,6 @@ require("packer").startup(function(use)
   }
 
   use "tpope/vim-eunuch"
-  -- use {
-  --   "justinmk/vim-dirvish",
-  --   config = function()
-  --     vim.cmd [[
-  --       let dirvish_mode = ':sort | sort ,^.*/,'
-
-  --       augroup dirvish
-  --         autocmd!
-  --         autocmd FileType dirvish nnoremap <silent><buffer> r :silent exec "!open %"<cr>
-  --       augroup END
-  --     ]]
-  --   end,
-  -- }
   use {
     "tamago324/lir.nvim",
     requires = {
@@ -213,8 +201,7 @@ require("packer").startup(function(use)
           ["C"] = clipboard_actions.copy,
           ["X"] = clipboard_actions.cut,
           ["P"] = clipboard_actions.paste,
-        },
-        on_init = function() end,
+        }
       }
 
       vim.api.nvim_set_keymap(
@@ -248,12 +235,12 @@ require("packer").startup(function(use)
     end,
   }
 
-  -- use {
-  --   "ray-x/lsp_signature.nvim",
-  --   config = function()
-  --     require("lsp_signature").setup { hint_enable = false }
-  --   end,
-  -- }
+  use {
+    "ray-x/lsp_signature.nvim",
+    config = function()
+      require("lsp_signature").setup { floating_window = false }
+    end,
+  }
 
   use {
     "j-hui/fidget.nvim",
@@ -291,10 +278,8 @@ require("packer").startup(function(use)
       require("luasnip.loaders.from_vscode").load {
         paths = vim.fn.stdpath "config" .. "/snippets",
       }
-      -- require('luasnip').filetype_extend("typescript", {"javascript"})
     end,
   }
-  -- use "rafamadriz/friendly-snippets"
 
   if packer_bootstrap then
     require("packer").sync()
