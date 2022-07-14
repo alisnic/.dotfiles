@@ -36,9 +36,9 @@ require("packer").startup(function(use)
 
   use {
     "ggandor/leap.nvim",
-    config=function()
-      require('leap').set_default_keymaps()
-    end
+    config = function()
+      require("leap").set_default_keymaps()
+    end,
   }
 
   use {
@@ -119,9 +119,6 @@ require("packer").startup(function(use)
 
   use {
     "neovim/nvim-lspconfig",
-    requires = {
-      { "ray-x/lsp_signature.nvim" },
-    },
     config = function()
       lsp_setup()
     end,
@@ -138,6 +135,7 @@ require("packer").startup(function(use)
       { "hrsh7th/cmp-emoji" },
       { "quangnguyen30192/cmp-nvim-tags" },
       { "saadparwaiz1/cmp_luasnip" },
+      { "hrsh7th/cmp-nvim-lsp-signature-help" },
     },
     config = function()
       cmp_setup()
@@ -152,7 +150,7 @@ require("packer").startup(function(use)
       { "RRethy/nvim-treesitter-endwise" },
       { "nvim-treesitter/nvim-treesitter-textobjects" },
       { "JoosepAlviste/nvim-ts-context-commentstring" },
-      { "nvim-treesitter/playground" }
+      { "nvim-treesitter/playground" },
     },
     config = function()
       treesitter_setup()
@@ -202,7 +200,7 @@ require("packer").startup(function(use)
           ["C"] = clipboard_actions.copy,
           ["X"] = clipboard_actions.cut,
           ["P"] = clipboard_actions.paste,
-        }
+        },
       }
 
       vim.api.nvim_set_keymap(
@@ -233,13 +231,6 @@ require("packer").startup(function(use)
     config = function()
       vim.g.ackprg = "rg --vimgrep"
       vim.cmd "cabbrev ack LAck!"
-    end,
-  }
-
-  use {
-    "ray-x/lsp_signature.nvim",
-    config = function()
-      require("lsp_signature").setup { floating_window = false }
     end,
   }
 
@@ -290,7 +281,8 @@ end)
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+    and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
         :sub(col, col)
         :match "%s"
       == nil
@@ -343,10 +335,29 @@ function cmp_setup()
         end
       end, { "i", "s" }),
 
-      ["<CR>"] = cmp.mapping.confirm { select = false },
+      ["<CR>"] = function(fallback)
+        -- Don't block <CR> if signature help is active
+        -- https://github.com/hrsh7th/cmp-nvim-lsp-signature-help/issues/13
+        if
+          not cmp.visible()
+          or not cmp.get_selected_entry()
+          or cmp.get_selected_entry().source.name == "nvim_lsp_signature_help"
+        then
+          fallback()
+        else
+          cmp.confirm {
+            -- Replace word if completing in the middle of a word
+            -- https://github.com/hrsh7th/nvim-cmp/issues/664
+            behavior = cmp.ConfirmBehavior.Replace,
+            -- Don't select first item on CR if nothing was selected
+            select = false,
+          }
+        end
+      end,
     },
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
+      { name = "nvim_lsp_signature_help" },
       { name = "luasnip" },
     }, {
       { name = "buffer" },

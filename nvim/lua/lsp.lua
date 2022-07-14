@@ -119,6 +119,7 @@ end
 local util = require "vim.lsp.util"
 local api = vim.api
 local originalReferenceHandler = vim.lsp.handlers["textDocument/references"]
+local log = require 'vim.lsp.log'
 
 local function location_handler(_, result, ctx, _)
   if result == nil or vim.tbl_isempty(result) then

@@ -25,11 +25,11 @@
   },
   "arrow function": {
     "prefix": "afi",
-    "body": "(${1:arguments}) => ${2:statement}"
+    "body": "(${1}) => ${2:statement}"
   },
   "arrow function with body": {
     "prefix": "afb",
-    "body": "(${1:arguments}) => {\n\t${0}\n}"
+    "body": "(${1}) => {\n\t${0}\n}"
   },
   "console.log": {
     "prefix": "cl",
