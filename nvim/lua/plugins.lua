@@ -273,6 +273,19 @@ require("packer").startup(function(use)
     end,
   }
 
+  use {
+    "ray-x/lsp_signature.nvim",
+    config = function()
+      require("lsp_signature").setup { floating_window = false }
+      vim.cmd [[
+        augroup lsp_signature
+          autocmd!
+          autocmd InsertLeave * lua api.nvim_buf_clear_namespace(0, _LSP_SIG_VT_NS, 0, -1)
+        augroup end
+      ]]
+    end,
+  }
+
   if packer_bootstrap then
     require("packer").sync()
   end
@@ -357,7 +370,7 @@ function cmp_setup()
     },
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
-      { name = "nvim_lsp_signature_help" },
+      -- { name = "nvim_lsp_signature_help" },
       { name = "luasnip" },
     }, {
       { name = "buffer" },
@@ -488,8 +501,12 @@ function lsp_setup()
   vim.keymap.set("n", "gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
   vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
   vim.keymap.set("n", "gr", vim.lsp.buf.references)
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+  vim.keymap.set("n", "[d", function()
+    vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
+  end)
+  vim.keymap.set("n", "]d", function()
+    vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
+  end)
   vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
   vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)

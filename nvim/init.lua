@@ -87,12 +87,12 @@ vim.keymap.set("n", "<S-Right>", "<C-w><Right>")
 vim.keymap.set("n", "<UP>", "gk")
 vim.keymap.set("n", "<Down>", "gj")
 vim.keymap.set("n", "<leader>.", ":e ~/.dotfiles/nvim/lua/plugins.lua<cr>")
-
 vim.keymap.set("v", "<S-UP>", "<nop>")
 vim.keymap.set("v", "<S-Down>", "<nop>")
 
-vim.cmd [[nnoremap d "_d]]
-vim.cmd [[vnoremap d "_d]]
+-- vim.cmd [[nnoremap d "_d]]
+-- vim.cmd [[vnoremap D d]]
+-- vim.cmd [[vnoremap d "_d]]
 vim.cmd [[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".txt"]]
 vim.cmd 'command! Focus :exe "normal! zMzv"'
 vim.cmd "command! W w"
