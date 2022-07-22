@@ -119,11 +119,11 @@ end
 local util = require "vim.lsp.util"
 local api = vim.api
 local originalReferenceHandler = vim.lsp.handlers["textDocument/references"]
-local log = require 'vim.lsp.log'
+local log = require "vim.lsp.log"
 
 local function location_handler(_, result, ctx, _)
   if result == nil or vim.tbl_isempty(result) then
-    local _ = log.info() and log.info(ctx.method, 'No location found')
+    local _ = log.info() and log.info(ctx.method, "No location found")
     return nil
   end
   local client = vim.lsp.get_client_by_id(ctx.client_id)
@@ -132,21 +132,21 @@ local function location_handler(_, result, ctx, _)
     util.jump_to_location(result[1], client.offset_encoding)
 
     if #result > 1 then
-      vim.fn.setloclist(0, {}, ' ', {
-        title = 'LSP locations',
-        items = util.locations_to_items(result, client.offset_encoding)
+      vim.fn.setloclist(0, {}, " ", {
+        title = "LSP locations",
+        items = util.locations_to_items(result, client.offset_encoding),
       })
-      api.nvim_command("lopen")
+      api.nvim_command "lopen"
     end
   else
     util.jump_to_location(result, client.offset_encoding)
   end
 end
 
-vim.lsp.handlers['textDocument/declaration'] = location_handler
-vim.lsp.handlers['textDocument/definition'] = location_handler
-vim.lsp.handlers['textDocument/typeDefinition'] = location_handler
-vim.lsp.handlers['textDocument/implementation'] = location_handler
+vim.lsp.handlers["textDocument/declaration"] = location_handler
+vim.lsp.handlers["textDocument/definition"] = location_handler
+vim.lsp.handlers["textDocument/typeDefinition"] = location_handler
+vim.lsp.handlers["textDocument/implementation"] = location_handler
 vim.lsp.handlers["textDocument/references"] = function(hz, result, ctx, _)
   originalReferenceHandler(hz, result, ctx, { loclist = true })
 end
@@ -172,10 +172,21 @@ function _G.on_attach_callback(client, bufnr)
     clear = false,
   })
 
-  vim.api.nvim_clear_autocmds {
+  pcall(vim.api.nvim_clear_autocmds, {
     buffer = bufnr,
     group = "lsp_diagnostic_current_line",
-  }
+  })
+
+  vim.api.nvim_create_augroup("lsp_signature_clear", {
+    clear = false,
+  })
+  vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+    group = "lsp_signature_clear",
+    buffer = bufnr,
+    callback = function()
+      api.nvim_buf_clear_namespace(0, _LSP_SIG_VT_NS, 0, -1)
+    end,
+  })
 
   vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
     group = "lsp_diagnostic_current_line",
