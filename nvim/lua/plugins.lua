@@ -254,6 +254,8 @@ require("packer").startup(function(use)
     end,
   }
 
+  use "lukas-reineke/lsp-format.nvim"
+
   use {
     "nvim-lualine/lualine.nvim",
     requires = {
@@ -274,15 +276,16 @@ require("packer").startup(function(use)
   }
 
   use {
+    "luukvbaal/stabilize.nvim",
+    config = function()
+      require("stabilize").setup()
+    end,
+  }
+
+  use {
     "ray-x/lsp_signature.nvim",
     config = function()
       require("lsp_signature").setup { floating_window = false }
-      vim.cmd [[
-        augroup lsp_signature
-          autocmd!
-          autocmd InsertLeave * lua api.nvim_buf_clear_namespace(0, _LSP_SIG_VT_NS, 0, -1)
-        augroup end
-      ]]
     end,
   }
 
@@ -294,8 +297,7 @@ end)
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
         :sub(col, col)
         :match "%s"
       == nil
@@ -531,4 +533,16 @@ function lsp_setup()
       _G.on_attach_callback(client, bufnr)
     end,
   }
+
+  local luadev = require("lua-dev").setup {
+    lspconfig = {
+      on_attach = function(client, bufnr)
+        client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false
+        _G.on_attach_callback(client, bufnr)
+      end,
+    },
+  }
+
+  require("lspconfig").sumneko_lua.setup(luadev)
 end

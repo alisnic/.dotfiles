@@ -96,34 +96,34 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
-  local bufnr = ctx["bufnr"]
+-- vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
+--   local bufnr = ctx["bufnr"]
 
-  if err ~= nil or result == nil then
-    return
-  end
+--   if err ~= nil or result == nil then
+--     return
+--   end
 
-  if not vim.api.nvim_buf_get_option(bufnr, "modified") then
-    local view = vim.fn.winsaveview()
+--   if not vim.api.nvim_buf_get_option(bufnr, "modified") then
+--     local view = vim.fn.winsaveview()
 
-    local client = vim.lsp.get_client_by_id(ctx.client_id)
-    vim.lsp.util.apply_text_edits(result, bufnr, client.offset_encoding)
+--     local client = vim.lsp.get_client_by_id(ctx.client_id)
+--     vim.lsp.util.apply_text_edits(result, bufnr, client.offset_encoding)
 
-    vim.fn.winrestview(view)
-    if bufnr == vim.api.nvim_get_current_buf() then
-      vim.api.nvim_command "noautocmd :update"
-    end
-  end
-end
+--     vim.fn.winrestview(view)
+--     if bufnr == vim.api.nvim_get_current_buf() then
+--       vim.api.nvim_command "noautocmd :update"
+--     end
+--   end
+-- end
 
 local util = require "vim.lsp.util"
 local api = vim.api
 local originalReferenceHandler = vim.lsp.handlers["textDocument/references"]
-local log = require 'vim.lsp.log'
+local log = require "vim.lsp.log"
 
 local function location_handler(_, result, ctx, _)
   if result == nil or vim.tbl_isempty(result) then
-    local _ = log.info() and log.info(ctx.method, 'No location found')
+    local _ = log.info() and log.info(ctx.method, "No location found")
     return nil
   end
   local client = vim.lsp.get_client_by_id(ctx.client_id)
@@ -132,32 +132,34 @@ local function location_handler(_, result, ctx, _)
     util.jump_to_location(result[1], client.offset_encoding)
 
     if #result > 1 then
-      vim.fn.setloclist(0, {}, ' ', {
-        title = 'LSP locations',
-        items = util.locations_to_items(result, client.offset_encoding)
+      vim.fn.setloclist(0, {}, " ", {
+        title = "LSP locations",
+        items = util.locations_to_items(result, client.offset_encoding),
       })
-      api.nvim_command("lopen")
+      api.nvim_command "lopen"
     end
   else
     util.jump_to_location(result, client.offset_encoding)
   end
 end
 
-vim.lsp.handlers['textDocument/declaration'] = location_handler
-vim.lsp.handlers['textDocument/definition'] = location_handler
-vim.lsp.handlers['textDocument/typeDefinition'] = location_handler
-vim.lsp.handlers['textDocument/implementation'] = location_handler
+vim.lsp.handlers["textDocument/declaration"] = location_handler
+vim.lsp.handlers["textDocument/definition"] = location_handler
+vim.lsp.handlers["textDocument/typeDefinition"] = location_handler
+vim.lsp.handlers["textDocument/implementation"] = location_handler
 vim.lsp.handlers["textDocument/references"] = function(hz, result, ctx, _)
   originalReferenceHandler(hz, result, ctx, { loclist = true })
 end
 
 function _G.on_attach_callback(client, bufnr)
-  if client.resolved_capabilities.document_formatting then
-    vim.api.nvim_command [[augroup Format]]
-    vim.api.nvim_command [[autocmd! * <buffer>]]
-    vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
-    vim.api.nvim_command [[augroup END]]
-  end
+  -- if client.resolved_capabilities.document_formatting then
+  --   vim.api.nvim_command [[augroup Format]]
+  --   vim.api.nvim_command [[autocmd! * <buffer>]]
+  --   vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
+  --   vim.api.nvim_command [[augroup END]]
+  -- end
+
+  require("lsp-format").on_attach(client, bufnr)
 
   vim.cmd [[
     hi! link DiagnosticVirtualTextHint Comment
