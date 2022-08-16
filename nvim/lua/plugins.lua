@@ -59,9 +59,8 @@ require("packer").startup(function(use)
       }
 
       vim.keymap.set("n", "<leader>f", ":Telescope git_files<cr>")
-      vim.keymap.set("n", "<leader>p", ":Telescope git_files<cr>")
-      vim.keymap.set("n", "<leader>c", ":Telescope commands<cr>")
       vim.keymap.set("n", "<leader>D", ":Telescope diagnostics bufnr=0<cr>")
+      vim.keymap.set("n", "<leader>p", ":Telescope git_files<cr>")
       vim.keymap.set("n", "<leader>b", function()
         require("telescope.builtin").buffers { sort_mru = true }
       end)
@@ -122,20 +121,6 @@ require("packer").startup(function(use)
     "neovim/nvim-lspconfig",
     config = function()
       lsp_setup()
-    end,
-  }
-  use {
-    "jose-elias-alvarez/typescript.nvim",
-    config = function()
-      require("typescript").setup {
-        server = {
-          on_attach = function(client, bufnr)
-            client.resolved_capabilities.document_formatting = false
-            client.resolved_capabilities.document_range_formatting = false
-            _G.on_attach_callback(client, bufnr)
-          end,
-        },
-      }
     end,
   }
 
@@ -269,6 +254,8 @@ require("packer").startup(function(use)
     end,
   }
 
+  use "lukas-reineke/lsp-format.nvim"
+
   use {
     "nvim-lualine/lualine.nvim",
     requires = {
@@ -289,6 +276,13 @@ require("packer").startup(function(use)
   }
 
   use {
+    "luukvbaal/stabilize.nvim",
+    config = function()
+      require("stabilize").setup()
+    end,
+  }
+
+  use {
     "ray-x/lsp_signature.nvim",
     config = function()
       require("lsp_signature").setup { floating_window = false }
@@ -303,8 +297,7 @@ end)
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
         :sub(col, col)
         :match "%s"
       == nil
@@ -516,8 +509,8 @@ function lsp_setup()
   vim.keymap.set("n", "]d", function()
     vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
   end)
-  vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename)
-  vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action)
+  vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
+  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
   vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
 
   local capabilities = require("cmp_nvim_lsp").update_capabilities(
@@ -531,4 +524,25 @@ function lsp_setup()
       on_attach = _G.on_attach_callback,
     }
   end
+
+  require("lspconfig").tsserver.setup {
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+      client.resolved_capabilities.document_formatting = false
+      client.resolved_capabilities.document_range_formatting = false
+      _G.on_attach_callback(client, bufnr)
+    end,
+  }
+
+  local luadev = require("lua-dev").setup {
+    lspconfig = {
+      on_attach = function(client, bufnr)
+        client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false
+        _G.on_attach_callback(client, bufnr)
+      end,
+    },
+  }
+
+  require("lspconfig").sumneko_lua.setup(luadev)
 end
