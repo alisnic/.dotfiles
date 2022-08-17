@@ -171,7 +171,7 @@ function _G.on_attach_callback(client, bufnr)
   -- local bufnr = vim.api.nvim_get_current_buf()
 
   vim.api.nvim_create_augroup("lsp_diagnostic_current_line", {
-    clear = false,
+    clear = true,
   })
 
   pcall(vim.api.nvim_clear_autocmds, {
@@ -180,7 +180,7 @@ function _G.on_attach_callback(client, bufnr)
   })
 
   vim.api.nvim_create_augroup("lsp_signature_clear", {
-    clear = false,
+    clear = true,
   })
   vim.api.nvim_create_autocmd({ "InsertLeave" }, {
     group = "lsp_signature_clear",
