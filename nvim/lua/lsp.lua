@@ -68,7 +68,6 @@ vim.diagnostic.handlers.current_line_virt = {
 
     local filtered_diagnostics = { diagnostic }
 
-    -- vim.diagnostic.handlers.current_line_virt.hide(nil, nil)
     pcall(
       virt_handler.show,
       ns,
@@ -95,26 +94,6 @@ for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
-
--- vim.lsp.handlers["textDocument/formatting"] = function(err, result, ctx)
---   local bufnr = ctx["bufnr"]
-
---   if err ~= nil or result == nil then
---     return
---   end
-
---   if not vim.api.nvim_buf_get_option(bufnr, "modified") then
---     local view = vim.fn.winsaveview()
-
---     local client = vim.lsp.get_client_by_id(ctx.client_id)
---     vim.lsp.util.apply_text_edits(result, bufnr, client.offset_encoding)
-
---     vim.fn.winrestview(view)
---     if bufnr == vim.api.nvim_get_current_buf() then
---       vim.api.nvim_command "noautocmd :update"
---     end
---   end
--- end
 
 local util = require "vim.lsp.util"
 local api = vim.api
@@ -152,13 +131,6 @@ vim.lsp.handlers["textDocument/references"] = function(hz, result, ctx, _)
 end
 
 function _G.on_attach_callback(client, bufnr)
-  -- if client.resolved_capabilities.document_formatting then
-  --   vim.api.nvim_command [[augroup Format]]
-  --   vim.api.nvim_command [[autocmd! * <buffer>]]
-  --   vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
-  --   vim.api.nvim_command [[augroup END]]
-  -- end
-
   require("lsp-format").on_attach(client, bufnr)
 
   vim.cmd [[
@@ -168,16 +140,14 @@ function _G.on_attach_callback(client, bufnr)
     hi! link DiagnosticVirtualTextError Comment
   ]]
 
-  -- local bufnr = vim.api.nvim_get_current_buf()
-
   vim.api.nvim_create_augroup("lsp_diagnostic_current_line", {
     clear = true,
   })
 
-  pcall(vim.api.nvim_clear_autocmds, {
-    buffer = bufnr,
-    group = "lsp_diagnostic_current_line",
-  })
+  -- pcall(vim.api.nvim_clear_autocmds, {
+  --   buffer = bufnr,
+  --   group = "lsp_diagnostic_current_line",
+  -- })
 
   vim.api.nvim_create_augroup("lsp_signature_clear", {
     clear = true,
@@ -194,7 +164,6 @@ function _G.on_attach_callback(client, bufnr)
     group = "lsp_diagnostic_current_line",
     buffer = bufnr,
     callback = function()
-      -- vim.diagnostic.show()
       vim.diagnostic.handlers.current_line_virt.show(
         nil,
         0,
