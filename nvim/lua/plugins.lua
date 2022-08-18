@@ -135,7 +135,7 @@ require("packer").startup(function(use)
       { "hrsh7th/cmp-emoji" },
       { "quangnguyen30192/cmp-nvim-tags" },
       { "saadparwaiz1/cmp_luasnip" },
-      { "hrsh7th/cmp-nvim-lsp-signature-help" },
+      -- { "hrsh7th/cmp-nvim-lsp-signature-help" },
     },
     config = function()
       cmp_setup()
@@ -285,7 +285,7 @@ require("packer").startup(function(use)
   use {
     "ray-x/lsp_signature.nvim",
     config = function()
-      require("lsp_signature").setup { floating_window = false }
+      require("lsp_signature").setup { hint_enable = false }
     end,
   }
 
@@ -297,7 +297,8 @@ end)
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+    and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
         :sub(col, col)
         :match "%s"
       == nil

@@ -130,6 +130,27 @@ vim.lsp.handlers["textDocument/references"] = function(hz, result, ctx, _)
   originalReferenceHandler(hz, result, ctx, { loclist = true })
 end
 
+function augroup(name, fn)
+  vim.api.nvim_create_augroup(name, {
+    clear = true,
+  })
+
+  return {
+    autocmd = function(event, opts)
+      opts.group = name
+      vim.api.nvim_create_autocmd(event, opts)
+    end,
+  }
+end
+
+vim.api.nvim_create_augroup("lsp_document_highlight", {
+  clear = true,
+})
+
+vim.api.nvim_create_augroup("lsp_diagnostic_current_line", {
+  clear = true,
+})
+
 function _G.on_attach_callback(client, bufnr)
   require("lsp-format").on_attach(client, bufnr)
 
@@ -140,25 +161,14 @@ function _G.on_attach_callback(client, bufnr)
     hi! link DiagnosticVirtualTextError Comment
   ]]
 
-  vim.api.nvim_create_augroup("lsp_diagnostic_current_line", {
-    clear = true,
-  })
+  if not vim.api.nvim_buf_is_loaded(bufnr) then
+    return
+  end
 
-  -- pcall(vim.api.nvim_clear_autocmds, {
-  --   buffer = bufnr,
-  --   group = "lsp_diagnostic_current_line",
-  -- })
-
-  vim.api.nvim_create_augroup("lsp_signature_clear", {
-    clear = true,
-  })
-  vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-    group = "lsp_signature_clear",
+  vim.api.nvim_clear_autocmds {
     buffer = bufnr,
-    callback = function()
-      api.nvim_buf_clear_namespace(0, _LSP_SIG_VT_NS, 0, -1)
-    end,
-  })
+    group = "lsp_diagnostic_current_line",
+  }
 
   vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
     group = "lsp_diagnostic_current_line",
@@ -182,9 +192,6 @@ function _G.on_attach_callback(client, bufnr)
   })
 
   if client.resolved_capabilities.document_highlight then
-    vim.api.nvim_create_augroup("lsp_document_highlight", {
-      clear = false,
-    })
     vim.api.nvim_clear_autocmds {
       buffer = bufnr,
       group = "lsp_document_highlight",
