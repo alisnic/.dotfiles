@@ -45,16 +45,18 @@ local severity = vim.diagnostic.severity
 local virt_options = {
   prefix = "",
   format = function(diagnostic)
+    local message = vim.split(diagnostic.message, "\n")[1]
+
     if diagnostic.severity == severity.ERROR then
-      return signs.Error .. diagnostic.message
+      return signs.Error .. message
     elseif diagnostic.severity == severity.INFO then
-      return signs.Info .. diagnostic.message
+      return signs.Info .. message
     elseif diagnostic.severity == severity.WARN then
-      return signs.Warn .. diagnostic.message
+      return signs.Warn .. message
     elseif diagnostic.severity == severity.HINT then
-      return signs.Hint .. diagnostic.message
+      return signs.Hint .. message
     else
-      return diagnostic.message
+      return message
     end
   end,
 }
