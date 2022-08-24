@@ -38,16 +38,6 @@ _fix_cursor() {
 
 precmd_functions+=(_fix_cursor)
 
-npm() {
-  if [[ -d .meteor ]]
-  then
-    echo "Meteor project detected. Running via meteor npm"
-    meteor npm $@
-  else
-    eval /opt/homebrew/opt/node@14/bin/npm $@
-  fi
-}
-
 export EDITOR=nvim
 export BAT_THEME='Solarized (light)'
 export FZF_DEFAULT_COMMAND='rg --files ---hidden --follow -g "!.git" -g "!node_modules" -g "!.cache" 2> /dev/null'
@@ -59,29 +49,19 @@ export LC_ALL="en_US.UTF-8"
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export PATH=~/.dotfiles/bin:~/Library/Python/3.9/bin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/sbin:$PATH
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 source ~/.fzf.zsh
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
-export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 
 alias ls='ls -G'
-alias lg=lazygit
 alias reload!='source ~/.zshrc'
 alias be='bundle exec'
 alias sp='bin/spring'
 alias dc='docker-compose'
 alias k=kubectl
-alias vagrant=~/Play/vagrant/exec/vagrant
-
-function gentags() {
-  echo "Exporting tags..."
-  ripper-tags -R -f .git/rubytags --tag-relative=yes
-  # ctags -R -f .git/tags --tag-relative=yes --languages=coffee,javascript,python,php,java
-}
 
 function j {
   cd -P "$MARKDIR/$1"
