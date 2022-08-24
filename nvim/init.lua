@@ -93,7 +93,7 @@ vim.keymap.set("v", "<S-Down>", "<nop>")
 -- vim.cmd [[nnoremap d "_d]]
 -- vim.cmd [[vnoremap D d]]
 -- vim.cmd [[vnoremap d "_d]]
-vim.cmd [[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".txt"]]
+vim.cmd [[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".md"]]
 vim.cmd 'command! Focus :exe "normal! zMzv"'
 vim.cmd "command! W w"
 vim.cmd "command! Wq wq"

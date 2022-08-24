@@ -59,7 +59,7 @@ require("packer").startup(function(use)
       }
 
       vim.keymap.set("n", "<leader>f", ":Telescope git_files<cr>")
-      vim.keymap.set("n", "<leader>D", ":Telescope diagnostics bufnr=0<cr>")
+      vim.keymap.set("n", "<leader>ld", ":Telescope diagnostics bufnr=0<cr>")
       vim.keymap.set("n", "<leader>p", ":Telescope git_files<cr>")
       vim.keymap.set("n", "<leader>b", function()
         require("telescope.builtin").buffers { sort_mru = true }
@@ -135,7 +135,6 @@ require("packer").startup(function(use)
       { "hrsh7th/cmp-emoji" },
       { "quangnguyen30192/cmp-nvim-tags" },
       { "saadparwaiz1/cmp_luasnip" },
-      -- { "hrsh7th/cmp-nvim-lsp-signature-help" },
     },
     config = function()
       cmp_setup()
@@ -279,13 +278,6 @@ require("packer").startup(function(use)
     "luukvbaal/stabilize.nvim",
     config = function()
       require("stabilize").setup()
-    end,
-  }
-
-  use {
-    "ray-x/lsp_signature.nvim",
-    config = function()
-      require("lsp_signature").setup { hint_enable = false }
     end,
   }
 
