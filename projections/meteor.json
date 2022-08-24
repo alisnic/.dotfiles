@@ -1,0 +1,8 @@
+{
+  "imports/api/*.ts": {
+    "alternate": "imports/api/{}.tests.ts"
+  },
+  "imports/api/*.tests.ts": {
+    "alternate": "imports/api/{}.ts"
+  }
+}
