@@ -184,9 +184,11 @@ key_bindings:
   - { key: Equals, mods: Command, action: IncreaseFontSize }
   - { key: Minus, mods: Command, action: DecreaseFontSize }
   - { key: F, mods: Command, chars: "\x02/" }
+  - { key: F, mods: Command, chars: "\x02/" }
   - { key: D, mods: Command, chars: "\x02\\" }
   - { key: T, mods: Command, chars: "\x02c" }
   - { key: W, mods: Command, chars: "\x02x" }
+  - { key: Return, mods: Command, chars: "\x02z" }
   - { key: Key1, mods: Command, chars: "\x021" }
   - { key: Key2, mods: Command, chars: "\x022" }
   - { key: Key3, mods: Command, chars: "\x023" }
