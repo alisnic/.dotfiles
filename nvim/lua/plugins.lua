@@ -35,9 +35,19 @@ require("packer").startup(function(use)
   use "kyazdani42/nvim-web-devicons"
 
   use {
+    "folke/trouble.nvim",
+    config = function()
+      require("trouble").setup()
+    end,
+  }
+
+  use {
     "ggandor/leap.nvim",
     config = function()
       require("leap").set_default_keymaps()
+      vim.keymap.set("n", "s", function()
+        require("leap").leap { target_windows = { vim.fn.win_getid() } }
+      end)
     end,
   }
 
