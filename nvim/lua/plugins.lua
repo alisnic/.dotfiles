@@ -33,6 +33,22 @@ require("packer").startup(function(use)
   use "kchmck/vim-coffee-script"
   use "folke/lua-dev.nvim"
   use "kyazdani42/nvim-web-devicons"
+  use "michaeljsmith/vim-indent-object"
+
+  use {
+    "jose-elias-alvarez/typescript.nvim",
+    config = function()
+      require("typescript").setup {
+        server = {
+          on_attach = function(client, bufnr)
+            client.resolved_capabilities.document_formatting = false
+            client.resolved_capabilities.document_range_formatting = false
+            _G.on_attach_callback(client, bufnr)
+          end,
+        },
+      }
+    end,
+  }
 
   use {
     "folke/trouble.nvim",
@@ -69,6 +85,7 @@ require("packer").startup(function(use)
       }
 
       vim.keymap.set("n", "<leader>f", ":Telescope git_files<cr>")
+      vim.keymap.set("n", "<leader>t", ":Telescope commands<cr>")
       vim.keymap.set("n", "<leader>ld", ":Telescope diagnostics bufnr=0<cr>")
       vim.keymap.set("n", "<leader>p", ":Telescope git_files<cr>")
       vim.keymap.set("n", "<leader>b", function()
@@ -403,6 +420,8 @@ function cmp_setup()
       { name = "emoji" },
     },
   })
+
+  cmp.setup.filetype("markdown", { sources = {} })
 end
 
 function lualine_setup()
@@ -412,7 +431,7 @@ function lualine_setup()
   require("lualine").setup {
     options = {
       theme = "gruvbox",
-      globalstatus = true,
+      -- globalstatus = true,
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
     },
@@ -527,15 +546,6 @@ function lsp_setup()
       on_attach = _G.on_attach_callback,
     }
   end
-
-  require("lspconfig").tsserver.setup {
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-      client.resolved_capabilities.document_formatting = false
-      client.resolved_capabilities.document_range_formatting = false
-      _G.on_attach_callback(client, bufnr)
-    end,
-  }
 
   local luadev = require("lua-dev").setup {
     lspconfig = {
