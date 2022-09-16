@@ -24,7 +24,6 @@ vim.cmd [[
 
 require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
-  use "tpope/vim-unimpaired"
   use "tpope/vim-sleuth"
   use "tpope/vim-rhubarb"
   use "tpope/vim-commentary"
@@ -34,6 +33,14 @@ require("packer").startup(function(use)
   use "folke/lua-dev.nvim"
   use "kyazdani42/nvim-web-devicons"
   use "michaeljsmith/vim-indent-object"
+
+  use {
+    "tpope/vim-unimpaired",
+    config = function()
+      vim.keymap.set("n", "[L", ":lolder<cr>")
+      vim.keymap.set("n", "]L", ":lnewer<cr>")
+    end,
+  }
 
   use {
     "jose-elias-alvarez/typescript.nvim",
@@ -261,13 +268,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "j-hui/fidget.nvim",
-    config = function()
-      require("fidget").setup {}
-    end,
-  }
-
-  use {
     "kosayoda/nvim-lightbulb",
     requires = "antoinemadec/FixCursorHold.nvim",
     config = function()
@@ -285,7 +285,10 @@ require("packer").startup(function(use)
   use {
     "nvim-lualine/lualine.nvim",
     requires = {
-      { "SmiteshP/nvim-gps" },
+      {
+        "SmiteshP/nvim-gps",
+        "WhoIsSethDaniel/lualine-lsp-progress.nvim",
+      },
     },
     config = function()
       lualine_setup()
@@ -438,7 +441,22 @@ function lualine_setup()
     sections = {
       lualine_a = { "mode" },
       lualine_b = {},
-      lualine_c = { { gps.get_location, cond = gps.is_available } },
+      lualine_c = {
+        { gps.get_location, cond = gps.is_available },
+        {
+          "lsp_progress",
+          spinner_symbols = {
+            "🌑 ",
+            "🌒 ",
+            "🌓 ",
+            "🌔 ",
+            "🌕 ",
+            "🌖 ",
+            "🌗 ",
+            "🌘 ",
+          },
+        },
+      },
       lualine_x = { "require('nvim-lightbulb').get_status_text()" },
       lualine_y = { "diagnostics" },
       lualine_z = { "location" },
@@ -516,8 +534,8 @@ function null_ls_setup()
 end
 
 function lsp_setup()
-  vim.keymap.set("n", "k", vim.lsp.buf.hover)
-  vim.keymap.set("n", "K", function()
+  vim.keymap.set("n", "K", vim.lsp.buf.hover)
+  vim.keymap.set("n", "<leader>e", function()
     vim.diagnostic.open_float(nil, { focus = false })
   end)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition)
