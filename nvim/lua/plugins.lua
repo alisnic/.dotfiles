@@ -65,16 +65,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "ggandor/leap.nvim",
-    config = function()
-      require("leap").set_default_keymaps()
-      vim.keymap.set("n", "s", function()
-        require("leap").leap { target_windows = { vim.fn.win_getid() } }
-      end)
-    end,
-  }
-
-  use {
     "nvim-telescope/telescope.nvim",
     config = function()
       local actions = require "telescope.actions"
