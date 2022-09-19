@@ -298,6 +298,7 @@ require("packer").startup(function(use)
   use {
     "L3MON4D3/LuaSnip",
     config = function()
+      require("luasnip").config.set_config { history = false }
       require("luasnip.loaders.from_vscode").load {
         paths = vim.fn.stdpath "config" .. "/snippets",
       }
@@ -354,7 +355,7 @@ function cmp_setup()
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
-        elseif luasnip.expand_or_jumpable() then
+        elseif luasnip.expand_or_locally_jumpable() then
           luasnip.expand_or_jump()
         elseif has_words_before() then
           cmp.complete()
@@ -395,7 +396,6 @@ function cmp_setup()
     },
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
-      -- { name = "nvim_lsp_signature_help" },
       { name = "luasnip" },
     }, {
       { name = "buffer" },
