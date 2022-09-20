@@ -534,7 +534,7 @@ function null_ls_setup()
 end
 
 function lsp_setup()
-  vim.keymap.set("n", "K", vim.lsp.buf.hover)
+  vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover)
   vim.keymap.set("n", "<leader>e", function()
     vim.diagnostic.open_float(nil, { focus = false })
   end)
