@@ -38,31 +38,34 @@ local signs = {
   Hint = " ",
   Info = " ",
 }
+local severity = vim.diagnostic.severity
+
+local function format_diagnostic(diagnostic)
+  local message = vim.split(diagnostic.message, "\n")[1]
+
+  if diagnostic.severity == severity.ERROR then
+    return signs.Error .. message
+  elseif diagnostic.severity == severity.INFO then
+    return signs.Info .. message
+  elseif diagnostic.severity == severity.WARN then
+    return signs.Warn .. message
+  elseif diagnostic.severity == severity.HINT then
+    return signs.Hint .. message
+  else
+    return message
+  end
+end
 
 local virt_handler = vim.diagnostic.handlers.virtual_text
 local ns = vim.api.nvim_create_namespace "current_line_virt"
-local severity = vim.diagnostic.severity
 local virt_options = {
   prefix = "",
-  format = function(diagnostic)
-    local message = vim.split(diagnostic.message, "\n")[1]
-
-    if diagnostic.severity == severity.ERROR then
-      return signs.Error .. message
-    elseif diagnostic.severity == severity.INFO then
-      return signs.Info .. message
-    elseif diagnostic.severity == severity.WARN then
-      return signs.Warn .. message
-    elseif diagnostic.severity == severity.HINT then
-      return signs.Hint .. message
-    else
-      return message
-    end
-  end,
+  format = format_diagnostic,
 }
 
 vim.diagnostic.handlers.current_line_virt = {
-  show = function(_, bufnr, diagnostics, _)
+  show = function(_, bufnr, diagnostics, config)
+    vim.pretty_print(config)
     local diagnostic = best_diagnostic(diagnostics)
     if not diagnostic then
       return
@@ -89,7 +92,7 @@ vim.diagnostic.config {
   signs = false,
   virtual_text = false,
   severity_sort = true,
-  current_line_virt = true,
+  current_line_virt = false,
 }
 
 for type, icon in pairs(signs) do
@@ -172,26 +175,26 @@ function _G.on_attach_callback(client, bufnr)
     group = "lsp_diagnostic_current_line",
   }
 
-  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-    group = "lsp_diagnostic_current_line",
-    buffer = bufnr,
-    callback = function()
-      vim.diagnostic.handlers.current_line_virt.show(
-        nil,
-        0,
-        current_line_diagnostics(),
-        nil
-      )
-    end,
-  })
+  -- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+  --   group = "lsp_diagnostic_current_line",
+  --   buffer = bufnr,
+  --   callback = function()
+  --     vim.diagnostic.handlers.current_line_virt.show(
+  --       nil,
+  --       0,
+  --       current_line_diagnostics(),
+  --       nil
+  --     )
+  --   end,
+  -- })
 
-  vim.api.nvim_create_autocmd("CursorMoved", {
-    group = "lsp_diagnostic_current_line",
-    buffer = bufnr,
-    callback = function()
-      vim.diagnostic.handlers.current_line_virt.hide(nil, nil)
-    end,
-  })
+  -- vim.api.nvim_create_autocmd("CursorMoved", {
+  --   group = "lsp_diagnostic_current_line",
+  --   buffer = bufnr,
+  --   callback = function()
+  --     vim.diagnostic.handlers.current_line_virt.hide(nil, nil)
+  --   end,
+  -- })
 
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_clear_autocmds {
@@ -210,3 +213,9 @@ function _G.on_attach_callback(client, bufnr)
     })
   end
 end
+
+return {
+  format_diagnostic = format_diagnostic,
+  current_line_diagnostics = current_line_diagnostics,
+  best_diagnostic = best_diagnostic,
+}

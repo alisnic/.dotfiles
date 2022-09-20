@@ -317,7 +317,8 @@ end)
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+    and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
         :sub(col, col)
         :match "%s"
       == nil
@@ -423,6 +424,14 @@ function cmp_setup()
   cmp.setup.filetype("markdown", { sources = {} })
 end
 
+local function lsp_diagnostic_status()
+  local lsp = require "lsp"
+  local diagnostics = lsp.current_line_diagnostics()
+  local best = lsp.best_diagnostic(diagnostics)
+
+  return lsp.format_diagnostic(best)
+end
+
 function lualine_setup()
   local gps = require "nvim-gps"
   gps.setup()
@@ -438,7 +447,8 @@ function lualine_setup()
       lualine_a = { "mode" },
       lualine_b = {},
       lualine_c = {
-        { gps.get_location, cond = gps.is_available },
+        -- { gps.get_location, cond = gps.is_available },
+        { lsp_diagnostic_status },
         {
           "lsp_progress",
           spinner_symbols = {
