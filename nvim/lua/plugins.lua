@@ -429,7 +429,14 @@ local function lsp_diagnostic_status()
   local diagnostics = lsp.current_line_diagnostics()
   local best = lsp.best_diagnostic(diagnostics)
 
-  return lsp.format_diagnostic(best)
+  local message = lsp.format_diagnostic(best)
+  local max_width = vim.api.nvim_list_uis()[1].width - 35
+
+  if string.len(message) < max_width then
+    return message
+  else
+    return string.sub(message, 1, max_width) .. "..."
+  end
 end
 
 function lualine_setup()
@@ -448,7 +455,9 @@ function lualine_setup()
       lualine_b = {},
       lualine_c = {
         -- { gps.get_location, cond = gps.is_available },
-        { lsp_diagnostic_status },
+        {
+          lsp_diagnostic_status,
+        },
         {
           "lsp_progress",
           spinner_symbols = {
