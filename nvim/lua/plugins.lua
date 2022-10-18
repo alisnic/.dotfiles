@@ -28,11 +28,24 @@ require("packer").startup(function(use)
   use "tpope/vim-rhubarb"
   use "tpope/vim-commentary"
   use "google/vim-searchindex"
-  use "stevearc/dressing.nvim"
   use "kchmck/vim-coffee-script"
   use "folke/lua-dev.nvim"
   use "kyazdani42/nvim-web-devicons"
   use "michaeljsmith/vim-indent-object"
+
+  use "stevearc/dressing.nvim"
+  use {
+    "folke/noice.nvim",
+    event = "VimEnter",
+    config = function()
+      -- require("noice").setup { notify = { enabled = false } }
+    end,
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "hrsh7th/nvim-cmp",
+      -- "rcarriga/nvim-notify",
+    },
+  }
 
   use {
     "tpope/vim-unimpaired",
@@ -47,9 +60,10 @@ require("packer").startup(function(use)
     config = function()
       require("typescript").setup {
         server = {
+          flags = { debounce_text_changes = 200 },
           on_attach = function(client, bufnr)
-            client.resolved_capabilities.document_formatting = false
-            client.resolved_capabilities.document_range_formatting = false
+            client.server_capabilities.document_formatting = false
+            client.server_capabilities.document_range_formatting = false
             _G.on_attach_callback(client, bufnr)
           end,
         },
@@ -317,10 +331,10 @@ end)
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
-        :sub(col, col)
-        :match "%s"
+      and vim.api
+      .nvim_buf_get_lines(0, line - 1, line, true)[1]
+      :sub(col, col)
+      :match "%s"
       == nil
 end
 
@@ -374,10 +388,9 @@ function cmp_setup()
       ["<CR>"] = function(fallback)
         -- Don't block <CR> if signature help is active
         -- https://github.com/hrsh7th/cmp-nvim-lsp-signature-help/issues/13
-        if
-          not cmp.visible()
-          or not cmp.get_selected_entry()
-          or cmp.get_selected_entry().source.name == "nvim_lsp_signature_help"
+        if not cmp.visible()
+            or not cmp.get_selected_entry()
+            or cmp.get_selected_entry().source.name == "nvim_lsp_signature_help"
         then
           fallback()
         else
@@ -472,7 +485,9 @@ function lualine_setup()
           },
         },
       },
-      lualine_x = { "require('nvim-lightbulb').get_status_text()" },
+      lualine_x = {
+        "require('nvim-lightbulb').get_status_text()",
+      },
       lualine_y = { "diagnostics" },
       lualine_z = { "location" },
     },
@@ -551,7 +566,7 @@ end
 function lsp_setup()
   vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover)
   vim.keymap.set("n", "<leader>e", function()
-    vim.diagnostic.open_float(nil, { focus = false })
+    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
   end)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
@@ -568,9 +583,7 @@ function lsp_setup()
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
   vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
 
-  local capabilities = require("cmp_nvim_lsp").update_capabilities(
-    vim.lsp.protocol.make_client_capabilities()
-  )
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
   local servers = { "rust_analyzer" }
   for _, lsp in pairs(servers) do
@@ -583,8 +596,8 @@ function lsp_setup()
   local luadev = require("lua-dev").setup {
     lspconfig = {
       on_attach = function(client, bufnr)
-        client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
+        client.server_capabilities.document_formatting = false
+        client.server_capabilities.document_range_formatting = false
         _G.on_attach_callback(client, bufnr)
       end,
     },

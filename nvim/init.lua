@@ -28,7 +28,7 @@ require "plugins"
 require "lsp"
 require("local-rc").load()
 
-vim.opt.background = "light"
+vim.opt.background = "dark"
 vim.cmd "colorscheme gruvbox"
 
 -- vim.opt.termguicolors = true
@@ -49,12 +49,14 @@ vim.opt.swapfile = false
 vim.opt.exrc = true
 vim.opt.secure = true
 vim.opt.spelllang = "en"
+vim.opt.spell = false
 vim.opt.scrolloff = 5
 -- vim.opt.cursorline = true
 --
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.numberwidth = 2
+vim.opt.guifont = { "Monaco", ":h16" }
 
 vim.opt.tabstop = 2
 vim.opt.expandtab = true
