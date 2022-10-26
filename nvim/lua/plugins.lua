@@ -32,19 +32,12 @@ require("packer").startup(function(use)
   use "folke/lua-dev.nvim"
   use "kyazdani42/nvim-web-devicons"
   use "michaeljsmith/vim-indent-object"
-
   use "stevearc/dressing.nvim"
   use {
-    "folke/noice.nvim",
-    event = "VimEnter",
+    "norcalli/nvim-colorizer.lua",
     config = function()
-      -- require("noice").setup { notify = { enabled = false } }
+      require("colorizer").setup()
     end,
-    requires = {
-      "MunifTanjim/nui.nvim",
-      "hrsh7th/nvim-cmp",
-      -- "rcarriga/nvim-notify",
-    },
   }
 
   use {
@@ -280,7 +273,7 @@ require("packer").startup(function(use)
 
   use {
     "kosayoda/nvim-lightbulb",
-    requires = "antoinemadec/FixCursorHold.nvim",
+    -- requires = "antoinemadec/FixCursorHold.nvim",
     config = function()
       require("nvim-lightbulb").setup {
         sign = { enabled = false },
@@ -309,7 +302,10 @@ require("packer").startup(function(use)
   use {
     "L3MON4D3/LuaSnip",
     config = function()
-      require("luasnip").config.set_config { history = false }
+      require("luasnip").config.set_config {
+        history = false,
+        delete_check_events = "InsertLeave",
+      }
       require("luasnip.loaders.from_vscode").load {
         paths = vim.fn.stdpath "config" .. "/snippets",
       }
@@ -408,7 +404,18 @@ function cmp_setup()
       { name = "nvim_lsp" },
       { name = "luasnip" },
     }, {
-      { name = "buffer" },
+      {
+        name = "buffer",
+        option = {
+          get_bufnrs = function()
+            local bufs = {}
+            for _, win in ipairs(vim.api.nvim_list_wins()) do
+              bufs[vim.api.nvim_win_get_buf(win)] = true
+            end
+            return vim.tbl_keys(bufs)
+          end,
+        },
+      },
       { name = "tags" },
     }),
     experimental = { ghost_text = true },
@@ -583,7 +590,7 @@ function lsp_setup()
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
   vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
 
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
   local servers = { "rust_analyzer" }
   for _, lsp in pairs(servers) do
