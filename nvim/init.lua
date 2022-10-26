@@ -80,9 +80,16 @@ vim.cmd [[
     autocmd!
     autocmd BufWritePre * :%s/\s\+$//e
     autocmd FocusGained * checktime
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    autocmd WinLeave                      * setlocal nocursorline
     autocmd FileType gitcommit setlocal spell
     autocmd VimResized * :wincmd =
   augroup END
+]]
+
+vim.cmd [[
+  nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+  nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 ]]
 
 vim.keymap.set("n", "<esc><esc>", ":nohlsearch<cr><esc>")
