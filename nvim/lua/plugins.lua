@@ -29,7 +29,7 @@ require("packer").startup(function(use)
   use "tpope/vim-commentary"
   use "google/vim-searchindex"
   use "kchmck/vim-coffee-script"
-  use "folke/lua-dev.nvim"
+  use "folke/neodev.nvim"
   use "kyazdani42/nvim-web-devicons"
   use "michaeljsmith/vim-indent-object"
   use "stevearc/dressing.nvim"
@@ -309,6 +309,13 @@ require("packer").startup(function(use)
       require("luasnip.loaders.from_vscode").load {
         paths = vim.fn.stdpath "config" .. "/snippets",
       }
+
+      vim.cmd [[
+        augroup luasnip_alisnic
+          autocmd!
+          autocmd InsertLeave * LuaSnipUnlinkCurrent
+        augroup end
+      ]]
     end,
   }
 
@@ -327,10 +334,10 @@ end)
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-      and vim.api
-      .nvim_buf_get_lines(0, line - 1, line, true)[1]
-      :sub(col, col)
-      :match "%s"
+    and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+        :sub(col, col)
+        :match "%s"
       == nil
 end
 
@@ -384,9 +391,10 @@ function cmp_setup()
       ["<CR>"] = function(fallback)
         -- Don't block <CR> if signature help is active
         -- https://github.com/hrsh7th/cmp-nvim-lsp-signature-help/issues/13
-        if not cmp.visible()
-            or not cmp.get_selected_entry()
-            or cmp.get_selected_entry().source.name == "nvim_lsp_signature_help"
+        if
+          not cmp.visible()
+          or not cmp.get_selected_entry()
+          or cmp.get_selected_entry().source.name == "nvim_lsp_signature_help"
         then
           fallback()
         else
@@ -600,15 +608,14 @@ function lsp_setup()
     }
   end
 
-  local luadev = require("lua-dev").setup {
-    lspconfig = {
-      on_attach = function(client, bufnr)
-        client.server_capabilities.document_formatting = false
-        client.server_capabilities.document_range_formatting = false
-        _G.on_attach_callback(client, bufnr)
-      end,
+  require("neodev").setup()
+  require("lspconfig").sumneko_lua.setup {
+    settings = {
+      Lua = {
+        completion = {
+          callSnippet = "Replace",
+        },
+      },
     },
   }
-
-  require("lspconfig").sumneko_lua.setup(luadev)
 end
