@@ -22,6 +22,10 @@ vim.cmd [[
   augroup end
 ]]
 
+local function nmap(key, callback)
+  vim.keymap.set("n", key, callback, { silent = true })
+end
+
 require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
   use "tpope/vim-sleuth"
@@ -33,6 +37,17 @@ require("packer").startup(function(use)
   use "kyazdani42/nvim-web-devicons"
   use "michaeljsmith/vim-indent-object"
   use "stevearc/dressing.nvim"
+
+  -- use {
+  --   "folke/noice.nvim",
+  --   config = function()
+  --     require("noice").setup()
+  --   end,
+  --   requires = {
+  --     "MunifTanjim/nui.nvim",
+  --   },
+  -- }
+
   use {
     "norcalli/nvim-colorizer.lua",
     config = function()
@@ -88,18 +103,45 @@ require("packer").startup(function(use)
         },
       }
 
-      vim.keymap.set("n", "<leader>f", ":Telescope git_files<cr>")
-      vim.keymap.set("n", "<leader>t", ":Telescope commands<cr>")
-      vim.keymap.set("n", "<leader>ld", ":Telescope diagnostics bufnr=0<cr>")
-      vim.keymap.set("n", "<leader>p", ":Telescope git_files<cr>")
+      vim.keymap.set(
+        "n",
+        "<leader>f",
+        ":Telescope git_files<cr>",
+        { silent = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>t",
+        ":Telescope commands<cr>",
+        { silent = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>ld",
+        ":Telescope diagnostics bufnr=0<cr>",
+        { silent = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>p",
+        ":Telescope git_files<cr>",
+        { silent = true }
+      )
       vim.keymap.set("n", "<leader>b", function()
         require("telescope.builtin").buffers { sort_mru = true }
-      end)
-      vim.keymap.set("n", "<leader>m", ":Telescope lsp_document_symbols<cr>")
+      end, { silent = true })
+
+      vim.keymap.set(
+        "n",
+        "<leader>m",
+        ":Telescope lsp_document_symbols<cr>",
+        { silent = true }
+      )
       vim.keymap.set(
         "n",
         "<leader>w",
-        ":Telescope lsp_dynamic_workspace_symbols<cr>"
+        ":Telescope lsp_dynamic_workspace_symbols<cr>",
+        { silent = true }
       )
     end,
   }
@@ -283,8 +325,6 @@ require("packer").startup(function(use)
       }
     end,
   }
-
-  use "lukas-reineke/lsp-format.nvim"
 
   use {
     "nvim-lualine/lualine.nvim",
