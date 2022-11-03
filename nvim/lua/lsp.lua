@@ -157,8 +157,6 @@ vim.api.nvim_create_augroup("lsp_diagnostic_current_line", {
 })
 
 function _G.on_attach_callback(client, bufnr)
-  require("lsp-format").on_attach(client, bufnr)
-
   vim.cmd [[
     hi! link DiagnosticVirtualTextHint Comment
     hi! link DiagnosticVirtualTextInfo Comment
