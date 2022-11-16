@@ -164,6 +164,10 @@ function _G.on_attach_callback(client, bufnr)
     hi! link DiagnosticVirtualTextError Comment
   ]]
 
+  if client.name ~= "tsserver" then
+    require("lsp-format").on_attach(client)
+  end
+
   if not vim.api.nvim_buf_is_loaded(bufnr) then
     return
   end

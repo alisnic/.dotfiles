@@ -37,16 +37,42 @@ require("packer").startup(function(use)
   use "kyazdani42/nvim-web-devicons"
   use "michaeljsmith/vim-indent-object"
   use "stevearc/dressing.nvim"
+  use {
+    "lukas-reineke/lsp-format.nvim",
+    config = function()
+      require("lsp-format").setup {
+        typescript = { "eslint", "null-ls" },
+        typescriptreact = { "eslint", "null-ls" },
+      }
+    end,
+  }
 
-  -- use {
-  --   "folke/noice.nvim",
-  --   config = function()
-  --     require("noice").setup()
-  --   end,
-  --   requires = {
-  --     "MunifTanjim/nui.nvim",
-  --   },
-  -- }
+  use {
+    "folke/noice.nvim",
+    config = function()
+      require("noice").setup {
+        lsp = {
+          progress = { enabled = false },
+          signature = { enabled = false },
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+          },
+        },
+        presets = {
+          bottom_search = true,
+          command_palette = false,
+          long_message_to_split = true,
+          inc_rename = false,
+          lsp_doc_border = true,
+        },
+      }
+    end,
+    requires = {
+      "MunifTanjim/nui.nvim",
+    },
+  }
 
   use {
     "norcalli/nvim-colorizer.lua",
@@ -70,8 +96,7 @@ require("packer").startup(function(use)
         server = {
           flags = { debounce_text_changes = 200 },
           on_attach = function(client, bufnr)
-            client.server_capabilities.document_formatting = false
-            client.server_capabilities.document_range_formatting = false
+            client.server_capabilities.documentFormattingProvider = false
             _G.on_attach_callback(client, bufnr)
           end,
         },
@@ -140,7 +165,7 @@ require("packer").startup(function(use)
       vim.keymap.set(
         "n",
         "<leader>w",
-        ":Telescope lsp_dynamic_workspace_symbols<cr>",
+        ":Telescope lsp_dynamic_workspace_symbols fname_width=100<cr>",
         { silent = true }
       )
     end,
@@ -353,7 +378,7 @@ require("packer").startup(function(use)
       vim.cmd [[
         augroup luasnip_alisnic
           autocmd!
-          autocmd InsertLeave * LuaSnipUnlinkCurrent
+          autocmd InsertLeave * silent! LuaSnipUnlinkCurrent
         augroup end
       ]]
     end,
@@ -601,13 +626,6 @@ function null_ls_setup()
       _G.on_attach_callback(client, 1)
     end,
     sources = {
-      null_ls.builtins.formatting.prettier.with {
-        filetypes = {
-          "typescript",
-          "typescriptreact",
-          "javascriptreact",
-        },
-      },
       null_ls.builtins.formatting.stylua.with {
         extra_args = {
           "--config-path",
@@ -639,17 +657,9 @@ function lsp_setup()
   vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
 
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-  local servers = { "rust_analyzer" }
-  for _, lsp in pairs(servers) do
-    require("lspconfig")[lsp].setup {
-      capabilities = capabilities,
-      on_attach = _G.on_attach_callback,
-    }
-  end
-
   require("neodev").setup()
   require("lspconfig").sumneko_lua.setup {
+    capabilities = capabilities,
     settings = {
       Lua = {
         completion = {

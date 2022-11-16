@@ -14,8 +14,6 @@ local disabledPlugins = {
   "logipat",
   "rrhelper",
   "spellfile_plugin",
-  "netrw",
-  "netrwPlugin",
 }
 
 for _, plugin in pairs(disabledPlugins) do
@@ -92,8 +90,8 @@ vim.cmd [[
   nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 ]]
 
-vim.keymap.set("n", "<esc><esc>", ":nohlsearch<cr><esc>")
-vim.keymap.set("n", "C", ":windo lcl|ccl<CR>")
+vim.keymap.set("n", "<esc><esc>", ":nohlsearch<cr><esc>", { silent = true })
+vim.keymap.set("n", "C", ":windo lcl|ccl<CR>", { silent = true })
 vim.keymap.set("n", "<S-UP>", "<C-w><UP>")
 vim.keymap.set("n", "<S-Down>", "<C-w><Down>")
 vim.keymap.set("n", "<S-Left>", "<C-w><Left>")
