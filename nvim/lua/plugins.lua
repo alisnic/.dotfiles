@@ -539,7 +539,6 @@ function lualine_setup()
   require("lualine").setup {
     options = {
       theme = "gruvbox",
-      -- globalstatus = true,
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
     },
@@ -547,7 +546,6 @@ function lualine_setup()
       lualine_a = { "mode" },
       lualine_b = {},
       lualine_c = {
-        -- { gps.get_location, cond = gps.is_available },
         {
           lsp_diagnostic_status,
         },
@@ -565,10 +563,11 @@ function lualine_setup()
           },
         },
       },
-      lualine_x = {
+      lualine_x = {},
+      lualine_y = {
         "require('nvim-lightbulb').get_status_text()",
+        "diagnostics",
       },
-      lualine_y = { "diagnostics" },
       lualine_z = { "location" },
     },
   }
