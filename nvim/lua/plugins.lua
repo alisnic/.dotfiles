@@ -638,7 +638,7 @@ end
 function lsp_setup()
   vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover)
   vim.keymap.set("n", "<leader>e", function()
-    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor", border = "rounded" })
   end)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
