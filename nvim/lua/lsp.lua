@@ -127,6 +127,10 @@ local function location_handler(_, result, ctx, _)
   end
 end
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+})
+
 vim.lsp.handlers["textDocument/declaration"] = location_handler
 vim.lsp.handlers["textDocument/definition"] = location_handler
 vim.lsp.handlers["textDocument/typeDefinition"] = location_handler
