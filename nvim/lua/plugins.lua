@@ -203,6 +203,7 @@ require("packer").startup(function(use)
         hi! LspReferenceRead guibg=#ebdbb2 gui=NONE cterm=NONE
         hi! LspReferenceText guibg=#ebdbb2 gui=NONE cterm=NONE
         hi! LspReferenceWrite guibg=#ebdbb2 gui=NONE cterm=NONE
+        hi DiagnosticSignInfo guibg=#282828 guifg=#83a598
         hi! link Comment SpecialKey
       ]]
     end,
@@ -541,7 +542,6 @@ function lualine_setup()
   require("lualine").setup {
     options = {
       theme = "gruvbox",
-      -- globalstatus = true,
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
     },
@@ -549,7 +549,6 @@ function lualine_setup()
       lualine_a = { "mode" },
       lualine_b = {},
       lualine_c = {
-        -- { gps.get_location, cond = gps.is_available },
         {
           lsp_diagnostic_status,
         },
@@ -567,10 +566,11 @@ function lualine_setup()
           },
         },
       },
-      lualine_x = {
+      lualine_x = {},
+      lualine_y = {
         "require('nvim-lightbulb').get_status_text()",
+        "diagnostics",
       },
-      lualine_y = { "diagnostics" },
       lualine_z = { "location" },
     },
   }
@@ -641,7 +641,7 @@ end
 function lsp_setup()
   vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover)
   vim.keymap.set("n", "<leader>e", function()
-    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor", border = "rounded" })
   end)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
