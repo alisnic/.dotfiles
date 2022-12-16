@@ -24,7 +24,6 @@ vim.cmd "packadd cfilter"
 
 require "plugins"
 require "lsp"
-require("local-rc").load()
 
 vim.opt.background = "dark"
 vim.cmd "colorscheme gruvbox"
@@ -109,3 +108,5 @@ vim.cmd [[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d'
 vim.cmd 'command! Focus :exe "normal! zMzv"'
 vim.cmd "command! W w"
 vim.cmd "command! Wq wq"
+
+require("local-rc").load()
