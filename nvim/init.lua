@@ -108,5 +108,7 @@ vim.cmd [[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d'
 vim.cmd 'command! Focus :exe "normal! zMzv"'
 vim.cmd "command! W w"
 vim.cmd "command! Wq wq"
+vim.cmd "command! LightMode :set bg=light"
+vim.cmd "command! DarkMode :set bg=dark"
 
 require("local-rc").load()
