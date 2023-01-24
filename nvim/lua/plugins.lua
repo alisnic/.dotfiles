@@ -52,7 +52,6 @@ require("packer").startup(function(use)
     config = function()
       require("noice").setup {
         lsp = {
-          progress = { enabled = false },
           signature = { enabled = false },
           override = {
             ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -134,7 +133,7 @@ require("packer").startup(function(use)
       vim.keymap.set(
         "n",
         "<leader>f",
-        ":Telescope git_files<cr>",
+        ":Telescope gif_files<cr>",
         { silent = true }
       )
       vim.keymap.set(
@@ -152,7 +151,7 @@ require("packer").startup(function(use)
       vim.keymap.set(
         "n",
         "<leader>p",
-        ":Telescope git_files<cr>",
+        ":Telescope find_files hidden=true<cr>",
         { silent = true }
       )
       vim.keymap.set("n", "<leader>b", function()
@@ -360,7 +359,6 @@ require("packer").startup(function(use)
     requires = {
       {
         "SmiteshP/nvim-gps",
-        "WhoIsSethDaniel/lualine-lsp-progress.nvim",
       },
     },
     config = function()
@@ -403,7 +401,8 @@ end)
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+    and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
         :sub(col, col)
         :match "%s"
       == nil
@@ -552,19 +551,6 @@ function lualine_setup()
         {
           lsp_diagnostic_status,
         },
-        {
-          "lsp_progress",
-          spinner_symbols = {
-            "🌑 ",
-            "🌒 ",
-            "🌓 ",
-            "🌔 ",
-            "🌕 ",
-            "🌖 ",
-            "🌗 ",
-            "🌘 ",
-          },
-        },
       },
       lualine_x = {},
       lualine_y = {
@@ -641,7 +627,10 @@ end
 function lsp_setup()
   vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover)
   vim.keymap.set("n", "<leader>e", function()
-    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor", border = "rounded" })
+    vim.diagnostic.open_float(
+      nil,
+      { focus = false, scope = "cursor", border = "rounded" }
+    )
   end)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
