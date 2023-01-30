@@ -133,7 +133,7 @@ require("packer").startup(function(use)
       vim.keymap.set(
         "n",
         "<leader>f",
-        ":Telescope gif_files<cr>",
+        ":Telescope git_files<cr>",
         { silent = true }
       )
       vim.keymap.set(

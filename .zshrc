@@ -11,6 +11,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 setopt PROMPT_SUBST
 setopt auto_pushd
+setopt share_history
 setopt +o nomatch
 
 precmd() {
