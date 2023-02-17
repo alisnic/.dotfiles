@@ -133,7 +133,7 @@ require("packer").startup(function(use)
       vim.keymap.set(
         "n",
         "<leader>f",
-        ":Telescope git_files<cr>",
+        ":Telescope git_files show_untracked=true<cr>",
         { silent = true }
       )
       vim.keymap.set(

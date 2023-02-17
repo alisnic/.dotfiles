@@ -34,6 +34,7 @@ vim.opt.title = true
 vim.opt.titlestring = "%f"
 vim.opt.laststatus = 3
 vim.opt.mouse = "a"
+vim.opt.mousemodel = "extend"
 vim.opt.splitright = true
 vim.opt.hidden = true
 vim.opt.clipboard = "unnamed"

@@ -93,6 +93,7 @@ vim.diagnostic.config {
   virtual_text = false,
   severity_sort = true,
   current_line_virt = false,
+  update_in_insert = false
 }
 
 for type, icon in pairs(signs) do
@@ -138,13 +139,6 @@ vim.lsp.handlers["textDocument/implementation"] = location_handler
 vim.lsp.handlers["textDocument/references"] = function(hz, result, ctx, _)
   originalReferenceHandler(hz, result, ctx, { loclist = true })
 end
-
- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    -- delay update diagnostics
-    update_in_insert = false,
-  }
-)
 
 function augroup(name, fn)
   vim.api.nvim_create_augroup(name, {
