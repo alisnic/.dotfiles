@@ -38,6 +38,12 @@ require("packer").startup(function(use)
   use "michaeljsmith/vim-indent-object"
   use "stevearc/dressing.nvim"
   use {
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup {}
+    end,
+  }
+  use {
     "lukas-reineke/lsp-format.nvim",
     config = function()
       require("lsp-format").setup {
@@ -290,7 +296,10 @@ require("packer").startup(function(use)
 
       require("lir").setup {
         show_hidden_files = true,
-        devicons_enable = true,
+        devicons = {
+          enable = false,
+          highlight_dirname = false,
+        },
         mappings = {
           ["<cr>"] = actions.edit,
           ["<C-s>"] = actions.split,
@@ -649,7 +658,7 @@ function lsp_setup()
 
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
   require("neodev").setup()
-  require("lspconfig").sumneko_lua.setup {
+  require("lspconfig").lua_ls.setup {
     capabilities = capabilities,
     settings = {
       Lua = {
