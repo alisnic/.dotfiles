@@ -22,10 +22,6 @@ vim.cmd [[
   augroup end
 ]]
 
-local function nmap(key, callback)
-  vim.keymap.set("n", key, callback, { silent = true })
-end
-
 require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
   use "tpope/vim-sleuth"
@@ -57,8 +53,15 @@ require("packer").startup(function(use)
     "folke/noice.nvim",
     config = function()
       require("noice").setup {
+        hover = { enabled = false },
+        signature = {
+          enabled = true,
+          auto_open = {
+            enabled = false,
+            trigger = false,
+          },
+        },
         lsp = {
-          signature = { enabled = false },
           override = {
             ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
             ["vim.lsp.util.stylize_markdown"] = true,
@@ -70,7 +73,7 @@ require("packer").startup(function(use)
           command_palette = false,
           long_message_to_split = true,
           inc_rename = false,
-          lsp_doc_border = false,
+          lsp_doc_border = true,
         },
       }
     end,
@@ -109,13 +112,6 @@ require("packer").startup(function(use)
           end,
         },
       }
-    end,
-  }
-
-  use {
-    "folke/trouble.nvim",
-    config = function()
-      require("trouble").setup()
     end,
   }
 
@@ -204,13 +200,13 @@ require("packer").startup(function(use)
       vim.g.gruvbox_contrast_dark = "medium"
       vim.g.gruvbox_contrast_light = "medium"
 
-      vim.cmd [[
-        hi! LspReferenceRead guibg=#ebdbb2 gui=NONE cterm=NONE
-        hi! LspReferenceText guibg=#ebdbb2 gui=NONE cterm=NONE
-        hi! LspReferenceWrite guibg=#ebdbb2 gui=NONE cterm=NONE
-        hi DiagnosticSignInfo guibg=#282828 guifg=#83a598
-        hi! link Comment SpecialKey
-      ]]
+      -- vim.cmd [[
+      --   hi! LspReferenceRead guibg=#ebdbb2 gui=NONE cterm=NONE
+      --   hi! LspReferenceText guibg=#ebdbb2 gui=NONE cterm=NONE
+      --   hi! LspReferenceWrite guibg=#ebdbb2 gui=NONE cterm=NONE
+      --   hi DiagnosticSignInfo guibg=#282828 guifg=#83a598
+      --   hi! link Comment SpecialKey
+      -- ]]
     end,
   }
 
