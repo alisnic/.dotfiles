@@ -61,7 +61,7 @@ vim.diagnostic.config {
   signs = false,
   virtual_text = false,
   severity_sort = true,
-  update_in_insert = false
+  update_in_insert = false,
 }
 
 for type, icon in pairs(signs) do
@@ -69,66 +69,25 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-local util = require "vim.lsp.util"
-local api = vim.api
-local originalReferenceHandler = vim.lsp.handlers["textDocument/references"]
-local log = require "vim.lsp.log"
-
-local function location_handler(_, result, ctx, _)
-  if result == nil or vim.tbl_isempty(result) then
-    local _ = log.info() and log.info(ctx.method, "No location found")
-    return nil
-  end
-  local client = vim.lsp.get_client_by_id(ctx.client_id)
-
-  if vim.tbl_islist(result) then
-    util.jump_to_location(result[1], client.offset_encoding)
-
-    if #result > 1 then
-      vim.fn.setloclist(0, {}, " ", {
-        title = "LSP locations",
-        items = util.locations_to_items(result, client.offset_encoding),
-      })
-      api.nvim_command "lopen"
-    end
-  else
-    util.jump_to_location(result, client.offset_encoding)
-  end
+local function on_list(options)
+  vim.fn.setloclist(0, {}, " ", options)
+  vim.api.nvim_command "lopen"
 end
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-})
+local handlers = {
+  "textDocument/declaration",
+  "textDocument/definition",
+  "textDocument/typeDefinition",
+  "textDocument/implementation",
+  "textDocument/references",
+}
 
-vim.lsp.handlers["textDocument/declaration"] = location_handler
-vim.lsp.handlers["textDocument/definition"] = location_handler
-vim.lsp.handlers["textDocument/typeDefinition"] = location_handler
-vim.lsp.handlers["textDocument/implementation"] = location_handler
-vim.lsp.handlers["textDocument/references"] = function(hz, result, ctx, _)
-  originalReferenceHandler(hz, result, ctx, { loclist = true })
-end
-
-function augroup(name, fn)
-  vim.api.nvim_create_augroup(name, {
-    clear = true,
-  })
-
-  return {
-    autocmd = function(event, opts)
-      opts.group = name
-      vim.api.nvim_create_autocmd(event, opts)
-    end,
-  }
+for i, name in ipairs(handlers) do
+  vim.lsp.handlers[name] =
+    vim.lsp.with(vim.lsp.handlers[name], { on_list = on_list })
 end
 
 function _G.on_attach_callback(client, bufnr)
-  vim.cmd [[
-    hi! link DiagnosticVirtualTextHint Comment
-    hi! link DiagnosticVirtualTextInfo Comment
-    hi! link DiagnosticVirtualTextWarn Comment
-    hi! link DiagnosticVirtualTextError Comment
-  ]]
-
   if client.name ~= "tsserver" then
     require("lsp-format").on_attach(client)
   end
