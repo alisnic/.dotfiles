@@ -200,13 +200,9 @@ require("packer").startup(function(use)
       vim.g.gruvbox_contrast_dark = "medium"
       vim.g.gruvbox_contrast_light = "medium"
 
-      -- vim.cmd [[
-      --   hi! LspReferenceRead guibg=#ebdbb2 gui=NONE cterm=NONE
-      --   hi! LspReferenceText guibg=#ebdbb2 gui=NONE cterm=NONE
-      --   hi! LspReferenceWrite guibg=#ebdbb2 gui=NONE cterm=NONE
-      --   hi DiagnosticSignInfo guibg=#282828 guifg=#83a598
-      --   hi! link Comment SpecialKey
-      -- ]]
+      vim.cmd [[
+        hi! link NormalFloat Normal
+      ]]
     end,
   }
 
