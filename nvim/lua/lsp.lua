@@ -69,9 +69,31 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-local function on_list(options)
-  vim.fn.setloclist(0, {}, " ", options)
-  vim.api.nvim_command "lopen"
+local log = vim.lsp.log
+
+local function location_handler(_, result, ctx, config)
+  if result == nil or vim.tbl_isempty(result) then
+    local _ = log.info() and log.info(ctx.method, 'No location found')
+    return nil
+  end
+  local client = vim.lsp.get_client_by_id(ctx.client_id)
+
+  config = config or {}
+
+  if vim.tbl_islist(result) then
+    if #result == 1 then
+      vim.lsp.util.jump_to_location(result[1], client.offset_encoding, config.reuse_win)
+      return
+    end
+
+    local title = 'LSP locations'
+    local items = vim.lsp.util.locations_to_items(result, client.offset_encoding)
+
+    vim.fn.setloclist(0, {}, ' ', { title = title, items = items })
+    vim.api.nvim_command('lopen')
+  else
+    vim.lsp.util.jump_to_location(result, client.offset_encoding, config.reuse_win)
+  end
 end
 
 local handlers = {
@@ -83,8 +105,7 @@ local handlers = {
 }
 
 for i, name in ipairs(handlers) do
-  vim.lsp.handlers[name] =
-    vim.lsp.with(vim.lsp.handlers[name], { on_list = on_list })
+  vim.lsp.handlers[name] = location_handler
 end
 
 function _G.on_attach_callback(client, bufnr)

@@ -65,7 +65,7 @@ require("packer").startup(function(use)
           override = {
             ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
             ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = false,
+            ["cmp.entry.get_documentation"] = true,
           },
         },
         presets = {
@@ -202,6 +202,7 @@ require("packer").startup(function(use)
 
       vim.cmd [[
         hi! link NormalFloat Normal
+        hi! link NoiceCmdlinePopupBorder PopupBorder
       ]]
     end,
   }
