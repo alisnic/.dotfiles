@@ -53,24 +53,17 @@ require("packer").startup(function(use)
     "folke/noice.nvim",
     config = function()
       require("noice").setup {
-        hover = { enabled = false },
-        signature = {
-          enabled = true,
-          auto_open = {
-            enabled = false,
-            trigger = false,
-          },
-        },
         lsp = {
-          override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-            ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
+          signature = {
+            enabled = true,
+            auto_open = {
+              enabled = false,
+            },
           },
         },
         presets = {
           bottom_search = true,
-          command_palette = false,
+          command_palette = true,
           long_message_to_split = true,
           inc_rename = false,
           lsp_doc_border = true,
@@ -501,13 +494,6 @@ function cmp_setup()
   cmp.setup.cmdline("/", {
     sources = {
       { name = "buffer" },
-    },
-  })
-
-  cmp.setup.cmdline(":", {
-    sources = cmp.config.sources {
-      { name = "cmdline" },
-      { name = "path" },
     },
   })
 
