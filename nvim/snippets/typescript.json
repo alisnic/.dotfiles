@@ -7,6 +7,10 @@
     "prefix": "desc",
     "body": "describe('${1:description}', () => {\n\t${0}\n})"
   },
+  "function docs": {
+    "prefix": "jsdoc",
+    "body": "/**\n * ${1}\n */"
+  },
   "it asynchronous": {
     "prefix": "it",
     "body": "it('${1:description}', async () => {\n\t${0}\n})"
