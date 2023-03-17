@@ -181,7 +181,10 @@ require("packer").startup(function(use)
     "TimUntersberger/neogit",
     config = function()
       local neogit = require "neogit"
-      neogit.setup { disable_context_highlighting = true }
+      neogit.setup {
+        disable_context_highlighting = true,
+        disable_commit_confirmation = true,
+      }
 
       vim.keymap.set("n", "<leader>g", ":Neogit<cr>", { silent = true })
     end,
