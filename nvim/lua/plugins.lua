@@ -62,7 +62,7 @@ require("packer").startup(function(use)
           },
         },
         presets = {
-          lsp_doc_border = true
+          lsp_doc_border = true,
         },
       }
     end,
@@ -178,6 +178,16 @@ require("packer").startup(function(use)
   }
 
   use {
+    "TimUntersberger/neogit",
+    config = function()
+      local neogit = require "neogit"
+      neogit.setup { disable_context_highlighting = true }
+
+      vim.keymap.set("n", "<leader>g", ":Neogit<cr>", { silent = true })
+    end,
+  }
+
+  use {
     "kevinhwang91/nvim-bqf",
     ft = "qf",
   }
@@ -236,7 +246,6 @@ require("packer").startup(function(use)
     requires = {
       { "windwp/nvim-ts-autotag" },
       { "RRethy/nvim-treesitter-endwise" },
-      { "nvim-treesitter/nvim-treesitter-textobjects" },
       { "JoosepAlviste/nvim-ts-context-commentstring" },
       { "nvim-treesitter/playground" },
     },
@@ -340,7 +349,7 @@ require("packer").startup(function(use)
         sign = { enabled = false },
         autocmd = { enabled = true },
         virtual_text = { enabled = false },
-        status_text = { enabled = true, text = "♻️" },
+        status_text = { enabled = true, text = "💡" },
       }
     end,
   }
@@ -493,7 +502,7 @@ function cmp_setup()
     },
   })
 
-  cmp.setup.filetype("gitcommit", {
+  cmp.setup.filetype({ "gitcommit", "NeogitCommitMessage" }, {
     sources = cmp.config.sources {
       { name = "buffer" },
       { name = "emoji" },
@@ -530,7 +539,7 @@ function lualine_setup()
     },
     sections = {
       lualine_a = { "mode" },
-      lualine_b = {},
+      lualine_b = { "branch" },
       lualine_c = {
         {
           lsp_diagnostic_status,
@@ -561,31 +570,6 @@ function treesitter_setup()
     autotag = {
       enable = true,
       filetypes = { "html", "eruby" },
-    },
-    textobjects = {
-      lsp_interop = {
-        enable = true,
-        border = "none",
-        peek_definition_code = {
-          ["gp"] = "@function.outer",
-        },
-      },
-      move = {
-        enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
-        goto_next_start = {
-          ["]m"] = "@function.outer",
-        },
-        goto_next_end = {
-          ["]M"] = "@function.outer",
-        },
-        goto_previous_start = {
-          ["[m"] = "@function.outer",
-        },
-        goto_previous_end = {
-          ["[M"] = "@function.outer",
-        },
-      },
     },
   }
 end

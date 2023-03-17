@@ -69,11 +69,11 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-local log = vim.lsp.log
+local log = require "vim.lsp.log"
 
 local function location_handler(_, result, ctx, config)
   if result == nil or vim.tbl_isempty(result) then
-    local _ = log.info() and log.info(ctx.method, 'No location found')
+    local _ = log.info() and log.info(ctx.method, "No location found")
     return nil
   end
   local client = vim.lsp.get_client_by_id(ctx.client_id)
@@ -82,17 +82,26 @@ local function location_handler(_, result, ctx, config)
 
   if vim.tbl_islist(result) then
     if #result == 1 then
-      vim.lsp.util.jump_to_location(result[1], client.offset_encoding, config.reuse_win)
+      vim.lsp.util.jump_to_location(
+        result[1],
+        client.offset_encoding,
+        config.reuse_win
+      )
       return
     end
 
-    local title = 'LSP locations'
-    local items = vim.lsp.util.locations_to_items(result, client.offset_encoding)
+    local title = "LSP locations"
+    local items =
+      vim.lsp.util.locations_to_items(result, client.offset_encoding)
 
-    vim.fn.setloclist(0, {}, ' ', { title = title, items = items })
-    vim.api.nvim_command('lopen')
+    vim.fn.setloclist(0, {}, " ", { title = title, items = items })
+    vim.api.nvim_command "lopen"
   else
-    vim.lsp.util.jump_to_location(result, client.offset_encoding, config.reuse_win)
+    vim.lsp.util.jump_to_location(
+      result,
+      client.offset_encoding,
+      config.reuse_win
+    )
   end
 end
 
@@ -111,10 +120,6 @@ end
 function _G.on_attach_callback(client, bufnr)
   if client.name ~= "tsserver" then
     require("lsp-format").on_attach(client)
-  end
-
-  if not vim.api.nvim_buf_is_loaded(bufnr) then
-    return
   end
 end
 
