@@ -94,7 +94,11 @@ require("packer").startup(function(use)
     config = function()
       require("typescript").setup {
         server = {
-          flags = { debounce_text_changes = 200 },
+          init_options = {
+            disableAutomaticTypingAcquisition = true,
+            maxTsServerMemory = 4096,
+          },
+          flags = { debounce_text_changes = 400 },
           on_attach = function(client, bufnr)
             client.server_capabilities.documentFormattingProvider = false
             _G.on_attach_callback(client, bufnr)
@@ -345,19 +349,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "kosayoda/nvim-lightbulb",
-    -- requires = "antoinemadec/FixCursorHold.nvim",
-    config = function()
-      require("nvim-lightbulb").setup {
-        sign = { enabled = false },
-        autocmd = { enabled = true },
-        virtual_text = { enabled = false },
-        status_text = { enabled = true, text = "💡" },
-      }
-    end,
-  }
-
-  use {
     "nvim-lualine/lualine.nvim",
     requires = {
       {
@@ -550,7 +541,6 @@ function lualine_setup()
       },
       lualine_x = {},
       lualine_y = {
-        "require('nvim-lightbulb').get_status_text()",
         "diagnostics",
       },
       lualine_z = { "location" },
@@ -620,7 +610,20 @@ function lsp_setup()
 
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
   require("neodev").setup()
-  require("lspconfig").lua_ls.setup {
+
+  local lspconfig = require "lspconfig"
+  -- lspconfig.tsserver.setup {
+  --   capabilities = capabilities,
+  --   root_dir = lspconfig.util.root_pattern(".git"),
+  --   init_options = {
+  --     disableAutomaticTypingAcquisition = true,
+  --     maxTsServerMemory = 8000,
+  --     tsserver = {
+  --       logVerbosity = "verbose",
+  --     },
+  --   },
+  -- }
+  lspconfig.lua_ls.setup {
     capabilities = capabilities,
     settings = {
       Lua = {
