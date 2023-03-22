@@ -63,6 +63,7 @@ require("packer").startup(function(use)
         },
         presets = {
           lsp_doc_border = true,
+          -- command_palette = true
         },
       }
     end,
@@ -231,6 +232,26 @@ require("packer").startup(function(use)
   }
 
   use {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      }
+    end,
+  }
+
+  use {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  }
+
+  use {
     "hrsh7th/nvim-cmp",
     requires = {
       { "onsails/lspkind-nvim" },
@@ -290,7 +311,6 @@ require("packer").startup(function(use)
     },
     config = function()
       local actions = require "lir.actions"
-      local clipboard_actions = require "lir.clipboard.actions"
 
       require("lir").setup {
         show_hidden_files = true,
@@ -310,10 +330,9 @@ require("packer").startup(function(use)
           ["R"] = actions.rename,
           ["Y"] = actions.yank_path,
           ["."] = actions.toggle_show_hidden,
-          ["D"] = actions.delete,
-          ["C"] = clipboard_actions.copy,
-          ["X"] = clipboard_actions.cut,
-          ["P"] = clipboard_actions.paste,
+          ["o"] = function ()
+            vim.cmd [[ !open % ]]
+          end
         },
       }
 
@@ -470,6 +489,7 @@ function cmp_setup()
       end,
     },
     sources = cmp.config.sources({
+      { name = "copilot" },
       { name = "nvim_lsp" },
       { name = "luasnip" },
     }, {
