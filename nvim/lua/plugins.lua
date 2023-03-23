@@ -15,12 +15,12 @@ end
 
 -- Load packer.nvim
 vim.cmd "packadd packer.nvim"
-vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]]
+-- vim.cmd [[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+--   augroup end
+-- ]]
 
 require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
@@ -85,8 +85,8 @@ require("packer").startup(function(use)
   use {
     "tpope/vim-unimpaired",
     config = function()
-      vim.keymap.set("n", "[L", ":lolder<cr>")
-      vim.keymap.set("n", "]L", ":lnewer<cr>")
+      vim.keymap.set("n", "[L", ":lolder<cr>", { silent = true })
+      vim.keymap.set("n", "]L", ":lnewer<cr>", { silent = true })
     end,
   }
 
@@ -299,7 +299,7 @@ require("packer").startup(function(use)
   use {
     "tpope/vim-projectionist",
     config = function()
-      vim.keymap.set("n", "<leader>a", ":A<cr>")
+      vim.keymap.set("n", "<leader>a", ":A<cr>", { silent = true })
     end,
   }
 
