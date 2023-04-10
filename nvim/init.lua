@@ -49,8 +49,7 @@ vim.opt.secure = true
 vim.opt.spelllang = "en"
 vim.opt.spell = false
 vim.opt.scrolloff = 5
--- vim.opt.cursorline = true
---
+vim.opt.exrc = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.numberwidth = 2
@@ -111,5 +110,3 @@ vim.cmd "command! W w"
 vim.cmd "command! Wq wq"
 vim.cmd "command! LightMode :set bg=light"
 vim.cmd "command! DarkMode :set bg=dark"
-
-require("local-rc").load()
