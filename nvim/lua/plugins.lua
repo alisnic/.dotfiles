@@ -15,12 +15,12 @@ end
 
 -- Load packer.nvim
 vim.cmd "packadd packer.nvim"
--- vim.cmd [[
---   augroup packer_user_config
---     autocmd!
---     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
---   augroup end
--- ]]
+vim.cmd [[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]]
 
 require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
@@ -33,12 +33,6 @@ require("packer").startup(function(use)
   use "kyazdani42/nvim-web-devicons"
   use "michaeljsmith/vim-indent-object"
   use "stevearc/dressing.nvim"
-  use {
-    "windwp/nvim-autopairs",
-    config = function()
-      require("nvim-autopairs").setup {}
-    end,
-  }
   use {
     "lukas-reineke/lsp-format.nvim",
     config = function()
@@ -247,7 +241,11 @@ require("packer").startup(function(use)
     "zbirenbaum/copilot-cmp",
     after = { "copilot.lua" },
     config = function()
-      require("copilot_cmp").setup()
+      require("copilot_cmp").setup {
+        formatters = {
+          insert_text = require("copilot_cmp.format").remove_existing,
+        },
+      }
     end,
   }
 
@@ -330,9 +328,9 @@ require("packer").startup(function(use)
           ["R"] = actions.rename,
           ["Y"] = actions.yank_path,
           ["."] = actions.toggle_show_hidden,
-          ["o"] = function ()
+          ["o"] = function()
             vim.cmd [[ !open % ]]
-          end
+          end,
         },
       }
 
@@ -489,8 +487,8 @@ function cmp_setup()
       end,
     },
     sources = cmp.config.sources({
-      { name = "copilot" },
       { name = "nvim_lsp" },
+      { name = "copilot" },
       { name = "luasnip" },
     }, {
       {
