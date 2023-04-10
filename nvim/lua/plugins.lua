@@ -91,7 +91,6 @@ require("packer").startup(function(use)
         server = {
           init_options = {
             disableAutomaticTypingAcquisition = true,
-            maxTsServerMemory = 4096,
           },
           flags = { debounce_text_changes = 400 },
           on_attach = function(client, bufnr)
@@ -351,13 +350,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "tommcdo/vim-lion",
-    config = function()
-      vim.g.lion_squeeze_spaces = 1
-    end,
-  }
-
-  use {
     "mileszs/ack.vim",
     config = function()
       vim.g.ackprg = "rg --vimgrep"
@@ -412,8 +404,7 @@ end)
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
         :sub(col, col)
         :match "%s"
       == nil
@@ -630,17 +621,6 @@ function lsp_setup()
   require("neodev").setup()
 
   local lspconfig = require "lspconfig"
-  -- lspconfig.tsserver.setup {
-  --   capabilities = capabilities,
-  --   root_dir = lspconfig.util.root_pattern(".git"),
-  --   init_options = {
-  --     disableAutomaticTypingAcquisition = true,
-  --     maxTsServerMemory = 8000,
-  --     tsserver = {
-  --       logVerbosity = "verbose",
-  --     },
-  --   },
-  -- }
   lspconfig.lua_ls.setup {
     capabilities = capabilities,
     settings = {
