@@ -389,13 +389,6 @@ require("packer").startup(function(use)
     end,
   }
 
-  use {
-    "luukvbaal/stabilize.nvim",
-    config = function()
-      require("stabilize").setup()
-    end,
-  }
-
   if packer_bootstrap then
     require("packer").sync()
   end

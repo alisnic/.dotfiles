@@ -54,6 +54,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.numberwidth = 2
 vim.opt.guifont = { "Monaco", ":h16" }
+vim.opt.splitkeep = "screen"
 
 vim.opt.tabstop = 2
 vim.opt.expandtab = true
