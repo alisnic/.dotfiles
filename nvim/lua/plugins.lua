@@ -45,6 +45,10 @@ require("packer").startup(function(use)
 
   use {
     "folke/noice.nvim",
+    requires = {
+      "MunifTanjim/nui.nvim",
+      -- "rcarriga/nvim-notify"
+    },
     config = function()
       require("noice").setup {
         lsp = {
@@ -54,6 +58,10 @@ require("packer").startup(function(use)
               enabled = false,
             },
           },
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+          },
         },
         presets = {
           lsp_doc_border = true,
@@ -61,9 +69,6 @@ require("packer").startup(function(use)
         },
       }
     end,
-    requires = {
-      "MunifTanjim/nui.nvim",
-    },
   }
 
   use {
@@ -159,12 +164,20 @@ require("packer").startup(function(use)
         ":Telescope lsp_dynamic_workspace_symbols fname_width=100<cr>",
         { silent = true }
       )
+      vim.keymap.set(
+        "n",
+        "<leader>h",
+        ":Telescope help_tags<cr>",
+        { silent = true }
+      )
     end,
   }
 
   use {
     "tpope/vim-fugitive",
     config = function()
+      vim.cmd "command! Blame :Git blame"
+
       vim.cmd [[
         cabbrev git Git
         augroup packer_fugitive
@@ -196,13 +209,12 @@ require("packer").startup(function(use)
   use {
     "ellisonleao/gruvbox.nvim",
     config = function()
-      vim.g.gruvbox_bold = 0
-      vim.g.gruvbox_contrast_dark = "medium"
-      vim.g.gruvbox_contrast_light = "medium"
+      require("gruvbox").setup({
+        bold = false
+      })
 
       vim.cmd [[
-        hi! link NormalFloat Normal
-        hi! link NoiceCmdlinePopupBorder PopupBorder
+         hi! link NoiceCmdlinePopupBorder PopupBorder
       ]]
     end,
   }
@@ -397,7 +409,8 @@ end)
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+    and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
         :sub(col, col)
         :match "%s"
       == nil
@@ -426,8 +439,8 @@ function cmp_setup()
       keyword_length = 2,
     },
     mapping = {
-      ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-      ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+      ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+      ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
