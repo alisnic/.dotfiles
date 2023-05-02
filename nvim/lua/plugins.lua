@@ -305,10 +305,7 @@ require("packer").startup(function(use)
           return
         end
 
-        vim.fn.setpos(
-          ".",
-          { 0, context.range[1] + 1, context.range[2] }
-        )
+        vim.fn.setpos(".", { 0, context.range[1] + 1, context.range[2] })
       end, { silent = true })
     end,
   }
