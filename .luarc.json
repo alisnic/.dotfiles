@@ -4,5 +4,6 @@
         "disable": [
             "lowercase-global"
         ]
-    }
+    },
+    "workspace.checkThirdParty": false
 }

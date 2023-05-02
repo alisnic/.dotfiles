@@ -299,16 +299,15 @@ require("packer").startup(function(use)
       ts_context.setup()
 
       vim.keymap.set("n", "[c", function()
-        local contexts = ts_context.get_contexts()
-        local last_context = contexts[#contexts]
+        local context = ts_context.previous_context()
 
-        if last_context == nil then
+        if context == nil then
           return
         end
 
         vim.fn.setpos(
           ".",
-          { 0, last_context.range[1] + 1, last_context.range[2] }
+          { 0, context.range[1] + 1, context.range[2] }
         )
       end, { silent = true })
     end,
@@ -605,14 +604,6 @@ function null_ls_setup()
     on_attach = function(client)
       _G.on_attach_callback(client, 1)
     end,
-    sources = {
-      null_ls.builtins.formatting.stylua.with {
-        extra_args = {
-          "--config-path",
-          vim.fn.expand "~/.config/stylua.toml",
-        },
-      },
-    },
   }
 end
 
@@ -639,10 +630,11 @@ function lsp_setup()
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
   vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
 
-  local capabilities = require("cmp_nvim_lsp").default_capabilities()
   require("neodev").setup()
 
+  local capabilities = require("cmp_nvim_lsp").default_capabilities()
   local lspconfig = require "lspconfig"
+
   lspconfig.lua_ls.setup {
     capabilities = capabilities,
     settings = {
