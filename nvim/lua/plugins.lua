@@ -33,6 +33,7 @@ require("packer").startup(function(use)
   use "kyazdani42/nvim-web-devicons"
   use "michaeljsmith/vim-indent-object"
   use "stevearc/dressing.nvim"
+  use "RRethy/vim-illuminate"
   use {
     "lukas-reineke/lsp-format.nvim",
     config = function()
@@ -209,9 +210,9 @@ require("packer").startup(function(use)
   use {
     "ellisonleao/gruvbox.nvim",
     config = function()
-      require("gruvbox").setup({
-        bold = false
-      })
+      require("gruvbox").setup {
+        bold = false,
+      }
 
       vim.cmd [[
          hi! link NoiceCmdlinePopupBorder PopupBorder
@@ -292,9 +293,24 @@ require("packer").startup(function(use)
   }
 
   use {
-    "nvim-treesitter/nvim-treesitter-context",
+    "/Users/andreilisnic/Play/nvim-treesitter-context",
     config = function()
-      require("treesitter-context").setup()
+      local ts_context = require "treesitter-context"
+      ts_context.setup()
+
+      vim.keymap.set("n", "[c", function()
+        local contexts = ts_context.get_contexts()
+        local last_context = contexts[#contexts]
+
+        if last_context == nil then
+          return
+        end
+
+        vim.fn.setpos(
+          ".",
+          { 0, last_context.range[1] + 1, last_context.range[2] }
+        )
+      end, { silent = true })
     end,
   }
 
