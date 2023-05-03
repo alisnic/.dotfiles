@@ -33,7 +33,25 @@ require("packer").startup(function(use)
   use "kyazdani42/nvim-web-devicons"
   use "michaeljsmith/vim-indent-object"
   use "stevearc/dressing.nvim"
-  use "RRethy/vim-illuminate"
+  use {
+    "RRethy/vim-illuminate",
+    config=function ()
+      require('illuminate').configure({
+        filetypes_denylist = {
+          'fugitive',
+          'qf',
+          'NeogitStatus'
+        },
+        min_count_to_highlight = 2
+      })
+
+      vim.cmd [[
+        hi! IlluminatedWordText gui=undercurl
+        hi! IlluminatedWordRead gui=undercurl
+        hi! IlluminatedWordWrite gui=undercurl
+      ]]
+    end
+  }
   use {
     "lukas-reineke/lsp-format.nvim",
     config = function()
