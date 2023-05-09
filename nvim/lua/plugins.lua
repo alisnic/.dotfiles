@@ -30,27 +30,39 @@ require("packer").startup(function(use)
   use "google/vim-searchindex"
   use "kchmck/vim-coffee-script"
   use "folke/neodev.nvim"
-  use "kyazdani42/nvim-web-devicons"
   use "michaeljsmith/vim-indent-object"
   use "stevearc/dressing.nvim"
+
+  use {
+    "nvim-tree/nvim-web-devicons",
+    tag = "nerd-v2-compat",
+    config = function()
+      require("nvim-web-devicons").setup()
+    end,
+  }
+
   use {
     "RRethy/vim-illuminate",
-    config=function ()
-      require('illuminate').configure({
-        filetypes_denylist = {
-          'fugitive',
-          'qf',
-          'NeogitStatus'
+    config = function()
+      require("illuminate").configure {
+        providers = {
+          "lsp",
+          "treesitter",
         },
-        min_count_to_highlight = 2
-      })
+        filetypes_denylist = {
+          "fugitive",
+          "qf",
+          "NeogitStatus",
+        },
+        min_count_to_highlight = 2,
+      }
 
       vim.cmd [[
         hi! IlluminatedWordText gui=undercurl
         hi! IlluminatedWordRead gui=undercurl
         hi! IlluminatedWordWrite gui=undercurl
       ]]
-    end
+    end,
   }
   use {
     "lukas-reineke/lsp-format.nvim",
@@ -281,6 +293,7 @@ require("packer").startup(function(use)
 
   use {
     "hrsh7th/nvim-cmp",
+    commit = "1cad30fcffa282c0a9199c524c821eadc24bf939",
     requires = {
       { "onsails/lspkind-nvim" },
       { "hrsh7th/cmp-nvim-lsp" },
@@ -401,6 +414,7 @@ require("packer").startup(function(use)
 
   use {
     "nvim-lualine/lualine.nvim",
+    commit = "84ffb80e452d95e2c46fa29a98ea11a240f7843e",
     requires = {
       {
         "SmiteshP/nvim-gps",
@@ -514,9 +528,9 @@ function cmp_setup()
       end,
     },
     sources = cmp.config.sources({
-      { name = "nvim_lsp" },
-      { name = "copilot" },
       { name = "luasnip" },
+      { name = "copilot" },
+      { name = "nvim_lsp" },
     }, {
       {
         name = "buffer",
@@ -548,7 +562,7 @@ function cmp_setup()
     },
   })
 
-  cmp.setup.filetype("markdown", { sources = {} })
+  cmp.setup.filetype("markdown", { sources = { { name = "buffer" } } })
 end
 
 local function lsp_diagnostic_status()
