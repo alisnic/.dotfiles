@@ -49,6 +49,7 @@ require("packer").startup(function(use)
           "lsp",
           "treesitter",
         },
+        under_cursor = false,
         filetypes_denylist = {
           "fugitive",
           "qf",
