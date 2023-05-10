@@ -293,10 +293,14 @@ require("packer").startup(function(use)
   }
 
   use {
+    "onsails/lspkind-nvim",
+    commit = "0eed47f2dd45b686ce66ba6f5dfd68defd44b89f",
+  }
+
+  use {
     "hrsh7th/nvim-cmp",
     commit = "1cad30fcffa282c0a9199c524c821eadc24bf939",
     requires = {
-      { "onsails/lspkind-nvim" },
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-path" },
@@ -477,7 +481,7 @@ function cmp_setup()
     },
     formatting = {
       format = lspkind.cmp_format {
-        mode = "text_symbol",
+        mode = "symbol",
       },
     },
     completion = {
