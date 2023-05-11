@@ -79,7 +79,6 @@ require("packer").startup(function(use)
     "folke/noice.nvim",
     requires = {
       "MunifTanjim/nui.nvim",
-      -- "rcarriga/nvim-notify"
     },
     config = function()
       require("noice").setup {
@@ -97,7 +96,6 @@ require("packer").startup(function(use)
         },
         presets = {
           lsp_doc_border = true,
-          -- command_palette = true
         },
       }
     end,
@@ -335,13 +333,7 @@ require("packer").startup(function(use)
       ts_context.setup()
 
       vim.keymap.set("n", "[c", function()
-        local context = ts_context.previous_context()
-
-        if context == nil then
-          return
-        end
-
-        vim.fn.setpos(".", { 0, context.range[1] + 1, context.range[2] })
+        ts_context.go_to_context()
       end, { silent = true })
     end,
   }
@@ -481,7 +473,7 @@ function cmp_setup()
     },
     formatting = {
       format = lspkind.cmp_format {
-        mode = "symbol",
+        mode = "text",
       },
     },
     completion = {
