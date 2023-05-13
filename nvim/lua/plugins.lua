@@ -327,7 +327,7 @@ require("packer").startup(function(use)
   }
 
   use {
-    "/Users/andreilisnic/Play/nvim-treesitter-context",
+    "nvim-treesitter/nvim-treesitter-context",
     config = function()
       local ts_context = require "treesitter-context"
       ts_context.setup()
