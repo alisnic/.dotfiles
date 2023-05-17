@@ -20,17 +20,19 @@ url:
 window:
   startup_mode: Maximized
 
+define: &font 'Inconsolata Nerd Font Mono'
+
 font:
   normal:
-    family: Monaco Nerd Font Mono
+    family: *font
     style: Regular
 
   bold:
-    family: Monaco Nerd Font Mono
+    family: *font
     style: Regular
 
   italic:
-    family: Monaco Nerd Font Mono
+    family: *font
     style: Regular
 
   # Point size of the font
@@ -38,9 +40,9 @@ font:
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
-  # offset:
-  #   x: 0
-  #   y: 0
+  offset:
+    x: 0
+    y: 0
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increase the x offset to move the glyph to

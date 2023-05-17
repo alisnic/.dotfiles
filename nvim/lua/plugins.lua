@@ -35,7 +35,6 @@ require("packer").startup(function(use)
 
   use {
     "nvim-tree/nvim-web-devicons",
-    tag = "nerd-v2-compat",
     config = function()
       require("nvim-web-devicons").setup()
     end,
@@ -292,7 +291,6 @@ require("packer").startup(function(use)
 
   use {
     "onsails/lspkind-nvim",
-    commit = "0eed47f2dd45b686ce66ba6f5dfd68defd44b89f",
   }
 
   use {
@@ -411,7 +409,6 @@ require("packer").startup(function(use)
 
   use {
     "nvim-lualine/lualine.nvim",
-    commit = "84ffb80e452d95e2c46fa29a98ea11a240f7843e",
     requires = {
       {
         "SmiteshP/nvim-gps",
@@ -473,7 +470,7 @@ function cmp_setup()
     },
     formatting = {
       format = lspkind.cmp_format {
-        mode = "text",
+        mode = "text_icon",
       },
     },
     completion = {
