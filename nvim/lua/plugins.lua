@@ -354,7 +354,7 @@ require("packer").startup(function(use)
   use {
     "tamago324/lir.nvim",
     requires = {
-      { "nvim-lua/plenary.nvim" },
+      { "nvim-lua/plenary.nvim" }
     },
     config = function()
       local actions = require "lir.actions"
@@ -362,7 +362,7 @@ require("packer").startup(function(use)
       require("lir").setup {
         show_hidden_files = true,
         devicons = {
-          enable = false,
+          enable = true,
           highlight_dirname = false,
         },
         mappings = {
