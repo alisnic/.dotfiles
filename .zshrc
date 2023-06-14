@@ -14,6 +14,15 @@ setopt auto_pushd
 setopt share_history
 setopt +o nomatch
 
+FPATH=/opt/homebrew/share/zsh/site-functions:/opt/homebrew/share/zsh-completions:$FPATH
+autoload -Uz compinit
+
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+  compinit;
+else
+  compinit -C;
+fi;
+
 precmd() {
   if [ -d ".git" ]
   then
@@ -51,7 +60,6 @@ export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export PATH=~/.dotfiles/bin:~/Library/Python/3.9/bin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/sbin:$PATH
 
 source ~/.fzf.zsh
-export PATH="$PATH:$HOME/.rvm/bin"
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
 export MANPAGER='nvim +Man!'
@@ -68,7 +76,6 @@ function j {
   cd -P "$MARKDIR/$1"
 }
 
-
 function p {
   cd -P "$HOME/Play/$1"
 }
@@ -83,3 +90,6 @@ function _completeplays {
 
 compctl -K _completemarks j
 compctl -K _completeplays p
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
