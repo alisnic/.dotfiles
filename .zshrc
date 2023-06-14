@@ -17,12 +17,6 @@ setopt +o nomatch
 FPATH=/opt/homebrew/share/zsh/site-functions:/opt/homebrew/share/zsh-completions:$FPATH
 autoload -Uz compinit
 
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-  compinit;
-else
-  compinit -C;
-fi;
-
 precmd() {
   if [ -d ".git" ]
   then
