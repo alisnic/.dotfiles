@@ -295,7 +295,6 @@ require("packer").startup(function(use)
 
   use {
     "hrsh7th/nvim-cmp",
-    commit = "1cad30fcffa282c0a9199c524c821eadc24bf939",
     requires = {
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-buffer" },
