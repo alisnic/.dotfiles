@@ -233,6 +233,13 @@ require("packer").startup(function(use)
   use {
     "kevinhwang91/nvim-bqf",
     ft = "qf",
+    config=function ()
+      require('bqf').setup({
+        preview = {
+          winblend = 0
+        }
+      })
+    end
   }
 
   use {
