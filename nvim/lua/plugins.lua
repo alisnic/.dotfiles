@@ -294,10 +294,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "onsails/lspkind-nvim",
-  }
-
-  use {
     "hrsh7th/nvim-cmp",
     requires = {
       { "hrsh7th/cmp-nvim-lsp" },
@@ -307,6 +303,7 @@ require("packer").startup(function(use)
       { "hrsh7th/cmp-emoji" },
       { "quangnguyen30192/cmp-nvim-tags" },
       { "saadparwaiz1/cmp_luasnip" },
+      { "onsails/lspkind-nvim" },
     },
     config = function()
       cmp_setup()
@@ -412,11 +409,6 @@ require("packer").startup(function(use)
 
   use {
     "nvim-lualine/lualine.nvim",
-    requires = {
-      {
-        "SmiteshP/nvim-gps",
-      },
-    },
     config = function()
       lualine_setup()
     end,
@@ -578,9 +570,6 @@ local function lsp_diagnostic_status()
 end
 
 function lualine_setup()
-  local gps = require "nvim-gps"
-  gps.setup()
-
   require("lualine").setup {
     options = {
       theme = "gruvbox",
@@ -645,8 +634,6 @@ function lsp_setup()
   vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
   vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
-
-  require("neodev").setup()
 
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
   local lspconfig = require "lspconfig"
