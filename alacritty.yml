@@ -19,6 +19,8 @@ url:
 
 window:
   startup_mode: Maximized
+  decorations: Buttonless
+
 
 define: &font 'Inconsolata Nerd Font Mono'
 
