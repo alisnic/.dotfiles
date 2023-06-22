@@ -85,13 +85,6 @@ vim.cmd [[
   augroup END
 ]]
 
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    client.server_capabilities.semanticTokensProvider = nil
-  end,
-})
-
 vim.cmd [[
   nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
   nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'

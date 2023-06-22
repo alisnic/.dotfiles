@@ -2,7 +2,7 @@ local null_ls = require "null-ls"
 
 null_ls.setup {
   on_attach = function(client)
-    _G.on_attach_callback(client, 1)
+    require("lsp-format").on_attach(client)
   end,
   sources = {
     null_ls.builtins.formatting.stylua.with {

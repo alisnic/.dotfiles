@@ -117,12 +117,6 @@ for i, name in ipairs(handlers) do
   vim.lsp.handlers[name] = location_handler
 end
 
-function _G.on_attach_callback(client, bufnr)
-  if client.name ~= "tsserver" then
-    require("lsp-format").on_attach(client)
-  end
-end
-
 return {
   format_diagnostic = format_diagnostic,
   current_line_diagnostics = current_line_diagnostics,

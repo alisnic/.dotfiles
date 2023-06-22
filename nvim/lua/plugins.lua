@@ -67,10 +67,7 @@ require("packer").startup(function(use)
   use {
     "lukas-reineke/lsp-format.nvim",
     config = function()
-      require("lsp-format").setup {
-        typescript = { "eslint", "null-ls" },
-        typescriptreact = { "eslint", "null-ls" },
-      }
+      require("lsp-format").setup {}
     end,
   }
 
@@ -129,7 +126,7 @@ require("packer").startup(function(use)
           flags = { debounce_text_changes = 400 },
           on_attach = function(client, bufnr)
             client.server_capabilities.documentFormattingProvider = false
-            _G.on_attach_callback(client, bufnr)
+            client.server_capabilities.documentRangeFormattingProvider = false
           end,
         },
       }
@@ -233,13 +230,13 @@ require("packer").startup(function(use)
   use {
     "kevinhwang91/nvim-bqf",
     ft = "qf",
-    config=function ()
-      require('bqf').setup({
+    config = function()
+      require("bqf").setup {
         preview = {
-          winblend = 0
-        }
-      })
-    end
+          winblend = 0,
+        },
+      }
+    end,
   }
 
   use {
@@ -261,7 +258,7 @@ require("packer").startup(function(use)
       { "nvim-lua/plenary.nvim" },
     },
     config = function()
-      null_ls_setup()
+      require("null-ls").setup()
     end,
   }
 
@@ -360,7 +357,7 @@ require("packer").startup(function(use)
   use {
     "tamago324/lir.nvim",
     requires = {
-      { "nvim-lua/plenary.nvim" }
+      { "nvim-lua/plenary.nvim" },
     },
     config = function()
       local actions = require "lir.actions"
@@ -626,16 +623,6 @@ function treesitter_setup()
   }
 end
 
-function null_ls_setup()
-  local null_ls = require "null-ls"
-
-  null_ls.setup {
-    on_attach = function(client)
-      _G.on_attach_callback(client, 1)
-    end,
-  }
-end
-
 function lsp_setup()
   vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover)
   vim.keymap.set("n", "<leader>e", function()
@@ -664,8 +651,19 @@ function lsp_setup()
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
   local lspconfig = require "lspconfig"
 
+  vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      client.server_capabilities.semanticTokensProvider = nil
+    end,
+  })
+
   lspconfig.lua_ls.setup {
     capabilities = capabilities,
+    on_attach = function(client)
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+    end,
     settings = {
       Lua = {
         completion = {
