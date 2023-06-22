@@ -1,5 +1,7 @@
 local null_ls = require "null-ls"
 
+require("neodev").setup()
+
 null_ls.setup {
   on_attach = function(client)
     require("lsp-format").on_attach(client)
