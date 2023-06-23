@@ -578,7 +578,7 @@ function lualine_setup()
     },
     sections = {
       lualine_a = { "mode" },
-      lualine_b = { "branch" },
+      lualine_b = { "branch", "filename" },
       lualine_c = {
         {
           lsp_diagnostic_status,

@@ -25,7 +25,7 @@ precmd() {
   else
     PS1=$'\n%~ (%j)\n$ '
   fi
-  print -Pn "\e]2;%n@%M | %~\a"
+  print -Pn "\e]2;%~\a"
 }
 
 parse_git_stash() {
