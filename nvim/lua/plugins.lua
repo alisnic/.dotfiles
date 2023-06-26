@@ -34,6 +34,21 @@ require("packer").startup(function(use)
   use "stevearc/dressing.nvim"
 
   use {
+    "folke/flash.nvim",
+    config = function()
+      vim.keymap.set("n", "s", function()
+        require("flash").jump {
+          search = {
+            mode = function(str)
+              return "\\<" .. str
+            end,
+          },
+        }
+      end, { silent = true })
+    end,
+  }
+
+  use {
     "nvim-tree/nvim-web-devicons",
     config = function()
       require("nvim-web-devicons").setup()
