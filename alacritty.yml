@@ -21,7 +21,6 @@ window:
   startup_mode: Maximized
   decorations: Buttonless
   dynamic_title: true
-  resize_increments: true
 
 define: &font 'Inconsolata Nerd Font Mono'
 
