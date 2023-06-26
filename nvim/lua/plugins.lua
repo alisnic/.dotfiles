@@ -36,6 +36,15 @@ require("packer").startup(function(use)
   use {
     "folke/flash.nvim",
     config = function()
+      require("flash").setup {
+        highlight = {
+          groups = {
+            match = "Question",
+          },
+        },
+        modes = { char = { enabled = false } },
+      }
+
       vim.keymap.set("n", "s", function()
         require("flash").jump {
           search = {
@@ -82,7 +91,9 @@ require("packer").startup(function(use)
   use {
     "lukas-reineke/lsp-format.nvim",
     config = function()
-      require("lsp-format").setup {}
+      require("lsp-format").setup {
+        lua = { "null-ls" },
+      }
     end,
   }
 
@@ -131,18 +142,16 @@ require("packer").startup(function(use)
   }
 
   use {
-    "jose-elias-alvarez/typescript.nvim",
+    "pmizio/typescript-tools.nvim",
+    requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     config = function()
-      require("typescript").setup {
-        server = {
-          init_options = {
-            disableAutomaticTypingAcquisition = true,
-          },
-          flags = { debounce_text_changes = 400 },
-          on_attach = function(client, bufnr)
-            client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.documentRangeFormattingProvider = false
-          end,
+      require("typescript-tools").setup {
+        on_attach = function(client, bufnr)
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end,
+        settings = {
+          separate_diagnostic_server = false,
         },
       }
     end,
@@ -273,7 +282,21 @@ require("packer").startup(function(use)
       { "nvim-lua/plenary.nvim" },
     },
     config = function()
-      require("null-ls").setup()
+      local null_ls = require "null-ls"
+
+      null_ls.setup {
+        on_attach = function(client)
+          require("lsp-format").on_attach(client)
+        end,
+      }
+      null_ls.register {
+        null_ls.builtins.formatting.stylua.with {
+          extra_args = {
+            "--config-path",
+            vim.fn.expand "~/.config/stylua.toml",
+          },
+        },
+      }
     end,
   }
 
@@ -593,7 +616,7 @@ function lualine_setup()
     },
     sections = {
       lualine_a = { "mode" },
-      lualine_b = { "branch", "filename" },
+      lualine_b = { "branch" },
       lualine_c = {
         {
           lsp_diagnostic_status,
@@ -601,6 +624,7 @@ function lualine_setup()
       },
       lualine_x = {},
       lualine_y = {
+        "filename",
         "diagnostics",
       },
       lualine_z = { "location" },
@@ -660,6 +684,8 @@ function lsp_setup()
     end,
   })
 
+  require("neodev").setup()
+
   lspconfig.lua_ls.setup {
     capabilities = capabilities,
     on_attach = function(client)
@@ -671,6 +697,7 @@ function lsp_setup()
         completion = {
           callSnippet = "Replace",
         },
+        workspace = { checkThirdParty = false },
       },
     },
   }
