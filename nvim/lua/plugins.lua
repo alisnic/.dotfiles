@@ -286,9 +286,9 @@ require("packer").startup(function(use)
       local null_ls = require "null-ls"
 
       null_ls.setup {
-        on_attach = function(client)
-          require("lsp-format").on_attach(client)
-        end,
+        -- on_attach = function(client)
+        --   require("lsp-format").on_attach(client)
+        -- end,
       }
       null_ls.register {
         null_ls.builtins.formatting.stylua.with {
@@ -303,6 +303,9 @@ require("packer").startup(function(use)
 
   use {
     "neovim/nvim-lspconfig",
+    requires = {
+      { "yioneko/nvim-vtsls" },
+    },
     config = function()
       lsp_setup()
     end,
@@ -492,6 +495,7 @@ function cmp_setup()
   local cmp = require "cmp"
   local lspkind = require "lspkind"
   local luasnip = require "luasnip"
+  local cmp_buffer = require "cmp_buffer"
 
   cmp.setup {
     snippet = {
@@ -501,11 +505,15 @@ function cmp_setup()
     },
     window = {
       documentation = cmp.config.window.bordered(),
+      completion = cmp.config.window.bordered(),
     },
     formatting = {
       format = lspkind.cmp_format {
         mode = "text_icon",
       },
+    },
+    performance = {
+      max_view_entries = 10,
     },
     completion = {
       keyword_length = 2,
@@ -572,24 +580,35 @@ function cmp_setup()
           end,
         },
       },
-      { name = "tags" },
     }),
     experimental = { ghost_text = true },
     sorting = {
       comparators = {
+        function(...)
+          return cmp_buffer:compare_locality(...)
+        end,
         cmp.config.compare.offset,
         cmp.config.compare.exact,
         cmp.config.compare.score,
-        cmp.config.compare.recently_used,
         cmp.config.compare.kind,
       },
     },
   }
 
   cmp.setup.cmdline("/", {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
       { name = "buffer" },
     },
+  })
+
+  cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = "path" },
+    }, {
+      { name = "cmdline" },
+    }),
   })
 
   cmp.setup.filetype({ "gitcommit", "NeogitCommitMessage" }, {
@@ -695,6 +714,18 @@ function lsp_setup()
   })
 
   require("neodev").setup()
+
+  require("lspconfig.configs").vtsls = require("vtsls").lspconfig
+  vim.cmd "command! RemoveUnusedImports :VtsExec remove_unused_imports"
+
+  print(lspconfig.vtsls)
+  lspconfig.vtsls.setup {
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+    end,
+  }
 
   lspconfig.lua_ls.setup {
     capabilities = capabilities,
