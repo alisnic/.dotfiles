@@ -89,15 +89,6 @@ require("packer").startup(function(use)
     end,
   }
 
-  -- use {
-  --   "lukas-reineke/lsp-format.nvim",
-  --   config = function()
-  --     require("lsp-format").setup {
-  --       lua = { "null-ls" },
-  --     }
-  --   end,
-  -- }
-
   use {
     "folke/noice.nvim",
     requires = {
@@ -141,22 +132,6 @@ require("packer").startup(function(use)
       vim.keymap.set("n", "]L", ":lnewer<cr>", { silent = true })
     end,
   }
-
-  -- use {
-  --   "pmizio/typescript-tools.nvim",
-  --   requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  --   config = function()
-  --     require("typescript-tools").setup {
-  --       on_attach = function(client, bufnr)
-  --         client.server_capabilities.documentFormattingProvider = false
-  --         client.server_capabilities.documentRangeFormattingProvider = false
-  --       end,
-  --       -- settings = {
-  --       --   separate_diagnostic_server = false,
-  --       -- },
-  --     }
-  --   end,
-  -- }
 
   use {
     "nvim-telescope/telescope.nvim",
@@ -286,9 +261,6 @@ require("packer").startup(function(use)
       local null_ls = require "null-ls"
 
       null_ls.setup {
-        -- on_attach = function(client)
-        --   require("lsp-format").on_attach(client)
-        -- end,
       }
       null_ls.register {
         null_ls.builtins.formatting.stylua.with {
