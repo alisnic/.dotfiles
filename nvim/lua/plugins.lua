@@ -88,14 +88,15 @@ require("packer").startup(function(use)
       ]]
     end,
   }
-  use {
-    "lukas-reineke/lsp-format.nvim",
-    config = function()
-      require("lsp-format").setup {
-        lua = { "null-ls" },
-      }
-    end,
-  }
+
+  -- use {
+  --   "lukas-reineke/lsp-format.nvim",
+  --   config = function()
+  --     require("lsp-format").setup {
+  --       lua = { "null-ls" },
+  --     }
+  --   end,
+  -- }
 
   use {
     "folke/noice.nvim",
@@ -141,21 +142,21 @@ require("packer").startup(function(use)
     end,
   }
 
-  use {
-    "pmizio/typescript-tools.nvim",
-    requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    config = function()
-      require("typescript-tools").setup {
-        on_attach = function(client, bufnr)
-          client.server_capabilities.documentFormattingProvider = false
-          client.server_capabilities.documentRangeFormattingProvider = false
-        end,
-        settings = {
-          separate_diagnostic_server = false,
-        },
-      }
-    end,
-  }
+  -- use {
+  --   "pmizio/typescript-tools.nvim",
+  --   requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  --   config = function()
+  --     require("typescript-tools").setup {
+  --       on_attach = function(client, bufnr)
+  --         client.server_capabilities.documentFormattingProvider = false
+  --         client.server_capabilities.documentRangeFormattingProvider = false
+  --       end,
+  --       -- settings = {
+  --       --   separate_diagnostic_server = false,
+  --       -- },
+  --     }
+  --   end,
+  -- }
 
   use {
     "nvim-telescope/telescope.nvim",
@@ -239,7 +240,7 @@ require("packer").startup(function(use)
   }
 
   use {
-    "TimUntersberger/neogit",
+    "NeogitOrg/neogit",
     config = function()
       local neogit = require "neogit"
       neogit.setup {
