@@ -2,7 +2,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 require("lspconfig").eslint.setup {
   capabilities = capabilities,
-  flags = { debounce_text_changes = 400 }
+  flags = { debounce_text_changes = 400 },
 }
 
 local null_ls = require "null-ls"
@@ -27,6 +27,8 @@ null_ls.setup {
   },
 }
 
+local autofix_eslint_rules = { "simple-import-sort/imports", "curly" }
+
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(event)
@@ -38,13 +40,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local diagnostics = vim.diagnostic.get(event.buf)
 
         for _, value in pairs(diagnostics) do
-          if value.source == "eslint" then
+          if
+            value.source == "eslint"
+            and vim.tbl_contains(autofix_eslint_rules, value.user_data.lsp.code)
+          then
             vim.cmd "EslintFixAll"
             break
           end
         end
 
-        vim.lsp.buf.format { bufnr = event.buf }
+        vim.lsp.buf.format {
+          bufnr = event.buf,
+          filter = function(client)
+            return client.name == "null-ls"
+          end,
+        }
       end,
     })
   end,

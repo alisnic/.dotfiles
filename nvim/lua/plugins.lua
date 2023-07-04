@@ -260,8 +260,7 @@ require("packer").startup(function(use)
     config = function()
       local null_ls = require "null-ls"
 
-      null_ls.setup {
-      }
+      null_ls.setup {}
       null_ls.register {
         null_ls.builtins.formatting.stylua.with {
           extra_args = {
@@ -477,7 +476,7 @@ function cmp_setup()
     },
     window = {
       documentation = cmp.config.window.bordered(),
-      completion = cmp.config.window.bordered(),
+      -- completion = cmp.config.window.bordered(),
     },
     formatting = {
       format = lspkind.cmp_format {
@@ -554,17 +553,12 @@ function cmp_setup()
       },
     }),
     experimental = { ghost_text = true },
-    sorting = {
-      comparators = {
-        function(...)
-          return cmp_buffer:compare_locality(...)
-        end,
-        cmp.config.compare.offset,
-        cmp.config.compare.exact,
-        cmp.config.compare.score,
-        cmp.config.compare.kind,
-      },
-    },
+    -- sorting = {
+    --   comparators = {
+    --     cmp.config.compare.order,
+    --     cmp.config.compare.locality,
+    --   },
+    -- },
   }
 
   cmp.setup.cmdline("/", {
@@ -690,7 +684,6 @@ function lsp_setup()
   require("lspconfig.configs").vtsls = require("vtsls").lspconfig
   vim.cmd "command! RemoveUnusedImports :VtsExec remove_unused_imports"
 
-  print(lspconfig.vtsls)
   lspconfig.vtsls.setup {
     capabilities = capabilities,
     on_attach = function(client, bufnr)
