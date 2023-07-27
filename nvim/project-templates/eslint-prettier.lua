@@ -27,7 +27,10 @@ null_ls.setup {
   },
 }
 
-local autofix_eslint_rules = { "simple-import-sort/imports", "curly" }
+local autofix_eslint_rules =
+  { "simple-import-sort/imports", "curly", "prefer-destructuring" }
+
+local skip_filetypes = { "qf" }
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -37,6 +40,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.api.nvim_create_autocmd("BufWritePre", {
       buffer = bufnr,
       callback = function(event)
+        if vim.tbl_contains(skip_filetypes, vim.bo.filetype) then
+          return
+        end
+
         local diagnostics = vim.diagnostic.get(event.buf)
 
         for _, value in pairs(diagnostics) do
