@@ -34,6 +34,13 @@ require("packer").startup(function(use)
   use "stevearc/dressing.nvim"
 
   use {
+    "chrisgrieser/nvim-early-retirement",
+    config = function()
+      require("early-retirement").setup { minimumBufferNum = 5 }
+    end,
+  }
+
+  use {
     "folke/flash.nvim",
     config = function()
       require("flash").setup {
@@ -69,7 +76,7 @@ require("packer").startup(function(use)
     config = function()
       require("illuminate").configure {
         providers = {
-          "lsp",
+          -- "lsp",
           "treesitter",
         },
         under_cursor = false,
@@ -405,12 +412,12 @@ require("packer").startup(function(use)
     end,
   }
 
-  use {
-    "sickill/vim-pasta",
-    config = function()
-      vim.g.pasta_disabled_filetypes = { "coffee", "yaml", "haml" }
-    end,
-  }
+  -- use {
+  --   "sickill/vim-pasta",
+  --   config = function()
+  --     vim.g.pasta_disabled_filetypes = { "coffee", "yaml", "haml" }
+  --   end,
+  -- }
 
   use {
     "mileszs/ack.vim",
