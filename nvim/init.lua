@@ -101,6 +101,7 @@ vim.keymap.set("n", "<Down>", "gj")
 vim.keymap.set("n", "<leader>.", ":e ~/.dotfiles/nvim/lua/plugins.lua<cr>")
 vim.keymap.set("v", "<S-UP>", "<nop>")
 vim.keymap.set("v", "<S-Down>", "<nop>")
+vim.keymap.set("n", "<leader>st", "<C-w>T")
 
 -- vim.cmd [[nnoremap d "_d]]
 -- vim.cmd [[vnoremap D d]]

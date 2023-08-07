@@ -117,6 +117,12 @@ for i, name in ipairs(handlers) do
   vim.lsp.handlers[name] = location_handler
 end
 
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    -- delay update diagnostics
+    update_in_insert = false,
+  })
+
 return {
   format_diagnostic = format_diagnostic,
   current_line_diagnostics = current_line_diagnostics,
