@@ -64,11 +64,6 @@ vim.diagnostic.config {
   update_in_insert = false,
 }
 
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
 local log = require "vim.lsp.log"
 
 local function location_handler(_, result, ctx, config)
