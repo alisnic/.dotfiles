@@ -36,7 +36,18 @@ require("packer").startup(function(use)
   use {
     "chrisgrieser/nvim-early-retirement",
     config = function()
-      require("early-retirement").setup { minimumBufferNum = 5 }
+      require("early-retirement").setup {
+        retirementAgeMins = 60,
+        minimumBufferNum = 5,
+        ignoredFiletypes = { "markdown" },
+      }
+    end,
+  }
+
+  use {
+    "lukas-reineke/lsp-format.nvim",
+    config = function()
+      require("lsp-format").setup {}
     end,
   }
 
@@ -181,9 +192,12 @@ require("packer").startup(function(use)
         ":Telescope find_files hidden=true<cr>",
         { silent = true }
       )
-      vim.keymap.set("n", "<leader>b", function()
-        require("telescope.builtin").buffers { sort_mru = true }
-      end, { silent = true })
+      vim.keymap.set(
+        "n",
+        "<leader>b",
+        ":Telescope buffers sort_mru=true<cr>",
+        { silent = true }
+      )
 
       vim.keymap.set(
         "n",
@@ -412,12 +426,12 @@ require("packer").startup(function(use)
     end,
   }
 
-  -- use {
-  --   "sickill/vim-pasta",
-  --   config = function()
-  --     vim.g.pasta_disabled_filetypes = { "coffee", "yaml", "haml" }
-  --   end,
-  -- }
+  use {
+    "sickill/vim-pasta",
+    config = function()
+      vim.g.pasta_disabled_filetypes = { "coffee", "yaml", "haml" }
+    end,
+  }
 
   use {
     "mileszs/ack.vim",
@@ -431,6 +445,17 @@ require("packer").startup(function(use)
     "nvim-lualine/lualine.nvim",
     config = function()
       lualine_setup()
+    end,
+  }
+
+  use {
+    "b0o/incline.nvim",
+    config = function()
+      require("incline").setup {
+        debounce_threshold = { falling = 500, rising = 250 },
+        window = { padding = 0 },
+        hide = { focused_win = true }
+      }
     end,
   }
 
