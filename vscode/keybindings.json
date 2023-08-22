@@ -1,32 +1,45 @@
 // Place your key bindings in this file to override the defaultsauto[]
 [
-  { "key": "cmd+1","command": "workbench.action.openEditorAtIndex1" },
-  { "key": "cmd+2","command": "workbench.action.openEditorAtIndex2" },
-  { "key": "cmd+3","command": "workbench.action.openEditorAtIndex3" },
-  { "key": "cmd+4","command": "workbench.action.openEditorAtIndex4" },
   {
-    "key": "cmd+5",
-    "command": "workbench.action.openEditorAtIndex5"
+    "key": "shift+cmd+f",
+    "command": "search.action.openNewEditor"
   },
   {
-    "key": "cmd+r",
-    "command": "-workbench.action.reloadWindow",
-    "when": "isDevelopment"
+    "key": "cmd+enter",
+    "command": "-editor.action.insertLineAfter",
+    "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "key": "cmd+r",
-    "command": "workbench.action.showAllSymbols"
+    "key": "cmd+enter",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "key": "cmd+t",
-    "command": "-workbench.action.showAllSymbols"
+    "key": "shift+cmd+1",
+    "command": "-editor.action.replaceOne",
+    "when": "editorFocus && findWidgetVisible"
   },
   {
-    "key": "cmd+t",
-    "command": "workbench.action.togglePanel"
+    "key": "shift+cmd+1",
+    "command": "-search.action.replace",
+    "when": "isEditableItem && matchFocus && replaceActive && searchViewletVisible"
   },
   {
-    "key": "cmd+j",
-    "command": "-workbench.action.togglePanel"
+    "key": "shift+cmd+1",
+    "command": "-search.action.replaceAllInFile",
+    "when": "fileMatchFocus && isEditableItem && replaceActive && searchViewletVisible"
   },
+  {
+    "key": "shift+cmd+1",
+    "command": "-search.action.replaceAllInFolder",
+    "when": "folderMatchFocus && isEditableItem && replaceActive && searchViewletVisible"
+  },
+  {
+    "key": "shift+cmd+1",
+    "command": "workbench.action.editorLayoutSingle"
+  },
+  {
+    "key": "shift+cmd+2",
+    "command": "workbench.action.editorLayoutTwoColumns"
+  }
 ]

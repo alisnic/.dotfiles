@@ -1,91 +1,80 @@
 {
-    "editor.minimap.enabled": false,
-    "workbench.activityBar.visible": true,
-    "workbench.colorTheme": "Solarized Light+",
-    "editor.fontFamily": "Monaco",
-    "breadcrumbs.enabled": false,
-    "editor.tabSize": 2,
-    "glsl-linter.validatorPath": "/usr/local/bin/glslangValidator",
-    "glsl-linter.validatorArgs": [
-        ""
-    ],
-    "terminal.integrated.fontFamily": "Monaco",
-    "editor.highlightActiveIndentGuide": false,
-    "editor.occurrencesHighlight": false,
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.formatOnSave": true,
-        "editor.formatOnPaste": false
+  "editor.minimap.enabled": false,
+  "editor.fontFamily": "Monaco",
+  "editor.tabSize": 2,
+  "editor.colorDecorators": true,
+  "editor.fontSize": 15,
+  "editor.mouseWheelScrollSensitivity": 0.5,
+  "editor.foldingStrategy": "indentation",
+  "editor.overviewRulerBorder": false,
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.showFoldingControls": "never",
+  "editor.quickSuggestions": {
+    "comments": "on",
+    "strings": "on",
+    "other": "on"
+  },
+  // "editor.cursorSmoothCaretAnimation": "on",
+  "editor.scrollbar.horizontal": "hidden",
+  "editor.scrollbar.vertical": "hidden",
+  "editor.lineNumbers": "off",
+  "scm.diffDecorations": "none",
+  "terminal.integrated.fontFamily": "Monaco",
+  "terminal.integrated.fontSize": 15,
+  "workbench.panel.defaultLocation": "right",
+  "workbench.statusBar.visible": true,
+  "workbench.enableExperiments": false,
+  "vim.leader": "<Space>",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["g", "r"],
+      "commands": ["editor.action.referenceSearch.trigger"]
     },
-    "workbench.statusBar.visible": true,
-    "workbench.editor.enablePreview": false,
-    "telemetry.enableTelemetry": false,
-    "workbench.enableExperiments": false,
-    "scm.diffDecorationsGutterVisibility": "hover",
-    "editor.foldingStrategy": "indentation",
-    "editor.overviewRulerBorder": false,
-    "scm.diffDecorationsGutterWidth": 1,
-    "editor.lineNumbers": "off",
-    "search.showLineNumbers": true,
-    "editor.glyphMargin": false,
-    "editor.showFoldingControls": "always",
-    "javascript.updateImportsOnFileMove.enabled": "always",
-    "diffEditor.renderSideBySide": false,
-    "scm.diffDecorations": "none",
-    "ruby.useBundler": true,
-    "editor.colorDecorators": true,
-    "editor.fontSize": 14,
-    "debug.console.fontSize": 14,
-    "terminal.integrated.fontSize": 14,
-    "ruby.specCommand": "bin/spring rspec",
-    "vim.useSystemClipboard": true,
-    "vim.leader": "<space>",
-    "vim.normalModeKeyBindingsNonRecursive": [
-        {
-          "before": ["<leader>", "t"],
-          "commands": ["extension.runFileSpecs"]
-        },
-        {
-          "before": ["<leader>", "l"],
-          "commands": ["extension.runSpecLine"]
-        },
-        {
-          "before": ["<leader>", "p"],
-          "commands": ["projectManager.listProjects"]
-        },
-        {
-          "before": ["<leader>", "g", "c"],
-          "commands": ["git.checkout"]
-        },
-        {
-            "before": ["<leader>", "a"],
-            "commands": [
-                "alternate.alternateFile",
-            ]
-        }
-    ],
-    "ruby.lint": {
-        "rubocop": {
-            "useBundler": true // enable rubocop via bundler
-        }
+    {
+      "before": ["leader", "m"],
+      "commands": ["workbench.action.gotoSymbol"]
     },
-    "ruby.specSaveFile": true,
-    "solargraph.folding": false,
-    "ruby.rctComplete.commandPath": "/usr/local/bin/rct-complete",
-    "solargraph.hover": false,
-    "editor.quickSuggestions": {
-        "other": true,
-        "comments": false,
-        "strings": false
+    {
+      "before": ["leader", "w"],
+      "commands": ["workbench.action.showAllSymbols"]
     },
-    "editor.snippetSuggestions": "none",
-    "editor.suggest.localityBonus": true,
-    "editor.suggestSelection": "first",
-    "gitlab.instanceUrl": "https://git.saltedge.com",
-    "gitlab.remoteName": "main",
-    "gitlab.pipelineGitRemoteName": "origin",
-    "extensions.ignoreRecommendations": false,
-    "window.title": "${activeEditorLong}${separator}${rootName}",
-    "rubyTestExplorer.rspecCommand": "bin/spring rspec",
-    // "rubyTestExplorer.logfile": "/Users/andrei/ruby-test-explorer.log"
+    {
+      "before": ["leader", "f"],
+      "commands": ["workbench.action.quickOpen"]
+    },
+    {
+      "before": ["leader", "b"],
+      "commands": ["workbench.action.quickOpen"]
+    },
+    {
+      "before": ["leader", "g"],
+      "commands": ["workbench.view.scm"]
+    },
+    {
+      "before": ["leader", "p"],
+      "commands": ["workbench.action.quickOpen"]
+    }
+  ],
+  "workbench.editor.enablePreview": false,
+  "breadcrumbs.enabled": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false
+  },
+  "telemetry.telemetryLevel": "crash",
+  "search.showLineNumbers": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "diffEditor.renderSideBySide": false,
+  "vim.useSystemClipboard": true,
+  "extensions.ignoreRecommendations": false,
+  "window.title": "${activeEditorLong}${separator}${rootName}",
+  "workbench.colorTheme": "Gruvbox Light (Hard)",
+  "window.zoomLevel": 1,
+  "workbench.sideBar.location": "right",
+  "workbench.tree.renderIndentGuides": "none",
+  "explorer.openEditors.visible": 0,
+  "editor.stickyScroll.enabled": true,
+  "editor.glyphMargin": false,
+  "workbench.editor.showTabs": false
 }
