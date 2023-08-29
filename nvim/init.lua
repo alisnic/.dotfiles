@@ -20,6 +20,7 @@ for _, plugin in pairs(disabledPlugins) do
   vim.g["loaded_" .. plugin] = 1
 end
 
+vim.opt.termguicolors = true
 vim.cmd "packadd cfilter"
 
 require "plugins"
@@ -28,7 +29,6 @@ require "lsp"
 vim.opt.background = "light"
 vim.cmd "colorscheme gruvbox"
 
--- vim.opt.termguicolors = true
 vim.opt.updatetime = 250
 vim.opt.title = true
 vim.opt.titlestring = "%f"

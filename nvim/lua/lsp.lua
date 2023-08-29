@@ -70,6 +70,14 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
     update_in_insert = false,
   })
 
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    print("disabling semantic tokens")
+    client.server_capabilities.semanticTokensProvider = nil
+  end,
+})
+
 return {
   format_diagnostic = format_diagnostic,
   current_line_diagnostics = current_line_diagnostics,

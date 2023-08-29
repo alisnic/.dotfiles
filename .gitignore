@@ -6,3 +6,4 @@
 .env
 bin/cpr
 bin/ngrok
+nvim/lazy-lock.json
