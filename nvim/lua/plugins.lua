@@ -13,6 +13,16 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0
+    and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+        :sub(col, col)
+        :match "%s"
+      == nil
+end
+
 local function lsp_diagnostic_status()
   local lsp = require "lsp"
   local diagnostics = lsp.current_line_diagnostics()
@@ -722,14 +732,4 @@ require("lazy").setup({
     end,
   }
 })
-
-local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0
-    and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
-        :sub(col, col)
-        :match "%s"
-      == nil
-end
 
