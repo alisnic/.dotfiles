@@ -148,6 +148,8 @@ require("packer").startup(function(use)
     config = function()
       vim.keymap.set("n", "[L", ":lolder<cr>", { silent = true })
       vim.keymap.set("n", "]L", ":lnewer<cr>", { silent = true })
+      vim.keymap.set("n", "[Q", ":colder<cr>", { silent = true })
+      vim.keymap.set("n", "]Q", ":cnewer<cr>", { silent = true })
     end,
   }
 
@@ -237,11 +239,14 @@ require("packer").startup(function(use)
 
   use {
     "NeogitOrg/neogit",
+    commit = "00b4486197e7ad7cf98e128a3c663d79a2cc962f",
     config = function()
       local neogit = require "neogit"
       neogit.setup {
         disable_context_highlighting = true,
         disable_commit_confirmation = true,
+        disable_signs = true,
+        integrations = { telescope = true },
       }
 
       vim.keymap.set("n", "<leader>g", ":Neogit<cr>", { silent = true })
@@ -453,8 +458,8 @@ require("packer").startup(function(use)
     config = function()
       require("incline").setup {
         debounce_threshold = { falling = 500, rising = 250 },
-        window = { padding = 0 },
-        hide = { focused_win = true }
+        window = { padding = 0, margin = { horizontal = 0 } },
+        hide = { focused_win = true },
       }
     end,
   }
@@ -498,7 +503,6 @@ function cmp_setup()
   local cmp = require "cmp"
   local lspkind = require "lspkind"
   local luasnip = require "luasnip"
-  local cmp_buffer = require "cmp_buffer"
 
   cmp.setup {
     snippet = {

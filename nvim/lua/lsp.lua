@@ -64,54 +64,6 @@ vim.diagnostic.config {
   update_in_insert = false,
 }
 
-local log = require "vim.lsp.log"
-
-local function location_handler(_, result, ctx, config)
-  if result == nil or vim.tbl_isempty(result) then
-    local _ = log.info() and log.info(ctx.method, "No location found")
-    return nil
-  end
-  local client = vim.lsp.get_client_by_id(ctx.client_id)
-
-  config = config or {}
-
-  if vim.tbl_islist(result) then
-    if #result == 1 then
-      vim.lsp.util.jump_to_location(
-        result[1],
-        client.offset_encoding,
-        config.reuse_win
-      )
-      return
-    end
-
-    local title = "LSP locations"
-    local items =
-      vim.lsp.util.locations_to_items(result, client.offset_encoding)
-
-    vim.fn.setloclist(0, {}, " ", { title = title, items = items })
-    vim.api.nvim_command "lopen"
-  else
-    vim.lsp.util.jump_to_location(
-      result,
-      client.offset_encoding,
-      config.reuse_win
-    )
-  end
-end
-
-local handlers = {
-  "textDocument/declaration",
-  "textDocument/definition",
-  "textDocument/typeDefinition",
-  "textDocument/implementation",
-  "textDocument/references",
-}
-
-for i, name in ipairs(handlers) do
-  vim.lsp.handlers[name] = location_handler
-end
-
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
   vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     -- delay update diagnostics
