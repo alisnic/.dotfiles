@@ -1,23 +1,20 @@
-local fn = vim.fn
-
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
+  vim.fn.system {
     "git",
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
     "--branch=stable", -- latest stable release
     lazypath,
-  })
+  }
 end
 vim.opt.rtp:prepend(lazypath)
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
         :sub(col, col)
         :match "%s"
       == nil
@@ -262,8 +259,7 @@ function cmp_setup()
   cmp.setup.filetype("markdown", { sources = { { name = "buffer" } } })
 end
 
-
-require("lazy").setup({
+require("lazy").setup {
   "wbthomason/packer.nvim",
   "tpope/vim-sleuth",
   "tpope/vim-rhubarb",
@@ -515,9 +511,9 @@ require("lazy").setup({
         bold = false,
         override = {
           IlluminatedWordText = { gui = "undercurl" },
-          IlluminatedWordRead   = { gui = "undercurl" },
-          IlluminatedWordWrite = { gui = "undercurl" }
-        }
+          IlluminatedWordRead = { gui = "undercurl" },
+          IlluminatedWordWrite = { gui = "undercurl" },
+        },
       }
 
       vim.cmd [[
@@ -529,7 +525,7 @@ require("lazy").setup({
   {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = {
-      "nvim-lua/plenary.nvim"
+      "nvim-lua/plenary.nvim",
     },
     config = function()
       local null_ls = require "null-ls"
@@ -549,7 +545,7 @@ require("lazy").setup({
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "yioneko/nvim-vtsls"
+      "yioneko/nvim-vtsls",
     },
     config = function()
       lsp_setup()
@@ -641,7 +637,7 @@ require("lazy").setup({
   {
     "tamago324/lir.nvim",
     dependencies = {
-      "nvim-lua/plenary.nvim"
+      "nvim-lua/plenary.nvim",
     },
     config = function()
       local actions = require "lir.actions"
@@ -714,6 +710,7 @@ require("lazy").setup({
 
   {
     "L3MON4D3/LuaSnip",
+    lazy = false,
     config = function()
       require("luasnip").config.set_config {
         history = false,
@@ -730,6 +727,5 @@ require("lazy").setup({
         augroup end
       ]]
     end,
-  }
-})
-
+  },
+}
