@@ -684,7 +684,8 @@ require("lazy").setup {
 
   {
     "mileszs/ack.vim",
-    config = function()
+    lazy = false,
+    init = function()
       vim.g.ackprg = "rg --vimgrep"
       vim.cmd "cabbrev ack LAck!"
     end,
