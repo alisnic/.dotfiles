@@ -60,7 +60,7 @@ require("packer").startup(function(use)
             match = "Question",
           },
         },
-        modes = { char = { enabled = false } },
+        modes = { char = { enabled = false }, search = { enabled = false } },
       }
 
       vim.keymap.set("n", "s", function()
@@ -239,7 +239,6 @@ require("packer").startup(function(use)
 
   use {
     "NeogitOrg/neogit",
-    commit = "00b4486197e7ad7cf98e128a3c663d79a2cc962f",
     config = function()
       local neogit = require "neogit"
       neogit.setup {
@@ -266,7 +265,9 @@ require("packer").startup(function(use)
   }
 
   use {
-    "ellisonleao/gruvbox.nvim",
+    -- "ellisonleao/gruvbox.nvim",
+    "chuck-flowers/gruvbox.nvim",
+    branch = "neogit",
     config = function()
       require("gruvbox").setup {
         bold = false,
@@ -302,6 +303,7 @@ require("packer").startup(function(use)
     "neovim/nvim-lspconfig",
     requires = {
       { "yioneko/nvim-vtsls" },
+      { "pmizio/typescript-tools.nvim" },
     },
     config = function()
       lsp_setup()
@@ -367,7 +369,7 @@ require("packer").startup(function(use)
     "nvim-treesitter/nvim-treesitter-context",
     config = function()
       local ts_context = require "treesitter-context"
-      ts_context.setup()
+      ts_context.setup { max_lines = 3 }
 
       vim.keymap.set("n", "[c", function()
         ts_context.go_to_context()
@@ -441,8 +443,8 @@ require("packer").startup(function(use)
   use {
     "mileszs/ack.vim",
     config = function()
-      vim.g.ackprg = "rg --vimgrep"
-      vim.cmd "cabbrev ack LAck!"
+      vim.g.ackprg = "rg --vimgrep -F"
+      vim.cmd "cabbrev ack Ack!"
     end,
   }
 
@@ -717,15 +719,28 @@ function lsp_setup()
 
   require("neodev").setup()
 
-  require("lspconfig.configs").vtsls = require("vtsls").lspconfig
-  vim.cmd "command! RemoveUnusedImports :VtsExec remove_unused_imports"
+  -- require("lspconfig.configs").vtsls = require("vtsls").lspconfig
+  -- vim.cmd "command! RemoveUnusedImports :VtsExec remove_unused_imports"
 
-  lspconfig.vtsls.setup {
+  -- vim.keymap.set("n", "gs", ":VtsExec goto_source_definition<cr>")
+
+  -- lspconfig.vtsls.setup {
+  --   capabilities = capabilities,
+  --   on_attach = function(client, bufnr)
+  --     client.server_capabilities.documentFormattingProvider = false
+  --     client.server_capabilities.documentRangeFormattingProvider = false
+  --   end,
+  -- }
+  require("typescript-tools").setup {
     capabilities = capabilities,
     on_attach = function(client, bufnr)
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
     end,
+    settings = {
+      -- spawn additional tsserver instance to calculate diagnostics on it
+      separate_diagnostic_server = false,
+    },
   }
 
   lspconfig.lua_ls.setup {
