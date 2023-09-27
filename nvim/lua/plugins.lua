@@ -514,7 +514,7 @@ function cmp_setup()
     },
     window = {
       documentation = cmp.config.window.bordered(),
-      -- completion = cmp.config.window.bordered(),
+      completion = cmp.config.window.bordered(),
     },
     formatting = {
       format = lspkind.cmp_format {
@@ -649,7 +649,7 @@ function lualine_setup()
     },
     sections = {
       lualine_a = { "mode" },
-      lualine_b = { "branch" },
+      lualine_b = {},
       lualine_c = {
         {
           lsp_diagnostic_status,
@@ -697,6 +697,7 @@ function lsp_setup()
   vim.keymap.set("n", "gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
   vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
   vim.keymap.set("n", "gr", vim.lsp.buf.references)
+  vim.keymap.set("n", "gR", ":vsplit<cr>:lua vim.lsp.buf.references()<cr>")
   vim.keymap.set("n", "[d", function()
     vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
   end)
