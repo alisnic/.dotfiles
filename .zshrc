@@ -64,7 +64,6 @@ alias reload!='source ~/.zshrc'
 alias be='bundle exec'
 alias sp='bin/spring'
 alias dc='docker-compose'
-alias k=kubectl
 
 function j {
   cd -P "$MARKDIR/$1"
