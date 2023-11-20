@@ -246,6 +246,11 @@ require("packer").startup(function(use)
         disable_commit_confirmation = true,
         disable_signs = true,
         integrations = { telescope = true },
+        mappings = {
+          popup = {
+            ["Z"] = false,
+          },
+        },
       }
 
       vim.keymap.set("n", "<leader>g", ":Neogit<cr>", { silent = true })
