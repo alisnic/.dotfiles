@@ -355,12 +355,18 @@ require("packer").startup(function(use)
   }
 
   use {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    config = function()
+      vim.g.skip_ts_context_commentstring_module = true
+    end,
+  }
+
+  use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     requires = {
       { "windwp/nvim-ts-autotag" },
       { "RRethy/nvim-treesitter-endwise" },
-      { "JoosepAlviste/nvim-ts-context-commentstring" },
       { "nvim-treesitter/playground" },
     },
     config = function()
@@ -670,9 +676,9 @@ end
 function treesitter_setup()
   require("nvim-treesitter.configs").setup {
     highlight = { enable = true },
-    context_commentstring = {
-      enable = true,
-    },
+    -- context_commentstring = {
+    --   enable = true,
+    -- },
     endwise = {
       enable = true,
     },
