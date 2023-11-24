@@ -503,7 +503,8 @@ end)
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+    and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
         :sub(col, col)
         :match "%s"
       == nil
@@ -513,6 +514,7 @@ function cmp_setup()
   local cmp = require "cmp"
   local lspkind = require "lspkind"
   local luasnip = require "luasnip"
+  local cmp_buffer = require "cmp_buffer"
 
   cmp.setup {
     snippet = {
@@ -530,7 +532,8 @@ function cmp_setup()
       },
     },
     performance = {
-      max_view_entries = 10,
+      -- max_view_entries = 10,
+      debounce = 200,
     },
     completion = {
       keyword_length = 2,
@@ -599,12 +602,14 @@ function cmp_setup()
       },
     }),
     experimental = { ghost_text = true },
-    -- sorting = {
-    --   comparators = {
-    --     cmp.config.compare.order,
-    --     cmp.config.compare.locality,
-    --   },
-    -- },
+    sorting = {
+      comparators = {
+        cmp.config.compare.score,
+        function(...)
+          return cmp_buffer:compare_locality(...)
+        end,
+      },
+    },
   }
 
   cmp.setup.cmdline("/", {
