@@ -28,7 +28,6 @@ require "lsp"
 vim.opt.background = "light"
 vim.cmd "colorscheme gruvbox"
 
--- vim.opt.termguicolors = true
 vim.opt.updatetime = 250
 vim.opt.title = true
 vim.opt.titlestring = "%f"
@@ -48,10 +47,7 @@ vim.opt.exrc = true
 vim.opt.secure = true
 vim.opt.spelllang = "en"
 vim.opt.spell = false
--- vim.opt.scrolloff = 5
 vim.opt.exrc = true
--- vim.opt.number = true
--- vim.opt.relativenumber = true
 vim.opt.numberwidth = 2
 vim.opt.guifont = { "Monaco", ":h16" }
 vim.opt.splitkeep = "screen"
@@ -99,13 +95,10 @@ vim.keymap.set("n", "<S-Right>", "<C-w><Right>")
 vim.keymap.set("n", "<UP>", "gk")
 vim.keymap.set("n", "<Down>", "gj")
 vim.keymap.set("n", "<leader>.", ":e ~/.dotfiles/nvim/lua/plugins.lua<cr>")
+vim.keymap.set("n", "<leader>v", ":vs<cr>")
 vim.keymap.set("v", "<S-UP>", "<nop>")
 vim.keymap.set("v", "<S-Down>", "<nop>")
-vim.keymap.set("n", "<leader>st", "<C-w>T")
 
--- vim.cmd [[nnoremap d "_d]]
--- vim.cmd [[vnoremap D d]]
--- vim.cmd [[vnoremap d "_d]]
 vim.cmd [[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".md"]]
 vim.cmd 'command! Focus :exe "normal! zMzv"'
 vim.cmd "command! W w"
