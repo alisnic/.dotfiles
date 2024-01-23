@@ -622,15 +622,6 @@ function cmp_setup()
       },
     }),
     experimental = { ghost_text = true },
-    sorting = {
-      comparators = {
-        cmp.config.compare.score,
-        cmp.config.compare.length,
-        function(...)
-          return cmp_buffer:compare_locality(...)
-        end,
-      },
-    },
   }
 
   cmp.setup.cmdline("/", {
