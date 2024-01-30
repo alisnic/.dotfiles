@@ -1,3 +1,6 @@
+[package]
+disabled=true
+
 [aws]
 disabled=true
 
