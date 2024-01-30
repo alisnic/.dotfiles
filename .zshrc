@@ -9,32 +9,12 @@ bindkey "^[[1;3C" forward-word
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-setopt PROMPT_SUBST
 setopt auto_pushd
 setopt share_history
 setopt +o nomatch
 
 FPATH=/opt/homebrew/share/zsh/site-functions:/opt/homebrew/share/zsh-completions:$FPATH
 autoload -Uz compinit
-
-precmd() {
-  if [ -d ".git" ]
-  then
-    export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    PS1=$'\n%~ $fg[blue]$GIT_BRANCH$reset_color$(parse_git_stash) (%j)\n$ '
-  else
-    PS1=$'\n%~ (%j)\n$ '
-  fi
-  print -Pn "\e]2;%~\a"
-}
-
-parse_git_stash() {
-  if [[ -n $(git stash list 2> /dev/null) ]]; then
-    echo " 🧳"
-  else
-    echo ""
-  fi
-}
 
 _fix_cursor() {
    echo -ne '\e[5 q'
@@ -86,3 +66,5 @@ compctl -K _completeplays p
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+eval "$(starship init zsh)"
