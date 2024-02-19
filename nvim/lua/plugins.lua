@@ -523,8 +523,7 @@ end)
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
         :sub(col, col)
         :match "%s"
       == nil
@@ -745,29 +744,34 @@ function lsp_setup()
 
   require("neodev").setup()
 
-  -- require("lspconfig.configs").vtsls = require("vtsls").lspconfig
-  -- vim.cmd "command! RemoveUnusedImports :VtsExec remove_unused_imports"
+  require("lspconfig.configs").vtsls = require("vtsls").lspconfig
+  vim.cmd "command! RemoveUnusedImports :VtsExec remove_unused_imports"
 
-  -- vim.keymap.set("n", "gs", ":VtsExec goto_source_definition<cr>")
+  vim.keymap.set("n", "gs", ":VtsExec goto_source_definition<cr>")
 
-  -- lspconfig.vtsls.setup {
+  lspconfig.vtsls.setup {
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+      client.server_capabilities.semanticTokensProvider = false
+    end,
+    settings = {
+      typescript = { preferences = { includePackageJsonAutoImports = "off" } },
+      vtsls = { experimental = { completion = { entriesLimit = 50 } } },
+    },
+  }
+  -- require("typescript-tools").setup {
   --   capabilities = capabilities,
   --   on_attach = function(client, bufnr)
   --     client.server_capabilities.documentFormattingProvider = false
   --     client.server_capabilities.documentRangeFormattingProvider = false
   --   end,
+  --   settings = {
+  --     -- spawn additional tsserver instance to calculate diagnostics on it
+  --     separate_diagnostic_server = false,
+  --   },
   -- }
-  require("typescript-tools").setup {
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-      client.server_capabilities.documentFormattingProvider = false
-      client.server_capabilities.documentRangeFormattingProvider = false
-    end,
-    settings = {
-      -- spawn additional tsserver instance to calculate diagnostics on it
-      separate_diagnostic_server = false,
-    },
-  }
 
   lspconfig.lua_ls.setup {
     capabilities = capabilities,
