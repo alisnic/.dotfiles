@@ -105,3 +105,8 @@ vim.cmd "command! W w"
 vim.cmd "command! Wq wq"
 vim.cmd "command! LightMode :set bg=light"
 vim.cmd "command! DarkMode :set bg=dark"
+
+if vim.g.neovide then
+  vim.g.neovide_cursor_animation_length = 0
+  vim.g.neovide_scroll_animation_length = 0
+end
