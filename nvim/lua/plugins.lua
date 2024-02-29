@@ -102,31 +102,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "RRethy/vim-illuminate",
-    config = function()
-      require("illuminate").configure {
-        providers = {
-          -- "lsp",
-          "treesitter",
-        },
-        under_cursor = false,
-        filetypes_denylist = {
-          "fugitive",
-          "qf",
-          "NeogitStatus",
-        },
-        min_count_to_highlight = 2,
-      }
-
-      vim.cmd [[
-        hi! IlluminatedWordText gui=undercurl
-        hi! IlluminatedWordRead gui=undercurl
-        hi! IlluminatedWordWrite gui=undercurl
-      ]]
-    end,
-  }
-
-  use {
     "folke/noice.nvim",
     requires = {
       "MunifTanjim/nui.nvim",
@@ -723,12 +698,8 @@ function lsp_setup()
   vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
   vim.keymap.set("n", "gr", vim.lsp.buf.references)
   vim.keymap.set("n", "gR", ":vsplit<cr>:lua vim.lsp.buf.references()<cr>")
-  vim.keymap.set("n", "[d", function()
-    vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
-  end)
-  vim.keymap.set("n", "]d", function()
-    vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
-  end)
+  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+  vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
   vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
   vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
