@@ -498,7 +498,8 @@ end)
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+    and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
         :sub(col, col)
         :match "%s"
       == nil
@@ -697,8 +698,12 @@ function lsp_setup()
   vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
   vim.keymap.set("n", "gr", vim.lsp.buf.references)
   vim.keymap.set("n", "gR", ":vsplit<cr>:lua vim.lsp.buf.references()<cr>")
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+  vim.keymap.set("n", "[d", function()
+    vim.diagnostic.goto_prev { severity = { min = vim.diagnostic.severity.WARN } }
+  end)
+  vim.keymap.set("n", "]d", function()
+    vim.diagnostic.goto_next { severity = { min = vim.diagnostic.severity.WARN } }
+  end)
   vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
   vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
@@ -720,29 +725,29 @@ function lsp_setup()
 
   vim.keymap.set("n", "gs", ":VtsExec goto_source_definition<cr>")
 
-  lspconfig.vtsls.setup {
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-      client.server_capabilities.documentFormattingProvider = false
-      client.server_capabilities.documentRangeFormattingProvider = false
-      client.server_capabilities.semanticTokensProvider = false
-    end,
-    settings = {
-      typescript = { preferences = { includePackageJsonAutoImports = "off" } },
-      vtsls = { experimental = { completion = { entriesLimit = 50 } } },
-    },
-  }
-  -- require("typescript-tools").setup {
+  -- lspconfig.vtsls.setup {
   --   capabilities = capabilities,
   --   on_attach = function(client, bufnr)
   --     client.server_capabilities.documentFormattingProvider = false
   --     client.server_capabilities.documentRangeFormattingProvider = false
+  --     client.server_capabilities.semanticTokensProvider = false
   --   end,
   --   settings = {
-  --     -- spawn additional tsserver instance to calculate diagnostics on it
-  --     separate_diagnostic_server = false,
+  --     typescript = { preferences = { includePackageJsonAutoImports = "off" } },
+  --     vtsls = { experimental = { completion = { entriesLimit = 50 } } },
   --   },
   -- }
+  require("typescript-tools").setup {
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+    end,
+    settings = {
+      -- spawn additional tsserver instance to calculate diagnostics on it
+      separate_diagnostic_server = false,
+    },
+  }
 
   lspconfig.lua_ls.setup {
     capabilities = capabilities,
