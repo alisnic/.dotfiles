@@ -56,12 +56,6 @@ local function format_diagnostic(diagnostic)
   end
 end
 
-vim.diagnostic.config {
-  float = { source = "always" },
-  signs = false,
-  virtual_text = false,
-}
-
 local function lsp_diagnostic_status()
   local diagnostics = current_line_diagnostics()
   local best = best_diagnostic(diagnostics)

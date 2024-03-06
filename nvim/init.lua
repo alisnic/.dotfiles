@@ -23,6 +23,7 @@ end
 vim.cmd "packadd cfilter"
 
 require "plugins"
+require "lsp"
 
 vim.opt.background = "light"
 vim.cmd "colorscheme gruvbox"
@@ -67,6 +68,12 @@ vim.opt.pumheight = 10
 
 vim.opt.tags:append { ".git/tags" }
 vim.opt.tagcase = "match"
+
+vim.diagnostic.config {
+  float = { source = "always" },
+  signs = false,
+  virtual_text = false,
+}
 
 vim.cmd [[
   augroup alisnic
