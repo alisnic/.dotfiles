@@ -69,6 +69,12 @@ vim.opt.pumheight = 10
 vim.opt.tags:append { ".git/tags" }
 vim.opt.tagcase = "match"
 
+vim.diagnostic.config {
+  float = { source = "always" },
+  signs = false,
+  virtual_text = false,
+}
+
 vim.cmd [[
   augroup alisnic
     autocmd!
@@ -105,3 +111,8 @@ vim.cmd "command! W w"
 vim.cmd "command! Wq wq"
 vim.cmd "command! LightMode :set bg=light"
 vim.cmd "command! DarkMode :set bg=dark"
+
+if vim.g.neovide then
+  vim.g.neovide_cursor_animation_length = 0
+  vim.g.neovide_scroll_animation_length = 0
+end

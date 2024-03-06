@@ -31,7 +31,6 @@ require("packer").startup(function(use)
   use "kchmck/vim-coffee-script"
   use "folke/neodev.nvim"
   use "michaeljsmith/vim-indent-object"
-  use "stevearc/dressing.nvim"
   use {
     "seblj/nvim-tabline",
     requires = { "nvim-tree/nvim-web-devicons" },
@@ -98,31 +97,6 @@ require("packer").startup(function(use)
     "nvim-tree/nvim-web-devicons",
     config = function()
       require("nvim-web-devicons").setup()
-    end,
-  }
-
-  use {
-    "RRethy/vim-illuminate",
-    config = function()
-      require("illuminate").configure {
-        providers = {
-          -- "lsp",
-          "treesitter",
-        },
-        under_cursor = false,
-        filetypes_denylist = {
-          "fugitive",
-          "qf",
-          "NeogitStatus",
-        },
-        min_count_to_highlight = 2,
-      }
-
-      vim.cmd [[
-        hi! IlluminatedWordText gui=undercurl
-        hi! IlluminatedWordRead gui=undercurl
-        hi! IlluminatedWordWrite gui=undercurl
-      ]]
     end,
   }
 
@@ -306,19 +280,6 @@ require("packer").startup(function(use)
     requires = {
       { "nvim-lua/plenary.nvim" },
     },
-    config = function()
-      local null_ls = require "null-ls"
-
-      null_ls.setup {}
-      null_ls.register {
-        null_ls.builtins.formatting.stylua.with {
-          extra_args = {
-            "--config-path",
-            vim.fn.expand "~/.config/stylua.toml",
-          },
-        },
-      }
-    end,
   }
 
   use {
@@ -327,9 +288,6 @@ require("packer").startup(function(use)
       { "yioneko/nvim-vtsls" },
       { "pmizio/typescript-tools.nvim" },
     },
-    config = function()
-      lsp_setup()
-    end,
   }
 
   use {
@@ -369,7 +327,7 @@ require("packer").startup(function(use)
       { "onsails/lspkind-nvim" },
     },
     config = function()
-      cmp_setup()
+      require("autocomplete").setup()
     end,
   }
 
@@ -480,7 +438,7 @@ require("packer").startup(function(use)
   use {
     "nvim-lualine/lualine.nvim",
     config = function()
-      lualine_setup()
+      require("statusline").setup()
     end,
   }
 
@@ -520,181 +478,9 @@ require("packer").startup(function(use)
   end
 end)
 
-local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0
-    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
-        :sub(col, col)
-        :match "%s"
-      == nil
-end
-
-function cmp_setup()
-  local cmp = require "cmp"
-  local lspkind = require "lspkind"
-  local luasnip = require "luasnip"
-  local cmp_buffer = require "cmp_buffer"
-
-  cmp.setup {
-    snippet = {
-      expand = function(args)
-        luasnip.lsp_expand(args.body)
-      end,
-    },
-    window = {
-      documentation = cmp.config.window.bordered(),
-      completion = cmp.config.window.bordered(),
-    },
-    formatting = {
-      format = lspkind.cmp_format {
-        mode = "text_icon",
-      },
-    },
-    performance = {
-      -- max_view_entries = 10,
-      debounce = 200,
-    },
-    completion = {
-      keyword_length = 2,
-    },
-    mapping = {
-      ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-      ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif luasnip.expand_or_locally_jumpable() then
-          luasnip.expand_or_jump()
-        elseif has_words_before() then
-          cmp.complete()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-
-      ["<CR>"] = function(fallback)
-        -- Don't block <CR> if signature help is active
-        -- https://github.com/hrsh7th/cmp-nvim-lsp-signature-help/issues/13
-        if
-          not cmp.visible()
-          or not cmp.get_selected_entry()
-          or cmp.get_selected_entry().source.name == "nvim_lsp_signature_help"
-        then
-          fallback()
-        else
-          cmp.confirm {
-            -- Replace word if completing in the middle of a word
-            -- https://github.com/hrsh7th/nvim-cmp/issues/664
-            behavior = cmp.ConfirmBehavior.Replace,
-            -- Don't select first item on CR if nothing was selected
-            select = false,
-          }
-        end
-      end,
-    },
-    sources = cmp.config.sources({
-      { name = "luasnip" },
-      { name = "copilot" },
-      { name = "nvim_lsp" },
-    }, {
-      {
-        name = "buffer",
-        option = {
-          get_bufnrs = function()
-            local bufs = {}
-            for _, win in ipairs(vim.api.nvim_list_wins()) do
-              bufs[vim.api.nvim_win_get_buf(win)] = true
-            end
-            return vim.tbl_keys(bufs)
-          end,
-        },
-      },
-    }),
-    experimental = { ghost_text = true },
-  }
-
-  cmp.setup.cmdline("/", {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = "buffer" },
-    },
-  })
-
-  cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = "path" },
-    }, {
-      { name = "cmdline" },
-    }),
-  })
-
-  cmp.setup.filetype({ "gitcommit", "NeogitCommitMessage" }, {
-    sources = cmp.config.sources {
-      { name = "buffer" },
-      { name = "emoji" },
-    },
-  })
-
-  cmp.setup.filetype("markdown", { sources = { { name = "buffer" } } })
-end
-
-local function lsp_diagnostic_status()
-  local lsp = require "lsp"
-  local diagnostics = lsp.current_line_diagnostics()
-  local best = lsp.best_diagnostic(diagnostics)
-
-  local message = lsp.format_diagnostic(best)
-  local max_width = vim.api.nvim_list_uis()[1].width - 35
-
-  if string.len(message) < max_width then
-    return message
-  else
-    return string.sub(message, 1, max_width) .. "..."
-  end
-end
-
-function lualine_setup()
-  require("lualine").setup {
-    options = {
-      theme = "gruvbox",
-      component_separators = { left = "", right = "" },
-      section_separators = { left = "", right = "" },
-    },
-    sections = {
-      lualine_a = { "mode" },
-      lualine_b = {},
-      lualine_c = {
-        {
-          lsp_diagnostic_status,
-        },
-      },
-      lualine_x = {},
-      lualine_y = {
-        "filename",
-        "diagnostics",
-      },
-      lualine_z = { "location" },
-    },
-  }
-end
-
 function treesitter_setup()
   require("nvim-treesitter.configs").setup {
     highlight = { enable = true },
-    -- context_commentstring = {
-    --   enable = true,
-    -- },
     endwise = {
       enable = true,
     },
@@ -703,89 +489,7 @@ function treesitter_setup()
     },
     autotag = {
       enable = true,
-      filetypes = { "html", "eruby" },
-    },
-  }
-end
-
-function lsp_setup()
-  vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover)
-  vim.keymap.set("n", "<leader>e", function()
-    vim.diagnostic.open_float(
-      nil,
-      { focus = false, scope = "cursor", border = "rounded" }
-    )
-  end)
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-  vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
-  vim.keymap.set("n", "gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
-  vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
-  vim.keymap.set("n", "gr", vim.lsp.buf.references)
-  vim.keymap.set("n", "gR", ":vsplit<cr>:lua vim.lsp.buf.references()<cr>")
-  vim.keymap.set("n", "[d", function()
-    vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
-  end)
-  vim.keymap.set("n", "]d", function()
-    vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
-  end)
-  vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
-  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
-  vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
-
-  local capabilities = require("cmp_nvim_lsp").default_capabilities()
-  local lspconfig = require "lspconfig"
-
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      client.server_capabilities.semanticTokensProvider = nil
-    end,
-  })
-
-  require("neodev").setup()
-
-  require("lspconfig.configs").vtsls = require("vtsls").lspconfig
-  vim.cmd "command! RemoveUnusedImports :VtsExec remove_unused_imports"
-
-  vim.keymap.set("n", "gs", ":VtsExec goto_source_definition<cr>")
-
-  lspconfig.vtsls.setup {
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-      client.server_capabilities.documentFormattingProvider = false
-      client.server_capabilities.documentRangeFormattingProvider = false
-      client.server_capabilities.semanticTokensProvider = false
-    end,
-    settings = {
-      typescript = { preferences = { includePackageJsonAutoImports = "off" } },
-      vtsls = { experimental = { completion = { entriesLimit = 50 } } },
-    },
-  }
-  -- require("typescript-tools").setup {
-  --   capabilities = capabilities,
-  --   on_attach = function(client, bufnr)
-  --     client.server_capabilities.documentFormattingProvider = false
-  --     client.server_capabilities.documentRangeFormattingProvider = false
-  --   end,
-  --   settings = {
-  --     -- spawn additional tsserver instance to calculate diagnostics on it
-  --     separate_diagnostic_server = false,
-  --   },
-  -- }
-
-  lspconfig.lua_ls.setup {
-    capabilities = capabilities,
-    on_attach = function(client)
-      client.server_capabilities.documentFormattingProvider = false
-      client.server_capabilities.documentRangeFormattingProvider = false
-    end,
-    settings = {
-      Lua = {
-        completion = {
-          callSnippet = "Replace",
-        },
-        workspace = { checkThirdParty = false },
-      },
+      filetypes = { "html", "eruby", "javascriptreact", "typescriptreact" },
     },
   }
 end

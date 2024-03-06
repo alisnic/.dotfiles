@@ -1,69 +1,155 @@
-local function best_diagnostic(diagnostics)
-  if vim.tbl_isempty(diagnostics) then
-    return
-  end
+vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover)
+vim.keymap.set("n", "<leader>e", function()
+  vim.diagnostic.open_float(
+    nil,
+    { focus = false, scope = "cursor", border = "rounded" }
+  )
+end)
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
+vim.keymap.set("n", "gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
+vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
+vim.keymap.set("n", "gr", vim.lsp.buf.references)
+vim.keymap.set("n", "gR", ":vsplit<cr>:lua vim.lsp.buf.references()<cr>")
+vim.keymap.set("n", "[d", function()
+  vim.diagnostic.goto_prev { severity = { min = vim.diagnostic.severity.WARN } }
+end)
+vim.keymap.set("n", "]d", function()
+  vim.diagnostic.goto_next { severity = { min = vim.diagnostic.severity.WARN } }
+end)
+vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
+vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
 
-  local best = nil
-  local line_diagnostics = {}
-  local line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local lspconfig = require "lspconfig"
 
-  for k, v in pairs(diagnostics) do
-    if v.lnum == line_nr then
-      line_diagnostics[k] = v
-    end
-  end
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    client.server_capabilities.semanticTokensProvider = nil
+  end,
+})
 
-  for _, diagnostic in ipairs(line_diagnostics) do
-    if best == nil then
-      best = diagnostic
-    elseif diagnostic.severity < best.severity then
-      best = diagnostic
-    end
-  end
+require("neodev").setup()
 
-  return best
-end
+require("lspconfig.configs").vtsls = require("vtsls").lspconfig
+-- vim.cmd "command! RemoveUnusedImports :VtsExec remove_unused_imports"
 
-local function current_line_diagnostics()
-  local bufnr = 0
-  local line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
-  local opts = { ["lnum"] = line_nr }
+vim.keymap.set("n", "gs", ":VtsExec goto_source_definition<cr>")
 
-  return vim.diagnostic.get(bufnr, opts)
-end
-
-local signs = {
-  Error = " ",
-  Warn = " ",
-  Hint = " ",
-  Info = " ",
+-- lspconfig.vtsls.setup {
+--   capabilities = capabilities,
+--   on_attach = function(client, bufnr)
+--     client.server_capabilities.documentFormattingProvider = false
+--     client.server_capabilities.documentRangeFormattingProvider = false
+--     client.server_capabilities.semanticTokensProvider = false
+--   end,
+--   settings = {
+--     typescript = { preferences = { includePackageJsonAutoImports = "off" } },
+--     vtsls = { experimental = { completion = { entriesLimit = 50 } } },
+--   },
+-- }
+require("typescript-tools").setup {
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+  end,
+  settings = {
+    -- spawn additional tsserver instance to calculate diagnostics on it
+    separate_diagnostic_server = false,
+  },
 }
-local severity = vim.diagnostic.severity
 
-local function format_diagnostic(diagnostic)
-  local message = vim.split(diagnostic.message, "\n")[1]
+local util = require "lspconfig.util"
+local configs = require "lspconfig.configs"
 
-  if diagnostic.severity == severity.ERROR then
-    return signs.Error .. message
-  elseif diagnostic.severity == severity.INFO then
-    return signs.Info .. message
-  elseif diagnostic.severity == severity.WARN then
-    return signs.Warn .. message
-  elseif diagnostic.severity == severity.HINT then
-    return signs.Hint .. message
-  else
-    return message
-  end
-end
-
-vim.diagnostic.config {
-  float = { source = "always" },
-  signs = false,
-  virtual_text = false,
+lspconfig.lua_ls.setup {
+  capabilities = capabilities,
+  on_attach = function(client)
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+  end,
+  settings = {
+    Lua = {
+      completion = {
+        callSnippet = "Replace",
+      },
+      workspace = { checkThirdParty = false },
+    },
+  },
 }
 
-return {
-  format_diagnostic = format_diagnostic,
-  current_line_diagnostics = current_line_diagnostics,
-  best_diagnostic = best_diagnostic,
+configs.oxc_language_server = {
+  default_config = {
+    cmd = {
+      "/Users/andreilisnic/Work/oxc/editors/vscode/target/release/oxc_language_server",
+    },
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    },
+    root_dir = function(fname)
+      return util.find_package_json_ancestor(fname)
+        or util.find_node_modules_ancestor(fname)
+        or util.find_git_ancestor(fname)
+    end,
+    settings = {
+      ["enable"] = true,
+      -- ["run"] = "onType",
+    },
+  },
+}
+
+lspconfig.oxc_language_server.setup {
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    client.server_capabilities.semanticTokensProvider = nil
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+  end,
+}
+
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+require("lspconfig").cssls.setup {
+  capabilities = capabilities,
+}
+
+local null_ls = require "null-ls"
+
+null_ls.setup {
+  on_attach = function(client, bufnr)
+    client.server_capabilities.documentFormattingProvider = true
+    client.server_capabilities.documentRangeFormattingProvider = true
+    require("lsp-format").on_attach(client)
+  end,
+}
+
+if
+  vim.fn.filereadable ".prettierrc" or vim.fn.filereadable ".prettierrc.js"
+then
+  null_ls.register {
+    null_ls.builtins.formatting.prettier.with {
+      cmd = "node ./node_modules/prettier/bin-prettier.js",
+      filetypes = {
+        "typescript",
+        "typescriptreact",
+        "javascript",
+        "javascriptreact",
+      },
+    },
+  }
+end
+
+null_ls.register {
+  null_ls.builtins.formatting.stylua.with {
+    extra_args = {
+      "--config-path",
+      vim.fn.expand "~/.config/stylua.toml",
+    },
+  },
 }
