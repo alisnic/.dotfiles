@@ -113,6 +113,12 @@ lspconfig.oxc_language_server.setup {
   end,
 }
 
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+require("lspconfig").cssls.setup {
+  capabilities = capabilities,
+}
+
 local null_ls = require "null-ls"
 
 null_ls.setup {

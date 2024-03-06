@@ -31,7 +31,6 @@ require("packer").startup(function(use)
   use "kchmck/vim-coffee-script"
   use "folke/neodev.nvim"
   use "michaeljsmith/vim-indent-object"
-  use "stevearc/dressing.nvim"
   use {
     "seblj/nvim-tabline",
     requires = { "nvim-tree/nvim-web-devicons" },
