@@ -159,7 +159,10 @@ require("packer").startup(function(use)
           mappings = {
             i = {
               ["<esc>"] = actions.close,
+              -- ["<tab>"] = actions.select_default,
             },
+            -- commands = {
+            -- },
           },
         },
       }
@@ -455,7 +458,7 @@ require("packer").startup(function(use)
   use {
     "nvim-lualine/lualine.nvim",
     config = function()
-      lualine_setup()
+      require("statusline").setup()
     end,
   }
 
@@ -625,52 +628,9 @@ function cmp_setup()
   cmp.setup.filetype("markdown", { sources = { { name = "buffer" } } })
 end
 
-local function lsp_diagnostic_status()
-  local lsp = require "lsp"
-  local diagnostics = lsp.current_line_diagnostics()
-  local best = lsp.best_diagnostic(diagnostics)
-
-  local message = lsp.format_diagnostic(best)
-  local max_width = vim.api.nvim_list_uis()[1].width - 35
-
-  if string.len(message) < max_width then
-    return message
-  else
-    return string.sub(message, 1, max_width) .. "..."
-  end
-end
-
-function lualine_setup()
-  require("lualine").setup {
-    options = {
-      theme = "gruvbox",
-      component_separators = { left = "", right = "" },
-      section_separators = { left = "", right = "" },
-    },
-    sections = {
-      lualine_a = { "mode" },
-      lualine_b = {},
-      lualine_c = {
-        {
-          lsp_diagnostic_status,
-        },
-      },
-      lualine_x = {},
-      lualine_y = {
-        "filename",
-        "diagnostics",
-      },
-      lualine_z = { "location" },
-    },
-  }
-end
-
 function treesitter_setup()
   require("nvim-treesitter.configs").setup {
     highlight = { enable = true },
-    -- context_commentstring = {
-    --   enable = true,
-    -- },
     endwise = {
       enable = true,
     },
@@ -679,7 +639,7 @@ function treesitter_setup()
     },
     autotag = {
       enable = true,
-      filetypes = { "html", "eruby" },
+      filetypes = { "html", "eruby", "javascriptreact", "typescriptreact" },
     },
   }
 end
@@ -721,7 +681,7 @@ function lsp_setup()
   require("neodev").setup()
 
   require("lspconfig.configs").vtsls = require("vtsls").lspconfig
-  vim.cmd "command! RemoveUnusedImports :VtsExec remove_unused_imports"
+  -- vim.cmd "command! RemoveUnusedImports :VtsExec remove_unused_imports"
 
   vim.keymap.set("n", "gs", ":VtsExec goto_source_definition<cr>")
 
@@ -749,6 +709,9 @@ function lsp_setup()
     },
   }
 
+  local util = require "lspconfig.util"
+  local configs = require "lspconfig.configs"
+
   lspconfig.lua_ls.setup {
     capabilities = capabilities,
     on_attach = function(client)
@@ -763,5 +726,37 @@ function lsp_setup()
         workspace = { checkThirdParty = false },
       },
     },
+  }
+
+  configs.oxc_language_server = {
+    default_config = {
+      cmd = {
+        "/Users/andreilisnic/Work/oxc/editors/vscode/target/release/oxc_language_server",
+      },
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+      },
+      root_dir = function(fname)
+        return util.find_package_json_ancestor(fname)
+          or util.find_node_modules_ancestor(fname)
+          or util.find_git_ancestor(fname)
+      end,
+      settings = {
+        ["enable"] = true,
+        -- ["run"] = "onType",
+      },
+    },
+  }
+
+  lspconfig.oxc_language_server.setup {
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+      client.server_capabilities.semanticTokensProvider = nil
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+    end,
   }
 end

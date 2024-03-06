@@ -23,7 +23,6 @@ end
 vim.cmd "packadd cfilter"
 
 require "plugins"
-require "lsp"
 
 vim.opt.background = "light"
 vim.cmd "colorscheme gruvbox"

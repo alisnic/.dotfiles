@@ -62,8 +62,42 @@ vim.diagnostic.config {
   virtual_text = false,
 }
 
+local function lsp_diagnostic_status()
+  local diagnostics = current_line_diagnostics()
+  local best = best_diagnostic(diagnostics)
+  local message = format_diagnostic(best)
+  local max_width = vim.api.nvim_list_uis()[1].width - 35
+
+  if string.len(message) < max_width then
+    return message
+  else
+    return string.sub(message, 1, max_width) .. "..."
+  end
+end
+
 return {
-  format_diagnostic = format_diagnostic,
-  current_line_diagnostics = current_line_diagnostics,
-  best_diagnostic = best_diagnostic,
+  setup = function()
+    require("lualine").setup {
+      options = {
+        theme = "gruvbox",
+        component_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
+      },
+      sections = {
+        lualine_a = { "mode" },
+        lualine_b = {},
+        lualine_c = {
+          {
+            lsp_diagnostic_status,
+          },
+        },
+        lualine_x = {},
+        lualine_y = {
+          "filename",
+          "diagnostics",
+        },
+        lualine_z = { "location" },
+      },
+    }
+  end,
 }
