@@ -112,3 +112,38 @@ lspconfig.oxc_language_server.setup {
     client.server_capabilities.documentRangeFormattingProvider = false
   end,
 }
+
+local null_ls = require "null-ls"
+
+null_ls.setup {
+  on_attach = function(client, bufnr)
+    client.server_capabilities.documentFormattingProvider = true
+    client.server_capabilities.documentRangeFormattingProvider = true
+    require("lsp-format").on_attach(client)
+  end,
+}
+
+if
+  vim.fn.filereadable ".prettierrc" or vim.fn.filereadable ".prettierrc.js"
+then
+  null_ls.register {
+    null_ls.builtins.formatting.prettier.with {
+      cmd = "node ./node_modules/prettier/bin-prettier.js",
+      filetypes = {
+        "typescript",
+        "typescriptreact",
+        "javascript",
+        "javascriptreact",
+      },
+    },
+  }
+end
+
+null_ls.register {
+  null_ls.builtins.formatting.stylua.with {
+    extra_args = {
+      "--config-path",
+      vim.fn.expand "~/.config/stylua.toml",
+    },
+  },
+}

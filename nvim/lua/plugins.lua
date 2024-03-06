@@ -159,10 +159,7 @@ require("packer").startup(function(use)
           mappings = {
             i = {
               ["<esc>"] = actions.close,
-              -- ["<tab>"] = actions.select_default,
             },
-            -- commands = {
-            -- },
           },
         },
       }
@@ -284,19 +281,6 @@ require("packer").startup(function(use)
     requires = {
       { "nvim-lua/plenary.nvim" },
     },
-    config = function()
-      local null_ls = require "null-ls"
-
-      null_ls.setup {}
-      null_ls.register {
-        null_ls.builtins.formatting.stylua.with {
-          extra_args = {
-            "--config-path",
-            vim.fn.expand "~/.config/stylua.toml",
-          },
-        },
-      }
-    end,
   }
 
   use {
@@ -304,7 +288,7 @@ require("packer").startup(function(use)
     requires = {
       { "yioneko/nvim-vtsls" },
       { "pmizio/typescript-tools.nvim" },
-    }
+    },
   }
 
   use {
@@ -344,7 +328,7 @@ require("packer").startup(function(use)
       { "onsails/lspkind-nvim" },
     },
     config = function()
-      require('autocomplete').setup()
+      require("autocomplete").setup()
     end,
   }
 
@@ -494,16 +478,6 @@ require("packer").startup(function(use)
     require("packer").sync()
   end
 end)
-
-local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0
-    and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
-        :sub(col, col)
-        :match "%s"
-      == nil
-end
 
 function treesitter_setup()
   require("nvim-treesitter.configs").setup {
