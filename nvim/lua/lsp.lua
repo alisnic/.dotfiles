@@ -28,6 +28,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     client.server_capabilities.semanticTokensProvider = nil
+    require("lsp-format").on_attach(client)
   end,
 })
 
@@ -113,6 +114,16 @@ lspconfig.oxc_language_server.setup {
   end,
 }
 
+require("lspconfig").rust_analyzer.setup {
+  settings = {
+    ["rust-analyzer"] = {
+      diagnostics = {
+        enable = false,
+      },
+    },
+  },
+}
+
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 require("lspconfig").cssls.setup {
@@ -125,7 +136,6 @@ null_ls.setup {
   on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = true
     client.server_capabilities.documentRangeFormattingProvider = true
-    require("lsp-format").on_attach(client)
   end,
 }
 
