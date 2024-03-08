@@ -115,6 +115,7 @@ require("packer").startup(function(use)
               enabled = false,
             },
           },
+          progress = { enabled = false },
           override = {
             ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
             ["vim.lsp.util.stylize_markdown"] = true,
@@ -438,6 +439,9 @@ require("packer").startup(function(use)
 
   use {
     "nvim-lualine/lualine.nvim",
+    requires = {
+      { "linrongbin16/lsp-progress.nvim" },
+    },
     config = function()
       require("statusline").setup()
     end,

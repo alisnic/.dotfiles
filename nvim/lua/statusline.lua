@@ -71,6 +71,8 @@ end
 
 return {
   setup = function()
+    require("lsp-progress").setup()
+
     require("lualine").setup {
       options = {
         theme = "gruvbox",
@@ -85,7 +87,9 @@ return {
             lsp_diagnostic_status,
           },
         },
-        lualine_x = {},
+        lualine_x = {
+          require("lsp-progress").progress,
+        },
         lualine_y = {
           "filename",
           "diagnostics",
@@ -93,5 +97,12 @@ return {
         lualine_z = { "location" },
       },
     }
+
+    vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+    vim.api.nvim_create_autocmd("User", {
+      group = "lualine_augroup",
+      pattern = "LspProgressStatusUpdated",
+      callback = require("lualine").refresh,
+    })
   end,
 }
