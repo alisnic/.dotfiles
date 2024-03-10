@@ -71,7 +71,15 @@ end
 
 return {
   setup = function()
-    require("lsp-progress").setup()
+    require("lsp-progress").setup {
+      format = function(client_messages)
+        if #client_messages > 0 then
+          return client_messages[1]
+        end
+
+        return ""
+      end,
+    }
 
     require("lualine").setup {
       options = {
