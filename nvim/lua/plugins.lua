@@ -293,6 +293,13 @@ require("packer").startup(function(use)
   }
 
   use {
+    "dmmulroy/tsc.nvim",
+    config = function()
+      require("tsc").setup()
+    end,
+  }
+
+  use {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
@@ -491,6 +498,13 @@ function treesitter_setup()
     },
     indent = {
       enable = true,
+    },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        node_incremental = "v",
+        node_decremental = "V",
+      },
     },
     autotag = {
       enable = true,
