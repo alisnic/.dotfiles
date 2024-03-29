@@ -3,6 +3,7 @@ local lspkind = require "lspkind"
 local luasnip = require "luasnip"
 
 local has_words_before = function()
+  unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
     and vim.api
@@ -13,7 +14,7 @@ local has_words_before = function()
 end
 
 return {
-  setup = function ()
+  setup = function()
     cmp.setup.filetype("markdown", { sources = { { name = "buffer" } } })
 
     cmp.setup {
@@ -44,8 +45,8 @@ return {
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
-          elseif luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
+          -- elseif luasnip.expand_or_locally_jumpable() then
+          --   luasnip.expand_or_jump()
           elseif has_words_before() then
             cmp.complete()
           else
@@ -69,7 +70,8 @@ return {
           if
             not cmp.visible()
             or not cmp.get_selected_entry()
-            or cmp.get_selected_entry().source.name == "nvim_lsp_signature_help"
+            or cmp.get_selected_entry().source.name
+              == "nvim_lsp_signature_help"
           then
             fallback()
           else
@@ -126,5 +128,5 @@ return {
         { name = "emoji" },
       },
     })
-  end
+  end,
 }
