@@ -22,6 +22,8 @@ vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 local lspconfig = require "lspconfig"
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -58,9 +60,14 @@ require("typescript-tools").setup {
     client.server_capabilities.documentRangeFormattingProvider = false
   end,
   settings = {
+    tsserver_path = "node_modules/typescript/bin/tsserver",
     -- spawn additional tsserver instance to calculate diagnostics on it
     separate_diagnostic_server = false,
   },
+}
+
+require("lspconfig").jsonls.setup {
+  capabilities = capabilities,
 }
 
 local util = require "lspconfig.util"

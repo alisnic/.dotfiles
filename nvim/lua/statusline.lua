@@ -79,6 +79,11 @@ return {
 
         return ""
       end,
+      client_format = function(client_name, spinner, series_messages)
+        return #series_messages > 0
+            and ("[" .. client_name .. "] " .. spinner .. " " .. series_messages[1] .. ", ")
+          or nil
+      end,
     }
 
     require("lualine").setup {

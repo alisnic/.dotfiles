@@ -31,7 +31,7 @@ export KEYTIMEOUT=1
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
-export PATH=~/.dotfiles/bin:~/Library/Python/3.9/bin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/sbin:$PATH
+export PATH=~/.dotfiles/bin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/sbin:$PATH
 
 source ~/.fzf.zsh
 export PATH=/opt/homebrew/bin:$PATH

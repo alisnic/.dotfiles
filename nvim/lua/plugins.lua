@@ -31,24 +31,11 @@ require("packer").startup(function(use)
   use "kchmck/vim-coffee-script"
   use "folke/neodev.nvim"
   use "michaeljsmith/vim-indent-object"
-  use "stevearc/dressing.nvim"
-  use {
-    "seblj/nvim-tabline",
-    requires = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("tabline").setup {
-        no_name = "[No Name]", -- Name for buffers with no name
-        modified_icon = "", -- Icon for showing modified buffer
-        close_icon = "", -- Icon for closing tab with mouse
-        separator = "▌", -- Separator icon on the left side
-        padding = 1, -- Prefix and suffix space
-        color_all_icons = false, -- Color devicons in active and inactive tabs
-        right_separator = false, -- Show right separator on the last tab
-        show_index = false, -- Shows the index of tab before filename
-        show_icon = true, -- Shows the devicon
-      }
 
-      vim.cmd "hi! link TabLineSeparatorSel TabLineSeparator"
+  use {
+    "lukas-reineke/headlines.nvim",
+    config = function()
+      require("headlines").setup()
     end,
   }
 
@@ -98,6 +85,35 @@ require("packer").startup(function(use)
     "nvim-tree/nvim-web-devicons",
     config = function()
       require("nvim-web-devicons").setup()
+    end,
+  }
+
+  use "stevearc/dressing.nvim"
+  -- use {
+  --   "rcarriga/nvim-notify",
+  --   config = function()
+  --     require("notify").setup { stages = "static" }
+
+  --     -- vim.notify = require "notify"
+  --   end,
+  -- }
+  use {
+    "seblj/nvim-tabline",
+    requires = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("tabline").setup {
+        no_name = "[No Name]", -- Name for buffers with no name
+        modified_icon = "", -- Icon for showing modified buffer
+        close_icon = "", -- Icon for closing tab with mouse
+        separator = "▌", -- Separator icon on the left side
+        padding = 1, -- Prefix and suffix space
+        color_all_icons = false, -- Color devicons in active and inactive tabs
+        right_separator = false, -- Show right separator on the last tab
+        show_index = false, -- Shows the index of tab before filename
+        show_icon = true, -- Shows the devicon
+      }
+
+      vim.cmd "hi! link TabLineSeparatorSel TabLineSeparator"
     end,
   }
 
@@ -386,48 +402,60 @@ require("packer").startup(function(use)
     end,
   }
 
-  use "tpope/vim-eunuch"
   use {
-    "tamago324/lir.nvim",
-    requires = {
-      { "nvim-lua/plenary.nvim" },
-    },
+    "stevearc/oil.nvim",
     config = function()
-      local actions = require "lir.actions"
-
-      require("lir").setup {
-        show_hidden_files = true,
-        devicons = {
-          enable = true,
-          highlight_dirname = false,
-        },
-        mappings = {
-          ["<cr>"] = actions.edit,
-          ["<C-s>"] = actions.split,
-          ["<C-v>"] = actions.vsplit,
-          ["<C-t>"] = actions.tabedit,
-          ["-"] = actions.up,
-          ["q"] = actions.quit,
-          ["K"] = actions.mkdir,
-          ["N"] = actions.newfile,
-          ["R"] = actions.rename,
-          ["Y"] = actions.yank_path,
-          ["."] = actions.toggle_show_hidden,
-          ["D"] = actions.delete,
-          ["o"] = function()
-            vim.cmd [[ !open % ]]
-          end,
-        },
-      }
-
-      vim.api.nvim_set_keymap(
+      require("oil").setup()
+      vim.keymap.set(
         "n",
         "-",
-        [[<Cmd>execute 'e ' .. expand('%:p:h')<CR>]],
-        { noremap = true }
+        "<CMD>Oil<CR>",
+        { desc = "Open parent directory" }
       )
     end,
   }
+  use "tpope/vim-eunuch"
+  -- use {
+  --   "tamago324/lir.nvim",
+  --   requires = {
+  --     { "nvim-lua/plenary.nvim" },
+  --   },
+  --   config = function()
+  --     local actions = require "lir.actions"
+
+  --     require("lir").setup {
+  --       show_hidden_files = true,
+  --       devicons = {
+  --         enable = true,
+  --         highlight_dirname = false,
+  --       },
+  --       mappings = {
+  --         ["<cr>"] = actions.edit,
+  --         ["<C-s>"] = actions.split,
+  --         ["<C-v>"] = actions.vsplit,
+  --         ["<C-t>"] = actions.tabedit,
+  --         ["-"] = actions.up,
+  --         ["q"] = actions.quit,
+  --         ["K"] = actions.mkdir,
+  --         ["N"] = actions.newfile,
+  --         ["R"] = actions.rename,
+  --         ["Y"] = actions.yank_path,
+  --         ["."] = actions.toggle_show_hidden,
+  --         ["D"] = actions.delete,
+  --         ["o"] = function()
+  --           vim.cmd [[ !open % ]]
+  --         end,
+  --       },
+  --     }
+
+  --     vim.api.nvim_set_keymap(
+  --       "n",
+  --       "-",
+  --       [[<Cmd>execute 'e ' .. expand('%:p:h')<CR>]],
+  --       { noremap = true }
+  --     )
+  --   end,
+  -- }
 
   use {
     "sickill/vim-pasta",
