@@ -162,6 +162,19 @@ then
   }
 end
 
+if vim.fn.filereadable "cspell.json" then
+  null_ls.register {
+    null_ls.builtins.diagnostics.cspell.with {
+      filetypes = {
+        "typescript",
+        "typescriptreact",
+        "javascript",
+        "javascriptreact",
+      },
+    },
+  }
+end
+
 null_ls.register {
   null_ls.builtins.formatting.stylua.with {
     extra_args = {
