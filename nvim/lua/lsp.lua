@@ -137,6 +137,10 @@ require("lspconfig").cssls.setup {
   capabilities = capabilities,
 }
 
+if vim.fn.filereadable "tailwind.config.js" then
+  require("lspconfig").tailwindcss.setup {}
+end
+
 local null_ls = require "null-ls"
 
 null_ls.setup {
