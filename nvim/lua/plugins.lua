@@ -249,21 +249,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "tpope/vim-fugitive",
-    config = function()
-      vim.cmd "command! Blame :Git blame"
-
-      vim.cmd [[
-        cabbrev git Git
-        augroup packer_fugitive
-          autocmd!
-          autocmd FileType fugitiveblame nmap <silent><buffer> q gq
-        augroup end
-      ]]
-    end,
-  }
-
-  use {
     "NeogitOrg/neogit",
     config = function()
       local neogit = require "neogit"
@@ -324,20 +309,13 @@ require("packer").startup(function(use)
   }
 
   use {
-    "dmmulroy/tsc.nvim",
-    config = function()
-      require("tsc").setup()
-    end,
-  }
-
-  use {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
     config = function()
       require("copilot").setup {
-        suggestion = { enabled = false },
-        panel = { enabled = false },
+        -- suggestion = { enabled = false },
+        -- panel = { enabled = false },
       }
     end,
   }
@@ -429,48 +407,6 @@ require("packer").startup(function(use)
       )
     end,
   }
-  use "tpope/vim-eunuch"
-  -- use {
-  --   "tamago324/lir.nvim",
-  --   requires = {
-  --     { "nvim-lua/plenary.nvim" },
-  --   },
-  --   config = function()
-  --     local actions = require "lir.actions"
-
-  --     require("lir").setup {
-  --       show_hidden_files = true,
-  --       devicons = {
-  --         enable = true,
-  --         highlight_dirname = false,
-  --       },
-  --       mappings = {
-  --         ["<cr>"] = actions.edit,
-  --         ["<C-s>"] = actions.split,
-  --         ["<C-v>"] = actions.vsplit,
-  --         ["<C-t>"] = actions.tabedit,
-  --         ["-"] = actions.up,
-  --         ["q"] = actions.quit,
-  --         ["K"] = actions.mkdir,
-  --         ["N"] = actions.newfile,
-  --         ["R"] = actions.rename,
-  --         ["Y"] = actions.yank_path,
-  --         ["."] = actions.toggle_show_hidden,
-  --         ["D"] = actions.delete,
-  --         ["o"] = function()
-  --           vim.cmd [[ !open % ]]
-  --         end,
-  --       },
-  --     }
-
-  --     vim.api.nvim_set_keymap(
-  --       "n",
-  --       "-",
-  --       [[<Cmd>execute 'e ' .. expand('%:p:h')<CR>]],
-  --       { noremap = true }
-  --     )
-  --   end,
-  -- }
 
   use {
     "sickill/vim-pasta",
