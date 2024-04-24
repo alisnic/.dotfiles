@@ -237,8 +237,7 @@ require("packer").startup(function(use)
       vim.keymap.set(
         "n",
         "<leader>w",
-        ":Telescope lsp_dynamic_workspace_symbols fname_width=100<cr>",
-        { silent = true }
+        ":Telescope lsp_workspace_symbols query="
       )
       vim.keymap.set(
         "n",
