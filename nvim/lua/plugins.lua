@@ -24,13 +24,29 @@ vim.cmd [[
 
 require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
+
+  -- automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file
   use "tpope/vim-sleuth"
+
+  -- GBrowse integration for file
   use "tpope/vim-rhubarb"
+
+  -- Helpers for unix
+  use "tpope/vim-eunuch"
+
+  -- toggle comments. TODO: remove on upgrade to nvim 0.10
   use "tpope/vim-commentary"
+
   use "google/vim-searchindex"
-  use "kchmck/vim-coffee-script"
   use "folke/neodev.nvim"
   use "michaeljsmith/vim-indent-object"
+
+  use {
+    "FabijanZulj/blame.nvim",
+    config = function()
+      require("blame").setup()
+    end,
+  }
 
   use {
     "lukas-reineke/headlines.nvim",
