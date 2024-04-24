@@ -20,6 +20,11 @@ end)
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
+vim.keymap.set(
+  "n",
+  "<leader>lT",
+  ":vsplit<cr>:lua vim.lsp.buf.type_definition()<cr>"
+)
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -92,7 +97,7 @@ lspconfig.lua_ls.setup {
 configs.oxc_language_server = {
   default_config = {
     cmd = {
-      "/Users/andreilisnic/Work/oxc/editors/vscode/target/release/oxc_language_server",
+      "oxc_language_server",
     },
     filetypes = {
       "javascript",
