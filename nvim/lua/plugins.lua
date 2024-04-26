@@ -396,14 +396,43 @@ require("packer").startup(function(use)
   }
 
   use {
-    "stevearc/oil.nvim",
+    "tamago324/lir.nvim",
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+    },
     config = function()
-      require("oil").setup()
-      vim.keymap.set(
+      local actions = require "lir.actions"
+
+      require("lir").setup {
+        show_hidden_files = true,
+        devicons = {
+          enable = true,
+          highlight_dirname = false,
+        },
+        mappings = {
+          ["<cr>"] = actions.edit,
+          ["<C-s>"] = actions.split,
+          ["<C-v>"] = actions.vsplit,
+          ["<C-t>"] = actions.tabedit,
+          ["-"] = actions.up,
+          ["q"] = actions.quit,
+          ["K"] = actions.mkdir,
+          ["N"] = actions.newfile,
+          ["R"] = actions.rename,
+          ["Y"] = actions.yank_path,
+          ["."] = actions.toggle_show_hidden,
+          ["D"] = actions.delete,
+          ["o"] = function()
+            vim.cmd [[ !open % ]]
+          end,
+        },
+      }
+
+      vim.api.nvim_set_keymap(
         "n",
         "-",
-        "<CMD>Oil<CR>",
-        { desc = "Open parent directory" }
+        [[<Cmd>execute 'e ' .. expand('%:p:h')<CR>]],
+        { noremap = true }
       )
     end,
   }
