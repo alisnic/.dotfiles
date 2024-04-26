@@ -142,7 +142,7 @@ require("lspconfig").cssls.setup {
   capabilities = capabilities,
 }
 
-if vim.fn.filereadable "tailwind.config.js" then
+if vim.fn.filereadable "tailwind.config.js" == 1 then
   require("lspconfig").tailwindcss.setup {}
 end
 
@@ -156,7 +156,8 @@ null_ls.setup {
 }
 
 if
-  vim.fn.filereadable ".prettierrc" or vim.fn.filereadable ".prettierrc.js"
+  vim.fn.filereadable ".prettierrc" == 1
+  or vim.fn.filereadable ".prettierrc.js" == 1
 then
   null_ls.register {
     null_ls.builtins.formatting.prettier.with {
@@ -171,7 +172,7 @@ then
   }
 end
 
-if vim.fn.filereadable "cspell.json" then
+if vim.fn.filereadable "cspell.json" == 1 then
   null_ls.register {
     null_ls.builtins.diagnostics.cspell.with {
       filetypes = {
