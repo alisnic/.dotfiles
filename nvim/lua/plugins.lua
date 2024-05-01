@@ -339,7 +339,6 @@ require("packer").startup(function(use)
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-path" },
       { "hrsh7th/cmp-cmdline" },
-      { "hrsh7th/cmp-emoji" },
       { "quangnguyen30192/cmp-nvim-tags" },
       { "saadparwaiz1/cmp_luasnip" },
       { "onsails/lspkind-nvim" },

@@ -41,23 +41,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 require("neodev").setup()
 
-require("lspconfig.configs").vtsls = require("vtsls").lspconfig
--- vim.cmd "command! RemoveUnusedImports :VtsExec remove_unused_imports"
-
-vim.keymap.set("n", "gs", ":VtsExec goto_source_definition<cr>")
-
--- lspconfig.vtsls.setup {
---   capabilities = capabilities,
---   on_attach = function(client, bufnr)
---     client.server_capabilities.documentFormattingProvider = false
---     client.server_capabilities.documentRangeFormattingProvider = false
---     client.server_capabilities.semanticTokensProvider = false
---   end,
---   settings = {
---     typescript = { preferences = { includePackageJsonAutoImports = "off" } },
---     vtsls = { experimental = { completion = { entriesLimit = 50 } } },
---   },
--- }
 require("typescript-tools").setup {
   capabilities = capabilities,
   on_attach = function(client, bufnr)
