@@ -34,9 +34,6 @@ require("packer").startup(function(use)
   -- Helpers for unix
   use "tpope/vim-eunuch"
 
-  -- toggle comments. TODO: remove on upgrade to nvim 0.10
-  use "tpope/vim-commentary"
-
   use "google/vim-searchindex"
   use "folke/neodev.nvim"
   use "michaeljsmith/vim-indent-object"
