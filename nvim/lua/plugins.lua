@@ -196,12 +196,6 @@ require("packer").startup(function(use)
 
       vim.keymap.set(
         "n",
-        "<leader>f",
-        ":Telescope git_files show_untracked=true<cr>",
-        { silent = true }
-      )
-      vim.keymap.set(
-        "n",
         "<leader>t",
         ":Telescope commands<cr>",
         { silent = true }
@@ -216,12 +210,6 @@ require("packer").startup(function(use)
         "n",
         "<leader>p",
         ":Telescope find_files hidden=true<cr>",
-        { silent = true }
-      )
-      vim.keymap.set(
-        "n",
-        "<leader>b",
-        ":Telescope buffers sort_mru=true<cr>",
         { silent = true }
       )
 
@@ -246,6 +234,20 @@ require("packer").startup(function(use)
   }
 
   use {
+    "nvim-telescope/telescope-frecency.nvim",
+    config = function()
+      require("telescope").load_extension "frecency"
+
+      vim.keymap.set(
+        "n",
+        "<leader>f",
+        ":Telescope frecency<cr>",
+        { silent = true }
+      )
+    end,
+  }
+
+  use {
     "NeogitOrg/neogit",
     config = function()
       local neogit = require "neogit"
@@ -254,6 +256,7 @@ require("packer").startup(function(use)
         disable_commit_confirmation = true,
         disable_signs = true,
         integrations = { telescope = true },
+        auto_show_console = false,
         mappings = {
           popup = {
             ["Z"] = false,
@@ -347,7 +350,17 @@ require("packer").startup(function(use)
   use {
     "JoosepAlviste/nvim-ts-context-commentstring",
     config = function()
-      vim.g.skip_ts_context_commentstring_module = true
+      require("ts_context_commentstring").setup {
+        enable_autocmd = false,
+      }
+
+      local get_option = vim.filetype.get_option
+
+      vim.filetype.get_option = function(filetype, option)
+        return option == "commentstring"
+            and require("ts_context_commentstring.internal").calculate_commentstring()
+          or get_option(filetype, option)
+      end
     end,
   }
 
