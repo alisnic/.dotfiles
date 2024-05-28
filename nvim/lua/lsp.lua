@@ -80,7 +80,8 @@ lspconfig.lua_ls.setup {
 configs.oxc_language_server = {
   default_config = {
     cmd = {
-      "oxc_language_server",
+      "node",
+      vim.fn.expand "$PWD/node_modules/oxlint/bin/oxc_language_server",
     },
     filetypes = {
       "javascript",
