@@ -212,6 +212,12 @@ require("packer").startup(function(use)
         ":Telescope find_files hidden=true<cr>",
         { silent = true }
       )
+      vim.keymap.set(
+        "n",
+        "<leader>b",
+        ":Telescope buffers sort_mru=true<cr>",
+        { silent = true }
+      )
 
       vim.keymap.set(
         "n",
@@ -228,20 +234,6 @@ require("packer").startup(function(use)
         "n",
         "<leader>h",
         ":Telescope help_tags<cr>",
-        { silent = true }
-      )
-    end,
-  }
-
-  use {
-    "nvim-telescope/telescope-frecency.nvim",
-    config = function()
-      require("telescope").load_extension "frecency"
-
-      vim.keymap.set(
-        "n",
-        "<leader>f",
-        ":Telescope frecency<cr>",
         { silent = true }
       )
     end,
