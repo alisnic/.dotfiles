@@ -1,0 +1,4 @@
+fzf
+starship
+gnupg
+redis
