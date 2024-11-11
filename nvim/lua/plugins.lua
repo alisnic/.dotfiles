@@ -39,31 +39,6 @@ require("packer").startup(function(use)
   use "michaeljsmith/vim-indent-object"
 
   use {
-    "FabijanZulj/blame.nvim",
-    config = function()
-      require("blame").setup()
-    end,
-  }
-
-  use {
-    "lukas-reineke/headlines.nvim",
-    config = function()
-      require("headlines").setup()
-    end,
-  }
-
-  use {
-    "chrisgrieser/nvim-early-retirement",
-    config = function()
-      require("early-retirement").setup {
-        retirementAgeMins = 60,
-        minimumBufferNum = 5,
-        ignoredFiletypes = { "markdown" },
-      }
-    end,
-  }
-
-  use {
     "lukas-reineke/lsp-format.nvim",
     config = function()
       require("lsp-format").setup {}
@@ -102,14 +77,6 @@ require("packer").startup(function(use)
   }
 
   use "stevearc/dressing.nvim"
-  -- use {
-  --   "rcarriga/nvim-notify",
-  --   config = function()
-  --     require("notify").setup { stages = "static" }
-
-  --     -- vim.notify = require "notify"
-  --   end,
-  -- }
   use {
     "seblj/nvim-tabline",
     requires = { "nvim-tree/nvim-web-devicons" },
@@ -153,16 +120,6 @@ require("packer").startup(function(use)
         presets = {
           lsp_doc_border = true,
         },
-      }
-    end,
-  }
-
-  use {
-    "norcalli/nvim-colorizer.lua",
-    config = function()
-      require("colorizer").setup {
-        "scss",
-        "less",
       }
     end,
   }
@@ -273,19 +230,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "ellisonleao/gruvbox.nvim",
-    config = function()
-      require("gruvbox").setup {
-        bold = false,
-      }
-
-      vim.cmd [[
-         hi! link NoiceCmdlinePopupBorder PopupBorder
-      ]]
-    end,
-  }
-
-  use {
     "jose-elias-alvarez/null-ls.nvim",
     requires = {
       { "nvim-lua/plenary.nvim" },
@@ -293,35 +237,7 @@ require("packer").startup(function(use)
   }
 
   use {
-    "neovim/nvim-lspconfig",
-    requires = {
-      { "yioneko/nvim-vtsls" },
-      { "pmizio/typescript-tools.nvim" },
-    },
-  }
-
-  use {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup {
-        -- suggestion = { enabled = false },
-        -- panel = { enabled = false },
-      }
-    end,
-  }
-
-  use {
-    "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua" },
-    config = function()
-      require("copilot_cmp").setup {
-        formatters = {
-          insert_text = require("copilot_cmp.format").remove_existing,
-        },
-      }
-    end,
+    "neovim/nvim-lspconfig"
   }
 
   use {
@@ -470,26 +386,6 @@ require("packer").startup(function(use)
         window = { padding = 0, margin = { horizontal = 0 } },
         hide = { focused_win = true },
       }
-    end,
-  }
-
-  use {
-    "L3MON4D3/LuaSnip",
-    config = function()
-      require("luasnip").config.set_config {
-        history = false,
-        delete_check_events = "InsertLeave",
-      }
-      require("luasnip.loaders.from_vscode").load {
-        paths = vim.fn.stdpath "config" .. "/snippets",
-      }
-
-      vim.cmd [[
-        augroup luasnip_alisnic
-          autocmd!
-          autocmd InsertLeave * silent! LuaSnipUnlinkCurrent
-        augroup end
-      ]]
     end,
   }
 

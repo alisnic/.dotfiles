@@ -1,4 +1,5 @@
-fzf
-starship
-gnupg
-redis
+brew "fzf"
+brew "starship"
+brew "gnupg"
+brew "redis"
+brew "ffmpeg"
