@@ -1,7 +1,7 @@
-bindkey -v
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey -M vicmd 'v' edit-command-line
+#bindkey -v
+#autoload -Uz edit-command-line
+#zle -N edit-command-line
+#bindkey -M vicmd 'v' edit-command-line
 
 bindkey "^[[1;3D" backward-word
 bindkey "^[[1;3C" forward-word
@@ -9,10 +9,12 @@ bindkey "^[[1;3C" forward-word
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
+HISTSIZE=999999999
 setopt auto_pushd
 setopt share_history
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
 setopt +o nomatch
-
 FPATH=/opt/homebrew/share/zsh/site-functions:/opt/homebrew/share/zsh-completions:$FPATH
 autoload -Uz compinit
 
@@ -33,38 +35,15 @@ export LC_ALL="en_US.UTF-8"
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export PATH=~/.dotfiles/bin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/sbin:$PATH
 
-source ~/.fzf.zsh
+source <(fzf --zsh)
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
-export MANPAGER='nvim +Man!'
-export MANWIDTH=999
 
 alias ls='ls -G'
 alias reload!='source ~/.zshrc'
-alias be='bundle exec'
-alias sp='bin/spring'
-alias dc='docker-compose'
-
-function j {
-  cd -P "$MARKDIR/$1"
-}
-
-function p {
-  cd -P "$HOME/Play/$1"
-}
-
-function _completemarks {
-  reply=($(ls $MARKDIR))
-}
-
-function _completeplays {
-  reply=($(ls ~/Play))
-}
-
-compctl -K _completemarks j
-compctl -K _completeplays p
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 eval "$(starship init zsh)"
+export PATH=/Users/alisnic/.meteor:$PATH
