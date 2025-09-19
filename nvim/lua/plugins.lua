@@ -29,7 +29,7 @@ require("packer").startup(function(use)
   use "tpope/vim-sleuth"
 
   -- GBrowse integration for file
-  use "tpope/vim-rhubarb"
+  -- use "tpope/vim-rhubarb"
 
   -- Helpers for unix
   use "tpope/vim-eunuch"
@@ -66,6 +66,19 @@ require("packer").startup(function(use)
           },
         }
       end, { silent = true })
+    end,
+  }
+
+  use {
+    "ellisonleao/gruvbox.nvim",
+    config = function()
+      require("gruvbox").setup {
+        bold = false,
+      }
+
+      vim.cmd [[
+         hi! link NoiceCmdlinePopupBorder PopupBorder
+      ]]
     end,
   }
 
@@ -247,7 +260,7 @@ require("packer").startup(function(use)
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-path" },
       { "hrsh7th/cmp-cmdline" },
-      { "saadparwaiz1/cmp_luasnip" },
+      -- { "saadparwaiz1/cmp_luasnip" },
       { "onsails/lspkind-nvim" },
     },
     config = function()

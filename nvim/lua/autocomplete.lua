@@ -1,6 +1,6 @@
 local cmp = require "cmp"
 local lspkind = require "lspkind"
-local luasnip = require "luasnip"
+-- local luasnip = require "luasnip"
 
 local has_words_before = function()
   unpack = unpack or table.unpack
@@ -18,11 +18,11 @@ return {
     cmp.setup.filetype("markdown", { sources = { { name = "buffer" } } })
 
     cmp.setup {
-      snippet = {
-        expand = function(args)
-          luasnip.lsp_expand(args.body)
-        end,
-      },
+      -- snippet = {
+      --   expand = function(args)
+      --     luasnip.lsp_expand(args.body)
+      --   end,
+      -- },
       window = {
         documentation = cmp.config.window.bordered(),
         completion = cmp.config.window.bordered(),
@@ -86,7 +86,7 @@ return {
         end,
       },
       sources = cmp.config.sources({
-        { name = "luasnip" },
+        -- { name = "luasnip" },
         { name = "copilot" },
         { name = "nvim_lsp" },
       }, {
@@ -106,12 +106,12 @@ return {
       experimental = { ghost_text = true },
     }
 
-    cmp.setup.cmdline("/", {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        { name = "buffer" },
-      },
-    })
+    -- cmp.setup.cmdline("/", {
+    --   mapping = cmp.mapping.preset.cmdline(),
+    --   sources = {
+    --     { name = "buffer" },
+    --   },
+    -- })
 
     cmp.setup.cmdline(":", {
       mapping = cmp.mapping.preset.cmdline(),

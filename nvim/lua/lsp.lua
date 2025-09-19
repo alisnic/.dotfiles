@@ -41,18 +41,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 require("neodev").setup()
 
-require("typescript-tools").setup {
-  capabilities = capabilities,
-  on_attach = function(client, bufnr)
-    client.server_capabilities.documentFormattingProvider = false
-    client.server_capabilities.documentRangeFormattingProvider = false
-  end,
-  settings = {
-    tsserver_path = "node_modules/typescript/bin/tsserver",
-    -- spawn additional tsserver instance to calculate diagnostics on it
-    separate_diagnostic_server = false,
-  },
-}
+-- require("typescript-tools").setup {
+--   capabilities = capabilities,
+--   on_attach = function(client, bufnr)
+--     client.server_capabilities.documentFormattingProvider = false
+--     client.server_capabilities.documentRangeFormattingProvider = false
+--   end,
+--   settings = {
+--     tsserver_path = "node_modules/typescript/bin/tsserver",
+--     -- spawn additional tsserver instance to calculate diagnostics on it
+--     separate_diagnostic_server = false,
+--   },
+-- }
 
 require("lspconfig").jsonls.setup {
   capabilities = capabilities,
@@ -110,25 +110,25 @@ lspconfig.oxc_language_server.setup {
   end,
 }
 
-require("lspconfig").rust_analyzer.setup {
-  settings = {
-    ["rust-analyzer"] = {
-      diagnostics = {
-        experimental = { enable = true },
-      },
-    },
-  },
-}
+-- require("lspconfig").rust_analyzer.setup {
+--   settings = {
+--     ["rust-analyzer"] = {
+--       diagnostics = {
+--         experimental = { enable = true },
+--       },
+--     },
+--   },
+-- }
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-require("lspconfig").cssls.setup {
-  capabilities = capabilities,
-}
-
-if vim.fn.filereadable "tailwind.config.js" == 1 then
-  require("lspconfig").tailwindcss.setup {}
-end
+-- require("lspconfig").cssls.setup {
+--   capabilities = capabilities,
+-- }
+--
+-- if vim.fn.filereadable "tailwind.config.js" == 1 then
+--   require("lspconfig").tailwindcss.setup {}
+-- end
 
 local null_ls = require "null-ls"
 
@@ -156,18 +156,18 @@ then
   }
 end
 
-if vim.fn.filereadable "cspell.json" == 1 then
-  null_ls.register {
-    null_ls.builtins.diagnostics.cspell.with {
-      filetypes = {
-        "typescript",
-        "typescriptreact",
-        "javascript",
-        "javascriptreact",
-      },
-    },
-  }
-end
+-- if vim.fn.filereadable "cspell.json" == 1 then
+--   null_ls.register {
+--     null_ls.builtins.diagnostics.cspell.with {
+--       filetypes = {
+--         "typescript",
+--         "typescriptreact",
+--         "javascript",
+--         "javascriptreact",
+--       },
+--     },
+--   }
+-- end
 
 null_ls.register {
   null_ls.builtins.formatting.stylua.with {
