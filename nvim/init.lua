@@ -24,7 +24,7 @@ vim.cmd "packadd cfilter"
 -- vim.opt.termguicolors = true
 
 require "plugins"
---require "lsp"
+require "lsp"
 
 vim.opt.background = "light"
 vim.cmd "colorscheme gruvbox"
