@@ -76,19 +76,6 @@ require("packer").startup(function(use)
   }
 
   use {
-    "ellisonleao/gruvbox.nvim",
-    config = function()
-      require("gruvbox").setup {
-        bold = false,
-      }
-
-      vim.cmd [[
-         hi! link NoiceCmdlinePopupBorder PopupBorder
-      ]]
-    end,
-  }
-
-  use {
     "nvim-tree/nvim-web-devicons",
     config = function()
       require("nvim-web-devicons").setup()

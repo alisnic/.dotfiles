@@ -21,15 +21,19 @@ for _, plugin in pairs(disabledPlugins) do
 end
 
 vim.cmd "packadd cfilter"
--- vim.opt.termguicolors = true
 
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = transparent_group,
+  callback = function()
+    vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "Pmenu", { bg = "NONE" })
+  end,
+})
+vim.cmd "colorscheme default"
 require "plugins"
 require "lsp"
-
-vim.opt.background = "light"
-vim.cmd "colorscheme gruvbox"
--- vim.opt.colorscheme = "shine"
---- vim.cmd "colorscheme shine"
 
 vim.opt.updatetime = 250
 vim.opt.title = true
