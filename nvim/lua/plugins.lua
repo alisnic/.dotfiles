@@ -52,54 +52,9 @@ require("packer").startup(function(use)
   }
 
   use {
-    "folke/flash.nvim",
-    config = function()
-      require("flash").setup {
-        highlight = {
-          groups = {
-            match = "Question",
-          },
-        },
-        modes = { char = { enabled = false }, search = { enabled = false } },
-      }
-
-      vim.keymap.set("n", "s", function()
-        require("flash").jump {
-          search = {
-            mode = function(str)
-              return "\\<" .. str
-            end,
-          },
-        }
-      end, { silent = true })
-    end,
-  }
-
-  use {
     "nvim-tree/nvim-web-devicons",
     config = function()
       require("nvim-web-devicons").setup()
-    end,
-  }
-
-  use "stevearc/dressing.nvim"
-  use {
-    "seblj/nvim-tabline",
-    requires = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("tabline").setup {
-        no_name = "[No Name]", -- Name for buffers with no name
-        modified_icon = "", -- Icon for showing modified buffer
-        close_icon = "", -- Icon for closing tab with mouse
-        separator = "▌", -- Separator icon on the left side
-        padding = 1, -- Prefix and suffix space
-        color_all_icons = false, -- Color devicons in active and inactive tabs
-        right_separator = false, -- Show right separator on the last tab
-        show_index = false, -- Shows the index of tab before filename
-        show_icon = true, -- Shows the devicon
-      }
-
-      vim.cmd "hi! link TabLineSeparatorSel TabLineSeparator"
     end,
   }
 
@@ -185,7 +140,7 @@ require("packer").startup(function(use)
       vim.keymap.set(
         "n",
         "<leader>m",
-        ":Telescope lsp_document_symbols<cr>",
+        ":Telescope treesitter<cr>",
         { silent = true }
       )
       vim.keymap.set(
@@ -310,12 +265,12 @@ require("packer").startup(function(use)
     end,
   }
 
-  use {
-    "tpope/vim-projectionist",
-    config = function()
-      vim.keymap.set("n", "<leader>a", ":A<cr>", { silent = true })
-    end,
-  }
+  -- use {
+  --   "tpope/vim-projectionist",
+  --   config = function()
+  --     vim.keymap.set("n", "<leader>a", ":A<cr>", { silent = true })
+  --   end,
+  -- }
 
   use {
     "tamago324/lir.nvim",
@@ -374,26 +329,15 @@ require("packer").startup(function(use)
     end,
   }
 
-  use {
-    "nvim-lualine/lualine.nvim",
-    requires = {
-      { "linrongbin16/lsp-progress.nvim" },
-    },
-    config = function()
-      require("statusline").setup()
-    end,
-  }
-
-  use {
-    "b0o/incline.nvim",
-    config = function()
-      require("incline").setup {
-        debounce_threshold = { falling = 500, rising = 250 },
-        window = { padding = 0, margin = { horizontal = 0 } },
-        hide = { focused_win = true },
-      }
-    end,
-  }
+  -- use {
+  --   "nvim-lualine/lualine.nvim",
+  --   requires = {
+  --     { "linrongbin16/lsp-progress.nvim" },
+  --   },
+  --   config = function()
+  --     require("statusline").setup()
+  --   end,
+  -- }
 
   if packer_bootstrap then
     require("packer").sync()
