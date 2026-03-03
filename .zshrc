@@ -1,7 +1,7 @@
 #bindkey -v
-#autoload -Uz edit-command-line
-#zle -N edit-command-line
-#bindkey -M vicmd 'v' edit-command-line
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd 'v' edit-command-line
 
 bindkey "^[[1;3D" backward-word
 bindkey "^[[1;3C" forward-word
@@ -11,9 +11,9 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 HISTSIZE=999999999
 setopt auto_pushd
-setopt share_history
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
+setopt appendhistory
 setopt +o nomatch
 FPATH=/opt/homebrew/share/zsh/site-functions:/opt/homebrew/share/zsh-completions:$FPATH
 autoload -Uz compinit

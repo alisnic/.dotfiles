@@ -14,6 +14,7 @@
   lg = log --pretty=oneline --abbrev-commit
   pl = pull
   sw = show --color
+  wip = commit --no-verify -m \"🚧 WIP\"
   this = !git init && git add . && git commit -m \"initial commit\"
   rhh  = reset HEAD --hard
   main-reset = !git fetch main && git reset main/$GIT_BRANCH --hard
