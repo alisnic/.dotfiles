@@ -5,7 +5,11 @@ vim.keymap.set("n", "<leader>e", function()
     { focus = false, scope = "cursor", border = "rounded" }
   )
 end)
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+
+vim.keymap.set("n", "gd", function()
+  require("nvim-treesitter.refactor.navigation").goto_definition_lsp_fallback()
+end, { buffer = 0 })
+
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
 vim.keymap.set("n", "gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
 vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
