@@ -197,9 +197,8 @@ require("packer").startup(function(use)
     },
   }
 
-  use {
-    "neovim/nvim-lspconfig",
-  }
+  -- nvim-lspconfig kept for its lsp/ default configs, loaded via vim.lsp.config
+  use "neovim/nvim-lspconfig"
 
   use {
     "hrsh7th/nvim-cmp",
