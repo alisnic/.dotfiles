@@ -35,9 +35,8 @@ export LC_ALL="en_US.UTF-8"
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export PATH=~/.dotfiles/bin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/sbin:$PATH
 
-source <(fzf --zsh)
 export PATH=/opt/homebrew/bin:$PATH
-export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
+source <(fzf --zsh)
 
 alias ls='ls -G'
 alias reload!='source ~/.zshrc'
