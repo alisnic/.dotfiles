@@ -34,8 +34,8 @@ require("packer").startup(function(use)
   -- Helpers for unix
   use "tpope/vim-eunuch"
 
-  use "google/vim-searchindex"
-  use "folke/neodev.nvim"
+  -- vim-searchindex removed: search count is built-in since 0.11
+  -- neodev.nvim removed: use folke/lazydev.nvim or built-in vim.lsp type support
   use "michaeljsmith/vim-indent-object"
 
   use {
@@ -239,7 +239,6 @@ require("packer").startup(function(use)
     requires = {
       { "windwp/nvim-ts-autotag" },
       { "RRethy/nvim-treesitter-endwise" },
-      { "nvim-treesitter/playground" },
     },
     config = function()
       treesitter_setup()
@@ -258,12 +257,7 @@ require("packer").startup(function(use)
     end,
   }
 
-  use {
-    "lewis6991/spellsitter.nvim",
-    config = function()
-      require("spellsitter").setup()
-    end,
-  }
+  -- spellsitter.nvim removed: spell checking in treesitter regions is built-in since 0.11
 
   -- use {
   --   "tpope/vim-projectionist",

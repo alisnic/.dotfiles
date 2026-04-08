@@ -16,10 +16,10 @@ vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 vim.keymap.set("n", "gr", vim.lsp.buf.references)
 vim.keymap.set("n", "gR", ":vsplit<cr>:lua vim.lsp.buf.references()<cr>")
 vim.keymap.set("n", "[d", function()
-  vim.diagnostic.goto_prev { severity = { min = vim.diagnostic.severity.WARN } }
+  vim.diagnostic.jump { count = -1, severity = { min = vim.diagnostic.severity.WARN } }
 end)
 vim.keymap.set("n", "]d", function()
-  vim.diagnostic.goto_next { severity = { min = vim.diagnostic.severity.WARN } }
+  vim.diagnostic.jump { count = 1, severity = { min = vim.diagnostic.severity.WARN } }
 end)
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
@@ -38,12 +38,12 @@ local lspconfig = require "lspconfig"
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
-    client.server_capabilities.semanticTokensProvider = nil
-    require("lsp-format").on_attach(client)
+    if client then
+      client.server_capabilities.semanticTokensProvider = nil
+      require("lsp-format").on_attach(client)
+    end
   end,
 })
-
-require("neodev").setup()
 
 -- require("typescript-tools").setup {
 --   capabilities = capabilities,

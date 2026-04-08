@@ -10,10 +10,8 @@ local disabledPlugins = {
   "getscriptPlugin",
   "vimball",
   "vimballPlugin",
-  "2html_plugin",
   "logipat",
   "rrhelper",
-  "spellfile_plugin",
 }
 
 for _, plugin in pairs(disabledPlugins) do
@@ -77,7 +75,7 @@ vim.opt.tags:append { ".git/tags" }
 vim.opt.tagcase = "match"
 
 vim.diagnostic.config {
-  float = { source = "always" },
+  float = { source = true },
   signs = false,
   virtual_text = false,
 }
