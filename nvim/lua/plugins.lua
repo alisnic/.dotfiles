@@ -34,15 +34,29 @@ add { gh "michaeljsmith/vim-indent-object" }
 add { gh "stevearc/conform.nvim" }
 require("conform").setup {
   formatters_by_ft = {
-    javascript = { "prettier" },
-    javascriptreact = { "prettier" },
-    typescript = { "prettier" },
-    typescriptreact = { "prettier" },
+    javascript = { "oxfmt" },
+    javascriptreact = { "oxfmt" },
+    typescript = { "oxfmt" },
+    typescriptreact = { "oxfmt" },
     lua = { "stylua" },
   },
   formatters = {
-    prettier = {
-      require_cwd = true,
+    oxfmt = {
+      args = function(_, ctx)
+        local cfg = vim.fs.find(
+          { ".oxfmtrc.json", ".oxfmtrc.jsonc" },
+          { path = ctx.dirname, upward = true }
+        )[1]
+        if cfg then
+          return { "--stdin-filepath", ctx.filename }
+        end
+        return {
+          "--config",
+          vim.fn.expand "~/.config/oxfmt/default.json",
+          "--stdin-filepath",
+          ctx.filename,
+        }
+      end,
     },
     stylua = {
       prepend_args = {
