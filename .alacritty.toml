@@ -65,6 +65,11 @@ key = "C"
 mods = "Command"
 
 [[keyboard.bindings]]
+chars = "\u0007"
+key = "S"
+mods = "Command"
+
+[[keyboard.bindings]]
 action = "IncreaseFontSize"
 key = "Equals"
 mods = "Command"
