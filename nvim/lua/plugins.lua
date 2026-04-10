@@ -122,6 +122,17 @@ add { gh "nvimtools/none-ls.nvim" }
 
 add { gh "neovim/nvim-lspconfig" }
 
+add { gh "pmizio/typescript-tools.nvim" }
+require("typescript-tools").setup {
+  on_attach = function(client)
+    client.server_capabilities.semanticTokensProvider = nil
+    require("lsp-format").on_attach(client)
+  end,
+  settings = {
+    tsserver_max_memory = 8192,
+  },
+}
+
 add {
   gh "hrsh7th/nvim-cmp",
   gh "hrsh7th/cmp-nvim-lsp",
