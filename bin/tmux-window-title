@@ -1,0 +1,25 @@
+#!/bin/sh
+
+window_id="$1"
+
+if [ -z "$window_id" ]; then
+    exit 1
+fi
+
+tmux list-panes -t "$window_id" -F '#{pane_current_command}' 2>/dev/null | awk '
+    NF && !seen[$0]++ {
+        titles[++count] = $0
+    }
+    END {
+        if (count == 0) {
+            print "tmux"
+            exit
+        }
+
+        for (i = 1; i <= count; i++) {
+            printf "%s%s", (i == 1 ? "" : " / "), titles[i]
+        }
+
+        printf "\n"
+    }
+'
