@@ -16,10 +16,6 @@ vim.api.nvim_create_autocmd("PackChanged", {
       end
       vim.cmd "TSUpdate"
     end
-    if name == "avante.nvim" and (kind == "install" or kind == "update") then
-      local dir = vim.fn.stdpath "data" .. "/site/pack/core/opt/avante.nvim"
-      vim.fn.system { "make", "-C", dir }
-    end
   end,
 })
 
@@ -132,6 +128,12 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader>m", ":Telescope treesitter<cr>", { silent = true })
 vim.keymap.set("n", "<leader>w", ":Telescope lsp_workspace_symbols query=")
 vim.keymap.set("n", "<leader>h", ":Telescope help_tags<cr>", { silent = true })
+vim.keymap.set(
+  "n",
+  "<leader>d",
+  ":Telescope diagnostics<cr>",
+  { silent = true }
+)
 
 add { gh "NeogitOrg/neogit" }
 local neogit = require "neogit"
@@ -159,10 +161,17 @@ require("bqf").setup {
 }
 
 add { gh "neovim/nvim-lspconfig" }
+add { gh "folke/lazydev.nvim" }
+require("lazydev").setup {
+  library = {
+    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+  },
+}
 
 add { gh "pmizio/typescript-tools.nvim" }
 require("typescript-tools").setup {
   settings = {
+    separate_diagnostic_server = false,
     tsserver_max_memory = 8192,
   },
 }
@@ -240,24 +249,6 @@ vim.api.nvim_set_keymap(
   [[<Cmd>execute 'e ' .. expand('%:p:h')<CR>]],
   { noremap = true }
 )
-
-add { gh "yetone/avante.nvim" }
-require("avante").setup {
-  provider = "cursor",
-  mode = "agentic",
-  vendors = {},
-  acp_providers = {
-    cursor = {
-      command = vim.fn.expand "~/.local/bin/cursor-agent",
-      args = { "acp" },
-      auth_method = "cursor_login",
-      env = {
-        HOME = os.getenv "HOME",
-        PATH = os.getenv "PATH",
-      },
-    },
-  },
-}
 
 add {
   gh "nvim-lualine/lualine.nvim",

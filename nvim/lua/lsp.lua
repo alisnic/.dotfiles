@@ -1,8 +1,19 @@
+local border = "rounded"
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover,
+  { border = border }
+)
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  { border = border }
+)
+
 vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover)
 vim.keymap.set("n", "<leader>e", function()
   vim.diagnostic.open_float(
     nil,
-    { focus = false, scope = "cursor", border = "rounded" }
+    { focus = false, scope = "cursor", border = border }
   )
 end)
 
@@ -49,6 +60,9 @@ vim.lsp.config("lua_ls", {
     Lua = {
       completion = {
         callSnippet = "Replace",
+      },
+      diagnostics = {
+        globals = { "vim" },
       },
       workspace = { checkThirdParty = false },
     },
