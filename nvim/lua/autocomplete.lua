@@ -1,6 +1,10 @@
 local cmp = require "cmp"
 local lspkind = require "lspkind"
--- local luasnip = require "luasnip"
+
+local bordered_window = {
+  border = "rounded",
+  winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+}
 
 local has_words_before = function()
   unpack = unpack or table.unpack
@@ -18,14 +22,14 @@ return {
     cmp.setup.filetype("markdown", { sources = { { name = "buffer" } } })
 
     cmp.setup {
-      -- snippet = {
-      --   expand = function(args)
-      --     luasnip.lsp_expand(args.body)
-      --   end,
-      -- },
+      snippet = {
+        expand = function(args)
+          vim.snippet.expand(args.body)
+        end,
+      },
       window = {
-        documentation = cmp.config.window.bordered(),
-        completion = cmp.config.window.bordered(),
+        documentation = bordered_window,
+        completion = bordered_window,
       },
       formatting = {
         format = lspkind.cmp_format {
@@ -42,11 +46,10 @@ return {
       mapping = {
         ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
         ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+        ["<C-Space>"] = cmp.mapping.complete(),
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
-          -- elseif luasnip.expand_or_locally_jumpable() then
-          --   luasnip.expand_or_jump()
           elseif has_words_before() then
             cmp.complete()
           else
@@ -57,8 +60,6 @@ return {
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
           else
             fallback()
           end
