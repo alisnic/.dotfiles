@@ -140,7 +140,11 @@ neogit.setup {
   disable_commit_confirmation = true,
   disable_signs = true,
   integrations = { telescope = true },
-  auto_show_console = false,
+  process_spinner = true,
+  auto_show_console = true,
+  auto_show_console_on = "output",
+  console_timeout = 200,
+  auto_close_console = true,
   mappings = {
     popup = {
       ["Z"] = false,

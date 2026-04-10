@@ -33,10 +33,10 @@ local function current_line_diagnostics()
 end
 
 local signs = {
-  Error = " ",
-  Warn = " ",
-  Hint = " ",
-  Info = " ",
+  Error = "󰅚 ",
+  Warn = "󰀪 ",
+  Hint = "󰌶 ",
+  Info = "󰋽 ",
 }
 local severity = vim.diagnostic.severity
 
