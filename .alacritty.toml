@@ -160,6 +160,16 @@ key = "RBracket"
 mods = "Command"
 
 [[keyboard.bindings]]
+chars = "\u0002p"
+key = "{"
+mods = "Command|Shift"
+
+[[keyboard.bindings]]
+chars = "\u0002n"
+key = "}"
+mods = "Command|Shift"
+
+[[keyboard.bindings]]
 chars = "\u0017"
 key = "Back"
 mods = "Alt"
