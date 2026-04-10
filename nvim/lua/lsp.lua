@@ -40,7 +40,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client then
       client.server_capabilities.semanticTokensProvider = nil
-      require("lsp-format").on_attach(client)
     end
   end,
 })
@@ -74,37 +73,3 @@ vim.lsp.config("oxlint", {
 
 vim.lsp.enable { "jsonls", "lua_ls", "oxlint" }
 
-local null_ls = require "null-ls"
-
-null_ls.setup {
-  on_attach = function(client, bufnr)
-    client.server_capabilities.documentFormattingProvider = true
-    client.server_capabilities.documentRangeFormattingProvider = true
-  end,
-}
-
-if
-  vim.fn.filereadable ".prettierrc" == 1
-  or vim.fn.filereadable ".prettierrc.js" == 1
-then
-  null_ls.register {
-    null_ls.builtins.formatting.prettier.with {
-      cmd = "node ./node_modules/prettier/bin-prettier.js",
-      filetypes = {
-        "typescript",
-        "typescriptreact",
-        "javascript",
-        "javascriptreact",
-      },
-    },
-  }
-end
-
-null_ls.register {
-  null_ls.builtins.formatting.stylua.with {
-    extra_args = {
-      "--config-path",
-      vim.fn.expand "~/.config/stylua.toml",
-    },
-  },
-}

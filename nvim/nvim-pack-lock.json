@@ -24,6 +24,10 @@
       "rev": "c642487086dbd9a93160e1679a1327be111cbc25",
       "src": "https://github.com/hrsh7th/cmp-path"
     },
+    "conform.nvim": {
+      "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
     "lir.nvim": {
       "rev": "f1291b88d3649743165cfb5d0d44a7722d4021ea",
       "src": "https://github.com/tamago324/lir.nvim"

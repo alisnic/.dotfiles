@@ -31,8 +31,30 @@ add { gh "tpope/vim-eunuch" }
 
 add { gh "michaeljsmith/vim-indent-object" }
 
-add { gh "lukas-reineke/lsp-format.nvim" }
-require("lsp-format").setup {}
+add { gh "stevearc/conform.nvim" }
+require("conform").setup {
+  formatters_by_ft = {
+    javascript = { "prettier" },
+    javascriptreact = { "prettier" },
+    typescript = { "prettier" },
+    typescriptreact = { "prettier" },
+    lua = { "stylua" },
+  },
+  formatters = {
+    prettier = {
+      require_cwd = true,
+    },
+    stylua = {
+      prepend_args = {
+        "--config-path",
+        vim.fn.expand "~/.config/stylua.toml",
+      },
+    },
+  },
+  format_after_save = {
+    lsp_format = "fallback",
+  },
+}
 
 add { gh "nvim-tree/nvim-web-devicons" }
 require("nvim-web-devicons").setup()
@@ -118,16 +140,10 @@ require("bqf").setup {
   preview = { winblend = 0 },
 }
 
-add { gh "nvimtools/none-ls.nvim" }
-
 add { gh "neovim/nvim-lspconfig" }
 
 add { gh "pmizio/typescript-tools.nvim" }
 require("typescript-tools").setup {
-  on_attach = function(client)
-    client.server_capabilities.semanticTokensProvider = nil
-    require("lsp-format").on_attach(client)
-  end,
   settings = {
     tsserver_max_memory = 8192,
   },
