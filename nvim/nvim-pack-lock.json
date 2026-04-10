@@ -4,6 +4,10 @@
       "rev": "36e40f9ec91bdbf6f1adf408522a73a6925c3042",
       "src": "https://github.com/mileszs/ack.vim"
     },
+    "avante.nvim": {
+      "rev": "8c84af0f09e5d9058362ac58401a8e7b047d826e",
+      "src": "https://github.com/yetone/avante.nvim"
+    },
     "cmp-buffer": {
       "rev": "b74fab3656eea9de20a9b8116afa3cfc4ec09657",
       "src": "https://github.com/hrsh7th/cmp-buffer"
@@ -28,9 +32,17 @@
       "rev": "42d1d3e407c846d95f84ea3767e72ed6e08f7495",
       "src": "https://github.com/lukas-reineke/lsp-format.nvim"
     },
+    "lsp-progress.nvim": {
+      "rev": "f6d5af10563b895ff846346f57cbd4451439f4c1",
+      "src": "https://github.com/linrongbin16/lsp-progress.nvim"
+    },
     "lspkind-nvim": {
       "rev": "c7274c48137396526b59d86232eabcdc7fed8a32",
       "src": "https://github.com/onsails/lspkind-nvim"
+    },
+    "lualine.nvim": {
+      "rev": "f5d2a8570f8b736ddb9bb4be504355bcd6e15ec8",
+      "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "neogit": {
       "rev": "5432fe2b2565bb10d868c759245cd4c64125da31",
@@ -111,6 +123,10 @@
     "vim-unimpaired": {
       "rev": "db65482581a28e4ccf355be297f1864a4e66985c",
       "src": "https://github.com/tpope/vim-unimpaired"
+    },
+    "vscode_modern_theme.nvim": {
+      "rev": "22371eeb704bed395262e552248c998ef7f41254",
+      "src": "https://github.com/gmr458/vscode_modern_theme.nvim"
     }
   }
 }

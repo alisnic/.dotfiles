@@ -20,17 +20,9 @@ end
 
 vim.cmd "packadd cfilter"
 
-vim.api.nvim_create_autocmd("ColorScheme", {
-  group = transparent_group,
-  callback = function()
-    vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
-    vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
-    vim.api.nvim_set_hl(0, "Pmenu", { bg = "NONE" })
-  end,
-})
-vim.cmd "colorscheme default"
+vim.o.background = "light"
 require "plugins"
+vim.cmd.colorscheme "vscode_modern"
 require "lsp"
 
 vim.opt.updatetime = 250
