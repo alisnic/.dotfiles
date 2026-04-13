@@ -8,27 +8,25 @@ end
 vim.api.nvim_create_autocmd("PackChanged", {
   callback = function(ev)
     local name, kind = ev.data.spec.name, ev.data.kind
-    if
-      name == "nvim-treesitter" and (kind == "install" or kind == "update")
-    then
+    if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
       if not ev.data.active then
-        vim.cmd.packadd "nvim-treesitter"
+        vim.cmd.packadd("nvim-treesitter")
       end
-      vim.cmd "TSUpdate"
+      vim.cmd("TSUpdate")
     end
   end,
 })
 
 -- automatically adjusts 'shiftwidth' and 'expandtab' heuristically
-add { gh "tpope/vim-sleuth" }
+add({ gh("tpope/vim-sleuth") })
 
 -- helpers for unix
-add { gh "tpope/vim-eunuch" }
+add({ gh("tpope/vim-eunuch") })
 
-add { gh "michaeljsmith/vim-indent-object" }
+add({ gh("michaeljsmith/vim-indent-object") })
 
-add { gh "stevearc/conform.nvim" }
-require("conform").setup {
+add({ gh("stevearc/conform.nvim") })
+require("conform").setup({
   formatters_by_ft = {
     javascript = { "oxfmt" },
     javascriptreact = { "oxfmt" },
@@ -48,7 +46,7 @@ require("conform").setup {
         end
         return {
           "--config",
-          vim.fn.expand "~/.config/oxfmt/default.json",
+          vim.fn.expand("~/.config/oxfmt/default.json"),
           "--stdin-filepath",
           ctx.filename,
         }
@@ -57,20 +55,20 @@ require("conform").setup {
     stylua = {
       prepend_args = {
         "--config-path",
-        vim.fn.expand "~/.config/stylua.toml",
+        vim.fn.expand("~/.config/stylua.toml"),
       },
     },
   },
   format_after_save = {
     lsp_format = "fallback",
   },
-}
+})
 
-add { gh "nvim-tree/nvim-web-devicons" }
+add({ gh("nvim-tree/nvim-web-devicons") })
 require("nvim-web-devicons").setup()
 
-add { gh "MunifTanjim/nui.nvim", gh "folke/noice.nvim" }
-require("noice").setup {
+add({ gh("MunifTanjim/nui.nvim"), gh("folke/noice.nvim") })
+require("noice").setup({
   lsp = {
     signature = {
       enabled = true,
@@ -85,17 +83,17 @@ require("noice").setup {
   presets = {
     lsp_doc_border = true,
   },
-}
+})
 
-add { gh "tpope/vim-unimpaired" }
+add({ gh("tpope/vim-unimpaired") })
 vim.keymap.set("n", "[L", ":lolder<cr>", { silent = true })
 vim.keymap.set("n", "]L", ":lnewer<cr>", { silent = true })
 vim.keymap.set("n", "[Q", ":colder<cr>", { silent = true })
 vim.keymap.set("n", "]Q", ":cnewer<cr>", { silent = true })
 
-add { gh "nvim-lua/plenary.nvim", gh "nvim-telescope/telescope.nvim" }
-local actions = require "telescope.actions"
-require("telescope").setup {
+add({ gh("nvim-lua/plenary.nvim"), gh("nvim-telescope/telescope.nvim") })
+local actions = require("telescope.actions")
+require("telescope").setup({
   defaults = {
     layout_strategy = "vertical",
     layout_config = { width = 0.9, height = 0.9 },
@@ -105,39 +103,19 @@ require("telescope").setup {
       },
     },
   },
-}
+})
 vim.keymap.set("n", "<leader>t", ":Telescope commands<cr>", { silent = true })
-vim.keymap.set(
-  "n",
-  "<leader>ld",
-  ":Telescope diagnostics bufnr=0<cr>",
-  { silent = true }
-)
-vim.keymap.set(
-  "n",
-  "<leader>p",
-  ":Telescope git_files show_untracked=true<cr>",
-  { silent = true }
-)
-vim.keymap.set(
-  "n",
-  "<leader>b",
-  ":Telescope buffers sort_mru=true<cr>",
-  { silent = true }
-)
+vim.keymap.set("n", "<leader>ld", ":Telescope diagnostics bufnr=0<cr>", { silent = true })
+vim.keymap.set("n", "<leader>p", ":Telescope git_files show_untracked=true<cr>", { silent = true })
+vim.keymap.set("n", "<leader>b", ":Telescope buffers sort_mru=true<cr>", { silent = true })
 vim.keymap.set("n", "<leader>m", ":Telescope treesitter<cr>", { silent = true })
 vim.keymap.set("n", "<leader>w", ":Telescope lsp_workspace_symbols query=")
 vim.keymap.set("n", "<leader>h", ":Telescope help_tags<cr>", { silent = true })
-vim.keymap.set(
-  "n",
-  "<leader>d",
-  ":Telescope diagnostics<cr>",
-  { silent = true }
-)
+vim.keymap.set("n", "<leader>d", ":Telescope diagnostics<cr>", { silent = true })
 
-add { gh "NeogitOrg/neogit" }
-local neogit = require "neogit"
-neogit.setup {
+add({ gh("NeogitOrg/neogit") })
+local neogit = require("neogit")
+neogit.setup({
   disable_context_highlighting = true,
   disable_commit_confirmation = true,
   disable_signs = true,
@@ -152,44 +130,44 @@ neogit.setup {
       ["Z"] = false,
     },
   },
-}
+})
 vim.keymap.set("n", "gs", ":Neogit<cr>", { silent = true })
 
-add { gh "kevinhwang91/nvim-bqf" }
-require("bqf").setup {
+add({ gh("kevinhwang91/nvim-bqf") })
+require("bqf").setup({
   preview = { winblend = 0 },
-}
+})
 
-add { gh "neovim/nvim-lspconfig" }
-add { gh "folke/lazydev.nvim" }
-require("lazydev").setup {
+add({ gh("neovim/nvim-lspconfig") })
+add({ gh("folke/lazydev.nvim") })
+require("lazydev").setup({
   library = {
     { path = "${3rd}/luv/library", words = { "vim%.uv" } },
   },
-}
+})
 
-add { gh "pmizio/typescript-tools.nvim" }
-require("typescript-tools").setup {
+add({ gh("pmizio/typescript-tools.nvim") })
+require("typescript-tools").setup({
   settings = {
     separate_diagnostic_server = false,
     tsserver_max_memory = 8192,
   },
-}
+})
 
-add {
-  gh "hrsh7th/nvim-cmp",
-  gh "hrsh7th/cmp-nvim-lsp",
-  gh "hrsh7th/cmp-buffer",
-  gh "hrsh7th/cmp-path",
-  gh "hrsh7th/cmp-cmdline",
-  gh "onsails/lspkind-nvim",
-}
+add({
+  gh("hrsh7th/nvim-cmp"),
+  gh("hrsh7th/cmp-nvim-lsp"),
+  gh("hrsh7th/cmp-buffer"),
+  gh("hrsh7th/cmp-path"),
+  gh("hrsh7th/cmp-cmdline"),
+  gh("onsails/lspkind-nvim"),
+})
 require("autocomplete").setup()
 
-add { gh "JoosepAlviste/nvim-ts-context-commentstring" }
-require("ts_context_commentstring").setup {
+add({ gh("JoosepAlviste/nvim-ts-context-commentstring") })
+require("ts_context_commentstring").setup({
   enable_autocmd = false,
-}
+})
 local get_option = vim.filetype.get_option
 vim.filetype.get_option = function(filetype, option)
   return option == "commentstring"
@@ -197,11 +175,11 @@ vim.filetype.get_option = function(filetype, option)
     or get_option(filetype, option)
 end
 
-add {
-  gh "nvim-treesitter/nvim-treesitter",
-  gh "windwp/nvim-ts-autotag",
-  gh "RRethy/nvim-treesitter-endwise",
-}
+add({
+  gh("nvim-treesitter/nvim-treesitter"),
+  gh("windwp/nvim-ts-autotag"),
+  gh("RRethy/nvim-treesitter-endwise"),
+})
 require("nvim-ts-autotag").setup()
 vim.api.nvim_create_autocmd("FileType", {
   callback = function(args)
@@ -210,16 +188,16 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-add { gh "nvim-treesitter/nvim-treesitter-context" }
-local ts_context = require "treesitter-context"
-ts_context.setup { max_lines = 3 }
+add({ gh("nvim-treesitter/nvim-treesitter-context") })
+local ts_context = require("treesitter-context")
+ts_context.setup({ max_lines = 3 })
 vim.keymap.set("n", "[c", function()
   ts_context.go_to_context()
 end, { silent = true })
 
-add { gh "tamago324/lir.nvim" }
-local lir_actions = require "lir.actions"
-require("lir").setup {
+add({ gh("tamago324/lir.nvim") })
+local lir_actions = require("lir.actions")
+require("lir").setup({
   show_hidden_files = true,
   devicons = {
     enable = true,
@@ -239,32 +217,63 @@ require("lir").setup {
     ["."] = lir_actions.toggle_show_hidden,
     ["D"] = lir_actions.delete,
     ["o"] = function()
-      vim.cmd [[ !open % ]]
+      vim.cmd([[ !open % ]])
     end,
   },
-}
-vim.api.nvim_set_keymap(
-  "n",
-  "-",
-  [[<Cmd>execute 'e ' .. expand('%:p:h')<CR>]],
-  { noremap = true }
-)
+})
+vim.api.nvim_set_keymap("n", "-", [[<Cmd>execute 'e ' .. expand('%:p:h')<CR>]], { noremap = true })
 
-add {
-  gh "nvim-lualine/lualine.nvim",
-  gh "linrongbin16/lsp-progress.nvim",
-}
+add({
+  gh("nvim-lualine/lualine.nvim"),
+  gh("linrongbin16/lsp-progress.nvim"),
+})
 require("statusline").setup()
 
-add { gh "gmr458/vscode_modern_theme.nvim" }
-require("vscode_modern").setup {
+add({ gh("gmr458/vscode_modern_theme.nvim") })
+require("vscode_modern").setup({
   cursorline = true,
   transparent_background = false,
-}
+})
 
-add { gh "sickill/vim-pasta" }
+add({ gh("sickill/vim-pasta") })
 vim.g.pasta_disabled_filetypes = { "coffee", "yaml", "haml" }
 
-add { gh "mileszs/ack.vim" }
+add({ gh("mileszs/ack.vim") })
 vim.g.ackprg = "rg --vimgrep -F"
-vim.cmd "cabbrev ack Ack!"
+vim.cmd("cabbrev ack Ack!")
+
+add({
+  gh("folke/snacks.nvim"),
+  gh("nickjvandyke/opencode.nvim"),
+})
+
+vim.o.autoread = true
+local oc = require("opencode")
+
+vim.keymap.set({ "n", "x" }, "<C-a>", function()
+  oc.ask("@this: ", { submit = true })
+end, { desc = "Ask opencode…" })
+
+vim.keymap.set({ "n", "x" }, "<C-x>", function()
+  oc.select()
+end, { desc = "Execute opencode action…" })
+
+vim.keymap.set({ "n", "t" }, "<C-.>", function()
+  oc.toggle()
+end, { desc = "Toggle opencode" })
+
+vim.keymap.set({ "n", "x" }, "go", function()
+  return oc.operator("@this ")
+end, { desc = "Add range to opencode", expr = true })
+
+vim.keymap.set("n", "goo", function()
+  return oc.operator("@this ") .. "_"
+end, { desc = "Add line to opencode", expr = true })
+
+vim.keymap.set("n", "<S-C-u>", function()
+  oc.command("session.half.page.up")
+end, { desc = "Scroll opencode up" })
+
+vim.keymap.set("n", "<S-C-d>", function()
+  oc.command("session.half.page.down")
+end, { desc = "Scroll opencode down" })

@@ -104,9 +104,17 @@
       "rev": "95b7a002d5dba1a42eb58f5fac5c565a485eefd0",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
+    "opencode.nvim": {
+      "rev": "6ed56733b19dce45d1f02abc34547cb21857ca95",
+      "src": "https://github.com/nickjvandyke/opencode.nvim"
+    },
     "plenary.nvim": {
       "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
       "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "snacks.nvim": {
+      "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
+      "src": "https://github.com/folke/snacks.nvim"
     },
     "telescope.nvim": {
       "rev": "7ef4d6dccb78ee71e552bbd866176762ad328afa",
@@ -131,6 +139,10 @@
     "vim-sleuth": {
       "rev": "be69bff86754b1aa5adcbb527d7fcd1635a84080",
       "src": "https://github.com/tpope/vim-sleuth"
+    },
+    "vim-tabby": {
+      "rev": "5e30c429354b8e0fd5bbc7634be4abac5518bb80",
+      "src": "https://github.com/TabbyML/vim-tabby"
     },
     "vim-unimpaired": {
       "rev": "db65482581a28e4ccf355be297f1864a4e66985c",
