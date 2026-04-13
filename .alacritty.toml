@@ -170,6 +170,11 @@ key = "RBracket"
 mods = "Command"
 
 [[keyboard.bindings]]
+chars = " p"
+key = "P"
+mods = "Command"
+
+[[keyboard.bindings]]
 chars = "\u0002p"
 key = "{"
 mods = "Command|Shift"
