@@ -1,20 +1,12 @@
 local border = "rounded"
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  { border = border }
-)
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  { border = border }
-)
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
+vim.lsp.handlers["textDocument/signatureHelp"] =
+  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
 
 vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover)
 vim.keymap.set("n", "<leader>e", function()
-  vim.diagnostic.open_float(
-    nil,
-    { focus = false, scope = "cursor", border = border }
-  )
+  vim.diagnostic.open_float(nil, { focus = false, scope = "cursor", border = border })
 end)
 
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
@@ -25,19 +17,15 @@ vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 vim.keymap.set("n", "gr", vim.lsp.buf.references)
 vim.keymap.set("n", "gR", ":vsplit<cr>:lua vim.lsp.buf.references()<cr>")
 vim.keymap.set("n", "[d", function()
-  vim.diagnostic.jump { count = -1, severity = { min = vim.diagnostic.severity.WARN } }
+  vim.diagnostic.jump({ count = -1, severity = { min = vim.diagnostic.severity.WARN } })
 end)
 vim.keymap.set("n", "]d", function()
-  vim.diagnostic.jump { count = 1, severity = { min = vim.diagnostic.severity.WARN } }
+  vim.diagnostic.jump({ count = 1, severity = { min = vim.diagnostic.severity.WARN } })
 end)
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename)
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
-vim.keymap.set(
-  "n",
-  "<leader>lT",
-  ":vsplit<cr>:lua vim.lsp.buf.type_definition()<cr>"
-)
+vim.keymap.set("n", "<leader>lT", ":vsplit<cr>:lua vim.lsp.buf.type_definition()<cr>")
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -85,5 +73,4 @@ vim.lsp.config("oxlint", {
   },
 })
 
-vim.lsp.enable { "jsonls", "lua_ls", "oxlint" }
-
+vim.lsp.enable({ "jsonls", "lua_ls", "oxlint" })

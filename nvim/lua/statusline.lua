@@ -71,7 +71,7 @@ end
 
 return {
   setup = function()
-    require("lsp-progress").setup {
+    require("lsp-progress").setup({
       format = function(client_messages)
         if #client_messages > 0 then
           return client_messages[1]
@@ -84,9 +84,9 @@ return {
             and ("[" .. client_name .. "] " .. spinner .. " " .. series_messages[1] .. ", ")
           or nil
       end,
-    }
+    })
 
-    require("lualine").setup {
+    require("lualine").setup({
       options = {
         theme = "auto",
         component_separators = { left = "", right = "" },
@@ -107,9 +107,9 @@ return {
           "filename",
           "diagnostics",
         },
-        lualine_z = { "location" },
+        lualine_z = { require("opencode").statusline, "location" },
       },
-    }
+    })
 
     vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
     vim.api.nvim_create_autocmd("User", {

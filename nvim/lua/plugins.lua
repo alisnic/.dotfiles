@@ -223,17 +223,14 @@ require("lir").setup({
 })
 vim.api.nvim_set_keymap("n", "-", [[<Cmd>execute 'e ' .. expand('%:p:h')<CR>]], { noremap = true })
 
-add({
-  gh("nvim-lualine/lualine.nvim"),
-  gh("linrongbin16/lsp-progress.nvim"),
-})
-require("statusline").setup()
-
 add({ gh("gmr458/vscode_modern_theme.nvim") })
 require("vscode_modern").setup({
   cursorline = true,
   transparent_background = false,
 })
+
+add({ gh("lewis6991/gitsigns.nvim") })
+require("gitsigns").setup()
 
 add({ gh("sickill/vim-pasta") })
 vim.g.pasta_disabled_filetypes = { "coffee", "yaml", "haml" }
@@ -258,9 +255,36 @@ vim.keymap.set({ "n", "x" }, "<C-x>", function()
   oc.select()
 end, { desc = "Execute opencode action…" })
 
-vim.keymap.set({ "n", "t" }, "<C-.>", function()
-  oc.toggle()
-end, { desc = "Toggle opencode" })
+vim.keymap.set({ "n" }, "<leader>i", function()
+  local function find_oc_win()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      if vim.bo[vim.api.nvim_win_get_buf(win)].buftype == "terminal" then
+        return win
+      end
+    end
+  end
+
+  local cur_buf = vim.api.nvim_get_current_buf()
+  if vim.bo[cur_buf].buftype == "terminal" then
+    oc.toggle() -- hide
+    return
+  end
+
+  local win = find_oc_win()
+  if win then
+    vim.api.nvim_set_current_win(win)
+    vim.cmd("startinsert")
+  else
+    oc.toggle()
+    vim.schedule(function()
+      win = find_oc_win()
+      if win then
+        vim.api.nvim_set_current_win(win)
+        vim.cmd("startinsert")
+      end
+    end)
+  end
+end, { desc = "Focus opencode" })
 
 vim.keymap.set({ "n", "x" }, "go", function()
   return oc.operator("@this ")
@@ -277,3 +301,9 @@ end, { desc = "Scroll opencode up" })
 vim.keymap.set("n", "<S-C-d>", function()
   oc.command("session.half.page.down")
 end, { desc = "Scroll opencode down" })
+
+add({
+  gh("nvim-lualine/lualine.nvim"),
+  gh("linrongbin16/lsp-progress.nvim"),
+})
+require("statusline").setup()
