@@ -70,6 +70,11 @@ key = "S"
 mods = "Command"
 
 [[keyboard.bindings]]
+chars = "\u001B[1;2P"
+key = "B"
+mods = "Command|Option"
+
+[[keyboard.bindings]]
 action = "IncreaseFontSize"
 key = "Equals"
 mods = "Command"
