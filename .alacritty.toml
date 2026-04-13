@@ -26,7 +26,7 @@ background = "#ffffff"
 foreground = "#3b3b3b"
 
 [font]
-size = 20
+size = 18
 
 [font.bold]
 family = "Monaco Nerd Font"
@@ -40,9 +40,9 @@ style = "Regular"
 family = "Monaco Nerd Font"
 style = "Regular"
 
-[font.offset]
-x = 0
-y = 0
+# [font.offset]
+# x = 0
+# y = 0
 
 [[keyboard.bindings]]
 action = "SpawnNewInstance"
