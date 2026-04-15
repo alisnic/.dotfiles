@@ -107,7 +107,7 @@ return {
           "filename",
           "diagnostics",
         },
-        lualine_z = { require("opencode").statusline, "location" },
+        lualine_z = { "location" },
       },
     })
 

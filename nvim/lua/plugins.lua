@@ -106,12 +106,6 @@ vim.g.ackprg = "rg --vimgrep -F"
 vim.cmd("cabbrev ack Ack!")
 
 add({
-  gh("folke/snacks.nvim"),
-  gh("nickjvandyke/opencode.nvim"),
-})
-require("plugins.opencode").setup()
-
-add({
   gh("nvim-lualine/lualine.nvim"),
   gh("linrongbin16/lsp-progress.nvim"),
 })
