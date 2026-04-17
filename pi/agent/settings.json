@@ -1,0 +1,14 @@
+{
+  "lastChangelogVersion": "0.67.2",
+  "packages": [
+    "git:github.com/hk-vk/pi-connect",
+    "npm:@tanvesh01/pierre-diffs@0.2.1",
+    "git:github.com/georgebashi/pi-web-fetch"
+  ],
+  "defaultProvider": "llama-cpp",
+  "defaultModel": "unsloth/Qwen3.6-35B-A3B-GGUF",
+  "defaultThinkingLevel": "high",
+  "theme": "light-high-contrast",
+  "showHardwareCursor": true,
+  "hideThinkingBlock": false
+}

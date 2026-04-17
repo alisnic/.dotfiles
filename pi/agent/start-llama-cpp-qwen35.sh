@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -eu
+
+
+
+MODEL_REPO="${PI_LLAMA_CPP_MODEL_ID:-unsloth/Qwen3.6-35B-A3B-GGUF}"
+MODEL_FILE="${PI_LLAMA_CPP_MODEL_FILE:-Qwen3.5-35B-A3B-Q4_K_M.gguf}"
+HOST="${PI_LLAMA_CPP_HOST:-127.0.0.1}"
+PORT="${PI_LLAMA_CPP_PORT:-8012}"
+
+exec llama-server \
+	-hf "unsloth/Qwen3.6-35B-A3B-GGUF" \
+	--host "$HOST" \
+	--port "$PORT" \
+	--flash-attn on \
+	--n-gpu-layers all \
+	--ctx-size 64000 \
+	--cache-type-k q8_0 \
+	--cache-type-v q8_0 \
+	--temp 0.6 \
+	--top-p 0.95 \
+	--top-k 20 \
+	--min-p 0.0 \
+	--presence-penalty 0.0 \
+	--repeat-penalty 1.0

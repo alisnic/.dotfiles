@@ -1,0 +1,83 @@
+{
+  "providers": {
+    "ollama": {
+      "baseUrl": "http://localhost:11434/v1",
+      "api": "openai-completions",
+      "apiKey": "ollama",
+      "compat": {
+        "supportsDeveloperRole": false,
+        "supportsReasoningEffort": true,
+        "reasoningEffortMap": {
+          "minimal": "low",
+          "low": "low",
+          "medium": "medium",
+          "high": "high",
+          "xhigh": "high"
+        }
+      },
+      "models": [
+        {
+          "id": "gemma4:26b",
+          "name": "Gemma 4 26B (Ollama)",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 256000,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ]
+    },
+    "llama-cpp": {
+      "baseUrl": "http://127.0.0.1:8012/v1",
+      "api": "openai-completions",
+      "apiKey": "llama-cpp",
+      "compat": {
+        "supportsDeveloperRole": false,
+        "supportsReasoningEffort": false,
+        "thinkingFormat": "qwen-chat-template"
+      },
+      "models": [
+        {
+          "id": "ggml-org/gemma-4-26B-A4B-it-GGUF",
+          "name": "Gemma 4 26B A4B Instruct (llama.cpp)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 64000,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "unsloth/Qwen3.6-35B-A3B-GGUF",
+          "name": "Qwen 3.5 35B A3B Q4_K_M (llama.cpp)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 64000,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ]
+    }
+  }
+}
