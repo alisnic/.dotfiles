@@ -27,22 +27,22 @@ async function main() {
   const response = await fetch(url, {
     method: 'GET',
     headers: {
-      Accept: 'text/markdown',
-    },
+      Accept: 'text/markdown'
+    }
   });
 
   const contentType = response.headers.get('Content-Type')?.split(';')[0];
 
-  if (contentType !== 'text/markdown') {
-    const html = await renderWithChrome(url);
-    const markdown = await htmlToMarkdown(html);
-
-    process.stdout.write(markdown);
+  if (contentType === 'text/markdown' || contentType === 'application/json') {
+    console.log(await response.text());
     return;
   }
 
-  const body = await response.text();
-  console.log(body);
+  const html = await renderWithChrome(url);
+  const markdown = await htmlToMarkdown(html);
+
+  process.stdout.write(markdown);
+  return;
 }
 
 async function renderWithChrome(targetUrl: string): Promise<string> {
@@ -56,7 +56,7 @@ async function renderWithChrome(targetUrl: string): Promise<string> {
       '--virtual-time-budget=10000',
       '--run-all-compositor-stages-before-draw',
       '--dump-dom',
-      targetUrl,
+      targetUrl
     ],
     { maxBuffer: 100 * 1024 * 1024 }
   );
@@ -69,12 +69,12 @@ function htmlToMarkdown(html: string): Promise<string> {
 
     let stdout = '';
     child.stdout.setEncoding('utf8');
-    child.stdout.on('data', (chunk) => {
+    child.stdout.on('data', chunk => {
       stdout += chunk;
     });
 
     child.on('error', reject);
-    child.on('close', (code) => {
+    child.on('close', code => {
       if (code !== 0) {
         reject(new Error('trafilatura exited with code ' + code));
         return;
@@ -120,9 +120,9 @@ function parseArgs(args: string[]): { url: string; format: OutputFormat } {
       strict: true,
       options: {
         format: {
-          type: 'string',
-        },
-      },
+          type: 'string'
+        }
+      }
     }));
   } catch (error) {
     failUsage(getMessage(error));
@@ -147,6 +147,6 @@ function parseArgs(args: string[]): { url: string; format: OutputFormat } {
 
 function failUsage(message: string): never {
   console.error(message);
-  console.error('Usage: agent-fetch <url> [--format html|markdown]');
+  console.error('Usage: agent-fetch.ts <url> [--format html|markdown]');
   process.exit(1);
 }

@@ -1,1 +1,3 @@
-use `rg` instead of `grep` executable to search file contents: `rg [OPTIONS] PATTERN [PATH ...]`
+you also have the following cli tools at your disposal:
+- fast file content search: `rg [OPTIONS] PATTERN [PATH ...]`
+- fetch url: `agent-fetch.ts <url> [--format html|markdown]`
