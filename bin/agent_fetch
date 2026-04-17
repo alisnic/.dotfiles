@@ -17,7 +17,22 @@ try {
 }
 
 async function main() {
-  console.log('Fetching ' + url);
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Accept: 'text/markdown',
+    },
+  });
+
+  const contentType = response.headers.get('Content-Type')?.split(';')[0];
+
+  if (contentType !== 'text/markdown') {
+    console.log('Expected text/markdown, got ' + contentType);
+    process.exit(1);
+  }
+
+  const body = await response.text();
+  console.log(body);
 }
 
 main()
