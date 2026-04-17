@@ -5,6 +5,7 @@ import path from 'node:path';
 import { loadEnvFile } from 'node:process';
 import { parseArgs } from 'node:util';
 import assert from 'assert/strict';
+import * as cheerio from 'cheerio';
 
 loadEnvFile(path.resolve(import.meta.dirname, '.env'));
 
@@ -58,7 +59,29 @@ async function main() {
 
   const data = (await response.json()) as SearchResponse;
 
-  console.log(data.results.map(e => ({ title: e.title, url: e.url })));
+  console.log(
+    await Promise.all(
+      data.results.map(async e => ({
+        title: e.title,
+        url: e.url,
+        description: (await getLinkDescription(e.url)) || e.content
+      }))
+    )
+  );
+}
+
+async function getLinkDescription(url: string) {
+  const response = await fetch(url);
+
+  const $ = cheerio.load(await response.text());
+
+  // Search for the description tag in order of priority
+  const description =
+    $('meta[name="description"]').attr('content') ||
+    $('meta[property="og:description"]').attr('content') ||
+    $('meta[name="twitter:description"]').attr('content');
+
+  return description;
 }
 
 main()

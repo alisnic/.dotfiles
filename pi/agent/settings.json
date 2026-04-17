@@ -1,8 +1,11 @@
 {
   "lastChangelogVersion": "0.67.2",
-  "packages": ["git:github.com/hk-vk/pi-connect", "npm:@tanvesh01/pierre-diffs@0.2.1"],
-  "defaultProvider": "llama-cpp",
-  "defaultModel": "unsloth/Qwen3.6-35B-A3B-GGUF",
+  "packages": [
+    "git:github.com/hk-vk/pi-connect",
+    "npm:@tanvesh01/pierre-diffs@0.2.1"
+  ],
+  "defaultProvider": "omlx",
+  "defaultModel": "Qwen3.6-35B-A3B-4bit",
   "defaultThinkingLevel": "high",
   "theme": "light-high-contrast",
   "showHardwareCursor": true,
