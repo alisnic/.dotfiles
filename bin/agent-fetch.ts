@@ -4,6 +4,7 @@
 import { execFile, spawn } from 'node:child_process';
 import { parseArgs as parseCliArgs, promisify } from 'node:util';
 const execFileAsync = promisify(execFile);
+import * as cheerio from 'cheerio';
 
 const CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
@@ -41,7 +42,17 @@ async function main() {
   const html = await renderWithChrome(url);
   const markdown = await htmlToMarkdown(html);
 
-  process.stdout.write(markdown);
+  const links = extractLinks(html, url);
+
+  if (links.length > 0) {
+    const linkSection =
+      '\n\n---\n\n## Links\n\n' +
+      links.map(l => (l.title ? `- [${l.title}](${l.url})` : `- ${l.url}`)).join('\n') +
+      '\n';
+    process.stdout.write(markdown + linkSection);
+  } else {
+    process.stdout.write(markdown);
+  }
   return;
 }
 
@@ -63,9 +74,37 @@ async function renderWithChrome(targetUrl: string): Promise<string> {
   return stdout;
 }
 
+function extractLinks(html: string, baseUrl: string): { url: string; title: string | undefined }[] {
+  const $ = cheerio.load(html);
+  const seen = new Set<string>();
+  const links: { url: string; title: string | undefined }[] = [];
+
+  $('a[href]').each((_, el) => {
+    const $el = $(el);
+    const href = $el.attr('href');
+    if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+    // skip links that are just images
+    if ($el.find('img').length > 0) return;
+    let absolute: string;
+
+    try {
+      absolute = new URL(href, baseUrl).toString();
+    } catch {
+      absolute = href;
+    }
+
+    if (seen.has(absolute)) return;
+
+    seen.add(absolute);
+    const title = $el.text().trim();
+    links.push({ url: absolute, title: title || undefined });
+  });
+  return links;
+}
+
 function htmlToMarkdown(html: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    const child = spawn('uvx', ['trafilatura', '--markdown', '--formatting']);
+    const child = spawn('uvx', ['trafilatura']);
 
     let stdout = '';
     child.stdout.setEncoding('utf8');
@@ -128,12 +167,14 @@ function parseArgs(args: string[]): { url: string; format: OutputFormat } {
     failUsage(getMessage(error));
   }
 
-  if (positionals.length === 0) {
-    failUsage('Missing URL');
-  }
-
   if (positionals.length > 1) {
     failUsage('Only one URL may be provided');
+  }
+
+  const [url] = positionals;
+
+  if (!url) {
+    failUsage('Missing URL');
   }
 
   const format = values.format ?? 'markdown';
@@ -142,7 +183,7 @@ function parseArgs(args: string[]): { url: string; format: OutputFormat } {
     failUsage('`--format` must be one of: html, markdown');
   }
 
-  return { url: positionals[0], format };
+  return { url, format };
 }
 
 function failUsage(message: string): never {
