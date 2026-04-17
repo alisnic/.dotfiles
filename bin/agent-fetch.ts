@@ -35,8 +35,6 @@ async function main() {
     const html = await renderWithChrome(url);
     const markdown = await htmlToMarkdown(html);
 
-    console.log({ markdown, length: markdown.length });
-
     process.stdout.write(markdown);
     return;
   }
