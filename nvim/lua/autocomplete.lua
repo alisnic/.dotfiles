@@ -1,5 +1,5 @@
-local cmp = require "cmp"
-local lspkind = require "lspkind"
+local cmp = require("cmp")
+local lspkind = require("lspkind")
 
 local bordered_window = {
   border = "rounded",
@@ -10,10 +10,7 @@ local has_words_before = function()
   unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
-        :sub(col, col)
-        :match "%s"
+    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s")
       == nil
 end
 
@@ -21,7 +18,7 @@ return {
   setup = function()
     cmp.setup.filetype("markdown", { sources = { { name = "buffer" } } })
 
-    cmp.setup {
+    cmp.setup({
       snippet = {
         expand = function(args)
           vim.snippet.expand(args.body)
@@ -32,9 +29,9 @@ return {
         completion = bordered_window,
       },
       formatting = {
-        format = lspkind.cmp_format {
+        format = lspkind.cmp_format({
           mode = "text_icon",
-        },
+        }),
       },
       performance = {
         -- max_view_entries = 10,
@@ -71,18 +68,17 @@ return {
           if
             not cmp.visible()
             or not cmp.get_selected_entry()
-            or cmp.get_selected_entry().source.name
-              == "nvim_lsp_signature_help"
+            or cmp.get_selected_entry().source.name == "nvim_lsp_signature_help"
           then
             fallback()
           else
-            cmp.confirm {
+            cmp.confirm({
               -- Replace word if completing in the middle of a word
               -- https://github.com/hrsh7th/nvim-cmp/issues/664
               behavior = cmp.ConfirmBehavior.Replace,
               -- Don't select first item on CR if nothing was selected
               select = false,
-            }
+            })
           end
         end,
       },
@@ -105,7 +101,7 @@ return {
         },
       }),
       experimental = { ghost_text = true },
-    }
+    })
 
     -- cmp.setup.cmdline("/", {
     --   mapping = cmp.mapping.preset.cmdline(),
@@ -124,9 +120,9 @@ return {
     })
 
     cmp.setup.filetype({ "gitcommit", "NeogitCommitMessage" }, {
-      sources = cmp.config.sources {
+      sources = cmp.config.sources({
         { name = "buffer" },
-      },
+      }),
     })
   end,
 }
