@@ -48,11 +48,6 @@
       "api": "openai-completions",
       "apiKey": "ollama",
       "baseUrl": "http://localhost:11434/v1",
-      "compat": {
-        "supportsDeveloperRole": false,
-        "supportsReasoningEffort": false,
-        "thinkingFormat": "qwen-chat-template"
-      },
       "models": [
         {
           "contextWindow": 256000,
@@ -72,16 +67,6 @@
           "reasoning": true
         },
         {
-          "contextWindow": 65536,
-          "id": "qwen3.6:35b-a3b-nvfp4",
-          "input": [
-            "text",
-            "image"
-          ],
-          "name": "Qwen 3.6",
-          "reasoning": true
-        },
-        {
           "_launch": true,
           "contextWindow": 65536,
           "id": "qwen36-matched",
@@ -89,35 +74,12 @@
             "text",
             "image"
           ],
-          "reasoning": true
-        }
-      ]
-    },
-    "omlx": {
-      "api": "openai-completions",
-      "apiKey": "aaaa",
-      "baseUrl": "http://127.0.0.1:8000/v1",
-      "compat": {
-        "supportsDeveloperRole": false,
-        "supportsReasoningEffort": false,
-        "thinkingFormat": "qwen-chat-template"
-      },
-      "models": [
-        {
-          "contextWindow": 64000,
-          "cost": {
-            "cacheRead": 0,
-            "cacheWrite": 0,
-            "input": 0,
-            "output": 0
-          },
-          "id": "Qwen3.6-35B-A3B-4bit",
-          "input": [
-            "text"
-          ],
-          "maxTokens": 16384,
-          "name": "Qwen 3.5 35B A3B",
-          "reasoning": true
+          "reasoning": true,
+          "compat": {
+            "supportsDeveloperRole": false,
+            "supportsReasoningEffort": false,
+            "thinkingFormat": "qwen-chat-template"
+          }
         }
       ]
     }
