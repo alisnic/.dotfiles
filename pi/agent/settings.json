@@ -1,13 +1,12 @@
 {
+  "defaultModel": "qwen36-matched",
+  "defaultProvider": "ollama",
+  "defaultThinkingLevel": "high",
+  "hideThinkingBlock": false,
   "lastChangelogVersion": "0.67.2",
   "packages": [
-    "git:github.com/hk-vk/pi-connect",
     "npm:@tanvesh01/pierre-diffs@0.2.1"
   ],
-  "defaultProvider": "omlx",
-  "defaultModel": "Qwen3.6-35B-A3B-4bit",
-  "defaultThinkingLevel": "high",
-  "theme": "light-high-contrast",
   "showHardwareCursor": true,
-  "hideThinkingBlock": false
+  "theme": "light-high-contrast"
 }
