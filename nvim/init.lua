@@ -18,12 +18,12 @@ for _, plugin in pairs(disabledPlugins) do
   vim.g["loaded_" .. plugin] = 1
 end
 
-vim.cmd "packadd cfilter"
+vim.cmd("packadd cfilter")
 
 vim.o.background = "light"
-require "plugins"
-vim.cmd.colorscheme "vscode_modern"
-require "lsp"
+require("plugins")
+vim.cmd.colorscheme("vscode_modern")
+require("lsp")
 
 vim.opt.updatetime = 250
 vim.opt.title = true
@@ -60,19 +60,19 @@ vim.opt.smartcase = true
 vim.opt.foldenable = true
 vim.opt.foldlevelstart = 99
 vim.opt.foldmethod = "indent"
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.completeopt = { "menu", "menuone" }
 vim.opt.pumheight = 10
 
-vim.opt.tags:append { ".git/tags" }
+vim.opt.tags:append({ ".git/tags" })
 vim.opt.tagcase = "match"
 
-vim.diagnostic.config {
+vim.diagnostic.config({
   float = { source = true },
   signs = false,
   virtual_text = false,
-}
+})
 
-vim.cmd [[
+vim.cmd([[
   augroup alisnic
     autocmd!
     autocmd BufWritePre * :%s/\s\+$//e
@@ -82,12 +82,12 @@ vim.cmd [[
     autocmd FileType gitcommit setlocal spell
     autocmd VimResized * :wincmd =
   augroup END
-]]
+]])
 
-vim.cmd [[
+vim.cmd([[
   nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
   nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
-]]
+]])
 
 vim.keymap.set("n", "<esc><esc>", ":nohlsearch<cr><esc>", { silent = true })
 vim.keymap.set("n", "C", ":windo lcl|ccl<CR>", { silent = true })
@@ -102,12 +102,12 @@ vim.keymap.set("n", "<leader>v", ":vs<cr>")
 vim.keymap.set("v", "<S-UP>", "<nop>")
 vim.keymap.set("v", "<S-Down>", "<nop>")
 
-vim.cmd [[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".md"]]
-vim.cmd 'command! Focus :exe "normal! zMzv"'
-vim.cmd "command! W w"
-vim.cmd "command! Wq wq"
-vim.cmd "command! LightMode :set bg=light"
-vim.cmd "command! DarkMode :set bg=dark"
+vim.cmd([[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".md"]])
+vim.cmd('command! Focus :exe "normal! zMzv"')
+vim.cmd("command! W w")
+vim.cmd("command! Wq wq")
+vim.cmd("command! LightMode :set bg=light")
+vim.cmd("command! DarkMode :set bg=dark")
 
 if vim.g.neovide then
   vim.g.neovide_cursor_animation_length = 0

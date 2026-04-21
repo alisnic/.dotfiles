@@ -72,7 +72,6 @@ add({
   gh("hrsh7th/cmp-nvim-lsp"),
   gh("hrsh7th/cmp-buffer"),
   gh("hrsh7th/cmp-path"),
-  gh("hrsh7th/cmp-cmdline"),
   gh("onsails/lspkind-nvim"),
 })
 require("autocomplete").setup()
