@@ -3,7 +3,7 @@
   "defaultProvider": "ollama",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
-  "lastChangelogVersion": "0.67.2",
+  "lastChangelogVersion": "0.67.68",
   "packages": [
     "npm:@tanvesh01/pierre-diffs@0.2.1"
   ],
