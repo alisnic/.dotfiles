@@ -8,8 +8,12 @@ function M.setup()
       typescript = { "oxfmt" },
       typescriptreact = { "oxfmt" },
       lua = { "stylua" },
+      sh = { "shfmt" },
     },
     formatters = {
+      shfmt = {
+        prepend_args = { "-i", "2", "-ci", "-bn" },
+      },
       oxfmt = {
         args = function(_, ctx)
           local cfg = vim.fs.find(
