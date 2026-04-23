@@ -10,7 +10,7 @@ const CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrom
 
 type OutputFormat = 'html' | 'markdown';
 
-const { url, format } = parseArgs(process.argv.slice(2));
+const { url, format, withLinks } = parseArgs(process.argv.slice(2));
 
 try {
   new URL(url);
@@ -42,14 +42,18 @@ async function main() {
   const html = await renderWithChrome(url);
   const markdown = await htmlToMarkdown(html);
 
-  const links = extractLinks(html, url);
+  if (withLinks) {
+    const links = extractLinks(html, url);
 
-  if (links.length > 0) {
-    const linkSection =
-      '\n\n---\n\n## Links\n\n' +
-      links.map(l => (l.title ? `- [${l.title}](${l.url})` : `- ${l.url}`)).join('\n') +
-      '\n';
-    process.stdout.write(markdown + linkSection);
+    if (links.length > 0) {
+      const linkSection =
+        '\n\n---\n\n## Links\n\n' +
+        links.map(l => (l.title ? `- [${l.title}](${l.url})` : `- ${l.url}`)).join('\n') +
+        '\n';
+      process.stdout.write(markdown + linkSection);
+    } else {
+      process.stdout.write(markdown);
+    }
   } else {
     process.stdout.write(markdown);
   }
@@ -148,8 +152,8 @@ function getMessage(error: unknown): string {
   }
 }
 
-function parseArgs(args: string[]): { url: string; format: OutputFormat } {
-  let values: { format?: string };
+function parseArgs(args: string[]): { url: string; format: OutputFormat; withLinks: boolean } {
+  let values: { format?: string; 'with-links'?: boolean };
   let positionals: string[];
 
   try {
@@ -160,6 +164,10 @@ function parseArgs(args: string[]): { url: string; format: OutputFormat } {
       options: {
         format: {
           type: 'string'
+        },
+        'with-links': {
+          type: 'boolean',
+          default: false
         }
       }
     }));
@@ -183,11 +191,11 @@ function parseArgs(args: string[]): { url: string; format: OutputFormat } {
     failUsage('`--format` must be one of: html, markdown');
   }
 
-  return { url, format };
+  return { url, format, withLinks: values['with-links'] as boolean };
 }
 
 function failUsage(message: string): never {
   console.error(message);
-  console.error('Usage: agent-fetch.ts <url> [--format html|markdown]');
+  console.error('Usage: agent-fetch.ts <url> [--format html|markdown] [--with-links]');
   process.exit(1);
 }
