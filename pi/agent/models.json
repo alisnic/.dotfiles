@@ -39,7 +39,23 @@
             "text"
           ],
           "maxTokens": 16384,
-          "name": "Qwen 3.5 35B A3B Q4_K_M (llama.cpp)",
+          "name": "Qwen 3.6 35B A3B Q4_K_M (llama.cpp)",
+          "reasoning": true
+        },
+        {
+          "contextWindow": 65536,
+          "cost": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 0,
+            "output": 0
+          },
+          "id": "unsloth/Qwen3.6-27B-GGUF:UD-Q4_K_XL",
+          "input": [
+            "text"
+          ],
+          "maxTokens": 16384,
+          "name": "Qwen 3.6-27b (llama.cpp)",
           "reasoning": true
         }
       ]
