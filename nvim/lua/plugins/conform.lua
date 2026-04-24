@@ -7,6 +7,7 @@ function M.setup()
       javascriptreact = { "oxfmt" },
       typescript = { "oxfmt" },
       typescriptreact = { "oxfmt" },
+      markdown = { "oxfmt" },
       lua = { "stylua" },
       sh = { "shfmt" },
     },
