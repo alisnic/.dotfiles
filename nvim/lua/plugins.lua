@@ -59,13 +59,13 @@ require("lazydev").setup({
   },
 })
 
-add({ gh("pmizio/typescript-tools.nvim") })
-require("typescript-tools").setup({
-  settings = {
-    separate_diagnostic_server = false,
-    tsserver_max_memory = 8192,
-  },
-})
+-- add({ gh("pmizio/typescript-tools.nvim") })
+-- require("typescript-tools").setup({
+--   settings = {
+--     separate_diagnostic_server = false,
+--     tsserver_max_memory = 8192,
+--   },
+-- })
 
 add({
   gh("hrsh7th/nvim-cmp"),

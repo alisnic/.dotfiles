@@ -57,6 +57,25 @@ vim.lsp.config("lua_ls", {
   },
 })
 
+vim.lsp.config("tsgo", {
+  cmd = { "npx", "tsgo", "--lsp", "--stdio" },
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+  },
+  root_markers = {
+    "tsconfig.json",
+    "jsconfig.json",
+    "package.json",
+    ".git",
+    "tsconfig.base.json",
+  },
+})
+
 local oxlint_bin = vim.fs.find("node_modules/.bin/oxlint", {
   path = vim.fn.getcwd(),
   upward = true,
@@ -73,4 +92,4 @@ vim.lsp.config("oxlint", {
   },
 })
 
-vim.lsp.enable({ "jsonls", "lua_ls", "oxlint" })
+vim.lsp.enable({ "jsonls", "lua_ls", "oxlint", "tsgo" })
