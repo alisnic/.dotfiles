@@ -85,8 +85,12 @@ add({
 })
 require("plugins.treesitter").setup()
 
-add({ gh("tamago324/lir.nvim") })
-require("plugins.lir").setup()
+-- add({ gh("tamago324/lir.nvim") })
+-- require("plugins.lir").setup()
+
+add({ gh("simonmclean/triptych.nvim"), gh("antosha417/nvim-lsp-file-operations") })
+require("triptych").setup()
+vim.keymap.set("n", "-", ":Triptych<CR>", { silent = true, desc = "Toggle Triptych" })
 
 add({ gh("gmr458/vscode_modern_theme.nvim") })
 require("vscode_modern").setup({
