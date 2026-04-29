@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 
 import { spawn } from 'node:child_process';
-import { existsSync, realpathSync } from 'node:fs';
+import { closeSync, existsSync, fstatSync, openSync, realpathSync, statSync, writeSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 
 const separatorIndex = process.argv.indexOf('--');
 const sandboxArgs = separatorIndex === -1 ? process.argv.slice(2) : process.argv.slice(2, separatorIndex);
 const commandArgs = separatorIndex === -1 ? [] : process.argv.slice(separatorIndex + 1);
 
-const usage = 'Usage: node mysandbox.mjs [--rw path1,path2,pathN] -- <command> [args...]';
+const usage = 'Usage: mysandbox [--rw path1,path2,pathN] -- <command> [args...]';
 
 if (commandArgs.length === 0) {
   console.error(usage);
@@ -18,8 +19,44 @@ if (commandArgs.length === 0) {
 }
 
 const escapeSbplString = value => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+const protectedSandboxScript = realpathSync(fileURLToPath(import.meta.url));
+const protectedSandboxScriptStat = statSync(protectedSandboxScript);
 const sshDirectory = join(homedir(), '.ssh');
 const protectedSshDirectory = existsSync(sshDirectory) ? realpathSync(sshDirectory) : sshDirectory;
+
+const isSameFile = (left, right) => left.dev === right.dev && left.ino === right.ino;
+
+const isFdTargetingProtectedSandboxScript = fd => {
+  try {
+    return isSameFile(fstatSync(fd), protectedSandboxScriptStat);
+  } catch {
+    return false;
+  }
+};
+
+const writeDiagnostic = message => {
+  if (!isFdTargetingProtectedSandboxScript(2)) {
+    console.error(message);
+    return;
+  }
+
+  try {
+    const tty = openSync('/dev/tty', 'w');
+
+    try {
+      writeSync(tty, `${message}\n`);
+    } finally {
+      closeSync(tty);
+    }
+  } catch {
+    // Avoid writing diagnostics into the protected script if stderr is unsafe.
+  }
+};
+
+if (isFdTargetingProtectedSandboxScript(1) || isFdTargetingProtectedSandboxScript(2)) {
+  writeDiagnostic('Refusing to run: mysandbox output is redirected to the wrapper itself');
+  process.exit(1);
+}
 
 const writablePaths = [];
 
@@ -58,6 +95,11 @@ const profile = `
 (allow default)
 
 ${writablePathRules}
+
+;; Prevent child processes from modifying this wrapper, even when its parent
+;; directory is included in --rw.
+(deny file-write*
+  (literal "${escapeSbplString(protectedSandboxScript)}"))
 
 ;; Never expose SSH credentials, even when ~/.ssh is included in --rw.
 (deny file-read* file-write*
