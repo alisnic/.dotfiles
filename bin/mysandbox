@@ -24,6 +24,18 @@ const protectedSandboxScriptStat = statSync(protectedSandboxScript);
 const sshDirectory = join(homedir(), '.ssh');
 const protectedSshDirectory = existsSync(sshDirectory) ? realpathSync(sshDirectory) : sshDirectory;
 
+const expandHome = path => {
+  if (path === '~') {
+    return homedir();
+  }
+
+  if (path.startsWith('~/')) {
+    return join(homedir(), path.slice(2));
+  }
+
+  return path;
+};
+
 const isSameFile = (left, right) => left.dev === right.dev && left.ino === right.ino;
 
 const isFdTargetingProtectedSandboxScript = fd => {
@@ -82,7 +94,15 @@ for (let index = 0; index < sandboxArgs.length; index += 1) {
 }
 
 const writablePathRules = writablePaths
-  .map(path => realpathSync(path))
+  .map(path => {
+    try {
+      return realpathSync(expandHome(path));
+    } catch (error) {
+      console.error(`Invalid --rw path: ${path}`);
+      console.error(error.message);
+      process.exit(2);
+    }
+  })
   .map(path => `(allow file-write*\n  (subpath "${escapeSbplString(path)}"))`)
   .join('\n\n');
 
@@ -93,6 +113,11 @@ const profile = `
 (deny file-write*)
 
 (allow default)
+
+;; Many CLIs redirect noisy output to /dev/null; allow that without granting
+;; general filesystem writes.
+(allow file-write*
+  (literal "/dev/null"))
 
 ${writablePathRules}
 
