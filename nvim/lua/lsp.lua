@@ -1,10 +1,8 @@
 local border = "rounded"
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
-vim.lsp.handlers["textDocument/signatureHelp"] =
-  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
-
-vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover)
+vim.keymap.set("n", "<leader>k", function()
+  vim.lsp.buf.hover()
+end)
 vim.keymap.set("n", "<leader>e", function()
   vim.diagnostic.open_float(nil, { focus = false, scope = "cursor", border = border })
 end)
@@ -13,7 +11,9 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
 vim.keymap.set("n", "gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
-vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
+vim.keymap.set("i", "<C-k>", function()
+  vim.lsp.buf.signature_help()
+end)
 vim.keymap.set("n", "gr", vim.lsp.buf.references)
 vim.keymap.set("n", "gR", ":vsplit<cr>:lua vim.lsp.buf.references()<cr>")
 vim.keymap.set("n", "[d", function()
