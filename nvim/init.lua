@@ -70,6 +70,7 @@ vim.diagnostic.config({
   float = { source = true },
   signs = false,
   virtual_text = false,
+  update_in_insert = false,
 })
 
 vim.cmd([[
@@ -101,6 +102,17 @@ vim.keymap.set("n", "<leader>.", ":e ~/.dotfiles/nvim/lua/plugins.lua<cr>")
 vim.keymap.set("n", "<leader>v", ":vs<cr>")
 vim.keymap.set("v", "<S-UP>", "<nop>")
 vim.keymap.set("v", "<S-Down>", "<nop>")
+
+vim.keymap.set("v", "ga", function()
+  vim.cmd('noau normal! "vy')
+  local text = vim.fn.getreg("v")
+  local path = vim.fn.expand("%:.")
+  local start_line = vim.fn.line("'<")
+  local end_line = vim.fn.line("'>")
+  local context = string.format("%s:%s-%s\n```\n%s\n```", path, start_line, end_line, text)
+  vim.fn.setreg("+", context)
+  print("Copied selection context")
+end, { desc = "Copy Selection Context for AI" })
 
 vim.cmd([[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".md"]])
 vim.cmd('command! Focus :exe "normal! zMzv"')
