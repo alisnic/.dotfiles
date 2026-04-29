@@ -109,7 +109,7 @@ key = "T"
 mods = "Command"
 
 [[keyboard.bindings]]
-chars = "\u0002K"
+chars = "\u0002k"
 key = "K"
 mods = "Command"
 
