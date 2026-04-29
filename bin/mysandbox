@@ -1,0 +1,83 @@
+#!/usr/bin/env node
+
+import { spawn } from 'node:child_process';
+import { existsSync, realpathSync } from 'node:fs';
+import { homedir } from 'node:os';
+import { join } from 'node:path';
+import process from 'node:process';
+
+const separatorIndex = process.argv.indexOf('--');
+const sandboxArgs = separatorIndex === -1 ? process.argv.slice(2) : process.argv.slice(2, separatorIndex);
+const commandArgs = separatorIndex === -1 ? [] : process.argv.slice(separatorIndex + 1);
+
+const usage = 'Usage: node mysandbox.mjs [--rw path1,path2,pathN] -- <command> [args...]';
+
+if (commandArgs.length === 0) {
+  console.error(usage);
+  process.exit(2);
+}
+
+const escapeSbplString = value => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+const sshDirectory = join(homedir(), '.ssh');
+const protectedSshDirectory = existsSync(sshDirectory) ? realpathSync(sshDirectory) : sshDirectory;
+
+const writablePaths = [];
+
+for (let index = 0; index < sandboxArgs.length; index += 1) {
+  const arg = sandboxArgs[index];
+
+  if (arg !== '--rw') {
+    console.error(`Unknown option: ${arg}`);
+    console.error(usage);
+    process.exit(2);
+  }
+
+  const value = sandboxArgs[index + 1];
+
+  if (!value) {
+    console.error('--rw expects a comma-separated list of folders');
+    console.error(usage);
+    process.exit(2);
+  }
+
+  writablePaths.push(...value.split(',').filter(Boolean));
+  index += 1;
+}
+
+const writablePathRules = writablePaths
+  .map(path => realpathSync(path))
+  .map(path => `(allow file-write*\n  (subpath "${escapeSbplString(path)}"))`)
+  .join('\n\n');
+
+const profile = `
+(version 1)
+
+;; Deny filesystem writes globally, then grant them back only for --rw paths.
+(deny file-write*)
+
+(allow default)
+
+${writablePathRules}
+
+;; Never expose SSH credentials, even when ~/.ssh is included in --rw.
+(deny file-read* file-write*
+  (subpath "${escapeSbplString(protectedSshDirectory)}"))
+`;
+
+const child = spawn('sandbox-exec', ['-p', profile, ...commandArgs], {
+  stdio: 'inherit'
+});
+
+child.on('error', error => {
+  console.error(`Failed to launch sandbox-exec: ${error.message}`);
+  process.exit(1);
+});
+
+child.on('exit', (code, signal) => {
+  if (signal) {
+    process.kill(process.pid, signal);
+    return;
+  }
+
+  process.exit(code ?? 1);
+});
