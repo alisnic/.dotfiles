@@ -5,7 +5,7 @@
   "hideThinkingBlock": false,
   "lastChangelogVersion": "0.67.68",
   "packages": [
-    "npm:@tanvesh01/pierre-diffs@0.2.1"
+    "npm:pi-hashline-edit"
   ],
   "showHardwareCursor": true,
   "theme": "light-high-contrast"

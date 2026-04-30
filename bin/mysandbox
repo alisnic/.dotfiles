@@ -70,7 +70,7 @@ if (isFdTargetingProtectedSandboxScript(1) || isFdTargetingProtectedSandboxScrip
   process.exit(1);
 }
 
-const writablePaths = [];
+const writablePaths = ['/tmp'];
 
 for (let index = 0; index < sandboxArgs.length; index += 1) {
   const arg = sandboxArgs[index];
