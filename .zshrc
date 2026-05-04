@@ -47,3 +47,5 @@ export PATH="$PATH:$HOME/.rvm/bin"
 eval "$(starship init zsh)"
 export PATH=/Users/alisnic/.meteor:$PATH
 export PATH="$HOME/.local/bin:$PATH"
+
+alias yolo-cursor='mysandbox --rw .,~/.cursor -- agent --yolo'

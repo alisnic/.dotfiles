@@ -103,7 +103,7 @@ vim.keymap.set("n", "<leader>v", ":vs<cr>")
 vim.keymap.set("v", "<S-UP>", "<nop>")
 vim.keymap.set("v", "<S-Down>", "<nop>")
 
-vim.keymap.set("v", "ga", function()
+vim.keymap.set("v", "Y", function()
   vim.cmd('noau normal! "vy')
   local text = vim.fn.getreg("v")
   local path = vim.fn.expand("%:.")

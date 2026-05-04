@@ -1,3 +1,6 @@
+[git_status]
+disabled=true
+
 [package]
 disabled=true
 
