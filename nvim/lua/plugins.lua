@@ -43,6 +43,12 @@ vim.keymap.set("n", "]Q", ":cnewer<cr>", { silent = true })
 add({ gh("nvim-lua/plenary.nvim"), gh("nvim-telescope/telescope.nvim") })
 require("plugins.telescope").setup()
 
+add({ gh("folke/snacks.nvim") })
+require("snacks").setup({
+  input = { enabled = true },
+  picker = { enabled = true, ui_select = true },
+})
+
 add({ gh("NeogitOrg/neogit") })
 require("plugins.neogit").setup()
 
