@@ -23,6 +23,11 @@ add({ gh("tpope/vim-sleuth") })
 -- helpers for unix
 add({ gh("tpope/vim-eunuch") })
 
+add({ gh("google/vim-searchindex") })
+
+add({ gh("chrisgrieser/nvim-genghis") })
+require("plugins.genghis").setup()
+
 add({ gh("michaeljsmith/vim-indent-object") })
 
 add({ gh("stevearc/conform.nvim") })
@@ -91,8 +96,8 @@ add({
 })
 require("plugins.treesitter").setup()
 
-add({ gh("tamago324/lir.nvim") })
-require("plugins.lir").setup()
+add({ gh("stevearc/oil.nvim") })
+require("plugins.oil").setup()
 
 -- add({ gh("simonmclean/triptych.nvim"), gh("antosha417/nvim-lsp-file-operations") })
 -- require("triptych").setup()

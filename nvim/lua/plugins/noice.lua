@@ -15,6 +15,9 @@ function M.setup()
         ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
       },
     },
+    messages = {
+      view_search = false,
+    },
     views = {
       hover = {
         border = {
