@@ -124,6 +124,26 @@ key = "Return"
 mods = "Command"
 
 [[keyboard.bindings]]
+chars = "\u0002\u001B[D"
+key = "Left"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u0002\u001B[C"
+key = "Right"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u0002\u001B[A"
+key = "Up"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u0002\u001B[B"
+key = "Down"
+mods = "Command"
+
+[[keyboard.bindings]]
 chars = "\u00021"
 key = "Key1"
 mods = "Command"
