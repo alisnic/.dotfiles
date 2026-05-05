@@ -59,14 +59,14 @@ end
 local function lsp_diagnostic_status()
   local diagnostics = current_line_diagnostics()
   local best = best_diagnostic(diagnostics)
-  local message = format_diagnostic(best)
-  local max_width = vim.api.nvim_list_uis()[1].width - 35
 
-  if string.len(message) < max_width then
-    return message
-  else
-    return string.sub(message, 1, max_width) .. "..."
+  if best == nil then
+    return ""
   end
+
+  local message = format_diagnostic(best)
+
+  return message
 end
 
 return {
@@ -88,12 +88,12 @@ return {
 
     require("lualine").setup({
       options = {
-        theme = "auto",
+        theme = "ayu_light",
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
       },
       sections = {
-        lualine_a = { "mode" },
+        lualine_a = {},
         lualine_b = {},
         lualine_c = {
           {
@@ -104,7 +104,7 @@ return {
           require("lsp-progress").progress,
         },
         lualine_y = {
-          "filename",
+          -- "filename",
           "diagnostics",
         },
         lualine_z = { "location" },
