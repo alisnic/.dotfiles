@@ -45,6 +45,9 @@ vim.keymap.set("n", "]L", ":lnewer<cr>", { silent = true })
 vim.keymap.set("n", "[Q", ":colder<cr>", { silent = true })
 vim.keymap.set("n", "]Q", ":cnewer<cr>", { silent = true })
 
+add({ gh("tpope/vim-projectionist") })
+vim.keymap.set("n", "<leader>a", ":A<cr>", { silent = true })
+
 add({ gh("nvim-lua/plenary.nvim"), gh("nvim-telescope/telescope.nvim") })
 require("plugins.telescope").setup()
 

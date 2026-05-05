@@ -136,6 +136,10 @@
       "rev": "2b786703eef9f82ae7a56f3de4ee43e1e5efaaa5",
       "src": "https://github.com/sickill/vim-pasta"
     },
+    "vim-projectionist": {
+      "rev": "5ff7bf79a6ef741036d2038a226bcb5f8b1cd296",
+      "src": "https://github.com/tpope/vim-projectionist"
+    },
     "vim-searchindex": {
       "rev": "b0788c8213210b3bd23b62847dd5a9ebbe4ad648",
       "src": "https://github.com/google/vim-searchindex"
