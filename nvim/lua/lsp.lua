@@ -29,7 +29,11 @@ end)
 vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition)
 vim.keymap.set("n", "<leader>lT", ":vsplit<cr>:lua vim.lsp.buf.type_definition()<cr>")
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local capabilities = vim.tbl_deep_extend(
+  "force",
+  vim.lsp.protocol.make_client_capabilities(),
+  require("cmp_nvim_lsp").default_capabilities()
+)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local enabled_servers = { "jsonls", "lua_ls", "oxlint", "tsgo" }
@@ -234,12 +238,8 @@ vim.lsp.config("tsgo", {
 })
 
 vim.lsp.config("oxlint", {
-  cmd = { vim.fs.joinpath(vim.fn.getcwd(), "node_modules/.bin/oxlint"), "--lsp" },
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
+  settings = {
+    run = "onSave",
   },
 })
 
