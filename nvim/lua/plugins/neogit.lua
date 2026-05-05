@@ -14,6 +14,9 @@ function M.setup()
     auto_show_console_on = "output",
     console_timeout = 200,
     auto_close_console = true,
+    commit_view = {
+      verify_commit = false,
+    },
     mappings = {
       popup = {
         ["Z"] = false,

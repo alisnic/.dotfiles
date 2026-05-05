@@ -114,6 +114,7 @@ require("vscode_modern").setup({
 
 add({ gh("lewis6991/gitsigns.nvim") })
 require("gitsigns").setup()
+require("plugins.gitline").setup()
 
 add({ gh("sickill/vim-pasta") })
 vim.g.pasta_disabled_filetypes = { "coffee", "yaml", "haml" }
