@@ -40,11 +40,9 @@ vim.opt.autowriteall = true
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
-vim.opt.exrc = true
 vim.opt.secure = true
 vim.opt.spelllang = "en"
 vim.opt.spell = false
-vim.opt.exrc = true
 vim.opt.numberwidth = 2
 vim.opt.guifont = { "Monaco", ":h16" }
 vim.opt.splitkeep = "screen"
@@ -72,6 +70,8 @@ vim.diagnostic.config({
   virtual_text = false,
   update_in_insert = false,
 })
+
+vim.opt.exrc = true
 
 vim.cmd([[
   augroup alisnic
