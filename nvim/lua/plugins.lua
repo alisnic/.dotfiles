@@ -104,10 +104,6 @@ require("plugins.treesitter").setup()
 add({ gh("stevearc/oil.nvim") })
 require("plugins.oil").setup()
 
--- add({ gh("simonmclean/triptych.nvim"), gh("antosha417/nvim-lsp-file-operations") })
--- require("triptych").setup()
--- vim.keymap.set("n", "-", ":Triptych<CR>", { silent = true, desc = "Toggle Triptych" })
-
 add({ gh("gmr458/vscode_modern_theme.nvim") })
 require("vscode_modern").setup({
   cursorline = true,
@@ -117,6 +113,14 @@ require("vscode_modern").setup({
 add({ gh("lewis6991/gitsigns.nvim") })
 require("gitsigns").setup()
 require("plugins.gitline").setup()
+
+vim.keymap.set("n", "]c", function()
+  require("gitsigns").nav_hunk("next")
+end)
+
+vim.keymap.set("n", "[c", function()
+  require("gitsigns").nav_hunk("prev")
+end)
 
 add({ gh("sickill/vim-pasta") })
 vim.g.pasta_disabled_filetypes = { "coffee", "yaml", "haml" }
