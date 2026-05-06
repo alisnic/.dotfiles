@@ -132,7 +132,7 @@ local function close_terminal()
 end
 
 local function follow_terminal_output()
-  if not terminal or not terminal.buf or not terminal.win then
+  if not terminal or not terminal.buf or type(terminal.win) ~= "number" then
     return
   end
 
@@ -144,6 +144,7 @@ local function follow_terminal_output()
       if
         not terminal
         or not vim.api.nvim_buf_is_valid(terminal.buf)
+        or type(terminal.win) ~= "number"
         or not vim.api.nvim_win_is_valid(terminal.win)
       then
         close_terminal()
