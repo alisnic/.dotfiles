@@ -55,7 +55,9 @@ add({ gh("folke/snacks.nvim") })
 require("snacks").setup({
   input = { enabled = true },
   picker = { enabled = true, ui_select = true },
+  terminal = {},
 })
+require("plugins.test").setup()
 
 add({ gh("NeogitOrg/neogit") })
 require("plugins.neogit").setup()

@@ -15,9 +15,14 @@ function M.setup()
     },
   })
 
-  vim.keymap.set("n", "<leader>t", ":Telescope commands<cr>", { silent = true })
+  -- vim.keymap.set("n", "<leader>t", ":Telescope commands<cr>", { silent = true })
   vim.keymap.set("n", "<leader>ld", ":Telescope diagnostics bufnr=0<cr>", { silent = true })
-  vim.keymap.set("n", "<leader>p", ":Telescope git_files show_untracked=true<cr>", { silent = true })
+  vim.keymap.set(
+    "n",
+    "<leader>p",
+    ":Telescope git_files show_untracked=true<cr>",
+    { silent = true }
+  )
   vim.keymap.set("n", "<leader>b", ":Telescope buffers sort_mru=true<cr>", { silent = true })
   vim.keymap.set("n", "<leader>m", ":Telescope treesitter<cr>", { silent = true })
   vim.keymap.set("n", "<leader>w", ":Telescope lsp_workspace_symbols query=")

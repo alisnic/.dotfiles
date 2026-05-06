@@ -1,6 +1,8 @@
 local M = {}
 
 function M.setup()
+  require("nvim-treesitter").install({ "javascript", "typescript", "tsx" })
+
   require("ts_context_commentstring").setup({
     enable_autocmd = false,
   })
