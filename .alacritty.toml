@@ -26,27 +26,27 @@ background = "#ffffff"
 foreground = "#3b3b3b"
 
 [font]
-size = 18
+size = 17
 
 [font.bold]
-family = "Monaco Nerd Font"
-style = "Regular"
+family = "Monaco Nerd Font Mono"
+style = "Bold"
 
 [font.italic]
-family = "Monaco Nerd Font"
-style = "Regular"
+family = "Monaco Nerd Font Mono"
+style = "Italic"
 
 [font.normal]
-family = "Monaco Nerd Font"
+family = "Monaco Nerd Font Mono"
 style = "Regular"
 
-# [font.offset]
-# x = 0
-# y = 0
-
-[font.glyph_offset]
+[font.offset]
 x = 0
-y = 3
+y = 2
+
+# [font.glyph_offset]
+# x = 0
+# y = 3
 
 [[keyboard.bindings]]
 key = "Return"

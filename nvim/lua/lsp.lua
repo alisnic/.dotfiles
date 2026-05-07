@@ -36,7 +36,7 @@ local capabilities = vim.tbl_deep_extend(
 )
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local enabled_servers = { "jsonls", "lua_ls", "oxlint", "tsgo" }
+local enabled_servers = { "jsonls", "lua_ls", "tsgo" }
 local tsgo_root_markers =
   { "tsconfig.json", "jsconfig.json", "package.json", ".git", "tsconfig.base.json" }
 
