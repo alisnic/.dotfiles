@@ -1,9 +1,9 @@
 {
-  "defaultModel": "unsloth/Qwen3.6-35B-A3B-GGUF",
+  "defaultModel": "unsloth/DeepSeek-R1-Distill-Qwen-7B-GGUF:Q8_0",
   "defaultProvider": "llama-cpp",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
-  "lastChangelogVersion": "0.67.68",
+  "lastChangelogVersion": "0.70.2",
   "packages": [
     "npm:pi-hashline-edit"
   ],

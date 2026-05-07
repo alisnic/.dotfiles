@@ -4,11 +4,6 @@
       "api": "openai-completions",
       "apiKey": "llama-cpp",
       "baseUrl": "http://127.0.0.1:8012/v1",
-      "compat": {
-        "supportsDeveloperRole": false,
-        "supportsReasoningEffort": false,
-        "thinkingFormat": "qwen-chat-template"
-      },
       "models": [
         {
           "contextWindow": 64000,
@@ -56,6 +51,22 @@
           ],
           "maxTokens": 16384,
           "name": "Qwen 3.6-27b (llama.cpp)",
+          "reasoning": true
+        },
+        {
+          "contextWindow": 65536,
+          "cost": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 0,
+            "output": 0
+          },
+          "id": "unsloth/DeepSeek-R1-Distill-Qwen-7B-GGUF:Q8_0",
+          "input": [
+            "text"
+          ],
+          "maxTokens": 16384,
+          "name": "DeepSeek-R1-Distill-Qwen-7B-GGUF",
           "reasoning": true
         }
       ]
