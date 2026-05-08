@@ -65,7 +65,7 @@
       "src": "https://github.com/milanglacier/minuet-ai.nvim"
     },
     "neogit": {
-      "rev": "5432fe2b2565bb10d868c759245cd4c64125da31",
+      "rev": "395ac481e197784e410b59b987fadaf9e7481df1",
       "src": "https://github.com/NeogitOrg/neogit"
     },
     "noice.nvim": {
