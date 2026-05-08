@@ -13,6 +13,7 @@ function M.setup()
       autosave_changes = "unmodified",
     },
     keymaps = {
+      ["q"] = "actions.close",
       ["gR"] = {
         callback = function()
           local oil = require("oil")
