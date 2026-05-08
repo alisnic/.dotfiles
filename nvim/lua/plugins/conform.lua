@@ -8,6 +8,7 @@ function M.setup()
       typescript = { "oxfmt" },
       typescriptreact = { "oxfmt" },
       markdown = { "oxfmt" },
+      json = { "oxfmt" },
       lua = { "stylua" },
       sh = { "shfmt" },
     },
