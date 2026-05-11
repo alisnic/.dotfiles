@@ -329,6 +329,11 @@ key = "Tab"
 mods = "Shift"
 
 [[keyboard.bindings]]
+chars = "\u001B[9;5u"
+key = "Tab"
+mods = "Control"
+
+[[keyboard.bindings]]
 chars = "\u007F"
 key = "Back"
 
