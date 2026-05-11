@@ -96,7 +96,7 @@ vim.keymap.set("n", "<S-UP>", "<C-w><UP>")
 vim.keymap.set("n", "<S-Down>", "<C-w><Down>")
 vim.keymap.set("n", "<S-Left>", "<C-w><Left>")
 vim.keymap.set("n", "<S-Right>", "<C-w><Right>")
-vim.keymap.set("n", "<C-Tab>", "<cmd>bprevious<cr>", { silent = true, desc = "Previous buffer" })
+vim.keymap.set("n", "<C-Tab>", "<cmd>buffer #<cr>", { silent = true, desc = "Alternate buffer" })
 vim.keymap.set("n", "<UP>", "gk")
 vim.keymap.set("n", "<Down>", "gj")
 vim.keymap.set("n", "<leader>.", ":e ~/.dotfiles/nvim/lua/plugins.lua<cr>")
@@ -123,6 +123,17 @@ vim.keymap.set("n", "<leader>y", function()
   vim.fn.setreg("+", context)
   print("Copied selection context")
 end, { desc = "Copy Selection Context for AI" })
+
+vim.keymap.set("n", "<leader>Y", function()
+  local path = vim.fn.expand("%:.")
+  if path == "" then
+    print("Current buffer has no file path")
+    return
+  end
+
+  vim.fn.setreg("+", path)
+  print("Copied relative file path")
+end, { desc = "Copy Relative File Path" })
 
 vim.cmd([[command! Scratch :exe "e " . "~/.notes/scratch/" . strftime('%Y-%m-%d') . ".md"]])
 vim.cmd('command! Focus :exe "normal! zMzv"')
