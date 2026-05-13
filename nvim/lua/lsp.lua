@@ -36,7 +36,7 @@ local capabilities = vim.tbl_deep_extend(
 )
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local enabled_servers = { "jsonls", "lua_ls", "tsgo" }
+local enabled_servers = { "jsonls", "lua_ls", "tsgo", "oxlint" }
 local tsgo_root_markers =
   { "tsconfig.json", "jsconfig.json", "package.json", ".git", "tsconfig.base.json" }
 
@@ -239,7 +239,10 @@ vim.lsp.config("tsgo", {
 
 vim.lsp.config("oxlint", {
   settings = {
-    run = "onSave",
+    -- In pull-diagnostics mode, oxlint expects the client to decide when to
+    -- request diagnostics. VS Code can limit pulls to saves; Neovim currently
+    -- pulls on change, so `onSave` leaves diagnostics stale.
+    run = "onType",
   },
 })
 
