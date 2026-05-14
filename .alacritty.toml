@@ -129,6 +129,11 @@ key = "Return"
 mods = "Command"
 
 [[keyboard.bindings]]
+chars = "\u0002L"
+key = "L"
+mods = "Command"
+
+[[keyboard.bindings]]
 chars = "\u0002\u001B[D"
 key = "Left"
 mods = "Command"
