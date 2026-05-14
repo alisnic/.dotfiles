@@ -69,6 +69,22 @@ local function lsp_diagnostic_status()
   return message
 end
 
+local function active_lsp_servers()
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+  if vim.tbl_isempty(clients) then
+    return ""
+  end
+
+  local names = {}
+  for _, client in ipairs(clients) do
+    table.insert(names, client.name)
+  end
+  table.sort(names)
+
+  return "󰒋 " .. table.concat(names, ", ")
+end
+
 return {
   setup = function()
     require("lsp-progress").setup({
@@ -101,6 +117,7 @@ return {
           },
         },
         lualine_x = {
+          active_lsp_servers,
           require("lsp-progress").progress,
         },
         lualine_y = {
@@ -115,6 +132,10 @@ return {
     vim.api.nvim_create_autocmd("User", {
       group = "lualine_augroup",
       pattern = "LspProgressStatusUpdated",
+      callback = require("lualine").refresh,
+    })
+    vim.api.nvim_create_autocmd({ "LspAttach", "LspDetach" }, {
+      group = "lualine_augroup",
       callback = require("lualine").refresh,
     })
   end,
