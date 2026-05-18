@@ -135,6 +135,16 @@ mods = "Command"
 
 [[keyboard.bindings]]
 chars = "\u0002\u001B[D"
+key = "LBracket"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u0002\u001B[C"
+key = "RBracket"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u0002\u001B[D"
 key = "Left"
 mods = "Command"
 
@@ -198,15 +208,6 @@ chars = "\u00029"
 key = "Key9"
 mods = "Command"
 
-[[keyboard.bindings]]
-chars = "\u0002p"
-key = "LBracket"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0002n"
-key = "RBracket"
-mods = "Command"
 
 [[keyboard.bindings]]
 chars = " p"
