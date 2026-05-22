@@ -224,19 +224,6 @@ vim.lsp.config("lua_ls", {
   },
 })
 
-vim.lsp.config("tsgo", {
-  cmd = tsgo_cmd,
-  root_dir = tsgo_root_dir,
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "javascript.jsx",
-    "typescript",
-    "typescriptreact",
-    "typescript.tsx",
-  },
-})
-
 vim.lsp.config("oxlint", {
   settings = {
     -- In pull-diagnostics mode, oxlint expects the client to decide when to
