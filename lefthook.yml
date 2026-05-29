@@ -1,0 +1,5 @@
+pre-commit:
+  jobs:
+    - name: lua syntax
+      glob: "*.lua"
+      run: luac -p {staged_files}
