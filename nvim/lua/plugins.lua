@@ -126,7 +126,7 @@ add({ gh("sickill/vim-pasta") })
 vim.g.pasta_disabled_filetypes = { "coffee", "yaml", "haml" }
 
 add({ gh("mileszs/ack.vim") })
-vim.g.ackprg = "rg --vimgrep -F"
+vim.g.ackprg = "rg --vimgrep -F --hidden"
 vim.cmd("cabbrev ack Ack!")
 
 add({
