@@ -23,6 +23,7 @@ vim.cmd("packadd cfilter")
 vim.o.background = "light"
 require("plugins")
 vim.cmd.colorscheme("vscode_modern")
+vim.api.nvim_set_hl(0, "Comment", { fg = "#9ca3af" })
 require("lsp")
 
 vim.opt.updatetime = 250

@@ -8,6 +8,10 @@
       "rev": "8c84af0f09e5d9058362ac58401a8e7b047d826e",
       "src": "https://github.com/yetone/avante.nvim"
     },
+    "blame_line.nvim": {
+      "rev": "9b469d97b6cb50b12e5569ddc9d899513d0671b6",
+      "src": "https://github.com/braxtons12/blame_line.nvim"
+    },
     "cmp-buffer": {
       "rev": "b74fab3656eea9de20a9b8116afa3cfc4ec09657",
       "src": "https://github.com/hrsh7th/cmp-buffer"
