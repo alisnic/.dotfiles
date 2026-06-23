@@ -105,15 +105,6 @@ vim.keymap.set("n", "<leader>v", ":vs<cr>")
 vim.keymap.set("v", "<S-UP>", "<nop>")
 vim.keymap.set("v", "<S-Down>", "<nop>")
 
-local function publish_tmux_yank(context)
-  if not vim.env.TMUX then
-    return
-  end
-
-  vim.fn.system({ "tmux", "load-buffer", "-b", "nvim-yank", "-" }, context)
-  vim.fn.system({ "tmux", "wait-for", "-S", "nvim-yank-ready" })
-end
-
 vim.keymap.set("v", "<leader>y", function()
   vim.cmd('noau normal! "vy')
   local path = vim.fn.expand("%:.")
@@ -121,16 +112,12 @@ vim.keymap.set("v", "<leader>y", function()
   local end_line = vim.fn.line("'>")
   local context = string.format("%s:%s-%s", path, start_line, end_line)
   vim.fn.setreg("+", context)
-  publish_tmux_yank(context)
-  print("Copied selection context")
 end, { desc = "Copy Selection Context for AI" })
 
 vim.keymap.set("n", "<leader>y", function()
   vim.cmd('noau normal! "vy')
   local context = vim.fn.expand("%:.")
   vim.fn.setreg("+", context)
-  publish_tmux_yank(context)
-  print("Copied selection context")
 end, { desc = "Copy Selection Context for AI" })
 
 vim.keymap.set("n", "<leader>Y", function()
