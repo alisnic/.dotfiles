@@ -38,13 +38,17 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local tsgo_diagnostics_group = vim.api.nvim_create_augroup("TsgoPullDiagnostics", { clear = true })
 
+local function is_typescript_go_client(client)
+  return client and (client.name == "tsgo" or client.name == "ts7")
+end
+
 local function refresh_tsgo_diagnostics(bufnr, client_id, only_visible)
   if not vim.api.nvim_buf_is_valid(bufnr) then
     return
   end
 
   local client = vim.lsp.get_client_by_id(client_id)
-  if not client or client.name ~= "tsgo" then
+  if not is_typescript_go_client(client) then
     return
   end
 
@@ -66,7 +70,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       client.server_capabilities.semanticTokensProvider = nil
     end
 
-    if client and client.name == "tsgo" then
+    if is_typescript_go_client(client) then
       refresh_tsgo_diagnostics(args.buf, client.id, true)
       vim.api.nvim_clear_autocmds({ buffer = args.buf, group = tsgo_diagnostics_group })
 
@@ -102,6 +106,55 @@ vim.lsp.config("oxlint", {
     -- pulls on change, so `onSave` leaves diagnostics stale.
     run = "onType",
   },
+})
+
+vim.lsp.config("ts7", {
+  settings = {
+    typescript = {
+      inlayHints = {
+        parameterNames = {
+          enabled = "none",
+          suppressWhenArgumentMatchesName = true,
+        },
+        parameterTypes = { enabled = false },
+        variableTypes = { enabled = false },
+        propertyDeclarationTypes = { enabled = false },
+        functionLikeReturnTypes = { enabled = false },
+        enumMemberValues = { enabled = false },
+      },
+    },
+  },
+  cmd = function(dispatchers, config)
+    local cmd = "tsc"
+    local local_cmd = (config or {}).root_dir and config.root_dir .. "/node_modules/.bin/tsc"
+    if local_cmd and vim.fn.executable(local_cmd) == 1 then
+      cmd = local_cmd
+    end
+    return vim.lsp.rpc.start({ cmd, "--lsp", "--stdio" }, dispatchers)
+  end,
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  },
+  root_dir = function(bufnr, on_dir)
+    local root_markers = { "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb", "bun.lock" }
+    root_markers = vim.fn.has("nvim-0.11.3") == 1 and { root_markers, { ".git" } }
+      or vim.list_extend(root_markers, { ".git" })
+
+    local deno_root = vim.fs.root(bufnr, { "deno.json", "deno.jsonc" })
+    local deno_lock_root = vim.fs.root(bufnr, { "deno.lock" })
+    local project_root = vim.fs.root(bufnr, root_markers)
+    if deno_lock_root and (not project_root or #deno_lock_root > #project_root) then
+      return
+    end
+    if deno_root and (not project_root or #deno_root >= #project_root) then
+      return
+    end
+
+    on_dir(project_root or vim.fn.getcwd())
+  end,
 })
 
 vim.lsp.enable({ "jsonls" })
