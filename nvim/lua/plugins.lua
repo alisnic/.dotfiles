@@ -112,6 +112,22 @@ require("vscode_modern").setup({
 
 add({ gh("lewis6991/gitsigns.nvim") })
 require("gitsigns").setup()
+
+add({ gh("braxtons12/blame_line.nvim") })
+require("blame_line").setup({
+  show_in_insert = false,
+  template = "<author> | <author-time> | <summary>",
+  delay = 500,
+  date = { relative = false },
+})
+require("blame_line").disable()
+vim.keymap.set(
+  "n",
+  "<leader>gl",
+  ":BlameLineToggle<cr>",
+  { silent = true, desc = "Toggle git blame line" }
+)
+
 require("plugins.gitline").setup()
 
 vim.keymap.set("n", "]c", function()
