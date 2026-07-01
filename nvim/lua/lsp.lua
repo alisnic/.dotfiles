@@ -108,6 +108,20 @@ vim.lsp.config("oxlint", {
   },
 })
 
+local function is_node_workspace_root(root)
+  if not root then
+    return false
+  end
+
+  local package_json = root .. "/package.json"
+  if vim.fn.filereadable(package_json) ~= 1 then
+    return false
+  end
+
+  local ok, package = pcall(vim.json.decode, table.concat(vim.fn.readfile(package_json), "\n"))
+  return ok and type(package) == "table" and package.workspaces ~= nil
+end
+
 vim.lsp.config("ts7", {
   settings = {
     typescript = {
@@ -139,13 +153,17 @@ vim.lsp.config("ts7", {
     "typescriptreact",
   },
   root_dir = function(bufnr, on_dir)
-    local root_markers = { "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb", "bun.lock" }
-    root_markers = vim.fn.has("nvim-0.11.3") == 1 and { root_markers, { ".git" } }
-      or vim.list_extend(root_markers, { ".git" })
-
     local deno_root = vim.fs.root(bufnr, { "deno.json", "deno.jsonc" })
     local deno_lock_root = vim.fs.root(bufnr, { "deno.lock" })
-    local project_root = vim.fs.root(bufnr, root_markers)
+    local git_root = vim.fs.root(bufnr, { ".git" })
+    local node_package_root = vim.fs.root(
+      bufnr,
+      { "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb", "bun.lock" }
+    )
+    local project_root = (is_node_workspace_root(git_root) and git_root)
+      or node_package_root
+      or git_root
+
     if deno_lock_root and (not project_root or #deno_lock_root > #project_root) then
       return
     end
