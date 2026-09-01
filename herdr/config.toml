@@ -250,7 +250,7 @@ hide_tab_bar_when_single_tab = true
 # herdr = show in-app toasts
 # terminal = ask the outer terminal to show a desktop notification
 # system = ask the OS notification service directly
-# delivery = "off"
+delivery = "system"
 # delay_seconds = 1
 
 [ui.toast.herdr]

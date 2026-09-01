@@ -357,6 +357,6 @@ mode = "~AppKeypad"
 history = 0
 
 [window]
-decorations = "Transparent"
+decorations = "Buttonless"
 dynamic_title = true
 startup_mode = "Maximized"
