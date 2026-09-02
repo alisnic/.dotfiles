@@ -23,6 +23,9 @@ function M.setup()
         border = {
           style = "rounded",
         },
+        close = {
+          keys = { "<Esc>" },
+        },
       },
     },
     presets = {

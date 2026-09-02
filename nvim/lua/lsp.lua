@@ -1,5 +1,30 @@
 local border = "rounded"
 
+local function close_lsp_popups()
+  local closed = false
+
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_is_valid(win) and vim.w[win].lsp_floating_bufnr then
+      vim.api.nvim_win_close(win, false)
+      closed = true
+    end
+  end
+
+  local ok, docs = pcall(require, "noice.lsp.docs")
+  if ok then
+    for _, message in pairs(docs._messages or {}) do
+      if message:win() then
+        docs.hide(message)
+        closed = true
+      end
+    end
+  end
+
+  return closed
+end
+
+vim.keymap.set("n", "<Esc>", close_lsp_popups, { silent = true, nowait = true, desc = "Close LSP popup" })
+
 vim.keymap.set("n", "<leader>k", function()
   vim.lsp.buf.hover()
 end)
