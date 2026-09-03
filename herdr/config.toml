@@ -128,6 +128,13 @@ split_vertical = "prefix+backslash"
 # width = "80%"
 # height = "80%"
 
+# Cmd+L in Alacritty sends prefix+L (same as the tmux bind).
+[[keys.command]]
+key = "prefix+shift+l"
+type = "shell"
+command = "$HOME/.dotfiles/herdr/send-context-to-next-pane.sh"
+description = "send vim file context to next pane"
+
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
 # [keys.indexed]
