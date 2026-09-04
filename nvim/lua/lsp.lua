@@ -32,10 +32,25 @@ vim.keymap.set("n", "<leader>e", function()
   vim.diagnostic.open_float(nil, { focus = false, scope = "cursor", border = border })
 end)
 
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+local function has_lsp_definition()
+  return #vim.lsp.get_clients({ bufnr = 0, method = "textDocument/definition" }) > 0
+end
+
+local function goto_definition()
+  if has_lsp_definition() then
+    vim.lsp.buf.definition()
+  else
+    vim.cmd.normal({ "gd", bang = true })
+  end
+end
+
+vim.keymap.set("n", "gd", goto_definition)
+vim.keymap.set("n", "gD", function()
+  vim.cmd.vsplit()
+  goto_definition()
+end)
 
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
-vim.keymap.set("n", "gD", ":vsplit<cr>:lua vim.lsp.buf.definition()<cr>")
 vim.keymap.set("i", "<C-k>", function()
   vim.lsp.buf.signature_help()
 end)
