@@ -1,0 +1,84 @@
+font-family = Monaco Nerd Font Mono
+font-size = 17
+adjust-cell-height = 2
+macos-titlebar-style = hidden
+macos-option-as-alt = true
+maximize = true
+background = #ffffff
+foreground = #3b3b3b
+bold-is-bright = false
+palette = 0=#282c34
+palette = 1=#cd3131
+palette = 2=#1e8a29
+palette = 3=#b5a000
+palette = 4=#0451a5
+palette = 5=#bc05bc
+palette = 6=#0598bc
+palette = 7=#3b3b3b
+palette = 8=#a0a0a0
+palette = 9=#cd3131
+palette = 10=#1e8a29
+palette = 11=#b5a000
+palette = 12=#0451a5
+palette = 13=#bc05bc
+palette = 14=#0598bc
+palette = 15=#1e1e1e
+
+# App actions that match Alacritty
+keybind = cmd+q=quit
+keybind = cmd+c=copy_to_clipboard
+keybind = cmd+v=paste_from_clipboard
+keybind = cmd+==increase_font_size:1
+keybind = cmd+equal=increase_font_size:1
+keybind = cmd+-=decrease_font_size:1
+keybind = cmd+j=new_window
+
+# Shift+Enter as CSI-u, same as Alacritty
+keybind = shift+enter=text:\x1b[13;2u
+
+# Cmd+S sends BEL
+keybind = cmd+s=text:\x07
+
+# Cmd+Opt+B
+keybind = cmd+alt+b=text:\x1b[1;2P
+
+# Alt+Backspace = Ctrl-W
+keybind = alt+backspace=text:\x17
+
+# tmux prefix is Ctrl-B (\x02). These match .alacritty.toml.
+keybind = cmd+f=text:\x02/
+keybind = cmd+d=text:\x02\\
+keybind = cmd+t=text:\x02c
+keybind = cmd+k=text:\x02k
+keybind = cmd+w=text:\x02x
+keybind = cmd+enter=text:\x02z
+keybind = cmd+l=text:\x02L
+keybind = cmd+[=text:\x02\x1b[D
+keybind = cmd+]=text:\x02\x1b[C
+keybind = cmd+arrow_left=text:\x02\x1b[D
+keybind = cmd+arrow_right=text:\x02\x1b[C
+keybind = cmd+arrow_up=text:\x02\x1b[A
+keybind = cmd+arrow_down=text:\x02\x1b[B
+keybind = cmd+1=text:\x021
+keybind = cmd+digit_1=text:\x021
+keybind = cmd+2=text:\x022
+keybind = cmd+digit_2=text:\x022
+keybind = cmd+3=text:\x023
+keybind = cmd+digit_3=text:\x023
+keybind = cmd+4=text:\x024
+keybind = cmd+digit_4=text:\x024
+keybind = cmd+5=text:\x025
+keybind = cmd+digit_5=text:\x025
+keybind = cmd+6=text:\x026
+keybind = cmd+digit_6=text:\x026
+keybind = cmd+7=text:\x027
+keybind = cmd+digit_7=text:\x027
+keybind = cmd+8=text:\x028
+keybind = cmd+digit_8=text:\x028
+keybind = cmd+9=text:\x029
+keybind = cmd+digit_9=text:\x029
+keybind = cmd+p=text: p
+keybind = cmd+shift+[=text:\x02p
+keybind = cmd+shift+]=text:\x02n
+keybind = cmd+{=text:\x02p
+keybind = cmd+}=text:\x02n
