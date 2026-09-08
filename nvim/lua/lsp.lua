@@ -215,4 +215,15 @@ vim.lsp.config("ts7", {
   end,
 })
 
+-- Hover docs from denols use markdown code fences tagged `ts`.
+vim.g.markdown_fenced_languages = { "ts=typescript" }
+
+vim.lsp.config("denols", {
+  settings = {
+    deno = {
+      enable = true,
+    },
+  },
+})
+
 vim.lsp.enable({ "jsonls" })
