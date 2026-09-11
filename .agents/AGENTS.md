@@ -9,6 +9,21 @@ Write technical text with the rules of ASD-STE100 Simplified Technical English. 
 
 Write for that tired reader. Each sentence must survive one read.
 
+# Simplicity first
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+# Reconsider existing approaches
+
+Before copying a nearby approach on how to structure your solution, evaluate it against instructions in
+this file. If you see a contraction in this process, ask the user how to proceed.
+
 # Code organisation
 
 Use top-down approach to structure code. Implementations details at the bottom of the file, entry points at the top

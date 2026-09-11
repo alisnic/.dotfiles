@@ -1,6 +1,7 @@
 local M = {}
 
 local list_workspaces
+local switch_workspace
 
 function M.setup()
   vim.keymap.set("n", "<leader>w", M.open, { silent = true, desc = "Switch git workspace" })
@@ -64,14 +65,26 @@ function M.open()
             return
           end
 
-          vim.api.nvim_set_current_dir(selection.value.path)
-          vim.notify(selection.value.path)
+          switch_workspace(selection.value.path)
         end)
 
         return true
       end,
     })
     :find()
+end
+
+switch_workspace = function(path)
+  local ok, neogit = pcall(require, "neogit")
+  local status = ok and neogit.status and neogit.status.instance()
+
+  if status and status.buffer then
+    status:chdir(path)
+  else
+    vim.api.nvim_set_current_dir(path)
+  end
+
+  vim.notify(path)
 end
 
 local function git_dir()
