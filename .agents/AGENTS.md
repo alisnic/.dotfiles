@@ -15,6 +15,21 @@ Use top-down approach to structure code. Implementations details at the bottom o
 
 Add empty line between logical code blocks, the code should read like text with paragraphs
 
+Do not extract a helper whose name restates its body. Inline a trivial expression that has one caller. A helper earns its place when the name tells the reader something the code does not, or when more than one caller uses the logic.
+
+```ts
+// bad — name restates the body
+function fullName(user: User): string {
+  return `${user.first} ${user.last}`;
+}
+
+greet(fullName(user));
+
+// good — keep the expression at the call site
+greet(`${user.first} ${user.last}`);
+```
+
 # TypeScript
 
-Avoid ReturnType<typeof ...>. Use explicit types
+Avoid `ReturnType<typeof ...>` for type declarations, prefer explicit types in this case. Do not declare
+the type if it can be inferred.
