@@ -50,6 +50,7 @@ vim.keymap.set("n", "<leader>a", ":A<cr>", { silent = true })
 
 add({ gh("nvim-lua/plenary.nvim"), gh("nvim-telescope/telescope.nvim") })
 require("plugins.telescope").setup()
+require("plugins.workspaces").setup()
 
 add({ gh("folke/snacks.nvim") })
 require("snacks").setup({

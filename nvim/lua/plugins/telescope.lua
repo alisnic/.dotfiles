@@ -25,7 +25,6 @@ function M.setup()
   )
   vim.keymap.set("n", "<leader>b", ":Telescope buffers sort_mru=true<cr>", { silent = true })
   vim.keymap.set("n", "<leader>m", ":Telescope treesitter<cr>", { silent = true })
-  vim.keymap.set("n", "<leader>w", ":Telescope lsp_workspace_symbols query=")
   vim.keymap.set("n", "<leader>h", ":Telescope help_tags<cr>", { silent = true })
   vim.keymap.set("n", "<leader>d", ":Telescope diagnostics<cr>", { silent = true })
 end
