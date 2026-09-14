@@ -48,3 +48,8 @@ greet(`${user.first} ${user.last}`);
 
 Avoid `ReturnType<typeof ...>` for type declarations, prefer explicit types in this case. Do not declare
 the type if it can be inferred.
+
+# Github pull requests
+
+If you are tasked with opening a PR, it is your duty to babysit it until it is ready to merge.
+Wait for CI and review feedback and address any issues you find.
