@@ -49,6 +49,10 @@ greet(`${user.first} ${user.last}`);
 Avoid `ReturnType<typeof ...>` for type declarations, prefer explicit types in this case. Do not declare
 the type if it can be inferred.
 
+# Git
+
+When working in a repo, do not use worktrees unless git status is dirty. Prefer plain branches.
+
 # Github pull requests
 
 If you are tasked with opening a PR, it is your duty to babysit it until it is ready to merge.
