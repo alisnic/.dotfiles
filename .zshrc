@@ -49,3 +49,15 @@ export PATH=/Users/alisnic/.meteor:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 
 alias yolo-cursor='mysandbox --rw .,~/.cursor -- agent --yolo'
+
+# Update claude at most once per day, then launch it
+claude() {
+  local stamp=~/.cache/claude-last-update
+
+  if [[ ! -f $stamp || -n $(find $stamp -mtime +0) ]]; then
+    mkdir -p ~/.cache
+    command claude update && touch $stamp
+  fi
+
+  command claude "$@"
+}

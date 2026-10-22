@@ -1,0 +1,53 @@
+{
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "model": "opus",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "^(startup|resume|clear|compact|fork)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/alisnic/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node /Users/alisnic/.claude/statusline.cjs",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "aiw@seranking-eng": true
+  },
+  "extraKnownMarketplaces": {
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    },
+    "seranking-eng": {
+      "source": {
+        "source": "github",
+        "repo": "seranking-common/lib-claude-plugins"
+      }
+    }
+  },
+  "modelSettings": {
+    "claude-opus-5-5": {}
+  },
+  "awaySummaryEnabled": false,
+  "tui": "fullscreen",
+  "theme": "light",
+  "editorMode": "normal",
+  "verbose": false,
+  "env": {
+    "DISABLE_AUTOUPDATER": "1"
+  }
+}
