@@ -44,6 +44,10 @@ greet(fullName(user));
 greet(`${user.first} ${user.last}`);
 ```
 
+# Prefer deep modules
+
+Minimize the size of the module interface and keep its implementation details private. Do not extract logic to separate files if it's used locally by a module
+
 # TypeScript
 
 Avoid `ReturnType<typeof ...>` for type declarations, prefer explicit types in this case. Do not declare
