@@ -1,4 +1,7 @@
 {
+  "env": {
+    "DISABLE_AUTOUPDATER": "1"
+  },
   "permissions": {
     "defaultMode": "auto"
   },
@@ -23,19 +26,13 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "aiw@seranking-eng": true
+    "aiw@claudeai-seranking-common-lib-claude-plugins": true
   },
   "extraKnownMarketplaces": {
     "superpowers-marketplace": {
       "source": {
         "source": "github",
         "repo": "obra/superpowers-marketplace"
-      }
-    },
-    "seranking-eng": {
-      "source": {
-        "source": "github",
-        "repo": "seranking-common/lib-claude-plugins"
       }
     }
   },
@@ -46,8 +43,5 @@
   "tui": "fullscreen",
   "theme": "light",
   "editorMode": "normal",
-  "verbose": false,
-  "env": {
-    "DISABLE_AUTOUPDATER": "1"
-  }
+  "verbose": false
 }

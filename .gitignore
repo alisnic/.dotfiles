@@ -7,3 +7,8 @@
 bin/cpr
 bin/ngrok
 node_modules
+
+.agents/skills/.trash/
+.agents/skills/synced/
+
+
