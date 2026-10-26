@@ -1,5 +1,5 @@
 {
-  "defaultModel": "gpt-6-luna",
+  "defaultModel": "gpt-6.1-terra",
   "defaultProvider": "openai-codex",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,

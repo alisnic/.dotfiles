@@ -1,6 +1,9 @@
 {
   "providers": {
     "openai-codex": {
+      "modelOverrides": {
+        "gpt-6.1-sol": { "contextWindow": 272000 }
+      },
       "models": [
         {
           "id": "gpt-6.1-terra",
@@ -8,7 +11,7 @@
           "api": "openai-codex-responses",
           "reasoning": true,
           "input": ["text", "image"],
-          "contextWindow": 1050000,
+          "contextWindow": 272000,
           "maxTokens": 128000
         }
       ]
