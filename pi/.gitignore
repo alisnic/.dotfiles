@@ -1,4 +1,13 @@
+# Credentials and machine-local state
 agent/auth.json
+agent/trust.json
+agent/models-store.json
 agent/sessions/
+
+# Downloaded packages, binaries, and caches
 agent/git/
+agent/npm/
 agent/bin/
+agent/.extmgr-cache/
+agent/pi-web-access/
+agent/web-search-cache/

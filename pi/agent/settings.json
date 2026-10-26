@@ -1,11 +1,13 @@
 {
-  "defaultModel": "unsloth/DeepSeek-R1-Distill-Qwen-7B-GGUF:Q8_0",
-  "defaultProvider": "llama-cpp",
+  "defaultModel": "gpt-6.1-sol",
+  "defaultProvider": "openai-codex",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
-  "lastChangelogVersion": "0.70.2",
+  "lastChangelogVersion": "1.4.0",
   "packages": [
-    "npm:pi-hashline-edit"
+    "npm:pi-extmgr",
+    "npm:pi-codex-limit",
+    "npm:pi-web-access"
   ],
   "showHardwareCursor": true,
   "theme": "light-high-contrast"
