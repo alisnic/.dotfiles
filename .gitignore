@@ -11,4 +11,7 @@ node_modules
 .agents/skills/.trash/
 .agents/skills/synced/
 
+herdr-app/mods/*/gpui-kit.d.ts
+herdr-app/mods/*/jsconfig.json
+
 
