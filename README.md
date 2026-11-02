@@ -1,5 +1,4 @@
-Andrei Lisnic's dotfiles
-=========
+# Andrei Lisnic's dotfiles
 
 These are config files for my MacOS + MacVim + Tmux setup
 
@@ -24,6 +23,7 @@ To install it, first check that the destination does not already exist, then run
 ```sh
 mkdir -p "$HOME/.config/herdr-app/mods" "$HOME/.config/herdr-app/data/github-avatars"
 ln -s "$HOME/.dotfiles/herdr-app/mods/github-spaces" "$HOME/.config/herdr-app/mods/github-spaces"
+cp -R "$HOME/.dotfiles/herdr-app/mods/send-context" "$HOME/.config/herdr-app/mods/send-context"
 ln -s "$HOME/.dotfiles/herdr-app/keys.json" "$HOME/.config/herdr-app/keys.json"
 ```
 

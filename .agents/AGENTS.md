@@ -64,4 +64,6 @@ Wait for CI and review feedback and address any issues you find.
 
 # Terminals / Shell
 
-When running inside herdr, use herdr tabs for dev servers instead of built-in shells
+When running inside herdr, use herdr tabs for dev servers instead of built-in shells. To check that you are inside herdr do `test "${HERDR_ENV:-}" = 1`
+
+Do not block on a herdr tab. After `hc send`, do not run `hc wait` with a long timeout. Check once, quickly: `hc read` the last lines, or probe the port or URL with `curl --max-time 5`. If the server is not ready, continue with other work or tell the user what you wait for. The user often starts or restarts a server and tells you when it runs.
