@@ -61,3 +61,7 @@ When working in a repo, do not use worktrees unless git status is dirty. Prefer 
 
 If you are tasked with opening a PR, it is your duty to babysit it until it is ready to merge.
 Wait for CI and review feedback and address any issues you find.
+
+# Terminals / Shell
+
+When running inside herdr, use herdr tabs for dev servers instead of built-in shells
