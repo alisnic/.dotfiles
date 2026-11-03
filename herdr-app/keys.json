@@ -22,8 +22,8 @@
     "cmd-shift-d": "pane.split:down",
     "cmd-shift-w": "pane.close",
     "cmd-enter": "pane.zoom",
-    "cmd-alt-left": "pane.go:left",
-    "cmd-alt-right": "pane.go:right",
+    "cmd-left": "pane.go:left",
+    "cmd-right": "pane.go:right",
     "cmd-alt-up": "pane.go:up",
     "cmd-alt-down": "pane.go:down",
     "cmd-alt-shift-left": "pane.swap:left",
@@ -65,9 +65,6 @@
     "ctrl-v": "terminal.paste_image",
     "alt-left": "send:\u001bb",
     "alt-right": "send:\u001bf",
-    "alt-backspace": "send:\u0017",
-    "cmd-left": "send:\u0001",
-    "cmd-right": "send:\u0005",
-    "cmd-backspace": "send:\u0015"
+    "alt-backspace": "send:\u0017"
   }
 }
