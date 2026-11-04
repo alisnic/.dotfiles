@@ -1,0 +1,1 @@
+{ "name": "shells-band", "version": "0.1.0", "description": "List running background shells above the prompt", "types": "./types/index.d.ts" }
