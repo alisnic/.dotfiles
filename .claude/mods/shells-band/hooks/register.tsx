@@ -64,22 +64,19 @@ export const register: Register = on => {
     }
 
     const { Box, Text } = $.ui.resolve(e)
-    const width = (e.viewport?.columns ?? 80) - 4
 
     return (
       <Box flexDirection="column">
         {await next(e)}
-        {list.map(shell => {
+        {list.map(shell => (
           // Keep the end of a long command: it usually tells the shells apart.
-          const command = shell.command.replace(/\s+/g, ' ')
-          const shown = command.length > width ? `…${command.slice(-(width - 1))}` : command
-
-          return (
-            <Text key={shell.id} dimColor wrap="truncate-end">
-              {`>_ ${shown}`}
+          <Box key={shell.id} flexDirection="row">
+            <Text dimColor>{'>_ '}</Text>
+            <Text dimColor wrap="truncate-start">
+              {shell.command.replace(/\s+/g, ' ')}
             </Text>
-          )
-        })}
+          </Box>
+        ))}
       </Box>
     )
   })
