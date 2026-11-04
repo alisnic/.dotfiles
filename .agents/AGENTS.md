@@ -66,4 +66,13 @@ Wait for CI and review feedback and address any issues you find.
 
 When running inside herdr, use herdr tabs for dev servers instead of built-in shells. To check that you are inside herdr do `test -S "${HC_TERMINAL_SOCKET:-}"`
 
+To start a dev server in a herdr tab, give the terminal the space label of your own terminal, then name the tab:
+
+```bash
+SPACE=$(hc get "$HC_TERMINAL_ID" | jq -r '.labels["herdr.space"]')
+hc run --bg --name <name> --label herdr.space=$SPACE -- <command>
+```
+
+A terminal without `herdr.space` runs hidden. Rename the new tab with `herdr-app do tab.rename --id <tab> --name <name>` (find the tab ID with `herdr-app ls`).
+
 Do not block on a herdr tab. After `hc send`, do not run `hc wait` with a long timeout. Check once, quickly: `hc read` the last lines, or probe the port or URL with `curl --max-time 5`. If the server is not ready, continue with other work or tell the user what you wait for. The user often starts or restarts a server and tells you when it runs.
