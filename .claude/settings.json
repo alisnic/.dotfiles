@@ -26,13 +26,20 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "aiw@claudeai-seranking-common-lib-claude-plugins": true
+    "aiw@claudeai-seranking-common-lib-claude-plugins": true,
+    "shells-band@alisnic-mods": true
   },
   "extraKnownMarketplaces": {
     "superpowers-marketplace": {
       "source": {
         "source": "github",
         "repo": "obra/superpowers-marketplace"
+      }
+    },
+    "alisnic-mods": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/alisnic/.dotfiles/.claude/mods"
       }
     }
   },

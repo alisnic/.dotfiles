@@ -1,0 +1,12 @@
+{
+  "name": "alisnic-mods",
+  "owner": {
+    "name": "Andrei Lisnic"
+  },
+  "plugins": [
+    {
+      "name": "shells-band",
+      "source": "./shells-band"
+    }
+  ]
+}
