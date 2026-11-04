@@ -13,5 +13,9 @@ node_modules
 
 herdr-app/mods/*/gpui-kit.d.ts
 herdr-app/mods/*/jsconfig.json
+pi/agent/install
 
 
+
+.claude/mods/*/.claude-plugin/types/
+.claude/mods/*/tsconfig.json
