@@ -69,11 +69,17 @@ export const register: Register = on => {
     return (
       <Box flexDirection="column">
         {await next(e)}
-        {list.map(shell => (
-          <Text key={shell.id} dimColor wrap="truncate-end">
-            {`>_ ${shell.command.replace(/\s+/g, ' ').slice(0, width)}`}
-          </Text>
-        ))}
+        {list.map(shell => {
+          // Keep the end of a long command: it usually tells the shells apart.
+          const command = shell.command.replace(/\s+/g, ' ')
+          const shown = command.length > width ? `…${command.slice(-(width - 1))}` : command
+
+          return (
+            <Text key={shell.id} dimColor wrap="truncate-end">
+              {`>_ ${shown}`}
+            </Text>
+          )
+        })}
       </Box>
     )
   })
