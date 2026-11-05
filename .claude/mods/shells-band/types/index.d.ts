@@ -1,4 +1,4 @@
-export type Shell = { id: string; command: string }
+export type Shell = { id: string; command: string; output: string }
 
 declare module 'claude-code' {
   interface PluginState {

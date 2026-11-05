@@ -5,54 +5,48 @@ import type { Shell } from '../types'
 
 const shells = atom({ plugin: 'shells-band', key: 'shells' } as const, [])
 
+const POLL_MS = 3000
+
 export const register: Register = on => {
   // A Bash call that goes to the background (run_in_background, ctrl+b, timeout) starts a shell.
+  // The model's text of the call names the file the shell writes its output to.
   on('tool.call', { tool: 'Bash' }, async ($, e, next) => {
     const ran = await next(e)
     const id = (ran.result as BuiltinToolResults['Bash'] | undefined)?.backgroundTaskId
+    const output = ran.text?.match(/(\/\S+\.output)\b/)?.[1]
 
-    if (id) {
-      await update($, shells, list => [...list, { id, command: e.command }])
+    if (id && output) {
+      await update($, shells, list => [...list, { id, command: e.command, output }])
     }
 
     return ran
   })
 
-  // TaskStop ends a shell.
-  on('tool.call', { tool: 'TaskStop' }, async ($, e, next) => {
-    const ran = await next(e)
-    const id = (ran.result as BuiltinToolResults['TaskStop'] | undefined)?.task_id
+  // A shell ended when no process holds its output file open. This sees every way a shell ends:
+  // it finished, Claude stopped it, or the person stopped it in the shells menu.
+  on('session.start', async ($, e, next) => {
+    $.clock.every(POLL_MS, async () => {
+      const list: Shell[] = await read($, shells)
 
-    if (id) {
-      await update($, shells, list => list.filter(shell => shell.id !== id))
-    }
+      if (list.length === 0) return
 
-    return ran
-  })
+      const ended = new Set<string>()
 
-  // The task notification of a shell ends it. Each notification starts a model request,
-  // so the messages carry it. A render hook cannot write state, so this is not done there.
-  // Each step reads only the messages it did not read yet; after a reload it reads them all,
-  // so a shell that ended while the mod was not loaded also leaves the list.
-  let checked = 0
+      await Promise.all(
+        list.map(async shell => {
+          // lsof exits 1 when no process holds the file. A shell kept from an older version has no file.
+          const { exitCode } = await $.process.run(['lsof', '-t', shell.output]).catch(() => ({ exitCode: 1 }))
 
-  on('turn.step', async function* ($, e, next) {
-    const list: Shell[] = await read($, shells)
+          if (exitCode !== 0) ended.add(shell.id)
+        }),
+      )
 
-    if (e.agentId === undefined && list.length > 0) {
-      const messages = await $.session.messages()
-      // A compaction makes the list shorter; then read it all again.
-      const unread = JSON.stringify(messages.slice(checked <= messages.length ? checked : 0))
-      checked = messages.length
-
-      const ended = new Set([...unread.matchAll(/<task-id>([^<]+)<\/task-id>/g)].map(match => match[1]))
-
-      if (list.some(shell => ended.has(shell.id))) {
+      if (ended.size > 0) {
         await update($, shells, list => list.filter(shell => !ended.has(shell.id)))
       }
-    }
+    })
 
-    return yield* next(e)
+    return next(e)
   })
 
   // Under the hint line, the last rows of the screen.
