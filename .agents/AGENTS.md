@@ -53,6 +53,8 @@ Minimize the size of the module interface and keep its implementation details pr
 Avoid `ReturnType<typeof ...>` for type declarations, prefer explicit types in this case. Do not declare
 the type if it can be inferred.
 
+Add a new export only when more than one caller needs it, or when no existing export runs at that point.
+
 # Git
 
 When working in a repo, do not use worktrees unless git status is dirty. Prefer plain branches.
