@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "/opt/homebrew/bin/chrome-devtools-mcp",
+      "args": [
+        "--autoConnect",
+        "--no-usage-statistics",
+        "--no-performance-crux"
+      ]
+    }
+  }
+}
