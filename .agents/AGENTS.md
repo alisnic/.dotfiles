@@ -59,6 +59,8 @@ Add a new export only when more than one caller needs it, or when no existing ex
 
 When working in a repo, do not use worktrees unless git status is dirty. Prefer plain branches.
 
+Before editing files in a different repo from current one. Read that repo CLAUDE.md and AGENTS.md.
+
 # Github pull requests
 
 If you are tasked with opening a PR, it is your duty to babysit it until it is ready to merge.
