@@ -76,19 +76,20 @@ local capabilities = vim.tbl_deep_extend(
 )
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local tsgo_diagnostics_group = vim.api.nvim_create_augroup("TsgoPullDiagnostics", { clear = true })
+local typescript_diagnostics_group =
+  vim.api.nvim_create_augroup("TypeScriptPullDiagnostics", { clear = true })
 
-local function is_typescript_go_client(client)
-  return client and (client.name == "tsgo" or client.name == "ts7")
+local function is_typescript_client(client)
+  return client and (client.name == "tsgo" or client.name == "ts7" or client.name == "tsrs")
 end
 
-local function refresh_tsgo_diagnostics(bufnr, client_id, only_visible)
+local function refresh_typescript_diagnostics(bufnr, client_id, only_visible)
   if not vim.api.nvim_buf_is_valid(bufnr) then
     return
   end
 
   local client = vim.lsp.get_client_by_id(client_id)
-  if not is_typescript_go_client(client) then
+  if not is_typescript_client(client) then
     return
   end
 
@@ -110,15 +111,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
       client.server_capabilities.semanticTokensProvider = nil
     end
 
-    if is_typescript_go_client(client) then
-      refresh_tsgo_diagnostics(args.buf, client.id, true)
-      vim.api.nvim_clear_autocmds({ buffer = args.buf, group = tsgo_diagnostics_group })
+    if is_typescript_client(client) then
+      refresh_typescript_diagnostics(args.buf, client.id, true)
+      vim.api.nvim_clear_autocmds({ buffer = args.buf, group = typescript_diagnostics_group })
 
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
         buffer = args.buf,
-        group = tsgo_diagnostics_group,
+        group = typescript_diagnostics_group,
         callback = function()
-          refresh_tsgo_diagnostics(args.buf, client.id, true)
+          refresh_typescript_diagnostics(args.buf, client.id, true)
         end,
       })
     end
@@ -212,6 +213,20 @@ vim.lsp.config("ts7", {
     end
 
     on_dir(project_root or vim.fn.getcwd())
+  end,
+})
+
+vim.lsp.config("tsrs", {
+  settings = vim.lsp.config.ts7.settings,
+  filetypes = vim.lsp.config.ts7.filetypes,
+  root_dir = vim.lsp.config.ts7.root_dir,
+  cmd = function(dispatchers, config)
+    local cmd = "tsrs"
+    local local_cmd = (config or {}).root_dir and config.root_dir .. "/node_modules/.bin/tsrs"
+    if local_cmd and vim.fn.executable(local_cmd) == 1 then
+      cmd = local_cmd
+    end
+    return vim.lsp.rpc.start({ cmd, "--lsp", "--stdio" }, dispatchers)
   end,
 })
 
