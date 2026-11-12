@@ -7,6 +7,10 @@
     {
       "name": "shells-band",
       "source": "./shells-band"
+    },
+    {
+      "name": "pr-session-title",
+      "source": "./pr-session-title"
     }
   ]
 }

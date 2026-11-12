@@ -27,7 +27,8 @@
   },
   "enabledPlugins": {
     "aiw@claudeai-seranking-common-lib-claude-plugins": true,
-    "shells-band@alisnic-mods": true
+    "shells-band@alisnic-mods": true,
+    "pr-session-title@alisnic-mods": true
   },
   "extraKnownMarketplaces": {
     "superpowers-marketplace": {
@@ -44,10 +45,13 @@
     }
   },
   "modelSettings": {
-    "claude-opus-5-5": {}
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
   },
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
+  "skipWorkflowUsageWarning": true,
   "theme": "light",
   "editorMode": "normal",
   "verbose": false

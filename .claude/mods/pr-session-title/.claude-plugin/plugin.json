@@ -1,0 +1,1 @@
+{ "name": "pr-session-title", "version": "0.1.0", "description": "Rename the session to the PR title after Claude creates a PR" }
