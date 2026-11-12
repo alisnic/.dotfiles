@@ -1,0 +1,5 @@
+{
+  "place": "none",
+  "title": "Close tab safely",
+  "overlay": { "kind": "window", "width": 2, "height": 2, "frame": "none" }
+}

@@ -4,7 +4,7 @@
     "cmd-h": "app.hide",
     "cmd-alt-h": "app.hide_others",
     "cmd-t": "tab.new",
-    "cmd-w": "tab.close",
+    "cmd-w": "mod.open:confirm-tab-close",
     "ctrl-tab": "tab.next",
     "ctrl-shift-tab": "tab.prev",
     "cmd-shift-]": "tab.next",
