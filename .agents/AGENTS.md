@@ -68,5 +68,5 @@ Wait for CI and review feedback and address any issues you find.
 
 # Dev Servers / Shells
 
-Do not start servers/long-running commands as detached processes. The users should
+Do not start servers/long-running commands as detached processes. The user should
 have visiblity into what shells you have open in your UI.
